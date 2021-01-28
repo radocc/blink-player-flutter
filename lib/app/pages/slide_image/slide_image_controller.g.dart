@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'carousel_itens_controller.dart';
+part of 'slide_image_controller.dart';
 
 // **************************************************************************
 // InjectionGenerator
 // **************************************************************************
 
-final $CarouselItensController = BindInject(
-  (i) => CarouselItensController(),
+final $SlideImageController = BindInject(
+  (i) => SlideImageController(),
   singleton: true,
   lazy: true,
 );
@@ -18,8 +18,8 @@ final $CarouselItensController = BindInject(
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$CarouselItensController on _CarouselItensControllerBase, Store {
-  final _$valueAtom = Atom(name: '_CarouselItensControllerBase.value');
+mixin _$SlideImageController on _SlideImageControllerBase, Store {
+  final _$valueAtom = Atom(name: '_SlideImageControllerBase.value');
 
   @override
   int get value {
@@ -34,17 +34,17 @@ mixin _$CarouselItensController on _CarouselItensControllerBase, Store {
     });
   }
 
-  final _$_CarouselItensControllerBaseActionController =
-      ActionController(name: '_CarouselItensControllerBase');
+  final _$_SlideImageControllerBaseActionController =
+      ActionController(name: '_SlideImageControllerBase');
 
   @override
   void increment() {
-    final _$actionInfo = _$_CarouselItensControllerBaseActionController
-        .startAction(name: '_CarouselItensControllerBase.increment');
+    final _$actionInfo = _$_SlideImageControllerBaseActionController
+        .startAction(name: '_SlideImageControllerBase.increment');
     try {
       return super.increment();
     } finally {
-      _$_CarouselItensControllerBaseActionController.endAction(_$actionInfo);
+      _$_SlideImageControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 

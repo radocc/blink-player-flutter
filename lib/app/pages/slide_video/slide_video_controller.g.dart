@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'video_players_controller.dart';
+part of 'slide_video_controller.dart';
 
 // **************************************************************************
 // InjectionGenerator
 // **************************************************************************
 
-final $VideoPlayersController = BindInject(
-  (i) => VideoPlayersController(),
+final $SlideVideoController = BindInject(
+  (i) => SlideVideoController(),
   singleton: true,
   lazy: true,
 );
@@ -18,8 +18,8 @@ final $VideoPlayersController = BindInject(
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$VideoPlayersController on _VideoPlayersControllerBase, Store {
-  final _$valueAtom = Atom(name: '_VideoPlayersControllerBase.value');
+mixin _$SlideVideoController on _SlideVideoControllerBase, Store {
+  final _$valueAtom = Atom(name: '_SlideVideoControllerBase.value');
 
   @override
   int get value {
@@ -34,17 +34,17 @@ mixin _$VideoPlayersController on _VideoPlayersControllerBase, Store {
     });
   }
 
-  final _$_VideoPlayersControllerBaseActionController =
-      ActionController(name: '_VideoPlayersControllerBase');
+  final _$_SlideVideoControllerBaseActionController =
+      ActionController(name: '_SlideVideoControllerBase');
 
   @override
   void increment() {
-    final _$actionInfo = _$_VideoPlayersControllerBaseActionController
-        .startAction(name: '_VideoPlayersControllerBase.increment');
+    final _$actionInfo = _$_SlideVideoControllerBaseActionController
+        .startAction(name: '_SlideVideoControllerBase.increment');
     try {
       return super.increment();
     } finally {
-      _$_VideoPlayersControllerBaseActionController.endAction(_$actionInfo);
+      _$_SlideVideoControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
