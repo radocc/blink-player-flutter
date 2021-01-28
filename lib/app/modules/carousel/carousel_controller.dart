@@ -7,11 +7,10 @@ part 'carousel_controller.g.dart';
 class CarouselController = _CarouselControllerBase with _$CarouselController;
 
 abstract class _CarouselControllerBase with Store {
-  @observable
-  int value = 0;
+  
+  // Lista de formatos suportados de video
+  List<String> extVideo = ['.mp4', '.mkv', '.wmv', '.avi', '.flv'];
 
-  @action
-  void increment() {
-    value++;
-  }
+  // Lista de formatos suportados de imagem
+  List<String> extImg = ['.png', '.jpg', '.jpeg'];
 }
