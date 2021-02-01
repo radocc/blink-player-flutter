@@ -2,6 +2,7 @@ import 'package:blink/app/components/template_size.dart';
 import 'package:blink/app/modules/carousel/carousel_page.dart';
 import 'package:blink/app/shared/screen_size.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:path_provider/path_provider.dart';
 import 'home_controller.dart';
@@ -24,6 +25,40 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('HOME'),
+      ),
+      body: Observer(
+        builder: (_) {
+          if (controller.pokemons.error != null) {
+            return Center(
+              child: RaisedButton(
+                onPressed: () {
+                  controller.fetchPokemons();
+                },
+                child: Text('Press Again'),
+              ),
+            );
+          } else if (controller.pokemons.value == null) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            var list = controller.pokemons.value;
+
+            return ListView.builder(
+              itemCount: list.length,
+              itemBuilder: (_, index) {
+                return ListTile(
+                  title: Text(list[index].name),
+                );
+              },
+            );
+          }
+        },
+      ),
+    );
     // ScreenSize controller = ScreenSize();
 
     // //WUXGA - 1920X1200 -- Ok
@@ -42,10 +77,10 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
     //   return TemplateSizeWidget(valueTopPositioned: 60.0, valueLeftPositioned: 100.0, context: context);
     // }
 
-    return Scaffold(
-      // // Inicia o Carousel listando o diretorio
-      // // é esperado um Future para lidar com o path_provider
-      body: CarouselPage(dir: getApplicationDocumentsDirectory()),
-    );
+    // return Scaffold(
+    //   // // Inicia o Carousel listando o diretorio
+    //   // // é esperado um Future para lidar com o path_provider
+    //   body: CarouselPage(dir: getApplicationDocumentsDirectory()),
+    // );
   }
 }
