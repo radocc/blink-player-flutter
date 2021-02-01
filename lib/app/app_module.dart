@@ -1,3 +1,10 @@
+import 'package:blink/app/pages/splash/splash_page.dart';
+import 'package:blink/app/repositories/login_repository.dart';
+import 'package:blink/app/repositories/pokemon_repository.dart';
+import 'package:dio/dio.dart';
+
+import 'modules/home/home_controller.dart';
+import 'pages/splash/splash_controller.dart';
 import 'package:blink/app/modules/carousel/carousel_controller.dart';
 
 import 'pages/slide_image/slide_image_controller.dart';
@@ -9,19 +16,28 @@ import 'package:flutter/material.dart';
 import 'package:blink/app/app_widget.dart';
 import 'package:blink/app/modules/home/home_module.dart';
 
+import 'shared/constrants.dart';
 
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
+        $SplashController,
         $SlideImageController,
         $SlideVideoController,
         $CarouselController,
         $AppController,
+        Bind((i) => HomeController(repositorys: i.get<PokeRepository>())),
+        Bind((i) => PokeRepository(dio: i.get<Dio>())),
+        Bind((i) => Dio(BaseOptions(baseUrl: URL_BASE))),
+        Bind((i) => SplashController(repository: i.get<LoginRepository>())),
+        Bind((i) => LoginRepository(dio: i.get<Dio>())),
+        Bind((i) => Dio(BaseOptions(baseUrl: URL_LOGIN))),
       ];
 
   @override
   List<ModularRouter> get routers => [
-        ModularRouter('/', module: HomeModule()),
+        ModularRouter('/', child: (__, args) => SplashPage()),
+        ModularRouter('/home', module: HomeModule())
       ];
 
   @override
