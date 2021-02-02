@@ -1,30 +1,48 @@
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class CustomIntercetors extends InterceptorsWrapper{
 
-  // @override
-  // onRequest(RequestOptions options){
-  //   print("REQUEST[${options.method}] => PATH: ${options.path}");
-  //    return options;
-  //   }
+  int _maxCharactersPerLine = 200;
 
-  // @override  
-  //   onResponse(Response response) {
-  //     //200
-  //     //201
-  //     print("RESPONSE[${response.statusCode}] => PATH: ${response.request.path}");
-  //    return response; 
-  //   }
+  @override
+  Future onRequest(RequestOptions options) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.get('token');
+    options.headers['Authorization'] = token;
+  }
 
-  //  @override 
-  //   onError(DioError e) {
-  //     //Exception
-  //     print("ERROR[${e.response.statusCode}] => PATH: ${e.request.path}");
-  //     if(e.response.statusCode == 404)
-  //     return DioError(message: "Erro interno");
+  @override
+  Future onResponse(Response response) {
+    print(
+        "<-- ${response.statusCode} ${response.request.method} ${response.request.path}");
+    String responseAsString = response.data.toString();
+    if (responseAsString.length > _maxCharactersPerLine) {
+      int iterations =
+      (responseAsString.length / _maxCharactersPerLine).floor();
+      for (int i = 0; i <= iterations; i++) {
+        int endingIndex = i * _maxCharactersPerLine + _maxCharactersPerLine;
+        if (endingIndex > responseAsString.length) {
+          endingIndex = responseAsString.length;
+        }
+        print(responseAsString.substring(
+            i * _maxCharactersPerLine, endingIndex));
+      }
+    } else {
+      print(response.data);
+    }
+    print("<-- END HTTP");
 
-  //    return  e;
-  //   }
+    return super.onResponse(response);
+   }
+
+  @override
+  Future onError(DioError err) {
+    print("<-- Error -->");
+    print(err.error);
+    print(err.message);
+    return super.onError(err);
+  }
 
 }

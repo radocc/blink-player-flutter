@@ -1,9 +1,9 @@
+
 import 'package:blink/app/pages/splash/splash_page.dart';
 import 'package:blink/app/repositories/login_repository.dart';
-import 'package:blink/app/repositories/pokemon_repository.dart';
+import 'package:blink/app/shared/custom_dio/interceptions.dart';
 import 'package:dio/dio.dart';
 
-import 'modules/home/home_controller.dart';
 import 'pages/splash/splash_controller.dart';
 import 'package:blink/app/modules/carousel/carousel_controller.dart';
 
@@ -26,12 +26,13 @@ class AppModule extends MainModule {
         $SlideVideoController,
         $CarouselController,
         $AppController,
-        Bind((i) => HomeController(repositorys: i.get<PokeRepository>())),
-        Bind((i) => PokeRepository(dio: i.get<Dio>())),
-        Bind((i) => Dio(BaseOptions(baseUrl: URL_BASE))),
+        // Bind((i) => HomeController(repositorys: i.get<PokeRepository>())),
+        // Bind((i) => PokeRepository(dio: i.get<Dio>())),
+        // Bind((i) => Dio(BaseOptions(baseUrl: URL_BASE))),
         Bind((i) => SplashController(repository: i.get<LoginRepository>())),
-        Bind((i) => LoginRepository(dio: i.get<Dio>())),
-        Bind((i) => Dio(BaseOptions(baseUrl: URL_LOGIN))),
+        Bind((i) => LoginRepository(
+            dio: i.get<Dio>()..interceptors.add(CustomIntercetors()))),
+        Bind((i) => Dio(BaseOptions(baseUrl: URL_LOGIN)))
       ];
 
   @override
@@ -45,3 +46,4 @@ class AppModule extends MainModule {
 
   static Inject get to => Inject<AppModule>.of();
 }
+

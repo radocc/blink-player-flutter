@@ -31,7 +31,8 @@ abstract class _SplashControllerBase with Store {
         return reponse;
       }
     } catch (e) {
-      throw (e.toString());
+      print(e.toString());
+      //throw (e.toString());
     }
   }
 
