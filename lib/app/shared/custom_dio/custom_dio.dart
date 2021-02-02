@@ -1,15 +1,20 @@
-import 'package:blink/app/shared/constrants.dart';
 import 'package:blink/app/shared/custom_dio/interceptions.dart';
 import 'package:dio/dio.dart';
 
-class CustomDio {
+class CustomDio{
 
-  //final Dio dio;
+  var _dio;
 
-  // CustomDio(this.dio) {
-  //   dio.options.baseUrl = BASE_URL;
-  //   dio.interceptors.add(CustomIntercetors());
-  //   dio.options.connectTimeout = 5000;
-  // }
+  CustomDio() {
+    _dio = Dio;
+  }
+
+  Dio get instance => _dio;
+
+  CustomDio.withAuthentication() {
+    _dio = Dio();
+    //_dio.options.baseUrl = BASE_URL;
+    _dio.interceptors.add(CustomIntercetors());
+  }
 
 }
