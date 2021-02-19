@@ -2289,6 +2289,803 @@ class $ConteudoCampoTable extends ConteudoCampo
   }
 }
 
+class PlayerDado extends DataClass implements Insertable<PlayerDado> {
+  final int id;
+  final double bateria;
+  final double sinalWifi;
+  final String nomeWifi;
+  final int processador;
+  final int memoria;
+  final int idPlayerEquipamento;
+  final DateTime dataLigado;
+  final DateTime dataCadastro;
+  final DateTime dataAlteracao;
+  final int versao;
+  final bool deletado;
+  final int idUsuarioCadastro;
+  final int idUsuarioAlteracao;
+  PlayerDado(
+      {@required this.id,
+      this.bateria,
+      this.sinalWifi,
+      this.nomeWifi,
+      this.processador,
+      this.memoria,
+      this.idPlayerEquipamento,
+      @required this.dataLigado,
+      @required this.dataCadastro,
+      @required this.dataAlteracao,
+      @required this.versao,
+      @required this.deletado,
+      this.idUsuarioCadastro,
+      this.idUsuarioAlteracao});
+  factory PlayerDado.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+      {String prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final doubleType = db.typeSystem.forDartType<double>();
+    final stringType = db.typeSystem.forDartType<String>();
+    final dateTimeType = db.typeSystem.forDartType<DateTime>();
+    final boolType = db.typeSystem.forDartType<bool>();
+    return PlayerDado(
+      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      bateria:
+          doubleType.mapFromDatabaseResponse(data['${effectivePrefix}bateria']),
+      sinalWifi: doubleType
+          .mapFromDatabaseResponse(data['${effectivePrefix}sinal_wifi']),
+      nomeWifi: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}nome_wifi']),
+      processador: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}processador']),
+      memoria:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}memoria']),
+      idPlayerEquipamento: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}id_player_equipamento']),
+      dataLigado: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}data_ligado']),
+      dataCadastro: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}data_cadastro']),
+      dataAlteracao: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}data_alteracao']),
+      versao: intType.mapFromDatabaseResponse(data['${effectivePrefix}versao']),
+      deletado:
+          boolType.mapFromDatabaseResponse(data['${effectivePrefix}deletado']),
+      idUsuarioCadastro: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}id_usuario_cadastro']),
+      idUsuarioAlteracao: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}id_usuario_alteracao']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      map['id'] = Variable<int>(id);
+    }
+    if (!nullToAbsent || bateria != null) {
+      map['bateria'] = Variable<double>(bateria);
+    }
+    if (!nullToAbsent || sinalWifi != null) {
+      map['sinal_wifi'] = Variable<double>(sinalWifi);
+    }
+    if (!nullToAbsent || nomeWifi != null) {
+      map['nome_wifi'] = Variable<String>(nomeWifi);
+    }
+    if (!nullToAbsent || processador != null) {
+      map['processador'] = Variable<int>(processador);
+    }
+    if (!nullToAbsent || memoria != null) {
+      map['memoria'] = Variable<int>(memoria);
+    }
+    if (!nullToAbsent || idPlayerEquipamento != null) {
+      map['id_player_equipamento'] = Variable<int>(idPlayerEquipamento);
+    }
+    if (!nullToAbsent || dataLigado != null) {
+      map['data_ligado'] = Variable<DateTime>(dataLigado);
+    }
+    if (!nullToAbsent || dataCadastro != null) {
+      map['data_cadastro'] = Variable<DateTime>(dataCadastro);
+    }
+    if (!nullToAbsent || dataAlteracao != null) {
+      map['data_alteracao'] = Variable<DateTime>(dataAlteracao);
+    }
+    if (!nullToAbsent || versao != null) {
+      map['versao'] = Variable<int>(versao);
+    }
+    if (!nullToAbsent || deletado != null) {
+      map['deletado'] = Variable<bool>(deletado);
+    }
+    if (!nullToAbsent || idUsuarioCadastro != null) {
+      map['id_usuario_cadastro'] = Variable<int>(idUsuarioCadastro);
+    }
+    if (!nullToAbsent || idUsuarioAlteracao != null) {
+      map['id_usuario_alteracao'] = Variable<int>(idUsuarioAlteracao);
+    }
+    return map;
+  }
+
+  PlayerDadosCompanion toCompanion(bool nullToAbsent) {
+    return PlayerDadosCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      bateria: bateria == null && nullToAbsent
+          ? const Value.absent()
+          : Value(bateria),
+      sinalWifi: sinalWifi == null && nullToAbsent
+          ? const Value.absent()
+          : Value(sinalWifi),
+      nomeWifi: nomeWifi == null && nullToAbsent
+          ? const Value.absent()
+          : Value(nomeWifi),
+      processador: processador == null && nullToAbsent
+          ? const Value.absent()
+          : Value(processador),
+      memoria: memoria == null && nullToAbsent
+          ? const Value.absent()
+          : Value(memoria),
+      idPlayerEquipamento: idPlayerEquipamento == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idPlayerEquipamento),
+      dataLigado: dataLigado == null && nullToAbsent
+          ? const Value.absent()
+          : Value(dataLigado),
+      dataCadastro: dataCadastro == null && nullToAbsent
+          ? const Value.absent()
+          : Value(dataCadastro),
+      dataAlteracao: dataAlteracao == null && nullToAbsent
+          ? const Value.absent()
+          : Value(dataAlteracao),
+      versao:
+          versao == null && nullToAbsent ? const Value.absent() : Value(versao),
+      deletado: deletado == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletado),
+      idUsuarioCadastro: idUsuarioCadastro == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idUsuarioCadastro),
+      idUsuarioAlteracao: idUsuarioAlteracao == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idUsuarioAlteracao),
+    );
+  }
+
+  factory PlayerDado.fromJson(Map<String, dynamic> json,
+      {ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return PlayerDado(
+      id: serializer.fromJson<int>(json['id']),
+      bateria: serializer.fromJson<double>(json['bateria']),
+      sinalWifi: serializer.fromJson<double>(json['sinalWifi']),
+      nomeWifi: serializer.fromJson<String>(json['nomeWifi']),
+      processador: serializer.fromJson<int>(json['processador']),
+      memoria: serializer.fromJson<int>(json['memoria']),
+      idPlayerEquipamento:
+          serializer.fromJson<int>(json['idPlayerEquipamento']),
+      dataLigado: serializer.fromJson<DateTime>(json['dataLigado']),
+      dataCadastro: serializer.fromJson<DateTime>(json['dataCadastro']),
+      dataAlteracao: serializer.fromJson<DateTime>(json['dataAlteracao']),
+      versao: serializer.fromJson<int>(json['versao']),
+      deletado: serializer.fromJson<bool>(json['deletado']),
+      idUsuarioCadastro: serializer.fromJson<int>(json['idUsuarioCadastro']),
+      idUsuarioAlteracao: serializer.fromJson<int>(json['idUsuarioAlteracao']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'bateria': serializer.toJson<double>(bateria),
+      'sinalWifi': serializer.toJson<double>(sinalWifi),
+      'nomeWifi': serializer.toJson<String>(nomeWifi),
+      'processador': serializer.toJson<int>(processador),
+      'memoria': serializer.toJson<int>(memoria),
+      'idPlayerEquipamento': serializer.toJson<int>(idPlayerEquipamento),
+      'dataLigado': serializer.toJson<DateTime>(dataLigado),
+      'dataCadastro': serializer.toJson<DateTime>(dataCadastro),
+      'dataAlteracao': serializer.toJson<DateTime>(dataAlteracao),
+      'versao': serializer.toJson<int>(versao),
+      'deletado': serializer.toJson<bool>(deletado),
+      'idUsuarioCadastro': serializer.toJson<int>(idUsuarioCadastro),
+      'idUsuarioAlteracao': serializer.toJson<int>(idUsuarioAlteracao),
+    };
+  }
+
+  PlayerDado copyWith(
+          {int id,
+          double bateria,
+          double sinalWifi,
+          String nomeWifi,
+          int processador,
+          int memoria,
+          int idPlayerEquipamento,
+          DateTime dataLigado,
+          DateTime dataCadastro,
+          DateTime dataAlteracao,
+          int versao,
+          bool deletado,
+          int idUsuarioCadastro,
+          int idUsuarioAlteracao}) =>
+      PlayerDado(
+        id: id ?? this.id,
+        bateria: bateria ?? this.bateria,
+        sinalWifi: sinalWifi ?? this.sinalWifi,
+        nomeWifi: nomeWifi ?? this.nomeWifi,
+        processador: processador ?? this.processador,
+        memoria: memoria ?? this.memoria,
+        idPlayerEquipamento: idPlayerEquipamento ?? this.idPlayerEquipamento,
+        dataLigado: dataLigado ?? this.dataLigado,
+        dataCadastro: dataCadastro ?? this.dataCadastro,
+        dataAlteracao: dataAlteracao ?? this.dataAlteracao,
+        versao: versao ?? this.versao,
+        deletado: deletado ?? this.deletado,
+        idUsuarioCadastro: idUsuarioCadastro ?? this.idUsuarioCadastro,
+        idUsuarioAlteracao: idUsuarioAlteracao ?? this.idUsuarioAlteracao,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('PlayerDado(')
+          ..write('id: $id, ')
+          ..write('bateria: $bateria, ')
+          ..write('sinalWifi: $sinalWifi, ')
+          ..write('nomeWifi: $nomeWifi, ')
+          ..write('processador: $processador, ')
+          ..write('memoria: $memoria, ')
+          ..write('idPlayerEquipamento: $idPlayerEquipamento, ')
+          ..write('dataLigado: $dataLigado, ')
+          ..write('dataCadastro: $dataCadastro, ')
+          ..write('dataAlteracao: $dataAlteracao, ')
+          ..write('versao: $versao, ')
+          ..write('deletado: $deletado, ')
+          ..write('idUsuarioCadastro: $idUsuarioCadastro, ')
+          ..write('idUsuarioAlteracao: $idUsuarioAlteracao')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      id.hashCode,
+      $mrjc(
+          bateria.hashCode,
+          $mrjc(
+              sinalWifi.hashCode,
+              $mrjc(
+                  nomeWifi.hashCode,
+                  $mrjc(
+                      processador.hashCode,
+                      $mrjc(
+                          memoria.hashCode,
+                          $mrjc(
+                              idPlayerEquipamento.hashCode,
+                              $mrjc(
+                                  dataLigado.hashCode,
+                                  $mrjc(
+                                      dataCadastro.hashCode,
+                                      $mrjc(
+                                          dataAlteracao.hashCode,
+                                          $mrjc(
+                                              versao.hashCode,
+                                              $mrjc(
+                                                  deletado.hashCode,
+                                                  $mrjc(
+                                                      idUsuarioCadastro
+                                                          .hashCode,
+                                                      idUsuarioAlteracao
+                                                          .hashCode))))))))))))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is PlayerDado &&
+          other.id == this.id &&
+          other.bateria == this.bateria &&
+          other.sinalWifi == this.sinalWifi &&
+          other.nomeWifi == this.nomeWifi &&
+          other.processador == this.processador &&
+          other.memoria == this.memoria &&
+          other.idPlayerEquipamento == this.idPlayerEquipamento &&
+          other.dataLigado == this.dataLigado &&
+          other.dataCadastro == this.dataCadastro &&
+          other.dataAlteracao == this.dataAlteracao &&
+          other.versao == this.versao &&
+          other.deletado == this.deletado &&
+          other.idUsuarioCadastro == this.idUsuarioCadastro &&
+          other.idUsuarioAlteracao == this.idUsuarioAlteracao);
+}
+
+class PlayerDadosCompanion extends UpdateCompanion<PlayerDado> {
+  final Value<int> id;
+  final Value<double> bateria;
+  final Value<double> sinalWifi;
+  final Value<String> nomeWifi;
+  final Value<int> processador;
+  final Value<int> memoria;
+  final Value<int> idPlayerEquipamento;
+  final Value<DateTime> dataLigado;
+  final Value<DateTime> dataCadastro;
+  final Value<DateTime> dataAlteracao;
+  final Value<int> versao;
+  final Value<bool> deletado;
+  final Value<int> idUsuarioCadastro;
+  final Value<int> idUsuarioAlteracao;
+  const PlayerDadosCompanion({
+    this.id = const Value.absent(),
+    this.bateria = const Value.absent(),
+    this.sinalWifi = const Value.absent(),
+    this.nomeWifi = const Value.absent(),
+    this.processador = const Value.absent(),
+    this.memoria = const Value.absent(),
+    this.idPlayerEquipamento = const Value.absent(),
+    this.dataLigado = const Value.absent(),
+    this.dataCadastro = const Value.absent(),
+    this.dataAlteracao = const Value.absent(),
+    this.versao = const Value.absent(),
+    this.deletado = const Value.absent(),
+    this.idUsuarioCadastro = const Value.absent(),
+    this.idUsuarioAlteracao = const Value.absent(),
+  });
+  PlayerDadosCompanion.insert({
+    this.id = const Value.absent(),
+    this.bateria = const Value.absent(),
+    this.sinalWifi = const Value.absent(),
+    this.nomeWifi = const Value.absent(),
+    this.processador = const Value.absent(),
+    this.memoria = const Value.absent(),
+    this.idPlayerEquipamento = const Value.absent(),
+    @required DateTime dataLigado,
+    @required DateTime dataCadastro,
+    @required DateTime dataAlteracao,
+    @required int versao,
+    @required bool deletado,
+    this.idUsuarioCadastro = const Value.absent(),
+    this.idUsuarioAlteracao = const Value.absent(),
+  })  : dataLigado = Value(dataLigado),
+        dataCadastro = Value(dataCadastro),
+        dataAlteracao = Value(dataAlteracao),
+        versao = Value(versao),
+        deletado = Value(deletado);
+  static Insertable<PlayerDado> custom({
+    Expression<int> id,
+    Expression<double> bateria,
+    Expression<double> sinalWifi,
+    Expression<String> nomeWifi,
+    Expression<int> processador,
+    Expression<int> memoria,
+    Expression<int> idPlayerEquipamento,
+    Expression<DateTime> dataLigado,
+    Expression<DateTime> dataCadastro,
+    Expression<DateTime> dataAlteracao,
+    Expression<int> versao,
+    Expression<bool> deletado,
+    Expression<int> idUsuarioCadastro,
+    Expression<int> idUsuarioAlteracao,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (bateria != null) 'bateria': bateria,
+      if (sinalWifi != null) 'sinal_wifi': sinalWifi,
+      if (nomeWifi != null) 'nome_wifi': nomeWifi,
+      if (processador != null) 'processador': processador,
+      if (memoria != null) 'memoria': memoria,
+      if (idPlayerEquipamento != null)
+        'id_player_equipamento': idPlayerEquipamento,
+      if (dataLigado != null) 'data_ligado': dataLigado,
+      if (dataCadastro != null) 'data_cadastro': dataCadastro,
+      if (dataAlteracao != null) 'data_alteracao': dataAlteracao,
+      if (versao != null) 'versao': versao,
+      if (deletado != null) 'deletado': deletado,
+      if (idUsuarioCadastro != null) 'id_usuario_cadastro': idUsuarioCadastro,
+      if (idUsuarioAlteracao != null)
+        'id_usuario_alteracao': idUsuarioAlteracao,
+    });
+  }
+
+  PlayerDadosCompanion copyWith(
+      {Value<int> id,
+      Value<double> bateria,
+      Value<double> sinalWifi,
+      Value<String> nomeWifi,
+      Value<int> processador,
+      Value<int> memoria,
+      Value<int> idPlayerEquipamento,
+      Value<DateTime> dataLigado,
+      Value<DateTime> dataCadastro,
+      Value<DateTime> dataAlteracao,
+      Value<int> versao,
+      Value<bool> deletado,
+      Value<int> idUsuarioCadastro,
+      Value<int> idUsuarioAlteracao}) {
+    return PlayerDadosCompanion(
+      id: id ?? this.id,
+      bateria: bateria ?? this.bateria,
+      sinalWifi: sinalWifi ?? this.sinalWifi,
+      nomeWifi: nomeWifi ?? this.nomeWifi,
+      processador: processador ?? this.processador,
+      memoria: memoria ?? this.memoria,
+      idPlayerEquipamento: idPlayerEquipamento ?? this.idPlayerEquipamento,
+      dataLigado: dataLigado ?? this.dataLigado,
+      dataCadastro: dataCadastro ?? this.dataCadastro,
+      dataAlteracao: dataAlteracao ?? this.dataAlteracao,
+      versao: versao ?? this.versao,
+      deletado: deletado ?? this.deletado,
+      idUsuarioCadastro: idUsuarioCadastro ?? this.idUsuarioCadastro,
+      idUsuarioAlteracao: idUsuarioAlteracao ?? this.idUsuarioAlteracao,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (bateria.present) {
+      map['bateria'] = Variable<double>(bateria.value);
+    }
+    if (sinalWifi.present) {
+      map['sinal_wifi'] = Variable<double>(sinalWifi.value);
+    }
+    if (nomeWifi.present) {
+      map['nome_wifi'] = Variable<String>(nomeWifi.value);
+    }
+    if (processador.present) {
+      map['processador'] = Variable<int>(processador.value);
+    }
+    if (memoria.present) {
+      map['memoria'] = Variable<int>(memoria.value);
+    }
+    if (idPlayerEquipamento.present) {
+      map['id_player_equipamento'] = Variable<int>(idPlayerEquipamento.value);
+    }
+    if (dataLigado.present) {
+      map['data_ligado'] = Variable<DateTime>(dataLigado.value);
+    }
+    if (dataCadastro.present) {
+      map['data_cadastro'] = Variable<DateTime>(dataCadastro.value);
+    }
+    if (dataAlteracao.present) {
+      map['data_alteracao'] = Variable<DateTime>(dataAlteracao.value);
+    }
+    if (versao.present) {
+      map['versao'] = Variable<int>(versao.value);
+    }
+    if (deletado.present) {
+      map['deletado'] = Variable<bool>(deletado.value);
+    }
+    if (idUsuarioCadastro.present) {
+      map['id_usuario_cadastro'] = Variable<int>(idUsuarioCadastro.value);
+    }
+    if (idUsuarioAlteracao.present) {
+      map['id_usuario_alteracao'] = Variable<int>(idUsuarioAlteracao.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PlayerDadosCompanion(')
+          ..write('id: $id, ')
+          ..write('bateria: $bateria, ')
+          ..write('sinalWifi: $sinalWifi, ')
+          ..write('nomeWifi: $nomeWifi, ')
+          ..write('processador: $processador, ')
+          ..write('memoria: $memoria, ')
+          ..write('idPlayerEquipamento: $idPlayerEquipamento, ')
+          ..write('dataLigado: $dataLigado, ')
+          ..write('dataCadastro: $dataCadastro, ')
+          ..write('dataAlteracao: $dataAlteracao, ')
+          ..write('versao: $versao, ')
+          ..write('deletado: $deletado, ')
+          ..write('idUsuarioCadastro: $idUsuarioCadastro, ')
+          ..write('idUsuarioAlteracao: $idUsuarioAlteracao')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PlayerDadosTable extends PlayerDados
+    with TableInfo<$PlayerDadosTable, PlayerDado> {
+  final GeneratedDatabase _db;
+  final String _alias;
+  $PlayerDadosTable(this._db, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  GeneratedIntColumn _id;
+  @override
+  GeneratedIntColumn get id => _id ??= _constructId();
+  GeneratedIntColumn _constructId() {
+    return GeneratedIntColumn('id', $tableName, false,
+        hasAutoIncrement: true, declaredAsPrimaryKey: true);
+  }
+
+  final VerificationMeta _bateriaMeta = const VerificationMeta('bateria');
+  GeneratedRealColumn _bateria;
+  @override
+  GeneratedRealColumn get bateria => _bateria ??= _constructBateria();
+  GeneratedRealColumn _constructBateria() {
+    return GeneratedRealColumn(
+      'bateria',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _sinalWifiMeta = const VerificationMeta('sinalWifi');
+  GeneratedRealColumn _sinalWifi;
+  @override
+  GeneratedRealColumn get sinalWifi => _sinalWifi ??= _constructSinalWifi();
+  GeneratedRealColumn _constructSinalWifi() {
+    return GeneratedRealColumn(
+      'sinal_wifi',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _nomeWifiMeta = const VerificationMeta('nomeWifi');
+  GeneratedTextColumn _nomeWifi;
+  @override
+  GeneratedTextColumn get nomeWifi => _nomeWifi ??= _constructNomeWifi();
+  GeneratedTextColumn _constructNomeWifi() {
+    return GeneratedTextColumn('nome_wifi', $tableName, true,
+        maxTextLength: 100);
+  }
+
+  final VerificationMeta _processadorMeta =
+      const VerificationMeta('processador');
+  GeneratedIntColumn _processador;
+  @override
+  GeneratedIntColumn get processador =>
+      _processador ??= _constructProcessador();
+  GeneratedIntColumn _constructProcessador() {
+    return GeneratedIntColumn(
+      'processador',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _memoriaMeta = const VerificationMeta('memoria');
+  GeneratedIntColumn _memoria;
+  @override
+  GeneratedIntColumn get memoria => _memoria ??= _constructMemoria();
+  GeneratedIntColumn _constructMemoria() {
+    return GeneratedIntColumn(
+      'memoria',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _idPlayerEquipamentoMeta =
+      const VerificationMeta('idPlayerEquipamento');
+  GeneratedIntColumn _idPlayerEquipamento;
+  @override
+  GeneratedIntColumn get idPlayerEquipamento =>
+      _idPlayerEquipamento ??= _constructIdPlayerEquipamento();
+  GeneratedIntColumn _constructIdPlayerEquipamento() {
+    return GeneratedIntColumn(
+      'id_player_equipamento',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _dataLigadoMeta = const VerificationMeta('dataLigado');
+  GeneratedDateTimeColumn _dataLigado;
+  @override
+  GeneratedDateTimeColumn get dataLigado =>
+      _dataLigado ??= _constructDataLigado();
+  GeneratedDateTimeColumn _constructDataLigado() {
+    return GeneratedDateTimeColumn(
+      'data_ligado',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _dataCadastroMeta =
+      const VerificationMeta('dataCadastro');
+  GeneratedDateTimeColumn _dataCadastro;
+  @override
+  GeneratedDateTimeColumn get dataCadastro =>
+      _dataCadastro ??= _constructDataCadastro();
+  GeneratedDateTimeColumn _constructDataCadastro() {
+    return GeneratedDateTimeColumn(
+      'data_cadastro',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _dataAlteracaoMeta =
+      const VerificationMeta('dataAlteracao');
+  GeneratedDateTimeColumn _dataAlteracao;
+  @override
+  GeneratedDateTimeColumn get dataAlteracao =>
+      _dataAlteracao ??= _constructDataAlteracao();
+  GeneratedDateTimeColumn _constructDataAlteracao() {
+    return GeneratedDateTimeColumn(
+      'data_alteracao',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _versaoMeta = const VerificationMeta('versao');
+  GeneratedIntColumn _versao;
+  @override
+  GeneratedIntColumn get versao => _versao ??= _constructVersao();
+  GeneratedIntColumn _constructVersao() {
+    return GeneratedIntColumn(
+      'versao',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _deletadoMeta = const VerificationMeta('deletado');
+  GeneratedBoolColumn _deletado;
+  @override
+  GeneratedBoolColumn get deletado => _deletado ??= _constructDeletado();
+  GeneratedBoolColumn _constructDeletado() {
+    return GeneratedBoolColumn(
+      'deletado',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _idUsuarioCadastroMeta =
+      const VerificationMeta('idUsuarioCadastro');
+  GeneratedIntColumn _idUsuarioCadastro;
+  @override
+  GeneratedIntColumn get idUsuarioCadastro =>
+      _idUsuarioCadastro ??= _constructIdUsuarioCadastro();
+  GeneratedIntColumn _constructIdUsuarioCadastro() {
+    return GeneratedIntColumn(
+      'id_usuario_cadastro',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _idUsuarioAlteracaoMeta =
+      const VerificationMeta('idUsuarioAlteracao');
+  GeneratedIntColumn _idUsuarioAlteracao;
+  @override
+  GeneratedIntColumn get idUsuarioAlteracao =>
+      _idUsuarioAlteracao ??= _constructIdUsuarioAlteracao();
+  GeneratedIntColumn _constructIdUsuarioAlteracao() {
+    return GeneratedIntColumn(
+      'id_usuario_alteracao',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        bateria,
+        sinalWifi,
+        nomeWifi,
+        processador,
+        memoria,
+        idPlayerEquipamento,
+        dataLigado,
+        dataCadastro,
+        dataAlteracao,
+        versao,
+        deletado,
+        idUsuarioCadastro,
+        idUsuarioAlteracao
+      ];
+  @override
+  $PlayerDadosTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'player_dados';
+  @override
+  final String actualTableName = 'player_dados';
+  @override
+  VerificationContext validateIntegrity(Insertable<PlayerDado> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
+    }
+    if (data.containsKey('bateria')) {
+      context.handle(_bateriaMeta,
+          bateria.isAcceptableOrUnknown(data['bateria'], _bateriaMeta));
+    }
+    if (data.containsKey('sinal_wifi')) {
+      context.handle(_sinalWifiMeta,
+          sinalWifi.isAcceptableOrUnknown(data['sinal_wifi'], _sinalWifiMeta));
+    }
+    if (data.containsKey('nome_wifi')) {
+      context.handle(_nomeWifiMeta,
+          nomeWifi.isAcceptableOrUnknown(data['nome_wifi'], _nomeWifiMeta));
+    }
+    if (data.containsKey('processador')) {
+      context.handle(
+          _processadorMeta,
+          processador.isAcceptableOrUnknown(
+              data['processador'], _processadorMeta));
+    }
+    if (data.containsKey('memoria')) {
+      context.handle(_memoriaMeta,
+          memoria.isAcceptableOrUnknown(data['memoria'], _memoriaMeta));
+    }
+    if (data.containsKey('id_player_equipamento')) {
+      context.handle(
+          _idPlayerEquipamentoMeta,
+          idPlayerEquipamento.isAcceptableOrUnknown(
+              data['id_player_equipamento'], _idPlayerEquipamentoMeta));
+    }
+    if (data.containsKey('data_ligado')) {
+      context.handle(
+          _dataLigadoMeta,
+          dataLigado.isAcceptableOrUnknown(
+              data['data_ligado'], _dataLigadoMeta));
+    } else if (isInserting) {
+      context.missing(_dataLigadoMeta);
+    }
+    if (data.containsKey('data_cadastro')) {
+      context.handle(
+          _dataCadastroMeta,
+          dataCadastro.isAcceptableOrUnknown(
+              data['data_cadastro'], _dataCadastroMeta));
+    } else if (isInserting) {
+      context.missing(_dataCadastroMeta);
+    }
+    if (data.containsKey('data_alteracao')) {
+      context.handle(
+          _dataAlteracaoMeta,
+          dataAlteracao.isAcceptableOrUnknown(
+              data['data_alteracao'], _dataAlteracaoMeta));
+    } else if (isInserting) {
+      context.missing(_dataAlteracaoMeta);
+    }
+    if (data.containsKey('versao')) {
+      context.handle(_versaoMeta,
+          versao.isAcceptableOrUnknown(data['versao'], _versaoMeta));
+    } else if (isInserting) {
+      context.missing(_versaoMeta);
+    }
+    if (data.containsKey('deletado')) {
+      context.handle(_deletadoMeta,
+          deletado.isAcceptableOrUnknown(data['deletado'], _deletadoMeta));
+    } else if (isInserting) {
+      context.missing(_deletadoMeta);
+    }
+    if (data.containsKey('id_usuario_cadastro')) {
+      context.handle(
+          _idUsuarioCadastroMeta,
+          idUsuarioCadastro.isAcceptableOrUnknown(
+              data['id_usuario_cadastro'], _idUsuarioCadastroMeta));
+    }
+    if (data.containsKey('id_usuario_alteracao')) {
+      context.handle(
+          _idUsuarioAlteracaoMeta,
+          idUsuarioAlteracao.isAcceptableOrUnknown(
+              data['id_usuario_alteracao'], _idUsuarioAlteracaoMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  PlayerDado map(Map<String, dynamic> data, {String tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return PlayerDado.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $PlayerDadosTable createAlias(String alias) {
+    return $PlayerDadosTable(_db, alias);
+  }
+}
+
 class PlaylistData extends DataClass implements Insertable<PlaylistData> {
   final int id;
   final String nome;
@@ -3595,6 +4392,8 @@ abstract class _$Database extends GeneratedDatabase {
   $ConteudoCampoTable _conteudoCampo;
   $ConteudoCampoTable get conteudoCampo =>
       _conteudoCampo ??= $ConteudoCampoTable(this);
+  $PlayerDadosTable _playerDados;
+  $PlayerDadosTable get playerDados => _playerDados ??= $PlayerDadosTable(this);
   $PlaylistTable _playlist;
   $PlaylistTable get playlist => _playlist ??= $PlaylistTable(this);
   $PlaylistConteudoTable _playlistConteudo;
@@ -3607,6 +4406,7 @@ abstract class _$Database extends GeneratedDatabase {
         conteudo,
         conteudoAgendamento,
         conteudoCampo,
+        playerDados,
         playlist,
         playlistConteudo
       ];

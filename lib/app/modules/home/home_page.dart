@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:blink/app/components/template_size.dart';
 import 'package:blink/app/modules/carousel/carousel_page.dart';
 import 'package:blink/app/shared/screen_size.dart';
@@ -16,7 +18,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
-  //use 'controller' variable to access controller
 
   @override
   void initState() {
@@ -59,6 +60,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         },
       ),
     );
+
     // ScreenSize controller = ScreenSize();
 
     // //WUXGA - 1920X1200 -- Ok
