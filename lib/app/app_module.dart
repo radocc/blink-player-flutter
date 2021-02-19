@@ -26,9 +26,6 @@ class AppModule extends MainModule {
         $SlideVideoController,
         $CarouselController,
         $AppController,
-        // Bind((i) => HomeController(repositorys: i.get<PokeRepository>())),
-        // Bind((i) => PokeRepository(dio: i.get<Dio>())),
-        // Bind((i) => Dio(BaseOptions(baseUrl: URL_BASE))),
         Bind((i) => SplashController(repository: i.get<LoginRepository>())),
         Bind((i) => LoginRepository(
             dio: i.get<Dio>()..interceptors.add(CustomIntercetors()))),
