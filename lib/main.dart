@@ -2,13 +2,14 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:battery/battery.dart';
-import 'package:blink/app/database/database.dart';
 import 'package:flutter/material.dart';
 import 'package:blink/app/app_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:network_state/network_state.dart';
 import 'package:system_info/system_info.dart';
 import 'package:wifi/wifi.dart';
+
+import 'app/database/database.dart';
 
 void main() {
   NetworkConfig.pingUrls = ['http://mockbin.com/request'];
@@ -53,8 +54,8 @@ void main() {
 
   Timer.periodic(oneSec, (Timer timer) {
     if (Platform.isAndroid) {
-      print('android');
       valueHardware2().then((value) => {
+            print('save value android'),
             Database.instance.playerDAO.addValueHardware(PlayerDado(
               bateria: double.parse(value[0]),
               sinalWifi: double.parse(value[1]),
@@ -71,8 +72,8 @@ void main() {
             print(value.toString())
           });
     } else {
-      print('linux');
       valueHardware2().then((value) => {
+            print('save value linux'),
             Database.instance.playerDAO.addValueHardware(PlayerDado(
               bateria: null,
               sinalWifi: null,

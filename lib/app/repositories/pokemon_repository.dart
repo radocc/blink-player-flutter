@@ -1,6 +1,6 @@
 import 'package:blink/app/models/pokemon_model.dart';
 import 'package:dio/dio.dart';
-import 'package:moor_flutter/moor_flutter.dart';
+import 'package:moor/moor.dart';
 
 class PokeRepository {
 

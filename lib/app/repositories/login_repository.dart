@@ -1,7 +1,6 @@
-import 'package:blink/app/models/player_login_model.dart';
 import 'package:blink/app/shared/constrants.dart';
 import 'package:dio/dio.dart';
-import 'package:moor_flutter/moor_flutter.dart';
+import 'package:moor/moor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginRepository {
