@@ -1,6 +1,4 @@
-
-import 'package:moor_flutter/moor_flutter.dart';
-
+import 'package:moor/moor.dart';
 class PlaylistConteudo extends Table {
   String get tableName => 'playlist_conteudo';
 

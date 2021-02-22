@@ -36,7 +36,9 @@ dependencies:
   mobx: ^1.2.1+4
   flutter_modular: ^2.0.1
   rxdart: ^0.22.1+1
-  moor_flutter: ^3.1.0
+  moor: ^3.0.0
+  sqlite3_flutter_libs:
+  sqflite: ^1.1.7 # Still used to obtain the database location
   path: ^1.7.0
   video_player: ^1.0.1
   http: ^0.12.2

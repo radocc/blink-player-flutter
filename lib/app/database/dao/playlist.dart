@@ -1,6 +1,6 @@
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/database/entity/playlist_entity.dart';
-import 'package:moor_flutter/moor_flutter.dart';
+import 'package:moor/moor.dart';
 
 part 'playlist.g.dart';
 

@@ -76,8 +76,7 @@ abstract class _SplashControllerBase with Store {
 
   Future valueHardware() async {
     if (Platform.isLinux) {
-      print('teste');
-      //await Future.delayed(Duration(seconds: 20));
+      print('value hardware lunix');
       const int MEGABYTE = 1024 * 1024;
       List<String> array = [];
       var totalFreeMemory = (SysInfo.getFreePhysicalMemory() ~/ MEGABYTE * 100);
@@ -101,12 +100,9 @@ abstract class _SplashControllerBase with Store {
           "Memoria Virtual Livre: ${SysInfo.getFreeVirtualMemory() ~/ MEGABYTE} MB");
       return array;
     } else if (Platform.isAndroid) {
-      print('teste');
+      print('value hardware android');
       const int MEGABYTE = 1024 * 1024;
       CpuInfo cpuInfo = await CpuReader.cpuInfo;
-
-      int cpuInfo3 = await CpuReader.getNumberOfCores();
-      var cpuInfo2 = await CpuReader.getMinMaxFrequencies(cpuInfo3);
       final int batteryLevel = await _battery.batteryLevel;
       int level = await Wifi.level;
       String wifiName = await Wifi.ssid;

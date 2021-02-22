@@ -1,5 +1,4 @@
-import 'package:moor_flutter/moor_flutter.dart';
-
+import 'package:moor/moor.dart';
 class PlayerDados extends Table {
   String get tableName => 'player_dados';
 

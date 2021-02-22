@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:blink/app/database/dao/player_dados_dao.dart';
 import 'package:blink/app/database/entity/conteudo_agendamento_entity.dart';
 import 'package:blink/app/database/entity/conteudo_campo_entity.dart';
@@ -5,7 +7,10 @@ import 'package:blink/app/database/entity/conteudo_entity.dart';
 import 'package:blink/app/database/entity/player_dados.dart';
 import 'package:blink/app/database/entity/playlist_conteudo_entity.dart';
 import 'package:blink/app/database/entity/playlist_entity.dart';
-import 'package:moor_flutter/moor_flutter.dart';
+import 'package:moor/moor.dart';
+import 'package:moor/ffi.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 
 part 'database.g.dart';
 
@@ -20,9 +25,21 @@ part 'database.g.dart';
 class Database extends _$Database {
   PlayerDadosDAO playerDAO;
 
+  // static Database instance = Database._internal();
+  // Database._internal()
+  //     : super(FlutterQueryExecutor.inDatabaseFolder(path: 'blink.sqlite')) {
+  //   playerDAO = PlayerDadosDAO(this);
+  // }
+
   static Database instance = Database._internal();
   Database._internal()
-      : super(FlutterQueryExecutor.inDatabaseFolder(path: 'blink.sqlite')) {
+      : super(
+          LazyDatabase(() async {
+            final dbFolder = await getApplicationDocumentsDirectory();
+            final file = File(p.join(dbFolder.path, 'blink.sqlite'));
+            return VmDatabase(file);
+          })
+        ) {
     playerDAO = PlayerDadosDAO(this);
   }
 

@@ -1,6 +1,4 @@
-
-import 'package:moor_flutter/moor_flutter.dart';
-
+import 'package:moor/moor.dart';
 class ConteudoCampo extends Table {
   String get tableName => 'conteudo_campo';
 
