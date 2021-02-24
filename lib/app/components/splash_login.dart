@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:blink/app/pages/splash/splash_controller.dart';
 import 'package:blink/app/shared/constrants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+//import 'package:flutter_svg/flutter_svg.dart';
 
 class WidgetLogin extends StatefulWidget {
   final int number;
@@ -35,7 +35,8 @@ class _WidgetLoginState extends State<WidgetLogin> {
                           Container(
                             constraints:
                                 BoxConstraints(minWidth: 100, maxHeight: 180),
-                            child: SvgPicture.asset(imageSplash),
+                            child: Image.asset('assets/teste.jpeg'),
+                            //child: SvgPicture.asset(imageSplash),
                           ),
                           SizedBox(height: 25),
                           CircularProgressIndicator(),
@@ -53,7 +54,8 @@ class _WidgetLoginState extends State<WidgetLogin> {
                               Container(
                                 constraints: BoxConstraints(
                                     minWidth: 100, maxHeight: 180),
-                                child: SvgPicture.asset(imageSplash),
+                                child: Image.asset('assets/teste.jpeg'),
+                                //child: SvgPicture.asset(imageSplash),
                               ),
                               SizedBox(height: 25),
                               Container(
@@ -98,7 +100,8 @@ class _WidgetLoginState extends State<WidgetLogin> {
                           Container(
                             constraints:
                                 BoxConstraints(minWidth: 100, maxHeight: 180),
-                            child: SvgPicture.asset(imageSplash),
+                            //child: SvgPicture.asset(imageSplash),
+                            child: Image.asset('assets/teste.jpeg'),
                           ),
                           SizedBox(height: 25),
                           CircularProgressIndicator(),
@@ -116,8 +119,8 @@ class _WidgetLoginState extends State<WidgetLogin> {
                               Container(
                                 constraints: BoxConstraints(
                                     minWidth: 100, maxHeight: 180),
-                                child: SvgPicture.asset(imageSplash),
-                                // child: Image.asset('assets/teste.jpeg'),
+                                //child: SvgPicture.asset(imageSplash),
+                                child: Image.asset('assets/teste.jpeg'),
                               ),
                               SizedBox(height: 25),
                               Container(
@@ -156,7 +159,8 @@ class _WidgetLoginState extends State<WidgetLogin> {
                 children: [
                   Container(
                     constraints: BoxConstraints(minWidth: 100, maxHeight: 180),
-                    child: SvgPicture.asset(imageSplash),
+                    //child: SvgPicture.asset(imageSplash),
+                    child: Image.asset('assets/teste.jpeg'),
                   ),
                   SizedBox(height: 25),
                   Container(
@@ -193,7 +197,7 @@ class _WidgetLoginState extends State<WidgetLogin> {
                     //       Container(
                     //         constraints:
                     //             BoxConstraints(minWidth: 100, maxHeight: 180),
-                    //         child: SvgPicture.asset(imageSplash),
+                    //         //child: SvgPicture.asset(imageSplash),
                     //       ),
                     //       SizedBox(height: 25),
                     //       CircularProgressIndicator(),
@@ -211,7 +215,8 @@ class _WidgetLoginState extends State<WidgetLogin> {
                             Container(
                               constraints:
                                   BoxConstraints(minWidth: 100, maxHeight: 200),
-                              child: SvgPicture.asset(imageSplash),
+                              //child: SvgPicture.asset(imageSplash),
+                              child: Image.asset('assets/teste.jpeg'),
                             ),
                             SizedBox(height: 25),
                             Container(
@@ -251,7 +256,8 @@ class _WidgetLoginState extends State<WidgetLogin> {
                 children: [
                   Container(
                     constraints: BoxConstraints(minWidth: 100, maxHeight: 200),
-                    child: SvgPicture.asset(imageSplash),
+                    //child: SvgPicture.asset(imageSplash),
+                    child: Image.asset('assets/teste.jpeg'),
                   ),
                   SizedBox(height: 25),
                   Container(
