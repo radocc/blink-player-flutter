@@ -10,13 +10,17 @@ class LoginRepository {
 
   Future<int> postServer(String uuid) async {
     try {
-      var response = await dio.post(URL_LOGIN , data: {"uuid": uuid}).then((value) async {
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        // await prefs.setString('nome', value.data['nome']);
-        // await prefs.setString('horaInicio', value.data['horaInicio']);
-        // await prefs.setString('horaFim', value.data['horaFim']);
-        // await prefs.setString('orientacao', value.data['orientacao']);
-        await prefs.setString('token', value.data['token']);
+      var response = await dio.post(URL_LOGIN, data: {"uuid": uuid}).then((value) async {
+        if (value.statusCode == 200) {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          // await prefs.setString('nome', value.data['nome']);
+          // await prefs.setString('horaInicio', value.data['horaInicio']);
+          // await prefs.setString('horaFim', value.data['horaFim']);
+          // await prefs.setString('orientacao', value.data['orientacao']);
+          await prefs.setString('token', value.data['token']);
+        } else {
+          print (value.statusCode); 
+        }
       });
       return response.data;
     } on DioError catch (e) {
