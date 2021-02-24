@@ -29,7 +29,11 @@ class AppModule extends MainModule {
         Bind((i) => SplashController(repository: i.get<LoginRepository>())),
         Bind((i) => LoginRepository(
             dio: i.get<Dio>()..interceptors.add(CustomIntercetors()))),
-        Bind((i) => Dio(BaseOptions(baseUrl: URL_LOGIN)))
+        Bind((i) => Dio(BaseOptions(baseUrl: URL_LOGIN,
+        //  headers: {
+        //   Headers.contentTypeHeader: 'application/json'
+        // }
+        )))
       ];
 
   @override

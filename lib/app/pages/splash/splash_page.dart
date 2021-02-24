@@ -75,19 +75,50 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
       }
     } else {
       return Scaffold(
-        body: NetworkStateBuilder(
-          builder: (BuildContext context, AsyncSnapshot snap) {
-            if (snap.hasData) {
-              return snap.data
-                  ? WidgetLogin(number: 1)
-                  : WidgetLogin(number: 2);
-            } else {
-              return WidgetLogin(number: 2);
-            }
-          },
-        ),
+        body: FutureBuilder(
+            future: controller.isInternetLinux(),
+            builder: (context, snap) {
+              if (snap.hasError) {
+                return WidgetLogin(number: 2);
+              }
+              if (!snap.hasData) {
+                return Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      constraints:
+                          BoxConstraints(minWidth: 100, maxHeight: 200),
+                      child: Image.asset('assets/teste.jpeg'),
+                    ),
+                    SizedBox(height: 25),
+                    CircularProgressIndicator(),
+                    SizedBox(height: 20),
+                    Text('Checando a conexão com a internet....'),
+                  ],
+                ));
+              } else if (snap.data) {
+                return WidgetLogin(number: 1);
+              } else {
+                return WidgetLogin(number: 2);
+              }
+            }),
       );
     }
+
+    //     return Scaffold(
+    //   body: NetworkStateBuilder(
+    //     builder: (BuildContext context, AsyncSnapshot snap) {
+    //       if (snap.hasData) {
+    //         return snap.data
+    //             ? WidgetLogin(number: 1)
+    //             : WidgetLogin(number: 2);
+    //       } else {
+    //         return WidgetLogin(number: 2);
+    //       }
+    //     },
+    //   ),
+    // );
 
     // return Scaffold(
     //   body: FutureBuilder(
