@@ -7,7 +7,7 @@ part of 'home_controller.dart';
 // **************************************************************************
 
 final $HomeController = BindInject(
-  (i) => HomeController(repositorys: i<PokeRepository>()),
+  (i) => HomeController(),
   singleton: true,
   lazy: true,
 );
@@ -19,39 +19,10 @@ final $HomeController = BindInject(
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HomeController on _HomeControllerBase, Store {
-  final _$pokemonsAtom = Atom(name: '_HomeControllerBase.pokemons');
-
-  @override
-  ObservableFuture<dynamic> get pokemons {
-    _$pokemonsAtom.reportRead();
-    return super.pokemons;
-  }
-
-  @override
-  set pokemons(ObservableFuture<dynamic> value) {
-    _$pokemonsAtom.reportWrite(value, super.pokemons, () {
-      super.pokemons = value;
-    });
-  }
-
-  final _$_HomeControllerBaseActionController =
-      ActionController(name: '_HomeControllerBase');
-
-  @override
-  dynamic fetchPokemons() {
-    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
-        name: '_HomeControllerBase.fetchPokemons');
-    try {
-      return super.fetchPokemons();
-    } finally {
-      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
   @override
   String toString() {
     return '''
-pokemons: ${pokemons}
+
     ''';
   }
 }

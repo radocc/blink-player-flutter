@@ -5,19 +5,13 @@ import 'package:battery/battery.dart';
 import 'package:flutter/material.dart';
 import 'package:blink/app/app_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:network_state/network_state.dart';
 import 'package:system_info/system_info.dart';
 import 'package:wifi/wifi.dart';
 
 import 'app/database/database.dart';
 
 void main() {
-  NetworkConfig.pingUrls = ['http://mockbin.com/request'];
-
-  NetworkConfig.pollIntervalMs = 300;
-  NetworkConfig.timeoutMs = 1000;
-
-  NetworkState.startPolling();
+  WidgetsFlutterBinding.ensureInitialized();
   Battery _battery = Battery();
 
   Future valueHardware2() async {
