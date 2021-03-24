@@ -4,17 +4,23 @@ class Conteudo extends Table {
   String get tableName => 'conteudo';
 
   IntColumn get id => integer().autoIncrement()();
-  TextColumn get titulo => text().withDefault(const Constant('')).withLength(max: 200).nullable()();
   IntColumn get idTipoConteudo => integer()();
-  IntColumn get idTemplate => integer().withDefault(const Constant(0)).nullable()();
-  TextColumn get arquivoFormato => text().withLength(max:10)();
+  IntColumn get tipoArquivo => integer()();
+  TextColumn get nomeArquivo => text()();
+  IntColumn get idTemplate => integer()();
+  TextColumn get titulo => text().withDefault(const Constant('')).withLength(max: 200).nullable()();
   IntColumn get tempoExibicao => integer().withDefault(const Constant(0)).nullable()();
+  IntColumn get status => integer().withDefault(const Constant(0)).nullable()();
+  DateTimeColumn get horaInicio => dateTime()();
+  DateTimeColumn get horaFim => dateTime()();
+  TextColumn get filtros => text().withLength(max:10)();
   IntColumn get idCidade => integer()();
+  TextColumn get cidade => text().withLength(max:500)();
+  TextColumn get uf => text().withLength(max:500)();
+  TextColumn get previsao => text().withLength(max:500)();
+  TextColumn get campos => text().withLength(max:500)();
   TextColumn get url => text().withLength(max:500)();
-  TextColumn get filtroAssuntos => text().withLength(max:500)();
-  IntColumn get timerRequest => integer()();
-  DateTimeColumn get dataCadastro => dateTime()();
-  DateTimeColumn get dataAlteracao => dateTime()();
-  IntColumn get versao => integer()();
+
+
 
 }
