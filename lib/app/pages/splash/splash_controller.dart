@@ -8,8 +8,6 @@ import 'package:cpu_reader/cpu_reader.dart';
 import 'package:cpu_reader/cpuinfo.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:network_state/network_state.dart';
-import 'package:platform_device_id/platform_device_id.dart';
 import 'package:system_info/system_info.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:wifi/wifi.dart';
@@ -70,6 +68,15 @@ abstract class _SplashControllerBase with Store {
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         return true;
+      }
+    } on SocketException catch (_) {}
+  }
+
+  Stream<bool> isInternetLinux2() async* {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        yield true;
       }
     } on SocketException catch (_) {}
   }

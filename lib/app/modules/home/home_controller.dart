@@ -1,4 +1,3 @@
-import 'package:blink/app/repositories/pokemon_repository.dart';
 import 'package:device_info/device_info.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -14,20 +13,6 @@ part 'home_controller.g.dart';
 class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
-  final PokeRepository repositorys;
-
-  _HomeControllerBase({this.repositorys}) {
-    fetchPokemons();
-  }
-
-  @observable
-  ObservableFuture pokemons;
-
-  @action
-  fetchPokemons() {
-    pokemons = repositorys.getAllPokemon().asObservable();
-  }
-
   final _urlImage1 =
       'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Orange-Whole-%26-Split.jpg/1920px-Orange-Whole-%26-Split.jpg';
 
