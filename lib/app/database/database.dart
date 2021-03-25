@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:blink/app/database/dao/equipamento_dao.dart';
 import 'package:blink/app/database/dao/player_dados_dao.dart';
 import 'package:blink/app/database/entity/conteudo_agendamento_entity.dart';
 import 'package:blink/app/database/entity/conteudo_campo_entity.dart';
 import 'package:blink/app/database/entity/conteudo_entity.dart';
+import 'package:blink/app/database/entity/equipamentos_entity.dart';
 import 'package:blink/app/database/entity/player_dados.dart';
 import 'package:blink/app/database/entity/playlist_conteudo_entity.dart';
 import 'package:blink/app/database/entity/playlist_entity.dart';
@@ -18,12 +20,14 @@ part 'database.g.dart';
   Conteudo,
   ConteudoAgendamento,
   ConteudoCampo,
+  Equipamentos,
   PlayerDados,
   Playlist,
   PlaylistConteudo
 ])
 class Database extends _$Database {
   PlayerDadosDAO playerDAO;
+  EquipamentoDAO equipsDAO;
 
   // static Database instance = Database._internal();
   // Database._internal()
@@ -33,18 +37,17 @@ class Database extends _$Database {
 
   static Database instance = Database._internal();
   Database._internal()
-      : super(
-          LazyDatabase(() async {
-            final dbFolder = await getApplicationDocumentsDirectory();
-            final file = File(p.join(dbFolder.path, 'blink.sqlite'));
-            return VmDatabase(file);
-          })
-        ) {
+      : super(LazyDatabase(() async {
+          final dbFolder = await getApplicationDocumentsDirectory();
+          final file = File(p.join(dbFolder.path, 'blink.sqlite'));
+          return VmDatabase(file);
+        })) {
     playerDAO = PlayerDadosDAO(this);
+    equipsDAO = EquipamentoDAO(this);
   }
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration {
