@@ -2,7 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:battery/battery.dart';
-import 'package:blink/app/repositories/login_repository.dart';
+import 'package:blink/app/database/database.dart';
+import 'package:blink/app/services/login_service.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:cpu_reader/cpu_reader.dart';
 import 'package:cpu_reader/cpuinfo.dart';
@@ -18,25 +19,26 @@ part 'splash_controller.g.dart';
 class SplashController = _SplashControllerBase with _$SplashController;
 
 abstract class _SplashControllerBase with Store {
-  LoginRepository repository;
+  LoginService service;
 
-  _SplashControllerBase({this.repository}) {
+  _SplashControllerBase({this.service}) {
     //postServer();
   }
 
   Battery _battery = Battery();
 
-  Future<int> postServer() async {
+  Future<Equipamento> postServer() async {
     try {
-      String deviceId;
+      //String deviceId;
       String linuxId;
       if (Platform.isAndroid) {
         //deviceId = await PlatformDeviceId.getDeviceId;
-        var reponse = await repository.postServer('123123');
+        var reponse = await service.logar('123123', '123123');
+        print(reponse);
         return reponse;
       } else if (Platform.isLinux) {
         // linuxId = await PlatformDeviceId.getDeviceId;
-        var reponse = await repository.postServer(linuxId);
+        var reponse = await service.logar(linuxId, '123123');
         return reponse;
       }
     } catch (e) {

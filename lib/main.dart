@@ -13,6 +13,7 @@ import 'app/database/database.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Battery _battery = Battery();
+  const oneSec = const Duration(seconds: 10);
 
   Future valueHardware2() async {
     if (Platform.isLinux) {
@@ -43,8 +44,6 @@ void main() {
       return array;
     }
   }
-
-  const oneSec = const Duration(seconds: 10);
 
   Timer.periodic(oneSec, (Timer timer) {
     if (Platform.isAndroid) {

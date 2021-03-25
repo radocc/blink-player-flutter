@@ -1,7 +1,9 @@
-
 import 'package:blink/app/pages/splash/splash_page.dart';
+import 'package:blink/app/repositories/conteudo_repository.dart';
 import 'package:blink/app/repositories/login_repository.dart';
-import 'package:blink/app/shared/custom_dio/interceptions.dart';
+import 'package:blink/app/services/conteudo_service.dart';
+import 'package:blink/app/services/login_service.dart';
+import 'package:blink/app/shared/interceptions.dart';
 import 'package:dio/dio.dart';
 
 import 'pages/splash/splash_controller.dart';
@@ -26,14 +28,13 @@ class AppModule extends MainModule {
         $SlideVideoController,
         $CarouselController,
         $AppController,
-        Bind((i) => SplashController(repository: i.get<LoginRepository>())),
+        Bind((i) => SplashController(service: i.get<LoginService>())),
         Bind((i) => LoginRepository(
             dio: i.get<Dio>()..interceptors.add(CustomIntercetors()))),
-        Bind((i) => Dio(BaseOptions(baseUrl: URL_LOGIN,
-        //  headers: {
-        //   Headers.contentTypeHeader: 'application/json'
-        // }
-        )))
+        Bind((i) => Dio(BaseOptions(baseUrl: URL_LOGIN))),
+        Bind((i) => LoginService(loginRep: i.get<LoginRepository>())),
+        //adicionado, porém falta fazer os mesmo passos acima para o conteudo
+        Bind((i) => ConteudoService(conteudoRepo: i.get<ConteudoRepository>())),
       ];
 
   @override
@@ -47,4 +48,3 @@ class AppModule extends MainModule {
 
   static Inject get to => Inject<AppModule>.of();
 }
-

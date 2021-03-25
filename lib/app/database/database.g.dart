@@ -2289,6 +2289,387 @@ class $ConteudoCampoTable extends ConteudoCampo
   }
 }
 
+class Equipamento extends DataClass implements Insertable<Equipamento> {
+  final int id;
+  final String nome;
+  final String uuid;
+  final DateTime dataCadastro;
+  final DateTime dataAlteracao;
+  final bool ativado;
+  Equipamento(
+      {@required this.id,
+      this.nome,
+      @required this.uuid,
+      this.dataCadastro,
+      this.dataAlteracao,
+      @required this.ativado});
+  factory Equipamento.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+      {String prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final stringType = db.typeSystem.forDartType<String>();
+    final dateTimeType = db.typeSystem.forDartType<DateTime>();
+    final boolType = db.typeSystem.forDartType<bool>();
+    return Equipamento(
+      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      nome: stringType.mapFromDatabaseResponse(data['${effectivePrefix}nome']),
+      uuid: stringType.mapFromDatabaseResponse(data['${effectivePrefix}uuid']),
+      dataCadastro: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}data_cadastro']),
+      dataAlteracao: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}data_alteracao']),
+      ativado:
+          boolType.mapFromDatabaseResponse(data['${effectivePrefix}ativado']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      map['id'] = Variable<int>(id);
+    }
+    if (!nullToAbsent || nome != null) {
+      map['nome'] = Variable<String>(nome);
+    }
+    if (!nullToAbsent || uuid != null) {
+      map['uuid'] = Variable<String>(uuid);
+    }
+    if (!nullToAbsent || dataCadastro != null) {
+      map['data_cadastro'] = Variable<DateTime>(dataCadastro);
+    }
+    if (!nullToAbsent || dataAlteracao != null) {
+      map['data_alteracao'] = Variable<DateTime>(dataAlteracao);
+    }
+    if (!nullToAbsent || ativado != null) {
+      map['ativado'] = Variable<bool>(ativado);
+    }
+    return map;
+  }
+
+  EquipamentosCompanion toCompanion(bool nullToAbsent) {
+    return EquipamentosCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      nome: nome == null && nullToAbsent ? const Value.absent() : Value(nome),
+      uuid: uuid == null && nullToAbsent ? const Value.absent() : Value(uuid),
+      dataCadastro: dataCadastro == null && nullToAbsent
+          ? const Value.absent()
+          : Value(dataCadastro),
+      dataAlteracao: dataAlteracao == null && nullToAbsent
+          ? const Value.absent()
+          : Value(dataAlteracao),
+      ativado: ativado == null && nullToAbsent
+          ? const Value.absent()
+          : Value(ativado),
+    );
+  }
+
+  factory Equipamento.fromJson(Map<String, dynamic> json,
+      {ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return Equipamento(
+      id: serializer.fromJson<int>(json['id']),
+      nome: serializer.fromJson<String>(json['nome']),
+      uuid: serializer.fromJson<String>(json['uuid']),
+      dataCadastro: serializer.fromJson<DateTime>(json['dataCadastro']),
+      dataAlteracao: serializer.fromJson<DateTime>(json['dataAlteracao']),
+      ativado: serializer.fromJson<bool>(json['ativado']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'nome': serializer.toJson<String>(nome),
+      'uuid': serializer.toJson<String>(uuid),
+      'dataCadastro': serializer.toJson<DateTime>(dataCadastro),
+      'dataAlteracao': serializer.toJson<DateTime>(dataAlteracao),
+      'ativado': serializer.toJson<bool>(ativado),
+    };
+  }
+
+  Equipamento copyWith(
+          {int id,
+          String nome,
+          String uuid,
+          DateTime dataCadastro,
+          DateTime dataAlteracao,
+          bool ativado}) =>
+      Equipamento(
+        id: id ?? this.id,
+        nome: nome ?? this.nome,
+        uuid: uuid ?? this.uuid,
+        dataCadastro: dataCadastro ?? this.dataCadastro,
+        dataAlteracao: dataAlteracao ?? this.dataAlteracao,
+        ativado: ativado ?? this.ativado,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Equipamento(')
+          ..write('id: $id, ')
+          ..write('nome: $nome, ')
+          ..write('uuid: $uuid, ')
+          ..write('dataCadastro: $dataCadastro, ')
+          ..write('dataAlteracao: $dataAlteracao, ')
+          ..write('ativado: $ativado')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      id.hashCode,
+      $mrjc(
+          nome.hashCode,
+          $mrjc(
+              uuid.hashCode,
+              $mrjc(dataCadastro.hashCode,
+                  $mrjc(dataAlteracao.hashCode, ativado.hashCode))))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is Equipamento &&
+          other.id == this.id &&
+          other.nome == this.nome &&
+          other.uuid == this.uuid &&
+          other.dataCadastro == this.dataCadastro &&
+          other.dataAlteracao == this.dataAlteracao &&
+          other.ativado == this.ativado);
+}
+
+class EquipamentosCompanion extends UpdateCompanion<Equipamento> {
+  final Value<int> id;
+  final Value<String> nome;
+  final Value<String> uuid;
+  final Value<DateTime> dataCadastro;
+  final Value<DateTime> dataAlteracao;
+  final Value<bool> ativado;
+  const EquipamentosCompanion({
+    this.id = const Value.absent(),
+    this.nome = const Value.absent(),
+    this.uuid = const Value.absent(),
+    this.dataCadastro = const Value.absent(),
+    this.dataAlteracao = const Value.absent(),
+    this.ativado = const Value.absent(),
+  });
+  EquipamentosCompanion.insert({
+    this.id = const Value.absent(),
+    this.nome = const Value.absent(),
+    @required String uuid,
+    this.dataCadastro = const Value.absent(),
+    this.dataAlteracao = const Value.absent(),
+    @required bool ativado,
+  })  : uuid = Value(uuid),
+        ativado = Value(ativado);
+  static Insertable<Equipamento> custom({
+    Expression<int> id,
+    Expression<String> nome,
+    Expression<String> uuid,
+    Expression<DateTime> dataCadastro,
+    Expression<DateTime> dataAlteracao,
+    Expression<bool> ativado,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (nome != null) 'nome': nome,
+      if (uuid != null) 'uuid': uuid,
+      if (dataCadastro != null) 'data_cadastro': dataCadastro,
+      if (dataAlteracao != null) 'data_alteracao': dataAlteracao,
+      if (ativado != null) 'ativado': ativado,
+    });
+  }
+
+  EquipamentosCompanion copyWith(
+      {Value<int> id,
+      Value<String> nome,
+      Value<String> uuid,
+      Value<DateTime> dataCadastro,
+      Value<DateTime> dataAlteracao,
+      Value<bool> ativado}) {
+    return EquipamentosCompanion(
+      id: id ?? this.id,
+      nome: nome ?? this.nome,
+      uuid: uuid ?? this.uuid,
+      dataCadastro: dataCadastro ?? this.dataCadastro,
+      dataAlteracao: dataAlteracao ?? this.dataAlteracao,
+      ativado: ativado ?? this.ativado,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (nome.present) {
+      map['nome'] = Variable<String>(nome.value);
+    }
+    if (uuid.present) {
+      map['uuid'] = Variable<String>(uuid.value);
+    }
+    if (dataCadastro.present) {
+      map['data_cadastro'] = Variable<DateTime>(dataCadastro.value);
+    }
+    if (dataAlteracao.present) {
+      map['data_alteracao'] = Variable<DateTime>(dataAlteracao.value);
+    }
+    if (ativado.present) {
+      map['ativado'] = Variable<bool>(ativado.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('EquipamentosCompanion(')
+          ..write('id: $id, ')
+          ..write('nome: $nome, ')
+          ..write('uuid: $uuid, ')
+          ..write('dataCadastro: $dataCadastro, ')
+          ..write('dataAlteracao: $dataAlteracao, ')
+          ..write('ativado: $ativado')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $EquipamentosTable extends Equipamentos
+    with TableInfo<$EquipamentosTable, Equipamento> {
+  final GeneratedDatabase _db;
+  final String _alias;
+  $EquipamentosTable(this._db, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  GeneratedIntColumn _id;
+  @override
+  GeneratedIntColumn get id => _id ??= _constructId();
+  GeneratedIntColumn _constructId() {
+    return GeneratedIntColumn('id', $tableName, false,
+        hasAutoIncrement: true, declaredAsPrimaryKey: true);
+  }
+
+  final VerificationMeta _nomeMeta = const VerificationMeta('nome');
+  GeneratedTextColumn _nome;
+  @override
+  GeneratedTextColumn get nome => _nome ??= _constructNome();
+  GeneratedTextColumn _constructNome() {
+    return GeneratedTextColumn('nome', $tableName, true, maxTextLength: 200);
+  }
+
+  final VerificationMeta _uuidMeta = const VerificationMeta('uuid');
+  GeneratedTextColumn _uuid;
+  @override
+  GeneratedTextColumn get uuid => _uuid ??= _constructUuid();
+  GeneratedTextColumn _constructUuid() {
+    return GeneratedTextColumn(
+      'uuid',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _dataCadastroMeta =
+      const VerificationMeta('dataCadastro');
+  GeneratedDateTimeColumn _dataCadastro;
+  @override
+  GeneratedDateTimeColumn get dataCadastro =>
+      _dataCadastro ??= _constructDataCadastro();
+  GeneratedDateTimeColumn _constructDataCadastro() {
+    return GeneratedDateTimeColumn(
+      'data_cadastro',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _dataAlteracaoMeta =
+      const VerificationMeta('dataAlteracao');
+  GeneratedDateTimeColumn _dataAlteracao;
+  @override
+  GeneratedDateTimeColumn get dataAlteracao =>
+      _dataAlteracao ??= _constructDataAlteracao();
+  GeneratedDateTimeColumn _constructDataAlteracao() {
+    return GeneratedDateTimeColumn(
+      'data_alteracao',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _ativadoMeta = const VerificationMeta('ativado');
+  GeneratedBoolColumn _ativado;
+  @override
+  GeneratedBoolColumn get ativado => _ativado ??= _constructAtivado();
+  GeneratedBoolColumn _constructAtivado() {
+    return GeneratedBoolColumn(
+      'ativado',
+      $tableName,
+      false,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, nome, uuid, dataCadastro, dataAlteracao, ativado];
+  @override
+  $EquipamentosTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'equipamentos';
+  @override
+  final String actualTableName = 'equipamentos';
+  @override
+  VerificationContext validateIntegrity(Insertable<Equipamento> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
+    }
+    if (data.containsKey('nome')) {
+      context.handle(
+          _nomeMeta, nome.isAcceptableOrUnknown(data['nome'], _nomeMeta));
+    }
+    if (data.containsKey('uuid')) {
+      context.handle(
+          _uuidMeta, uuid.isAcceptableOrUnknown(data['uuid'], _uuidMeta));
+    } else if (isInserting) {
+      context.missing(_uuidMeta);
+    }
+    if (data.containsKey('data_cadastro')) {
+      context.handle(
+          _dataCadastroMeta,
+          dataCadastro.isAcceptableOrUnknown(
+              data['data_cadastro'], _dataCadastroMeta));
+    }
+    if (data.containsKey('data_alteracao')) {
+      context.handle(
+          _dataAlteracaoMeta,
+          dataAlteracao.isAcceptableOrUnknown(
+              data['data_alteracao'], _dataAlteracaoMeta));
+    }
+    if (data.containsKey('ativado')) {
+      context.handle(_ativadoMeta,
+          ativado.isAcceptableOrUnknown(data['ativado'], _ativadoMeta));
+    } else if (isInserting) {
+      context.missing(_ativadoMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Equipamento map(Map<String, dynamic> data, {String tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return Equipamento.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $EquipamentosTable createAlias(String alias) {
+    return $EquipamentosTable(_db, alias);
+  }
+}
+
 class PlayerDado extends DataClass implements Insertable<PlayerDado> {
   final int id;
   final double bateria;
@@ -4392,6 +4773,9 @@ abstract class _$Database extends GeneratedDatabase {
   $ConteudoCampoTable _conteudoCampo;
   $ConteudoCampoTable get conteudoCampo =>
       _conteudoCampo ??= $ConteudoCampoTable(this);
+  $EquipamentosTable _equipamentos;
+  $EquipamentosTable get equipamentos =>
+      _equipamentos ??= $EquipamentosTable(this);
   $PlayerDadosTable _playerDados;
   $PlayerDadosTable get playerDados => _playerDados ??= $PlayerDadosTable(this);
   $PlaylistTable _playlist;
@@ -4406,6 +4790,7 @@ abstract class _$Database extends GeneratedDatabase {
         conteudo,
         conteudoAgendamento,
         conteudoCampo,
+        equipamentos,
         playerDados,
         playlist,
         playlistConteudo
