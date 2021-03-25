@@ -9,6 +9,7 @@ import 'package:blink/app/database/entity/equipamentos_entity.dart';
 import 'package:blink/app/database/entity/player_dados.dart';
 import 'package:blink/app/database/entity/playlist_conteudo_entity.dart';
 import 'package:blink/app/database/entity/playlist_entity.dart';
+import 'package:blink/app/database/entity/noticia_entity.dart';
 import 'package:moor/moor.dart';
 import 'package:moor/ffi.dart';
 import 'package:path/path.dart' as p;
@@ -23,7 +24,8 @@ part 'database.g.dart';
   Equipamentos,
   PlayerDados,
   Playlist,
-  PlaylistConteudo
+  PlaylistConteudo,
+  Noticia
 ])
 class Database extends _$Database {
   PlayerDadosDAO playerDAO;
