@@ -7,7 +7,7 @@ part of 'database.dart';
 // **************************************************************************
 
 // ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
-class ConteudoData extends DataClass implements Insertable<ConteudoData> {
+class Conteudo extends DataClass implements Insertable<Conteudo> {
   final int id;
   final int idTipoConteudo;
   final int tipoArquivo;
@@ -25,7 +25,7 @@ class ConteudoData extends DataClass implements Insertable<ConteudoData> {
   final String previsao;
   final String campos;
   final int idArquivo;
-  ConteudoData(
+  Conteudo(
       {@required this.id,
       @required this.idTipoConteudo,
       @required this.tipoArquivo,
@@ -43,13 +43,13 @@ class ConteudoData extends DataClass implements Insertable<ConteudoData> {
       @required this.previsao,
       @required this.campos,
       @required this.idArquivo});
-  factory ConteudoData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+  factory Conteudo.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
     final intType = db.typeSystem.forDartType<int>();
     final stringType = db.typeSystem.forDartType<String>();
     final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    return ConteudoData(
+    return Conteudo(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       idTipoConteudo: intType
           .mapFromDatabaseResponse(data['${effectivePrefix}id_tipo_conteudo']),
@@ -140,8 +140,8 @@ class ConteudoData extends DataClass implements Insertable<ConteudoData> {
     return map;
   }
 
-  ConteudoCompanion toCompanion(bool nullToAbsent) {
-    return ConteudoCompanion(
+  ConteudosCompanion toCompanion(bool nullToAbsent) {
+    return ConteudosCompanion(
       id: id == null && nullToAbsent ? const Value.absent() : Value(id),
       idTipoConteudo: idTipoConteudo == null && nullToAbsent
           ? const Value.absent()
@@ -188,10 +188,10 @@ class ConteudoData extends DataClass implements Insertable<ConteudoData> {
     );
   }
 
-  factory ConteudoData.fromJson(Map<String, dynamic> json,
+  factory Conteudo.fromJson(Map<String, dynamic> json,
       {ValueSerializer serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
-    return ConteudoData(
+    return Conteudo(
       id: serializer.fromJson<int>(json['id']),
       idTipoConteudo: serializer.fromJson<int>(json['idTipoConteudo']),
       tipoArquivo: serializer.fromJson<int>(json['tipoArquivo']),
@@ -235,7 +235,7 @@ class ConteudoData extends DataClass implements Insertable<ConteudoData> {
     };
   }
 
-  ConteudoData copyWith(
+  Conteudo copyWith(
           {int id,
           int idTipoConteudo,
           int tipoArquivo,
@@ -253,7 +253,7 @@ class ConteudoData extends DataClass implements Insertable<ConteudoData> {
           String previsao,
           String campos,
           int idArquivo}) =>
-      ConteudoData(
+      Conteudo(
         id: id ?? this.id,
         idTipoConteudo: idTipoConteudo ?? this.idTipoConteudo,
         tipoArquivo: tipoArquivo ?? this.tipoArquivo,
@@ -274,7 +274,7 @@ class ConteudoData extends DataClass implements Insertable<ConteudoData> {
       );
   @override
   String toString() {
-    return (StringBuffer('ConteudoData(')
+    return (StringBuffer('Conteudo(')
           ..write('id: $id, ')
           ..write('idTipoConteudo: $idTipoConteudo, ')
           ..write('tipoArquivo: $tipoArquivo, ')
@@ -335,7 +335,7 @@ class ConteudoData extends DataClass implements Insertable<ConteudoData> {
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
-      (other is ConteudoData &&
+      (other is Conteudo &&
           other.id == this.id &&
           other.idTipoConteudo == this.idTipoConteudo &&
           other.tipoArquivo == this.tipoArquivo &&
@@ -355,7 +355,7 @@ class ConteudoData extends DataClass implements Insertable<ConteudoData> {
           other.idArquivo == this.idArquivo);
 }
 
-class ConteudoCompanion extends UpdateCompanion<ConteudoData> {
+class ConteudosCompanion extends UpdateCompanion<Conteudo> {
   final Value<int> id;
   final Value<int> idTipoConteudo;
   final Value<int> tipoArquivo;
@@ -373,7 +373,7 @@ class ConteudoCompanion extends UpdateCompanion<ConteudoData> {
   final Value<String> previsao;
   final Value<String> campos;
   final Value<int> idArquivo;
-  const ConteudoCompanion({
+  const ConteudosCompanion({
     this.id = const Value.absent(),
     this.idTipoConteudo = const Value.absent(),
     this.tipoArquivo = const Value.absent(),
@@ -392,7 +392,7 @@ class ConteudoCompanion extends UpdateCompanion<ConteudoData> {
     this.campos = const Value.absent(),
     this.idArquivo = const Value.absent(),
   });
-  ConteudoCompanion.insert({
+  ConteudosCompanion.insert({
     this.id = const Value.absent(),
     @required int idTipoConteudo,
     @required int tipoArquivo,
@@ -423,7 +423,7 @@ class ConteudoCompanion extends UpdateCompanion<ConteudoData> {
         previsao = Value(previsao),
         campos = Value(campos),
         idArquivo = Value(idArquivo);
-  static Insertable<ConteudoData> custom({
+  static Insertable<Conteudo> custom({
     Expression<int> id,
     Expression<int> idTipoConteudo,
     Expression<int> tipoArquivo,
@@ -463,7 +463,7 @@ class ConteudoCompanion extends UpdateCompanion<ConteudoData> {
     });
   }
 
-  ConteudoCompanion copyWith(
+  ConteudosCompanion copyWith(
       {Value<int> id,
       Value<int> idTipoConteudo,
       Value<int> tipoArquivo,
@@ -481,7 +481,7 @@ class ConteudoCompanion extends UpdateCompanion<ConteudoData> {
       Value<String> previsao,
       Value<String> campos,
       Value<int> idArquivo}) {
-    return ConteudoCompanion(
+    return ConteudosCompanion(
       id: id ?? this.id,
       idTipoConteudo: idTipoConteudo ?? this.idTipoConteudo,
       tipoArquivo: tipoArquivo ?? this.tipoArquivo,
@@ -561,7 +561,7 @@ class ConteudoCompanion extends UpdateCompanion<ConteudoData> {
 
   @override
   String toString() {
-    return (StringBuffer('ConteudoCompanion(')
+    return (StringBuffer('ConteudosCompanion(')
           ..write('id: $id, ')
           ..write('idTipoConteudo: $idTipoConteudo, ')
           ..write('tipoArquivo: $tipoArquivo, ')
@@ -584,11 +584,11 @@ class ConteudoCompanion extends UpdateCompanion<ConteudoData> {
   }
 }
 
-class $ConteudoTable extends Conteudo
-    with TableInfo<$ConteudoTable, ConteudoData> {
+class $ConteudosTable extends Conteudos
+    with TableInfo<$ConteudosTable, Conteudo> {
   final GeneratedDatabase _db;
   final String _alias;
-  $ConteudoTable(this._db, [this._alias]);
+  $ConteudosTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   GeneratedIntColumn _id;
   @override
@@ -792,13 +792,13 @@ class $ConteudoTable extends Conteudo
         idArquivo
       ];
   @override
-  $ConteudoTable get asDslTable => this;
+  $ConteudosTable get asDslTable => this;
   @override
   String get $tableName => _alias ?? 'conteudo';
   @override
   final String actualTableName = 'conteudo';
   @override
-  VerificationContext validateIntegrity(Insertable<ConteudoData> instance,
+  VerificationContext validateIntegrity(Insertable<Conteudo> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -912,19 +912,19 @@ class $ConteudoTable extends Conteudo
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  ConteudoData map(Map<String, dynamic> data, {String tablePrefix}) {
+  Conteudo map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return ConteudoData.fromData(data, _db, prefix: effectivePrefix);
+    return Conteudo.fromData(data, _db, prefix: effectivePrefix);
   }
 
   @override
-  $ConteudoTable createAlias(String alias) {
-    return $ConteudoTable(_db, alias);
+  $ConteudosTable createAlias(String alias) {
+    return $ConteudosTable(_db, alias);
   }
 }
 
-class ConteudoAgendamentoData extends DataClass
-    implements Insertable<ConteudoAgendamentoData> {
+class ConteudoAgendamento extends DataClass
+    implements Insertable<ConteudoAgendamento> {
   final int id;
   final DateTime dataInicio;
   final DateTime dataFim;
@@ -936,7 +936,7 @@ class ConteudoAgendamentoData extends DataClass
   final DateTime dataAlteracao;
   final int versao;
   final bool deletado;
-  ConteudoAgendamentoData(
+  ConteudoAgendamento(
       {@required this.id,
       this.dataInicio,
       this.dataFim,
@@ -948,7 +948,7 @@ class ConteudoAgendamentoData extends DataClass
       @required this.dataAlteracao,
       @required this.versao,
       @required this.deletado});
-  factory ConteudoAgendamentoData.fromData(
+  factory ConteudoAgendamento.fromData(
       Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -956,7 +956,7 @@ class ConteudoAgendamentoData extends DataClass
     final dateTimeType = db.typeSystem.forDartType<DateTime>();
     final stringType = db.typeSystem.forDartType<String>();
     final boolType = db.typeSystem.forDartType<bool>();
-    return ConteudoAgendamentoData(
+    return ConteudoAgendamento(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       dataInicio: dateTimeType
           .mapFromDatabaseResponse(data['${effectivePrefix}data_inicio']),
@@ -1018,8 +1018,8 @@ class ConteudoAgendamentoData extends DataClass
     return map;
   }
 
-  ConteudoAgendamentoCompanion toCompanion(bool nullToAbsent) {
-    return ConteudoAgendamentoCompanion(
+  ConteudoAgendamentosCompanion toCompanion(bool nullToAbsent) {
+    return ConteudoAgendamentosCompanion(
       id: id == null && nullToAbsent ? const Value.absent() : Value(id),
       dataInicio: dataInicio == null && nullToAbsent
           ? const Value.absent()
@@ -1053,10 +1053,10 @@ class ConteudoAgendamentoData extends DataClass
     );
   }
 
-  factory ConteudoAgendamentoData.fromJson(Map<String, dynamic> json,
+  factory ConteudoAgendamento.fromJson(Map<String, dynamic> json,
       {ValueSerializer serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
-    return ConteudoAgendamentoData(
+    return ConteudoAgendamento(
       id: serializer.fromJson<int>(json['id']),
       dataInicio: serializer.fromJson<DateTime>(json['dataInicio']),
       dataFim: serializer.fromJson<DateTime>(json['dataFim']),
@@ -1088,7 +1088,7 @@ class ConteudoAgendamentoData extends DataClass
     };
   }
 
-  ConteudoAgendamentoData copyWith(
+  ConteudoAgendamento copyWith(
           {int id,
           DateTime dataInicio,
           DateTime dataFim,
@@ -1100,7 +1100,7 @@ class ConteudoAgendamentoData extends DataClass
           DateTime dataAlteracao,
           int versao,
           bool deletado}) =>
-      ConteudoAgendamentoData(
+      ConteudoAgendamento(
         id: id ?? this.id,
         dataInicio: dataInicio ?? this.dataInicio,
         dataFim: dataFim ?? this.dataFim,
@@ -1115,7 +1115,7 @@ class ConteudoAgendamentoData extends DataClass
       );
   @override
   String toString() {
-    return (StringBuffer('ConteudoAgendamentoData(')
+    return (StringBuffer('ConteudoAgendamento(')
           ..write('id: $id, ')
           ..write('dataInicio: $dataInicio, ')
           ..write('dataFim: $dataFim, ')
@@ -1155,7 +1155,7 @@ class ConteudoAgendamentoData extends DataClass
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
-      (other is ConteudoAgendamentoData &&
+      (other is ConteudoAgendamento &&
           other.id == this.id &&
           other.dataInicio == this.dataInicio &&
           other.dataFim == this.dataFim &&
@@ -1169,8 +1169,8 @@ class ConteudoAgendamentoData extends DataClass
           other.deletado == this.deletado);
 }
 
-class ConteudoAgendamentoCompanion
-    extends UpdateCompanion<ConteudoAgendamentoData> {
+class ConteudoAgendamentosCompanion
+    extends UpdateCompanion<ConteudoAgendamento> {
   final Value<int> id;
   final Value<DateTime> dataInicio;
   final Value<DateTime> dataFim;
@@ -1182,7 +1182,7 @@ class ConteudoAgendamentoCompanion
   final Value<DateTime> dataAlteracao;
   final Value<int> versao;
   final Value<bool> deletado;
-  const ConteudoAgendamentoCompanion({
+  const ConteudoAgendamentosCompanion({
     this.id = const Value.absent(),
     this.dataInicio = const Value.absent(),
     this.dataFim = const Value.absent(),
@@ -1195,7 +1195,7 @@ class ConteudoAgendamentoCompanion
     this.versao = const Value.absent(),
     this.deletado = const Value.absent(),
   });
-  ConteudoAgendamentoCompanion.insert({
+  ConteudoAgendamentosCompanion.insert({
     this.id = const Value.absent(),
     this.dataInicio = const Value.absent(),
     this.dataFim = const Value.absent(),
@@ -1212,7 +1212,7 @@ class ConteudoAgendamentoCompanion
         dataAlteracao = Value(dataAlteracao),
         versao = Value(versao),
         deletado = Value(deletado);
-  static Insertable<ConteudoAgendamentoData> custom({
+  static Insertable<ConteudoAgendamento> custom({
     Expression<int> id,
     Expression<DateTime> dataInicio,
     Expression<DateTime> dataFim,
@@ -1240,7 +1240,7 @@ class ConteudoAgendamentoCompanion
     });
   }
 
-  ConteudoAgendamentoCompanion copyWith(
+  ConteudoAgendamentosCompanion copyWith(
       {Value<int> id,
       Value<DateTime> dataInicio,
       Value<DateTime> dataFim,
@@ -1252,7 +1252,7 @@ class ConteudoAgendamentoCompanion
       Value<DateTime> dataAlteracao,
       Value<int> versao,
       Value<bool> deletado}) {
-    return ConteudoAgendamentoCompanion(
+    return ConteudoAgendamentosCompanion(
       id: id ?? this.id,
       dataInicio: dataInicio ?? this.dataInicio,
       dataFim: dataFim ?? this.dataFim,
@@ -1308,7 +1308,7 @@ class ConteudoAgendamentoCompanion
 
   @override
   String toString() {
-    return (StringBuffer('ConteudoAgendamentoCompanion(')
+    return (StringBuffer('ConteudoAgendamentosCompanion(')
           ..write('id: $id, ')
           ..write('dataInicio: $dataInicio, ')
           ..write('dataFim: $dataFim, ')
@@ -1325,11 +1325,11 @@ class ConteudoAgendamentoCompanion
   }
 }
 
-class $ConteudoAgendamentoTable extends ConteudoAgendamento
-    with TableInfo<$ConteudoAgendamentoTable, ConteudoAgendamentoData> {
+class $ConteudoAgendamentosTable extends ConteudoAgendamentos
+    with TableInfo<$ConteudoAgendamentosTable, ConteudoAgendamento> {
   final GeneratedDatabase _db;
   final String _alias;
-  $ConteudoAgendamentoTable(this._db, [this._alias]);
+  $ConteudoAgendamentosTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   GeneratedIntColumn _id;
   @override
@@ -1462,14 +1462,14 @@ class $ConteudoAgendamentoTable extends ConteudoAgendamento
         deletado
       ];
   @override
-  $ConteudoAgendamentoTable get asDslTable => this;
+  $ConteudoAgendamentosTable get asDslTable => this;
   @override
   String get $tableName => _alias ?? 'conteudo_agendamento';
   @override
   final String actualTableName = 'conteudo_agendamento';
   @override
   VerificationContext validateIntegrity(
-      Insertable<ConteudoAgendamentoData> instance,
+      Insertable<ConteudoAgendamento> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -1542,19 +1542,18 @@ class $ConteudoAgendamentoTable extends ConteudoAgendamento
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  ConteudoAgendamentoData map(Map<String, dynamic> data, {String tablePrefix}) {
+  ConteudoAgendamento map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return ConteudoAgendamentoData.fromData(data, _db, prefix: effectivePrefix);
+    return ConteudoAgendamento.fromData(data, _db, prefix: effectivePrefix);
   }
 
   @override
-  $ConteudoAgendamentoTable createAlias(String alias) {
-    return $ConteudoAgendamentoTable(_db, alias);
+  $ConteudoAgendamentosTable createAlias(String alias) {
+    return $ConteudoAgendamentosTable(_db, alias);
   }
 }
 
-class ConteudoCampoData extends DataClass
-    implements Insertable<ConteudoCampoData> {
+class ConteudoCampo extends DataClass implements Insertable<ConteudoCampo> {
   final int id;
   final String nome;
   final int tipo;
@@ -1572,7 +1571,7 @@ class ConteudoCampoData extends DataClass
   final DateTime dataAlteracao;
   final int versao;
   final bool deletado;
-  ConteudoCampoData(
+  ConteudoCampo(
       {@required this.id,
       this.nome,
       this.tipo,
@@ -1590,7 +1589,7 @@ class ConteudoCampoData extends DataClass
       @required this.dataAlteracao,
       @required this.versao,
       @required this.deletado});
-  factory ConteudoCampoData.fromData(
+  factory ConteudoCampo.fromData(
       Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -1599,7 +1598,7 @@ class ConteudoCampoData extends DataClass
     final boolType = db.typeSystem.forDartType<bool>();
     final doubleType = db.typeSystem.forDartType<double>();
     final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    return ConteudoCampoData(
+    return ConteudoCampo(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       nome: stringType.mapFromDatabaseResponse(data['${effectivePrefix}nome']),
       tipo: intType.mapFromDatabaseResponse(data['${effectivePrefix}tipo']),
@@ -1686,8 +1685,8 @@ class ConteudoCampoData extends DataClass
     return map;
   }
 
-  ConteudoCampoCompanion toCompanion(bool nullToAbsent) {
-    return ConteudoCampoCompanion(
+  ConteudoCamposCompanion toCompanion(bool nullToAbsent) {
+    return ConteudoCamposCompanion(
       id: id == null && nullToAbsent ? const Value.absent() : Value(id),
       nome: nome == null && nullToAbsent ? const Value.absent() : Value(nome),
       tipo: tipo == null && nullToAbsent ? const Value.absent() : Value(tipo),
@@ -1728,10 +1727,10 @@ class ConteudoCampoData extends DataClass
     );
   }
 
-  factory ConteudoCampoData.fromJson(Map<String, dynamic> json,
+  factory ConteudoCampo.fromJson(Map<String, dynamic> json,
       {ValueSerializer serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
-    return ConteudoCampoData(
+    return ConteudoCampo(
       id: serializer.fromJson<int>(json['id']),
       nome: serializer.fromJson<String>(json['nome']),
       tipo: serializer.fromJson<int>(json['tipo']),
@@ -1775,7 +1774,7 @@ class ConteudoCampoData extends DataClass
     };
   }
 
-  ConteudoCampoData copyWith(
+  ConteudoCampo copyWith(
           {int id,
           String nome,
           int tipo,
@@ -1793,7 +1792,7 @@ class ConteudoCampoData extends DataClass
           DateTime dataAlteracao,
           int versao,
           bool deletado}) =>
-      ConteudoCampoData(
+      ConteudoCampo(
         id: id ?? this.id,
         nome: nome ?? this.nome,
         tipo: tipo ?? this.tipo,
@@ -1814,7 +1813,7 @@ class ConteudoCampoData extends DataClass
       );
   @override
   String toString() {
-    return (StringBuffer('ConteudoCampoData(')
+    return (StringBuffer('ConteudoCampo(')
           ..write('id: $id, ')
           ..write('nome: $nome, ')
           ..write('tipo: $tipo, ')
@@ -1876,7 +1875,7 @@ class ConteudoCampoData extends DataClass
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
-      (other is ConteudoCampoData &&
+      (other is ConteudoCampo &&
           other.id == this.id &&
           other.nome == this.nome &&
           other.tipo == this.tipo &&
@@ -1896,7 +1895,7 @@ class ConteudoCampoData extends DataClass
           other.deletado == this.deletado);
 }
 
-class ConteudoCampoCompanion extends UpdateCompanion<ConteudoCampoData> {
+class ConteudoCamposCompanion extends UpdateCompanion<ConteudoCampo> {
   final Value<int> id;
   final Value<String> nome;
   final Value<int> tipo;
@@ -1914,7 +1913,7 @@ class ConteudoCampoCompanion extends UpdateCompanion<ConteudoCampoData> {
   final Value<DateTime> dataAlteracao;
   final Value<int> versao;
   final Value<bool> deletado;
-  const ConteudoCampoCompanion({
+  const ConteudoCamposCompanion({
     this.id = const Value.absent(),
     this.nome = const Value.absent(),
     this.tipo = const Value.absent(),
@@ -1933,7 +1932,7 @@ class ConteudoCampoCompanion extends UpdateCompanion<ConteudoCampoData> {
     this.versao = const Value.absent(),
     this.deletado = const Value.absent(),
   });
-  ConteudoCampoCompanion.insert({
+  ConteudoCamposCompanion.insert({
     this.id = const Value.absent(),
     this.nome = const Value.absent(),
     this.tipo = const Value.absent(),
@@ -1964,7 +1963,7 @@ class ConteudoCampoCompanion extends UpdateCompanion<ConteudoCampoData> {
         dataAlteracao = Value(dataAlteracao),
         versao = Value(versao),
         deletado = Value(deletado);
-  static Insertable<ConteudoCampoData> custom({
+  static Insertable<ConteudoCampo> custom({
     Expression<int> id,
     Expression<String> nome,
     Expression<int> tipo,
@@ -2004,7 +2003,7 @@ class ConteudoCampoCompanion extends UpdateCompanion<ConteudoCampoData> {
     });
   }
 
-  ConteudoCampoCompanion copyWith(
+  ConteudoCamposCompanion copyWith(
       {Value<int> id,
       Value<String> nome,
       Value<int> tipo,
@@ -2022,7 +2021,7 @@ class ConteudoCampoCompanion extends UpdateCompanion<ConteudoCampoData> {
       Value<DateTime> dataAlteracao,
       Value<int> versao,
       Value<bool> deletado}) {
-    return ConteudoCampoCompanion(
+    return ConteudoCamposCompanion(
       id: id ?? this.id,
       nome: nome ?? this.nome,
       tipo: tipo ?? this.tipo,
@@ -2102,7 +2101,7 @@ class ConteudoCampoCompanion extends UpdateCompanion<ConteudoCampoData> {
 
   @override
   String toString() {
-    return (StringBuffer('ConteudoCampoCompanion(')
+    return (StringBuffer('ConteudoCamposCompanion(')
           ..write('id: $id, ')
           ..write('nome: $nome, ')
           ..write('tipo: $tipo, ')
@@ -2125,11 +2124,11 @@ class ConteudoCampoCompanion extends UpdateCompanion<ConteudoCampoData> {
   }
 }
 
-class $ConteudoCampoTable extends ConteudoCampo
-    with TableInfo<$ConteudoCampoTable, ConteudoCampoData> {
+class $ConteudoCamposTable extends ConteudoCampos
+    with TableInfo<$ConteudoCamposTable, ConteudoCampo> {
   final GeneratedDatabase _db;
   final String _alias;
-  $ConteudoCampoTable(this._db, [this._alias]);
+  $ConteudoCamposTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   GeneratedIntColumn _id;
   @override
@@ -2339,13 +2338,13 @@ class $ConteudoCampoTable extends ConteudoCampo
         deletado
       ];
   @override
-  $ConteudoCampoTable get asDslTable => this;
+  $ConteudoCamposTable get asDslTable => this;
   @override
   String get $tableName => _alias ?? 'conteudo_campo';
   @override
   final String actualTableName = 'conteudo_campo';
   @override
-  VerificationContext validateIntegrity(Insertable<ConteudoCampoData> instance,
+  VerificationContext validateIntegrity(Insertable<ConteudoCampo> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -2456,14 +2455,14 @@ class $ConteudoCampoTable extends ConteudoCampo
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  ConteudoCampoData map(Map<String, dynamic> data, {String tablePrefix}) {
+  ConteudoCampo map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return ConteudoCampoData.fromData(data, _db, prefix: effectivePrefix);
+    return ConteudoCampo.fromData(data, _db, prefix: effectivePrefix);
   }
 
   @override
-  $ConteudoCampoTable createAlias(String alias) {
-    return $ConteudoCampoTable(_db, alias);
+  $ConteudoCamposTable createAlias(String alias) {
+    return $ConteudoCamposTable(_db, alias);
   }
 }
 
@@ -3645,7 +3644,7 @@ class $PlayerDadosTable extends PlayerDados
   }
 }
 
-class PlaylistData extends DataClass implements Insertable<PlaylistData> {
+class Playlist extends DataClass implements Insertable<Playlist> {
   final int id;
   final String nome;
   final bool campanha;
@@ -3659,7 +3658,7 @@ class PlaylistData extends DataClass implements Insertable<PlaylistData> {
   final bool deletado;
   final int idUsuarioCadastro;
   final int idUsuarioAlteracao;
-  PlaylistData(
+  Playlist(
       {@required this.id,
       this.nome,
       @required this.campanha,
@@ -3673,14 +3672,14 @@ class PlaylistData extends DataClass implements Insertable<PlaylistData> {
       @required this.deletado,
       this.idUsuarioCadastro,
       this.idUsuarioAlteracao});
-  factory PlaylistData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+  factory Playlist.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
     final intType = db.typeSystem.forDartType<int>();
     final stringType = db.typeSystem.forDartType<String>();
     final boolType = db.typeSystem.forDartType<bool>();
     final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    return PlaylistData(
+    return Playlist(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       nome: stringType.mapFromDatabaseResponse(data['${effectivePrefix}nome']),
       campanha:
@@ -3751,8 +3750,8 @@ class PlaylistData extends DataClass implements Insertable<PlaylistData> {
     return map;
   }
 
-  PlaylistCompanion toCompanion(bool nullToAbsent) {
-    return PlaylistCompanion(
+  PlaylistsCompanion toCompanion(bool nullToAbsent) {
+    return PlaylistsCompanion(
       id: id == null && nullToAbsent ? const Value.absent() : Value(id),
       nome: nome == null && nullToAbsent ? const Value.absent() : Value(nome),
       campanha: campanha == null && nullToAbsent
@@ -3790,10 +3789,10 @@ class PlaylistData extends DataClass implements Insertable<PlaylistData> {
     );
   }
 
-  factory PlaylistData.fromJson(Map<String, dynamic> json,
+  factory Playlist.fromJson(Map<String, dynamic> json,
       {ValueSerializer serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
-    return PlaylistData(
+    return Playlist(
       id: serializer.fromJson<int>(json['id']),
       nome: serializer.fromJson<String>(json['nome']),
       campanha: serializer.fromJson<bool>(json['campanha']),
@@ -3829,7 +3828,7 @@ class PlaylistData extends DataClass implements Insertable<PlaylistData> {
     };
   }
 
-  PlaylistData copyWith(
+  Playlist copyWith(
           {int id,
           String nome,
           bool campanha,
@@ -3843,7 +3842,7 @@ class PlaylistData extends DataClass implements Insertable<PlaylistData> {
           bool deletado,
           int idUsuarioCadastro,
           int idUsuarioAlteracao}) =>
-      PlaylistData(
+      Playlist(
         id: id ?? this.id,
         nome: nome ?? this.nome,
         campanha: campanha ?? this.campanha,
@@ -3860,7 +3859,7 @@ class PlaylistData extends DataClass implements Insertable<PlaylistData> {
       );
   @override
   String toString() {
-    return (StringBuffer('PlaylistData(')
+    return (StringBuffer('Playlist(')
           ..write('id: $id, ')
           ..write('nome: $nome, ')
           ..write('campanha: $campanha, ')
@@ -3908,7 +3907,7 @@ class PlaylistData extends DataClass implements Insertable<PlaylistData> {
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
-      (other is PlaylistData &&
+      (other is Playlist &&
           other.id == this.id &&
           other.nome == this.nome &&
           other.campanha == this.campanha &&
@@ -3924,7 +3923,7 @@ class PlaylistData extends DataClass implements Insertable<PlaylistData> {
           other.idUsuarioAlteracao == this.idUsuarioAlteracao);
 }
 
-class PlaylistCompanion extends UpdateCompanion<PlaylistData> {
+class PlaylistsCompanion extends UpdateCompanion<Playlist> {
   final Value<int> id;
   final Value<String> nome;
   final Value<bool> campanha;
@@ -3938,7 +3937,7 @@ class PlaylistCompanion extends UpdateCompanion<PlaylistData> {
   final Value<bool> deletado;
   final Value<int> idUsuarioCadastro;
   final Value<int> idUsuarioAlteracao;
-  const PlaylistCompanion({
+  const PlaylistsCompanion({
     this.id = const Value.absent(),
     this.nome = const Value.absent(),
     this.campanha = const Value.absent(),
@@ -3953,7 +3952,7 @@ class PlaylistCompanion extends UpdateCompanion<PlaylistData> {
     this.idUsuarioCadastro = const Value.absent(),
     this.idUsuarioAlteracao = const Value.absent(),
   });
-  PlaylistCompanion.insert({
+  PlaylistsCompanion.insert({
     this.id = const Value.absent(),
     this.nome = const Value.absent(),
     @required bool campanha,
@@ -3972,7 +3971,7 @@ class PlaylistCompanion extends UpdateCompanion<PlaylistData> {
         dataAlteracao = Value(dataAlteracao),
         versao = Value(versao),
         deletado = Value(deletado);
-  static Insertable<PlaylistData> custom({
+  static Insertable<Playlist> custom({
     Expression<int> id,
     Expression<String> nome,
     Expression<bool> campanha,
@@ -4005,7 +4004,7 @@ class PlaylistCompanion extends UpdateCompanion<PlaylistData> {
     });
   }
 
-  PlaylistCompanion copyWith(
+  PlaylistsCompanion copyWith(
       {Value<int> id,
       Value<String> nome,
       Value<bool> campanha,
@@ -4019,7 +4018,7 @@ class PlaylistCompanion extends UpdateCompanion<PlaylistData> {
       Value<bool> deletado,
       Value<int> idUsuarioCadastro,
       Value<int> idUsuarioAlteracao}) {
-    return PlaylistCompanion(
+    return PlaylistsCompanion(
       id: id ?? this.id,
       nome: nome ?? this.nome,
       campanha: campanha ?? this.campanha,
@@ -4083,7 +4082,7 @@ class PlaylistCompanion extends UpdateCompanion<PlaylistData> {
 
   @override
   String toString() {
-    return (StringBuffer('PlaylistCompanion(')
+    return (StringBuffer('PlaylistsCompanion(')
           ..write('id: $id, ')
           ..write('nome: $nome, ')
           ..write('campanha: $campanha, ')
@@ -4102,11 +4101,11 @@ class PlaylistCompanion extends UpdateCompanion<PlaylistData> {
   }
 }
 
-class $PlaylistTable extends Playlist
-    with TableInfo<$PlaylistTable, PlaylistData> {
+class $PlaylistsTable extends Playlists
+    with TableInfo<$PlaylistsTable, Playlist> {
   final GeneratedDatabase _db;
   final String _alias;
-  $PlaylistTable(this._db, [this._alias]);
+  $PlaylistsTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   GeneratedIntColumn _id;
   @override
@@ -4287,13 +4286,13 @@ class $PlaylistTable extends Playlist
         idUsuarioAlteracao
       ];
   @override
-  $PlaylistTable get asDslTable => this;
+  $PlaylistsTable get asDslTable => this;
   @override
   String get $tableName => _alias ?? 'playlist';
   @override
   final String actualTableName = 'playlist';
   @override
-  VerificationContext validateIntegrity(Insertable<PlaylistData> instance,
+  VerificationContext validateIntegrity(Insertable<Playlist> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -4378,19 +4377,19 @@ class $PlaylistTable extends Playlist
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  PlaylistData map(Map<String, dynamic> data, {String tablePrefix}) {
+  Playlist map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return PlaylistData.fromData(data, _db, prefix: effectivePrefix);
+    return Playlist.fromData(data, _db, prefix: effectivePrefix);
   }
 
   @override
-  $PlaylistTable createAlias(String alias) {
-    return $PlaylistTable(_db, alias);
+  $PlaylistsTable createAlias(String alias) {
+    return $PlaylistsTable(_db, alias);
   }
 }
 
-class PlaylistConteudoData extends DataClass
-    implements Insertable<PlaylistConteudoData> {
+class PlaylistConteudo extends DataClass
+    implements Insertable<PlaylistConteudo> {
   final int id;
   final int idConteudo;
   final int idPlaylist;
@@ -4400,7 +4399,7 @@ class PlaylistConteudoData extends DataClass
   final DateTime dataAlteracao;
   final int versao;
   final bool deletado;
-  PlaylistConteudoData(
+  PlaylistConteudo(
       {@required this.id,
       @required this.idConteudo,
       @required this.idPlaylist,
@@ -4410,14 +4409,14 @@ class PlaylistConteudoData extends DataClass
       @required this.dataAlteracao,
       @required this.versao,
       @required this.deletado});
-  factory PlaylistConteudoData.fromData(
+  factory PlaylistConteudo.fromData(
       Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
     final intType = db.typeSystem.forDartType<int>();
     final dateTimeType = db.typeSystem.forDartType<DateTime>();
     final boolType = db.typeSystem.forDartType<bool>();
-    return PlaylistConteudoData(
+    return PlaylistConteudo(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       idConteudo: intType
           .mapFromDatabaseResponse(data['${effectivePrefix}id_conteudo']),
@@ -4469,8 +4468,8 @@ class PlaylistConteudoData extends DataClass
     return map;
   }
 
-  PlaylistConteudoCompanion toCompanion(bool nullToAbsent) {
-    return PlaylistConteudoCompanion(
+  PlaylistConteudosCompanion toCompanion(bool nullToAbsent) {
+    return PlaylistConteudosCompanion(
       id: id == null && nullToAbsent ? const Value.absent() : Value(id),
       idConteudo: idConteudo == null && nullToAbsent
           ? const Value.absent()
@@ -4498,10 +4497,10 @@ class PlaylistConteudoData extends DataClass
     );
   }
 
-  factory PlaylistConteudoData.fromJson(Map<String, dynamic> json,
+  factory PlaylistConteudo.fromJson(Map<String, dynamic> json,
       {ValueSerializer serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
-    return PlaylistConteudoData(
+    return PlaylistConteudo(
       id: serializer.fromJson<int>(json['id']),
       idConteudo: serializer.fromJson<int>(json['idConteudo']),
       idPlaylist: serializer.fromJson<int>(json['idPlaylist']),
@@ -4529,7 +4528,7 @@ class PlaylistConteudoData extends DataClass
     };
   }
 
-  PlaylistConteudoData copyWith(
+  PlaylistConteudo copyWith(
           {int id,
           int idConteudo,
           int idPlaylist,
@@ -4539,7 +4538,7 @@ class PlaylistConteudoData extends DataClass
           DateTime dataAlteracao,
           int versao,
           bool deletado}) =>
-      PlaylistConteudoData(
+      PlaylistConteudo(
         id: id ?? this.id,
         idConteudo: idConteudo ?? this.idConteudo,
         idPlaylist: idPlaylist ?? this.idPlaylist,
@@ -4552,7 +4551,7 @@ class PlaylistConteudoData extends DataClass
       );
   @override
   String toString() {
-    return (StringBuffer('PlaylistConteudoData(')
+    return (StringBuffer('PlaylistConteudo(')
           ..write('id: $id, ')
           ..write('idConteudo: $idConteudo, ')
           ..write('idPlaylist: $idPlaylist, ')
@@ -4584,7 +4583,7 @@ class PlaylistConteudoData extends DataClass
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
-      (other is PlaylistConteudoData &&
+      (other is PlaylistConteudo &&
           other.id == this.id &&
           other.idConteudo == this.idConteudo &&
           other.idPlaylist == this.idPlaylist &&
@@ -4596,7 +4595,7 @@ class PlaylistConteudoData extends DataClass
           other.deletado == this.deletado);
 }
 
-class PlaylistConteudoCompanion extends UpdateCompanion<PlaylistConteudoData> {
+class PlaylistConteudosCompanion extends UpdateCompanion<PlaylistConteudo> {
   final Value<int> id;
   final Value<int> idConteudo;
   final Value<int> idPlaylist;
@@ -4606,7 +4605,7 @@ class PlaylistConteudoCompanion extends UpdateCompanion<PlaylistConteudoData> {
   final Value<DateTime> dataAlteracao;
   final Value<int> versao;
   final Value<bool> deletado;
-  const PlaylistConteudoCompanion({
+  const PlaylistConteudosCompanion({
     this.id = const Value.absent(),
     this.idConteudo = const Value.absent(),
     this.idPlaylist = const Value.absent(),
@@ -4617,7 +4616,7 @@ class PlaylistConteudoCompanion extends UpdateCompanion<PlaylistConteudoData> {
     this.versao = const Value.absent(),
     this.deletado = const Value.absent(),
   });
-  PlaylistConteudoCompanion.insert({
+  PlaylistConteudosCompanion.insert({
     this.id = const Value.absent(),
     @required int idConteudo,
     @required int idPlaylist,
@@ -4634,7 +4633,7 @@ class PlaylistConteudoCompanion extends UpdateCompanion<PlaylistConteudoData> {
         dataAlteracao = Value(dataAlteracao),
         versao = Value(versao),
         deletado = Value(deletado);
-  static Insertable<PlaylistConteudoData> custom({
+  static Insertable<PlaylistConteudo> custom({
     Expression<int> id,
     Expression<int> idConteudo,
     Expression<int> idPlaylist,
@@ -4658,7 +4657,7 @@ class PlaylistConteudoCompanion extends UpdateCompanion<PlaylistConteudoData> {
     });
   }
 
-  PlaylistConteudoCompanion copyWith(
+  PlaylistConteudosCompanion copyWith(
       {Value<int> id,
       Value<int> idConteudo,
       Value<int> idPlaylist,
@@ -4668,7 +4667,7 @@ class PlaylistConteudoCompanion extends UpdateCompanion<PlaylistConteudoData> {
       Value<DateTime> dataAlteracao,
       Value<int> versao,
       Value<bool> deletado}) {
-    return PlaylistConteudoCompanion(
+    return PlaylistConteudosCompanion(
       id: id ?? this.id,
       idConteudo: idConteudo ?? this.idConteudo,
       idPlaylist: idPlaylist ?? this.idPlaylist,
@@ -4716,7 +4715,7 @@ class PlaylistConteudoCompanion extends UpdateCompanion<PlaylistConteudoData> {
 
   @override
   String toString() {
-    return (StringBuffer('PlaylistConteudoCompanion(')
+    return (StringBuffer('PlaylistConteudosCompanion(')
           ..write('id: $id, ')
           ..write('idConteudo: $idConteudo, ')
           ..write('idPlaylist: $idPlaylist, ')
@@ -4731,11 +4730,11 @@ class PlaylistConteudoCompanion extends UpdateCompanion<PlaylistConteudoData> {
   }
 }
 
-class $PlaylistConteudoTable extends PlaylistConteudo
-    with TableInfo<$PlaylistConteudoTable, PlaylistConteudoData> {
+class $PlaylistConteudosTable extends PlaylistConteudos
+    with TableInfo<$PlaylistConteudosTable, PlaylistConteudo> {
   final GeneratedDatabase _db;
   final String _alias;
-  $PlaylistConteudoTable(this._db, [this._alias]);
+  $PlaylistConteudosTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   GeneratedIntColumn _id;
   @override
@@ -4854,14 +4853,13 @@ class $PlaylistConteudoTable extends PlaylistConteudo
         deletado
       ];
   @override
-  $PlaylistConteudoTable get asDslTable => this;
+  $PlaylistConteudosTable get asDslTable => this;
   @override
   String get $tableName => _alias ?? 'playlist_conteudo';
   @override
   final String actualTableName = 'playlist_conteudo';
   @override
-  VerificationContext validateIntegrity(
-      Insertable<PlaylistConteudoData> instance,
+  VerificationContext validateIntegrity(Insertable<PlaylistConteudo> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -4930,18 +4928,18 @@ class $PlaylistConteudoTable extends PlaylistConteudo
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  PlaylistConteudoData map(Map<String, dynamic> data, {String tablePrefix}) {
+  PlaylistConteudo map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return PlaylistConteudoData.fromData(data, _db, prefix: effectivePrefix);
+    return PlaylistConteudo.fromData(data, _db, prefix: effectivePrefix);
   }
 
   @override
-  $PlaylistConteudoTable createAlias(String alias) {
-    return $PlaylistConteudoTable(_db, alias);
+  $PlaylistConteudosTable createAlias(String alias) {
+    return $PlaylistConteudosTable(_db, alias);
   }
 }
 
-class NoticiaData extends DataClass implements Insertable<NoticiaData> {
+class Noticia extends DataClass implements Insertable<Noticia> {
   final int id;
   final String titulo;
   final String link;
@@ -4950,7 +4948,7 @@ class NoticiaData extends DataClass implements Insertable<NoticiaData> {
   final int idNoticiaEditoria;
   final int idFonteNoticia;
   final int idConteudo;
-  NoticiaData(
+  Noticia(
       {@required this.id,
       @required this.titulo,
       @required this.link,
@@ -4959,13 +4957,13 @@ class NoticiaData extends DataClass implements Insertable<NoticiaData> {
       @required this.idNoticiaEditoria,
       @required this.idFonteNoticia,
       @required this.idConteudo});
-  factory NoticiaData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+  factory Noticia.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
     final intType = db.typeSystem.forDartType<int>();
     final stringType = db.typeSystem.forDartType<String>();
     final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    return NoticiaData(
+    return Noticia(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       titulo:
           stringType.mapFromDatabaseResponse(data['${effectivePrefix}titulo']),
@@ -5012,8 +5010,8 @@ class NoticiaData extends DataClass implements Insertable<NoticiaData> {
     return map;
   }
 
-  NoticiaCompanion toCompanion(bool nullToAbsent) {
-    return NoticiaCompanion(
+  NoticiasCompanion toCompanion(bool nullToAbsent) {
+    return NoticiasCompanion(
       id: id == null && nullToAbsent ? const Value.absent() : Value(id),
       titulo:
           titulo == null && nullToAbsent ? const Value.absent() : Value(titulo),
@@ -5036,10 +5034,10 @@ class NoticiaData extends DataClass implements Insertable<NoticiaData> {
     );
   }
 
-  factory NoticiaData.fromJson(Map<String, dynamic> json,
+  factory Noticia.fromJson(Map<String, dynamic> json,
       {ValueSerializer serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
-    return NoticiaData(
+    return Noticia(
       id: serializer.fromJson<int>(json['id']),
       titulo: serializer.fromJson<String>(json['titulo']),
       link: serializer.fromJson<String>(json['link']),
@@ -5065,7 +5063,7 @@ class NoticiaData extends DataClass implements Insertable<NoticiaData> {
     };
   }
 
-  NoticiaData copyWith(
+  Noticia copyWith(
           {int id,
           String titulo,
           String link,
@@ -5074,7 +5072,7 @@ class NoticiaData extends DataClass implements Insertable<NoticiaData> {
           int idNoticiaEditoria,
           int idFonteNoticia,
           int idConteudo}) =>
-      NoticiaData(
+      Noticia(
         id: id ?? this.id,
         titulo: titulo ?? this.titulo,
         link: link ?? this.link,
@@ -5086,7 +5084,7 @@ class NoticiaData extends DataClass implements Insertable<NoticiaData> {
       );
   @override
   String toString() {
-    return (StringBuffer('NoticiaData(')
+    return (StringBuffer('Noticia(')
           ..write('id: $id, ')
           ..write('titulo: $titulo, ')
           ..write('link: $link, ')
@@ -5117,7 +5115,7 @@ class NoticiaData extends DataClass implements Insertable<NoticiaData> {
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
-      (other is NoticiaData &&
+      (other is Noticia &&
           other.id == this.id &&
           other.titulo == this.titulo &&
           other.link == this.link &&
@@ -5128,7 +5126,7 @@ class NoticiaData extends DataClass implements Insertable<NoticiaData> {
           other.idConteudo == this.idConteudo);
 }
 
-class NoticiaCompanion extends UpdateCompanion<NoticiaData> {
+class NoticiasCompanion extends UpdateCompanion<Noticia> {
   final Value<int> id;
   final Value<String> titulo;
   final Value<String> link;
@@ -5137,7 +5135,7 @@ class NoticiaCompanion extends UpdateCompanion<NoticiaData> {
   final Value<int> idNoticiaEditoria;
   final Value<int> idFonteNoticia;
   final Value<int> idConteudo;
-  const NoticiaCompanion({
+  const NoticiasCompanion({
     this.id = const Value.absent(),
     this.titulo = const Value.absent(),
     this.link = const Value.absent(),
@@ -5147,7 +5145,7 @@ class NoticiaCompanion extends UpdateCompanion<NoticiaData> {
     this.idFonteNoticia = const Value.absent(),
     this.idConteudo = const Value.absent(),
   });
-  NoticiaCompanion.insert({
+  NoticiasCompanion.insert({
     this.id = const Value.absent(),
     @required String titulo,
     @required String link,
@@ -5163,7 +5161,7 @@ class NoticiaCompanion extends UpdateCompanion<NoticiaData> {
         idNoticiaEditoria = Value(idNoticiaEditoria),
         idFonteNoticia = Value(idFonteNoticia),
         idConteudo = Value(idConteudo);
-  static Insertable<NoticiaData> custom({
+  static Insertable<Noticia> custom({
     Expression<int> id,
     Expression<String> titulo,
     Expression<String> link,
@@ -5185,7 +5183,7 @@ class NoticiaCompanion extends UpdateCompanion<NoticiaData> {
     });
   }
 
-  NoticiaCompanion copyWith(
+  NoticiasCompanion copyWith(
       {Value<int> id,
       Value<String> titulo,
       Value<String> link,
@@ -5194,7 +5192,7 @@ class NoticiaCompanion extends UpdateCompanion<NoticiaData> {
       Value<int> idNoticiaEditoria,
       Value<int> idFonteNoticia,
       Value<int> idConteudo}) {
-    return NoticiaCompanion(
+    return NoticiasCompanion(
       id: id ?? this.id,
       titulo: titulo ?? this.titulo,
       link: link ?? this.link,
@@ -5238,7 +5236,7 @@ class NoticiaCompanion extends UpdateCompanion<NoticiaData> {
 
   @override
   String toString() {
-    return (StringBuffer('NoticiaCompanion(')
+    return (StringBuffer('NoticiasCompanion(')
           ..write('id: $id, ')
           ..write('titulo: $titulo, ')
           ..write('link: $link, ')
@@ -5252,10 +5250,10 @@ class NoticiaCompanion extends UpdateCompanion<NoticiaData> {
   }
 }
 
-class $NoticiaTable extends Noticia with TableInfo<$NoticiaTable, NoticiaData> {
+class $NoticiasTable extends Noticias with TableInfo<$NoticiasTable, Noticia> {
   final GeneratedDatabase _db;
   final String _alias;
-  $NoticiaTable(this._db, [this._alias]);
+  $NoticiasTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   GeneratedIntColumn _id;
   @override
@@ -5367,13 +5365,13 @@ class $NoticiaTable extends Noticia with TableInfo<$NoticiaTable, NoticiaData> {
         idConteudo
       ];
   @override
-  $NoticiaTable get asDslTable => this;
+  $NoticiasTable get asDslTable => this;
   @override
   String get $tableName => _alias ?? 'conteudo';
   @override
   final String actualTableName = 'conteudo';
   @override
-  VerificationContext validateIntegrity(Insertable<NoticiaData> instance,
+  VerificationContext validateIntegrity(Insertable<Noticia> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -5436,50 +5434,50 @@ class $NoticiaTable extends Noticia with TableInfo<$NoticiaTable, NoticiaData> {
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  NoticiaData map(Map<String, dynamic> data, {String tablePrefix}) {
+  Noticia map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return NoticiaData.fromData(data, _db, prefix: effectivePrefix);
+    return Noticia.fromData(data, _db, prefix: effectivePrefix);
   }
 
   @override
-  $NoticiaTable createAlias(String alias) {
-    return $NoticiaTable(_db, alias);
+  $NoticiasTable createAlias(String alias) {
+    return $NoticiasTable(_db, alias);
   }
 }
 
 abstract class _$Database extends GeneratedDatabase {
   _$Database(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
-  $ConteudoTable _conteudo;
-  $ConteudoTable get conteudo => _conteudo ??= $ConteudoTable(this);
-  $ConteudoAgendamentoTable _conteudoAgendamento;
-  $ConteudoAgendamentoTable get conteudoAgendamento =>
-      _conteudoAgendamento ??= $ConteudoAgendamentoTable(this);
-  $ConteudoCampoTable _conteudoCampo;
-  $ConteudoCampoTable get conteudoCampo =>
-      _conteudoCampo ??= $ConteudoCampoTable(this);
+  $ConteudosTable _conteudos;
+  $ConteudosTable get conteudos => _conteudos ??= $ConteudosTable(this);
+  $ConteudoAgendamentosTable _conteudoAgendamentos;
+  $ConteudoAgendamentosTable get conteudoAgendamentos =>
+      _conteudoAgendamentos ??= $ConteudoAgendamentosTable(this);
+  $ConteudoCamposTable _conteudoCampos;
+  $ConteudoCamposTable get conteudoCampos =>
+      _conteudoCampos ??= $ConteudoCamposTable(this);
   $EquipamentosTable _equipamentos;
   $EquipamentosTable get equipamentos =>
       _equipamentos ??= $EquipamentosTable(this);
   $PlayerDadosTable _playerDados;
   $PlayerDadosTable get playerDados => _playerDados ??= $PlayerDadosTable(this);
-  $PlaylistTable _playlist;
-  $PlaylistTable get playlist => _playlist ??= $PlaylistTable(this);
-  $PlaylistConteudoTable _playlistConteudo;
-  $PlaylistConteudoTable get playlistConteudo =>
-      _playlistConteudo ??= $PlaylistConteudoTable(this);
-  $NoticiaTable _noticia;
-  $NoticiaTable get noticia => _noticia ??= $NoticiaTable(this);
+  $PlaylistsTable _playlists;
+  $PlaylistsTable get playlists => _playlists ??= $PlaylistsTable(this);
+  $PlaylistConteudosTable _playlistConteudos;
+  $PlaylistConteudosTable get playlistConteudos =>
+      _playlistConteudos ??= $PlaylistConteudosTable(this);
+  $NoticiasTable _noticias;
+  $NoticiasTable get noticias => _noticias ??= $NoticiasTable(this);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
-        conteudo,
-        conteudoAgendamento,
-        conteudoCampo,
+        conteudos,
+        conteudoAgendamentos,
+        conteudoCampos,
         equipamentos,
         playerDados,
-        playlist,
-        playlistConteudo,
-        noticia
+        playlists,
+        playlistConteudos,
+        noticias
       ];
 }

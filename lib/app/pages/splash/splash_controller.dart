@@ -30,7 +30,7 @@ abstract class _SplashControllerBase with Store {
 
   Battery _battery = Battery();
 
-  Future<ConteudoData> postConteudos() async {
+  Future<Conteudo> postConteudos() async {
     try {
       //String deviceId;
       //String linuxId;
@@ -66,6 +66,10 @@ abstract class _SplashControllerBase with Store {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  Future<bool> downloadConteudos() async {
+    await this.conteudoService.downloadConteudo();
   }
 
   Future isInternetMobile() async {

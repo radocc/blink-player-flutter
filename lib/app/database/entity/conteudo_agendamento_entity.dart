@@ -1,6 +1,6 @@
 import 'package:moor/moor.dart';
 
-class ConteudoAgendamento extends Table {
+class ConteudoAgendamentos extends Table {
   String get tableName => 'conteudo_agendamento';
 
   IntColumn get id => integer().autoIncrement()();

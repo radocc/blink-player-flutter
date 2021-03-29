@@ -7,10 +7,10 @@ class ConteudoService {
 
   ConteudoService({@required this.conteudoRepo});
 
-  Future<ConteudoData> downloadConteudo() async {
+  Future<Conteudo> downloadConteudo() async {
     var conteudo = await this.conteudoRepo.downloadConteudo();
     if (conteudo != null) {
-      Database.instance.conteudoDAO.addValueEquipments(conteudo);
+      // Database.instance.conteudoDAO.addValueEquipments(conteudo);
     }
     return conteudo;
   }

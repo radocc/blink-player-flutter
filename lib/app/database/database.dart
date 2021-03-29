@@ -19,14 +19,14 @@ import 'package:path_provider/path_provider.dart';
 part 'database.g.dart';
 
 @UseMoor(tables: [
-  Conteudo,
-  ConteudoAgendamento,
-  ConteudoCampo,
+  Conteudos,
+  ConteudoAgendamentos,
+  ConteudoCampos,
   Equipamentos,
   PlayerDados,
-  Playlist,
-  PlaylistConteudo,
-  Noticia
+  Playlists,
+  PlaylistConteudos,
+  Noticias
 ])
 class Database extends _$Database {
   PlayerDadosDAO playerDAO;
