@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:battery/battery.dart';
 import 'package:blink/app/database/database.dart';
+import 'package:blink/app/services/conteudo_service.dart';
 import 'package:blink/app/services/login_service.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:cpu_reader/cpu_reader.dart';
@@ -20,8 +21,9 @@ class SplashController = _SplashControllerBase with _$SplashController;
 
 abstract class _SplashControllerBase with Store {
   LoginService service;
+  ConteudoService conteudoService;
 
-  _SplashControllerBase({this.service}) {
+  _SplashControllerBase({this.service, this.conteudoService}) {
     //postServer();
   }
 
@@ -34,6 +36,7 @@ abstract class _SplashControllerBase with Store {
       if (Platform.isAndroid) {
         //deviceId = await PlatformDeviceId.getDeviceId;
         var reponse = await service.logar('123123', '123123');
+        downloadConteudos();
         print(reponse);
         return reponse;
       } else if (Platform.isLinux) {
@@ -44,6 +47,10 @@ abstract class _SplashControllerBase with Store {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  Future<bool> downloadConteudos() async {
+    await this.conteudoService.downloadConteudo();
   }
 
   Future isInternetMobile() async {

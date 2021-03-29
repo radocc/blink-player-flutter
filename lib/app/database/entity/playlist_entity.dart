@@ -1,5 +1,5 @@
 import 'package:moor/moor.dart';
-class Playlist extends Table {
+class Playlists extends Table {
   String get tableName => 'playlist';
 
   IntColumn get id => integer().autoIncrement()();

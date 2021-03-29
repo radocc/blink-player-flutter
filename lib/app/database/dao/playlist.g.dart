@@ -6,6 +6,4 @@ part of 'playlist.dart';
 // DaoGenerator
 // **************************************************************************
 
-mixin _$PlaylistDAOMixin on DatabaseAccessor<Database> {
-  $PlaylistTable get playlist => attachedDatabase.playlist;
-}
+mixin _$PlaylistDAOMixin on DatabaseAccessor<Database> {}
