@@ -4,11 +4,11 @@ import 'package:moor/moor.dart';
 
 part 'conteudo_dao.g.dart';
 
-@UseDao(tables: [Conteudo])
+@UseDao(tables: [Conteudos])
 class ConteudoDAO extends DatabaseAccessor<Database> with _$ConteudoDAOMixin {
   ConteudoDAO(Database db) : super(db);
 
-  Future addValueEquipments(ConteudoData entity) {
-    return into(conteudo).insertOnConflictUpdate(entity);
+  Future addValueEquipments(Conteudo entity) {
+    return into(conteudos).insertOnConflictUpdate(entity);
   }
 }

@@ -8,9 +8,6 @@ class ConteudoRepository extends AbstractRepository {
 
   ConteudoRepository({@required this.dio});
 
-//  Esperar anderson colocar a rota na outra maquina...Ajustada na dele já
-//  Ai crio a classe corretamente...
-
   Future<Conteudo> downloadConteudo() async {
     var resp = await dio.post(getUrl('filtrar/equipamento'));
     return Conteudo.fromJson(resp.data);

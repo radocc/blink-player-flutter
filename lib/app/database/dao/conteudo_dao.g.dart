@@ -6,4 +6,6 @@ part of 'conteudo_dao.dart';
 // DaoGenerator
 // **************************************************************************
 
-mixin _$ConteudoDAOMixin on DatabaseAccessor<Database> {}
+mixin _$ConteudoDAOMixin on DatabaseAccessor<Database> {
+  $ConteudosTable get conteudos => attachedDatabase.conteudos;
+}

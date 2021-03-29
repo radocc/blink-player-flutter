@@ -143,7 +143,7 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
                             ],
                           ),
                         )
-                      : FutureBuilder<ConteudoData>(
+                      : FutureBuilder<Conteudo>(
                           future: controller.postConteudos(),
                           builder: (ctx, snap) {
                             return Text('Ok');
