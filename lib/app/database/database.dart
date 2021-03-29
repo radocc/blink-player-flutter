@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:blink/app/database/dao/conteudo_dao.dart';
 import 'package:blink/app/database/dao/equipamento_dao.dart';
 import 'package:blink/app/database/dao/player_dados_dao.dart';
 import 'package:blink/app/database/entity/conteudo_agendamento_entity.dart';
@@ -30,6 +31,7 @@ part 'database.g.dart';
 class Database extends _$Database {
   PlayerDadosDAO playerDAO;
   EquipamentoDAO equipsDAO;
+  ConteudoDAO conteudoDAO;
 
   // static Database instance = Database._internal();
   // Database._internal()
@@ -46,10 +48,11 @@ class Database extends _$Database {
         })) {
     playerDAO = PlayerDadosDAO(this);
     equipsDAO = EquipamentoDAO(this);
+    conteudoDAO = ConteudoDAO(this);
   }
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration {

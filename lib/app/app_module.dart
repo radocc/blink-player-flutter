@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:blink/app/pages/splash/splash_page.dart';
 import 'package:blink/app/repositories/conteudo_repository.dart';
 import 'package:blink/app/repositories/login_repository.dart';
 import 'package:blink/app/services/conteudo_service.dart';
 import 'package:blink/app/services/login_service.dart';
+import 'package:blink/app/shared/CusotmInterceptor.dart';
 import 'package:blink/app/shared/interceptions.dart';
 import 'package:dio/dio.dart';
 
@@ -28,12 +31,18 @@ class AppModule extends MainModule {
         $SlideVideoController,
         $CarouselController,
         $AppController,
-        Bind((i) => SplashController(service: i.get<LoginService>())),
+        // Login
+        Bind((i) => SplashController(
+            service: i.get<LoginService>(),
+            contService: i.get<ConteudoService>())),
         Bind((i) => LoginRepository(
             dio: i.get<Dio>()..interceptors.add(CustomIntercetors()))),
         Bind((i) => Dio(BaseOptions(baseUrl: URL_LOGIN))),
         Bind((i) => LoginService(loginRep: i.get<LoginRepository>())),
-        //adicionado, porém falta fazer os mesmo passos acima para o conteudo
+        // Equipamentos
+        Bind((i) => ConteudoRepository(
+            dio: i.get<Dio>()..interceptors.add(CustomIntercetors2()))),
+        Bind((i) => Dio(BaseOptions(baseUrl: URL_CONTEUDO))),
         Bind((i) => ConteudoService(conteudoRepo: i.get<ConteudoRepository>())),
       ];
 

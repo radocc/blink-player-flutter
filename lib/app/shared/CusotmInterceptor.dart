@@ -1,10 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CustomIntercetors extends InterceptorsWrapper {
-  int _maxCharactersPerLine = 200;
-
+class CustomIntercetors2 extends InterceptorsWrapper {
   @override
   Future onRequest(RequestOptions options) async {
     var prefs = await SharedPreferences.getInstance();
@@ -17,16 +14,6 @@ class CustomIntercetors extends InterceptorsWrapper {
 
   @override
   Future onResponse(Response response) {
-    (response.data as Map<String, Object>).forEach((key, value) {
-      if (key.toUpperCase().contains('DATA') && value != null) {
-        try {
-          var data = DateFormat('yy-MM-ddThh:mm:ss.SS-Z').parse(value);
-          response.data[key] = data.millisecondsSinceEpoch;
-        } catch (e) {
-          print(e);
-        }
-      }
-    });
     return super.onResponse(response);
   }
 

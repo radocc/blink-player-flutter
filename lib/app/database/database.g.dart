@@ -9,32 +9,40 @@ part of 'database.dart';
 // ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
 class ConteudoData extends DataClass implements Insertable<ConteudoData> {
   final int id;
-  final String titulo;
   final int idTipoConteudo;
+  final int tipoArquivo;
+  final String nomeArquivo;
   final int idTemplate;
-  final String arquivoFormato;
+  final String titulo;
   final int tempoExibicao;
+  final int status;
+  final DateTime horaInicio;
+  final DateTime horaFim;
+  final String filtros;
   final int idCidade;
-  final String url;
-  final String filtroAssuntos;
-  final int timerRequest;
-  final DateTime dataCadastro;
-  final DateTime dataAlteracao;
-  final int versao;
+  final String cidade;
+  final String uf;
+  final String previsao;
+  final String campos;
+  final int idArquivo;
   ConteudoData(
       {@required this.id,
-      this.titulo,
       @required this.idTipoConteudo,
-      this.idTemplate,
-      @required this.arquivoFormato,
+      @required this.tipoArquivo,
+      @required this.nomeArquivo,
+      @required this.idTemplate,
+      this.titulo,
       this.tempoExibicao,
+      this.status,
+      @required this.horaInicio,
+      @required this.horaFim,
+      @required this.filtros,
       @required this.idCidade,
-      @required this.url,
-      @required this.filtroAssuntos,
-      @required this.timerRequest,
-      @required this.dataCadastro,
-      @required this.dataAlteracao,
-      @required this.versao});
+      @required this.cidade,
+      @required this.uf,
+      @required this.previsao,
+      @required this.campos,
+      @required this.idArquivo});
   factory ConteudoData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -43,28 +51,36 @@ class ConteudoData extends DataClass implements Insertable<ConteudoData> {
     final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return ConteudoData(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
-      titulo:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}titulo']),
       idTipoConteudo: intType
           .mapFromDatabaseResponse(data['${effectivePrefix}id_tipo_conteudo']),
+      tipoArquivo: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_arquivo']),
+      nomeArquivo: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}nome_arquivo']),
       idTemplate: intType
           .mapFromDatabaseResponse(data['${effectivePrefix}id_template']),
-      arquivoFormato: stringType
-          .mapFromDatabaseResponse(data['${effectivePrefix}arquivo_formato']),
+      titulo:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}titulo']),
       tempoExibicao: intType
           .mapFromDatabaseResponse(data['${effectivePrefix}tempo_exibicao']),
+      status: intType.mapFromDatabaseResponse(data['${effectivePrefix}status']),
+      horaInicio: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}hora_inicio']),
+      horaFim: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}hora_fim']),
+      filtros:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}filtros']),
       idCidade:
           intType.mapFromDatabaseResponse(data['${effectivePrefix}id_cidade']),
-      url: stringType.mapFromDatabaseResponse(data['${effectivePrefix}url']),
-      filtroAssuntos: stringType
-          .mapFromDatabaseResponse(data['${effectivePrefix}filtro_assuntos']),
-      timerRequest: intType
-          .mapFromDatabaseResponse(data['${effectivePrefix}timer_request']),
-      dataCadastro: dateTimeType
-          .mapFromDatabaseResponse(data['${effectivePrefix}data_cadastro']),
-      dataAlteracao: dateTimeType
-          .mapFromDatabaseResponse(data['${effectivePrefix}data_alteracao']),
-      versao: intType.mapFromDatabaseResponse(data['${effectivePrefix}versao']),
+      cidade:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}cidade']),
+      uf: stringType.mapFromDatabaseResponse(data['${effectivePrefix}uf']),
+      previsao: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}previsao']),
+      campos:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}campos']),
+      idArquivo:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_arquivo']),
     );
   }
   @override
@@ -73,41 +89,53 @@ class ConteudoData extends DataClass implements Insertable<ConteudoData> {
     if (!nullToAbsent || id != null) {
       map['id'] = Variable<int>(id);
     }
-    if (!nullToAbsent || titulo != null) {
-      map['titulo'] = Variable<String>(titulo);
-    }
     if (!nullToAbsent || idTipoConteudo != null) {
       map['id_tipo_conteudo'] = Variable<int>(idTipoConteudo);
+    }
+    if (!nullToAbsent || tipoArquivo != null) {
+      map['tipo_arquivo'] = Variable<int>(tipoArquivo);
+    }
+    if (!nullToAbsent || nomeArquivo != null) {
+      map['nome_arquivo'] = Variable<String>(nomeArquivo);
     }
     if (!nullToAbsent || idTemplate != null) {
       map['id_template'] = Variable<int>(idTemplate);
     }
-    if (!nullToAbsent || arquivoFormato != null) {
-      map['arquivo_formato'] = Variable<String>(arquivoFormato);
+    if (!nullToAbsent || titulo != null) {
+      map['titulo'] = Variable<String>(titulo);
     }
     if (!nullToAbsent || tempoExibicao != null) {
       map['tempo_exibicao'] = Variable<int>(tempoExibicao);
     }
+    if (!nullToAbsent || status != null) {
+      map['status'] = Variable<int>(status);
+    }
+    if (!nullToAbsent || horaInicio != null) {
+      map['hora_inicio'] = Variable<DateTime>(horaInicio);
+    }
+    if (!nullToAbsent || horaFim != null) {
+      map['hora_fim'] = Variable<DateTime>(horaFim);
+    }
+    if (!nullToAbsent || filtros != null) {
+      map['filtros'] = Variable<String>(filtros);
+    }
     if (!nullToAbsent || idCidade != null) {
       map['id_cidade'] = Variable<int>(idCidade);
     }
-    if (!nullToAbsent || url != null) {
-      map['url'] = Variable<String>(url);
+    if (!nullToAbsent || cidade != null) {
+      map['cidade'] = Variable<String>(cidade);
     }
-    if (!nullToAbsent || filtroAssuntos != null) {
-      map['filtro_assuntos'] = Variable<String>(filtroAssuntos);
+    if (!nullToAbsent || uf != null) {
+      map['uf'] = Variable<String>(uf);
     }
-    if (!nullToAbsent || timerRequest != null) {
-      map['timer_request'] = Variable<int>(timerRequest);
+    if (!nullToAbsent || previsao != null) {
+      map['previsao'] = Variable<String>(previsao);
     }
-    if (!nullToAbsent || dataCadastro != null) {
-      map['data_cadastro'] = Variable<DateTime>(dataCadastro);
+    if (!nullToAbsent || campos != null) {
+      map['campos'] = Variable<String>(campos);
     }
-    if (!nullToAbsent || dataAlteracao != null) {
-      map['data_alteracao'] = Variable<DateTime>(dataAlteracao);
-    }
-    if (!nullToAbsent || versao != null) {
-      map['versao'] = Variable<int>(versao);
+    if (!nullToAbsent || idArquivo != null) {
+      map['id_arquivo'] = Variable<int>(idArquivo);
     }
     return map;
   }
@@ -115,38 +143,48 @@ class ConteudoData extends DataClass implements Insertable<ConteudoData> {
   ConteudoCompanion toCompanion(bool nullToAbsent) {
     return ConteudoCompanion(
       id: id == null && nullToAbsent ? const Value.absent() : Value(id),
-      titulo:
-          titulo == null && nullToAbsent ? const Value.absent() : Value(titulo),
       idTipoConteudo: idTipoConteudo == null && nullToAbsent
           ? const Value.absent()
           : Value(idTipoConteudo),
+      tipoArquivo: tipoArquivo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(tipoArquivo),
+      nomeArquivo: nomeArquivo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(nomeArquivo),
       idTemplate: idTemplate == null && nullToAbsent
           ? const Value.absent()
           : Value(idTemplate),
-      arquivoFormato: arquivoFormato == null && nullToAbsent
-          ? const Value.absent()
-          : Value(arquivoFormato),
+      titulo:
+          titulo == null && nullToAbsent ? const Value.absent() : Value(titulo),
       tempoExibicao: tempoExibicao == null && nullToAbsent
           ? const Value.absent()
           : Value(tempoExibicao),
+      status:
+          status == null && nullToAbsent ? const Value.absent() : Value(status),
+      horaInicio: horaInicio == null && nullToAbsent
+          ? const Value.absent()
+          : Value(horaInicio),
+      horaFim: horaFim == null && nullToAbsent
+          ? const Value.absent()
+          : Value(horaFim),
+      filtros: filtros == null && nullToAbsent
+          ? const Value.absent()
+          : Value(filtros),
       idCidade: idCidade == null && nullToAbsent
           ? const Value.absent()
           : Value(idCidade),
-      url: url == null && nullToAbsent ? const Value.absent() : Value(url),
-      filtroAssuntos: filtroAssuntos == null && nullToAbsent
+      cidade:
+          cidade == null && nullToAbsent ? const Value.absent() : Value(cidade),
+      uf: uf == null && nullToAbsent ? const Value.absent() : Value(uf),
+      previsao: previsao == null && nullToAbsent
           ? const Value.absent()
-          : Value(filtroAssuntos),
-      timerRequest: timerRequest == null && nullToAbsent
+          : Value(previsao),
+      campos:
+          campos == null && nullToAbsent ? const Value.absent() : Value(campos),
+      idArquivo: idArquivo == null && nullToAbsent
           ? const Value.absent()
-          : Value(timerRequest),
-      dataCadastro: dataCadastro == null && nullToAbsent
-          ? const Value.absent()
-          : Value(dataCadastro),
-      dataAlteracao: dataAlteracao == null && nullToAbsent
-          ? const Value.absent()
-          : Value(dataAlteracao),
-      versao:
-          versao == null && nullToAbsent ? const Value.absent() : Value(versao),
+          : Value(idArquivo),
     );
   }
 
@@ -155,18 +193,22 @@ class ConteudoData extends DataClass implements Insertable<ConteudoData> {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return ConteudoData(
       id: serializer.fromJson<int>(json['id']),
-      titulo: serializer.fromJson<String>(json['titulo']),
       idTipoConteudo: serializer.fromJson<int>(json['idTipoConteudo']),
+      tipoArquivo: serializer.fromJson<int>(json['tipoArquivo']),
+      nomeArquivo: serializer.fromJson<String>(json['nomeArquivo']),
       idTemplate: serializer.fromJson<int>(json['idTemplate']),
-      arquivoFormato: serializer.fromJson<String>(json['arquivoFormato']),
+      titulo: serializer.fromJson<String>(json['titulo']),
       tempoExibicao: serializer.fromJson<int>(json['tempoExibicao']),
+      status: serializer.fromJson<int>(json['status']),
+      horaInicio: serializer.fromJson<DateTime>(json['horaInicio']),
+      horaFim: serializer.fromJson<DateTime>(json['horaFim']),
+      filtros: serializer.fromJson<String>(json['filtros']),
       idCidade: serializer.fromJson<int>(json['idCidade']),
-      url: serializer.fromJson<String>(json['url']),
-      filtroAssuntos: serializer.fromJson<String>(json['filtroAssuntos']),
-      timerRequest: serializer.fromJson<int>(json['timerRequest']),
-      dataCadastro: serializer.fromJson<DateTime>(json['dataCadastro']),
-      dataAlteracao: serializer.fromJson<DateTime>(json['dataAlteracao']),
-      versao: serializer.fromJson<int>(json['versao']),
+      cidade: serializer.fromJson<String>(json['cidade']),
+      uf: serializer.fromJson<String>(json['uf']),
+      previsao: serializer.fromJson<String>(json['previsao']),
+      campos: serializer.fromJson<String>(json['campos']),
+      idArquivo: serializer.fromJson<int>(json['idArquivo']),
     );
   }
   @override
@@ -174,66 +216,82 @@ class ConteudoData extends DataClass implements Insertable<ConteudoData> {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'titulo': serializer.toJson<String>(titulo),
       'idTipoConteudo': serializer.toJson<int>(idTipoConteudo),
+      'tipoArquivo': serializer.toJson<int>(tipoArquivo),
+      'nomeArquivo': serializer.toJson<String>(nomeArquivo),
       'idTemplate': serializer.toJson<int>(idTemplate),
-      'arquivoFormato': serializer.toJson<String>(arquivoFormato),
+      'titulo': serializer.toJson<String>(titulo),
       'tempoExibicao': serializer.toJson<int>(tempoExibicao),
+      'status': serializer.toJson<int>(status),
+      'horaInicio': serializer.toJson<DateTime>(horaInicio),
+      'horaFim': serializer.toJson<DateTime>(horaFim),
+      'filtros': serializer.toJson<String>(filtros),
       'idCidade': serializer.toJson<int>(idCidade),
-      'url': serializer.toJson<String>(url),
-      'filtroAssuntos': serializer.toJson<String>(filtroAssuntos),
-      'timerRequest': serializer.toJson<int>(timerRequest),
-      'dataCadastro': serializer.toJson<DateTime>(dataCadastro),
-      'dataAlteracao': serializer.toJson<DateTime>(dataAlteracao),
-      'versao': serializer.toJson<int>(versao),
+      'cidade': serializer.toJson<String>(cidade),
+      'uf': serializer.toJson<String>(uf),
+      'previsao': serializer.toJson<String>(previsao),
+      'campos': serializer.toJson<String>(campos),
+      'idArquivo': serializer.toJson<int>(idArquivo),
     };
   }
 
   ConteudoData copyWith(
           {int id,
-          String titulo,
           int idTipoConteudo,
+          int tipoArquivo,
+          String nomeArquivo,
           int idTemplate,
-          String arquivoFormato,
+          String titulo,
           int tempoExibicao,
+          int status,
+          DateTime horaInicio,
+          DateTime horaFim,
+          String filtros,
           int idCidade,
-          String url,
-          String filtroAssuntos,
-          int timerRequest,
-          DateTime dataCadastro,
-          DateTime dataAlteracao,
-          int versao}) =>
+          String cidade,
+          String uf,
+          String previsao,
+          String campos,
+          int idArquivo}) =>
       ConteudoData(
         id: id ?? this.id,
-        titulo: titulo ?? this.titulo,
         idTipoConteudo: idTipoConteudo ?? this.idTipoConteudo,
+        tipoArquivo: tipoArquivo ?? this.tipoArquivo,
+        nomeArquivo: nomeArquivo ?? this.nomeArquivo,
         idTemplate: idTemplate ?? this.idTemplate,
-        arquivoFormato: arquivoFormato ?? this.arquivoFormato,
+        titulo: titulo ?? this.titulo,
         tempoExibicao: tempoExibicao ?? this.tempoExibicao,
+        status: status ?? this.status,
+        horaInicio: horaInicio ?? this.horaInicio,
+        horaFim: horaFim ?? this.horaFim,
+        filtros: filtros ?? this.filtros,
         idCidade: idCidade ?? this.idCidade,
-        url: url ?? this.url,
-        filtroAssuntos: filtroAssuntos ?? this.filtroAssuntos,
-        timerRequest: timerRequest ?? this.timerRequest,
-        dataCadastro: dataCadastro ?? this.dataCadastro,
-        dataAlteracao: dataAlteracao ?? this.dataAlteracao,
-        versao: versao ?? this.versao,
+        cidade: cidade ?? this.cidade,
+        uf: uf ?? this.uf,
+        previsao: previsao ?? this.previsao,
+        campos: campos ?? this.campos,
+        idArquivo: idArquivo ?? this.idArquivo,
       );
   @override
   String toString() {
     return (StringBuffer('ConteudoData(')
           ..write('id: $id, ')
-          ..write('titulo: $titulo, ')
           ..write('idTipoConteudo: $idTipoConteudo, ')
+          ..write('tipoArquivo: $tipoArquivo, ')
+          ..write('nomeArquivo: $nomeArquivo, ')
           ..write('idTemplate: $idTemplate, ')
-          ..write('arquivoFormato: $arquivoFormato, ')
+          ..write('titulo: $titulo, ')
           ..write('tempoExibicao: $tempoExibicao, ')
+          ..write('status: $status, ')
+          ..write('horaInicio: $horaInicio, ')
+          ..write('horaFim: $horaFim, ')
+          ..write('filtros: $filtros, ')
           ..write('idCidade: $idCidade, ')
-          ..write('url: $url, ')
-          ..write('filtroAssuntos: $filtroAssuntos, ')
-          ..write('timerRequest: $timerRequest, ')
-          ..write('dataCadastro: $dataCadastro, ')
-          ..write('dataAlteracao: $dataAlteracao, ')
-          ..write('versao: $versao')
+          ..write('cidade: $cidade, ')
+          ..write('uf: $uf, ')
+          ..write('previsao: $previsao, ')
+          ..write('campos: $campos, ')
+          ..write('idArquivo: $idArquivo')
           ..write(')'))
         .toString();
   }
@@ -242,158 +300,205 @@ class ConteudoData extends DataClass implements Insertable<ConteudoData> {
   int get hashCode => $mrjf($mrjc(
       id.hashCode,
       $mrjc(
-          titulo.hashCode,
+          idTipoConteudo.hashCode,
           $mrjc(
-              idTipoConteudo.hashCode,
+              tipoArquivo.hashCode,
               $mrjc(
-                  idTemplate.hashCode,
+                  nomeArquivo.hashCode,
                   $mrjc(
-                      arquivoFormato.hashCode,
+                      idTemplate.hashCode,
                       $mrjc(
-                          tempoExibicao.hashCode,
+                          titulo.hashCode,
                           $mrjc(
-                              idCidade.hashCode,
+                              tempoExibicao.hashCode,
                               $mrjc(
-                                  url.hashCode,
+                                  status.hashCode,
                                   $mrjc(
-                                      filtroAssuntos.hashCode,
+                                      horaInicio.hashCode,
                                       $mrjc(
-                                          timerRequest.hashCode,
+                                          horaFim.hashCode,
                                           $mrjc(
-                                              dataCadastro.hashCode,
-                                              $mrjc(dataAlteracao.hashCode,
-                                                  versao.hashCode)))))))))))));
+                                              filtros.hashCode,
+                                              $mrjc(
+                                                  idCidade.hashCode,
+                                                  $mrjc(
+                                                      cidade.hashCode,
+                                                      $mrjc(
+                                                          uf.hashCode,
+                                                          $mrjc(
+                                                              previsao.hashCode,
+                                                              $mrjc(
+                                                                  campos
+                                                                      .hashCode,
+                                                                  idArquivo
+                                                                      .hashCode)))))))))))))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
       (other is ConteudoData &&
           other.id == this.id &&
-          other.titulo == this.titulo &&
           other.idTipoConteudo == this.idTipoConteudo &&
+          other.tipoArquivo == this.tipoArquivo &&
+          other.nomeArquivo == this.nomeArquivo &&
           other.idTemplate == this.idTemplate &&
-          other.arquivoFormato == this.arquivoFormato &&
+          other.titulo == this.titulo &&
           other.tempoExibicao == this.tempoExibicao &&
+          other.status == this.status &&
+          other.horaInicio == this.horaInicio &&
+          other.horaFim == this.horaFim &&
+          other.filtros == this.filtros &&
           other.idCidade == this.idCidade &&
-          other.url == this.url &&
-          other.filtroAssuntos == this.filtroAssuntos &&
-          other.timerRequest == this.timerRequest &&
-          other.dataCadastro == this.dataCadastro &&
-          other.dataAlteracao == this.dataAlteracao &&
-          other.versao == this.versao);
+          other.cidade == this.cidade &&
+          other.uf == this.uf &&
+          other.previsao == this.previsao &&
+          other.campos == this.campos &&
+          other.idArquivo == this.idArquivo);
 }
 
 class ConteudoCompanion extends UpdateCompanion<ConteudoData> {
   final Value<int> id;
-  final Value<String> titulo;
   final Value<int> idTipoConteudo;
+  final Value<int> tipoArquivo;
+  final Value<String> nomeArquivo;
   final Value<int> idTemplate;
-  final Value<String> arquivoFormato;
+  final Value<String> titulo;
   final Value<int> tempoExibicao;
+  final Value<int> status;
+  final Value<DateTime> horaInicio;
+  final Value<DateTime> horaFim;
+  final Value<String> filtros;
   final Value<int> idCidade;
-  final Value<String> url;
-  final Value<String> filtroAssuntos;
-  final Value<int> timerRequest;
-  final Value<DateTime> dataCadastro;
-  final Value<DateTime> dataAlteracao;
-  final Value<int> versao;
+  final Value<String> cidade;
+  final Value<String> uf;
+  final Value<String> previsao;
+  final Value<String> campos;
+  final Value<int> idArquivo;
   const ConteudoCompanion({
     this.id = const Value.absent(),
-    this.titulo = const Value.absent(),
     this.idTipoConteudo = const Value.absent(),
+    this.tipoArquivo = const Value.absent(),
+    this.nomeArquivo = const Value.absent(),
     this.idTemplate = const Value.absent(),
-    this.arquivoFormato = const Value.absent(),
+    this.titulo = const Value.absent(),
     this.tempoExibicao = const Value.absent(),
+    this.status = const Value.absent(),
+    this.horaInicio = const Value.absent(),
+    this.horaFim = const Value.absent(),
+    this.filtros = const Value.absent(),
     this.idCidade = const Value.absent(),
-    this.url = const Value.absent(),
-    this.filtroAssuntos = const Value.absent(),
-    this.timerRequest = const Value.absent(),
-    this.dataCadastro = const Value.absent(),
-    this.dataAlteracao = const Value.absent(),
-    this.versao = const Value.absent(),
+    this.cidade = const Value.absent(),
+    this.uf = const Value.absent(),
+    this.previsao = const Value.absent(),
+    this.campos = const Value.absent(),
+    this.idArquivo = const Value.absent(),
   });
   ConteudoCompanion.insert({
     this.id = const Value.absent(),
-    this.titulo = const Value.absent(),
     @required int idTipoConteudo,
-    this.idTemplate = const Value.absent(),
-    @required String arquivoFormato,
+    @required int tipoArquivo,
+    @required String nomeArquivo,
+    @required int idTemplate,
+    this.titulo = const Value.absent(),
     this.tempoExibicao = const Value.absent(),
+    this.status = const Value.absent(),
+    @required DateTime horaInicio,
+    @required DateTime horaFim,
+    @required String filtros,
     @required int idCidade,
-    @required String url,
-    @required String filtroAssuntos,
-    @required int timerRequest,
-    @required DateTime dataCadastro,
-    @required DateTime dataAlteracao,
-    @required int versao,
+    @required String cidade,
+    @required String uf,
+    @required String previsao,
+    @required String campos,
+    @required int idArquivo,
   })  : idTipoConteudo = Value(idTipoConteudo),
-        arquivoFormato = Value(arquivoFormato),
+        tipoArquivo = Value(tipoArquivo),
+        nomeArquivo = Value(nomeArquivo),
+        idTemplate = Value(idTemplate),
+        horaInicio = Value(horaInicio),
+        horaFim = Value(horaFim),
+        filtros = Value(filtros),
         idCidade = Value(idCidade),
-        url = Value(url),
-        filtroAssuntos = Value(filtroAssuntos),
-        timerRequest = Value(timerRequest),
-        dataCadastro = Value(dataCadastro),
-        dataAlteracao = Value(dataAlteracao),
-        versao = Value(versao);
+        cidade = Value(cidade),
+        uf = Value(uf),
+        previsao = Value(previsao),
+        campos = Value(campos),
+        idArquivo = Value(idArquivo);
   static Insertable<ConteudoData> custom({
     Expression<int> id,
-    Expression<String> titulo,
     Expression<int> idTipoConteudo,
+    Expression<int> tipoArquivo,
+    Expression<String> nomeArquivo,
     Expression<int> idTemplate,
-    Expression<String> arquivoFormato,
+    Expression<String> titulo,
     Expression<int> tempoExibicao,
+    Expression<int> status,
+    Expression<DateTime> horaInicio,
+    Expression<DateTime> horaFim,
+    Expression<String> filtros,
     Expression<int> idCidade,
-    Expression<String> url,
-    Expression<String> filtroAssuntos,
-    Expression<int> timerRequest,
-    Expression<DateTime> dataCadastro,
-    Expression<DateTime> dataAlteracao,
-    Expression<int> versao,
+    Expression<String> cidade,
+    Expression<String> uf,
+    Expression<String> previsao,
+    Expression<String> campos,
+    Expression<int> idArquivo,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (titulo != null) 'titulo': titulo,
       if (idTipoConteudo != null) 'id_tipo_conteudo': idTipoConteudo,
+      if (tipoArquivo != null) 'tipo_arquivo': tipoArquivo,
+      if (nomeArquivo != null) 'nome_arquivo': nomeArquivo,
       if (idTemplate != null) 'id_template': idTemplate,
-      if (arquivoFormato != null) 'arquivo_formato': arquivoFormato,
+      if (titulo != null) 'titulo': titulo,
       if (tempoExibicao != null) 'tempo_exibicao': tempoExibicao,
+      if (status != null) 'status': status,
+      if (horaInicio != null) 'hora_inicio': horaInicio,
+      if (horaFim != null) 'hora_fim': horaFim,
+      if (filtros != null) 'filtros': filtros,
       if (idCidade != null) 'id_cidade': idCidade,
-      if (url != null) 'url': url,
-      if (filtroAssuntos != null) 'filtro_assuntos': filtroAssuntos,
-      if (timerRequest != null) 'timer_request': timerRequest,
-      if (dataCadastro != null) 'data_cadastro': dataCadastro,
-      if (dataAlteracao != null) 'data_alteracao': dataAlteracao,
-      if (versao != null) 'versao': versao,
+      if (cidade != null) 'cidade': cidade,
+      if (uf != null) 'uf': uf,
+      if (previsao != null) 'previsao': previsao,
+      if (campos != null) 'campos': campos,
+      if (idArquivo != null) 'id_arquivo': idArquivo,
     });
   }
 
   ConteudoCompanion copyWith(
       {Value<int> id,
-      Value<String> titulo,
       Value<int> idTipoConteudo,
+      Value<int> tipoArquivo,
+      Value<String> nomeArquivo,
       Value<int> idTemplate,
-      Value<String> arquivoFormato,
+      Value<String> titulo,
       Value<int> tempoExibicao,
+      Value<int> status,
+      Value<DateTime> horaInicio,
+      Value<DateTime> horaFim,
+      Value<String> filtros,
       Value<int> idCidade,
-      Value<String> url,
-      Value<String> filtroAssuntos,
-      Value<int> timerRequest,
-      Value<DateTime> dataCadastro,
-      Value<DateTime> dataAlteracao,
-      Value<int> versao}) {
+      Value<String> cidade,
+      Value<String> uf,
+      Value<String> previsao,
+      Value<String> campos,
+      Value<int> idArquivo}) {
     return ConteudoCompanion(
       id: id ?? this.id,
-      titulo: titulo ?? this.titulo,
       idTipoConteudo: idTipoConteudo ?? this.idTipoConteudo,
+      tipoArquivo: tipoArquivo ?? this.tipoArquivo,
+      nomeArquivo: nomeArquivo ?? this.nomeArquivo,
       idTemplate: idTemplate ?? this.idTemplate,
-      arquivoFormato: arquivoFormato ?? this.arquivoFormato,
+      titulo: titulo ?? this.titulo,
       tempoExibicao: tempoExibicao ?? this.tempoExibicao,
+      status: status ?? this.status,
+      horaInicio: horaInicio ?? this.horaInicio,
+      horaFim: horaFim ?? this.horaFim,
+      filtros: filtros ?? this.filtros,
       idCidade: idCidade ?? this.idCidade,
-      url: url ?? this.url,
-      filtroAssuntos: filtroAssuntos ?? this.filtroAssuntos,
-      timerRequest: timerRequest ?? this.timerRequest,
-      dataCadastro: dataCadastro ?? this.dataCadastro,
-      dataAlteracao: dataAlteracao ?? this.dataAlteracao,
-      versao: versao ?? this.versao,
+      cidade: cidade ?? this.cidade,
+      uf: uf ?? this.uf,
+      previsao: previsao ?? this.previsao,
+      campos: campos ?? this.campos,
+      idArquivo: idArquivo ?? this.idArquivo,
     );
   }
 
@@ -403,41 +508,53 @@ class ConteudoCompanion extends UpdateCompanion<ConteudoData> {
     if (id.present) {
       map['id'] = Variable<int>(id.value);
     }
-    if (titulo.present) {
-      map['titulo'] = Variable<String>(titulo.value);
-    }
     if (idTipoConteudo.present) {
       map['id_tipo_conteudo'] = Variable<int>(idTipoConteudo.value);
+    }
+    if (tipoArquivo.present) {
+      map['tipo_arquivo'] = Variable<int>(tipoArquivo.value);
+    }
+    if (nomeArquivo.present) {
+      map['nome_arquivo'] = Variable<String>(nomeArquivo.value);
     }
     if (idTemplate.present) {
       map['id_template'] = Variable<int>(idTemplate.value);
     }
-    if (arquivoFormato.present) {
-      map['arquivo_formato'] = Variable<String>(arquivoFormato.value);
+    if (titulo.present) {
+      map['titulo'] = Variable<String>(titulo.value);
     }
     if (tempoExibicao.present) {
       map['tempo_exibicao'] = Variable<int>(tempoExibicao.value);
     }
+    if (status.present) {
+      map['status'] = Variable<int>(status.value);
+    }
+    if (horaInicio.present) {
+      map['hora_inicio'] = Variable<DateTime>(horaInicio.value);
+    }
+    if (horaFim.present) {
+      map['hora_fim'] = Variable<DateTime>(horaFim.value);
+    }
+    if (filtros.present) {
+      map['filtros'] = Variable<String>(filtros.value);
+    }
     if (idCidade.present) {
       map['id_cidade'] = Variable<int>(idCidade.value);
     }
-    if (url.present) {
-      map['url'] = Variable<String>(url.value);
+    if (cidade.present) {
+      map['cidade'] = Variable<String>(cidade.value);
     }
-    if (filtroAssuntos.present) {
-      map['filtro_assuntos'] = Variable<String>(filtroAssuntos.value);
+    if (uf.present) {
+      map['uf'] = Variable<String>(uf.value);
     }
-    if (timerRequest.present) {
-      map['timer_request'] = Variable<int>(timerRequest.value);
+    if (previsao.present) {
+      map['previsao'] = Variable<String>(previsao.value);
     }
-    if (dataCadastro.present) {
-      map['data_cadastro'] = Variable<DateTime>(dataCadastro.value);
+    if (campos.present) {
+      map['campos'] = Variable<String>(campos.value);
     }
-    if (dataAlteracao.present) {
-      map['data_alteracao'] = Variable<DateTime>(dataAlteracao.value);
-    }
-    if (versao.present) {
-      map['versao'] = Variable<int>(versao.value);
+    if (idArquivo.present) {
+      map['id_arquivo'] = Variable<int>(idArquivo.value);
     }
     return map;
   }
@@ -446,18 +563,22 @@ class ConteudoCompanion extends UpdateCompanion<ConteudoData> {
   String toString() {
     return (StringBuffer('ConteudoCompanion(')
           ..write('id: $id, ')
-          ..write('titulo: $titulo, ')
           ..write('idTipoConteudo: $idTipoConteudo, ')
+          ..write('tipoArquivo: $tipoArquivo, ')
+          ..write('nomeArquivo: $nomeArquivo, ')
           ..write('idTemplate: $idTemplate, ')
-          ..write('arquivoFormato: $arquivoFormato, ')
+          ..write('titulo: $titulo, ')
           ..write('tempoExibicao: $tempoExibicao, ')
+          ..write('status: $status, ')
+          ..write('horaInicio: $horaInicio, ')
+          ..write('horaFim: $horaFim, ')
+          ..write('filtros: $filtros, ')
           ..write('idCidade: $idCidade, ')
-          ..write('url: $url, ')
-          ..write('filtroAssuntos: $filtroAssuntos, ')
-          ..write('timerRequest: $timerRequest, ')
-          ..write('dataCadastro: $dataCadastro, ')
-          ..write('dataAlteracao: $dataAlteracao, ')
-          ..write('versao: $versao')
+          ..write('cidade: $cidade, ')
+          ..write('uf: $uf, ')
+          ..write('previsao: $previsao, ')
+          ..write('campos: $campos, ')
+          ..write('idArquivo: $idArquivo')
           ..write(')'))
         .toString();
   }
@@ -477,15 +598,6 @@ class $ConteudoTable extends Conteudo
         hasAutoIncrement: true, declaredAsPrimaryKey: true);
   }
 
-  final VerificationMeta _tituloMeta = const VerificationMeta('titulo');
-  GeneratedTextColumn _titulo;
-  @override
-  GeneratedTextColumn get titulo => _titulo ??= _constructTitulo();
-  GeneratedTextColumn _constructTitulo() {
-    return GeneratedTextColumn('titulo', $tableName, true,
-        maxTextLength: 200, defaultValue: const Constant(''));
-  }
-
   final VerificationMeta _idTipoConteudoMeta =
       const VerificationMeta('idTipoConteudo');
   GeneratedIntColumn _idTipoConteudo;
@@ -500,24 +612,53 @@ class $ConteudoTable extends Conteudo
     );
   }
 
+  final VerificationMeta _tipoArquivoMeta =
+      const VerificationMeta('tipoArquivo');
+  GeneratedIntColumn _tipoArquivo;
+  @override
+  GeneratedIntColumn get tipoArquivo =>
+      _tipoArquivo ??= _constructTipoArquivo();
+  GeneratedIntColumn _constructTipoArquivo() {
+    return GeneratedIntColumn(
+      'tipo_arquivo',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _nomeArquivoMeta =
+      const VerificationMeta('nomeArquivo');
+  GeneratedTextColumn _nomeArquivo;
+  @override
+  GeneratedTextColumn get nomeArquivo =>
+      _nomeArquivo ??= _constructNomeArquivo();
+  GeneratedTextColumn _constructNomeArquivo() {
+    return GeneratedTextColumn(
+      'nome_arquivo',
+      $tableName,
+      false,
+    );
+  }
+
   final VerificationMeta _idTemplateMeta = const VerificationMeta('idTemplate');
   GeneratedIntColumn _idTemplate;
   @override
   GeneratedIntColumn get idTemplate => _idTemplate ??= _constructIdTemplate();
   GeneratedIntColumn _constructIdTemplate() {
-    return GeneratedIntColumn('id_template', $tableName, true,
-        defaultValue: const Constant(0));
+    return GeneratedIntColumn(
+      'id_template',
+      $tableName,
+      false,
+    );
   }
 
-  final VerificationMeta _arquivoFormatoMeta =
-      const VerificationMeta('arquivoFormato');
-  GeneratedTextColumn _arquivoFormato;
+  final VerificationMeta _tituloMeta = const VerificationMeta('titulo');
+  GeneratedTextColumn _titulo;
   @override
-  GeneratedTextColumn get arquivoFormato =>
-      _arquivoFormato ??= _constructArquivoFormato();
-  GeneratedTextColumn _constructArquivoFormato() {
-    return GeneratedTextColumn('arquivo_formato', $tableName, false,
-        maxTextLength: 10);
+  GeneratedTextColumn get titulo => _titulo ??= _constructTitulo();
+  GeneratedTextColumn _constructTitulo() {
+    return GeneratedTextColumn('titulo', $tableName, true,
+        maxTextLength: 200, defaultValue: const Constant(''));
   }
 
   final VerificationMeta _tempoExibicaoMeta =
@@ -529,6 +670,48 @@ class $ConteudoTable extends Conteudo
   GeneratedIntColumn _constructTempoExibicao() {
     return GeneratedIntColumn('tempo_exibicao', $tableName, true,
         defaultValue: const Constant(0));
+  }
+
+  final VerificationMeta _statusMeta = const VerificationMeta('status');
+  GeneratedIntColumn _status;
+  @override
+  GeneratedIntColumn get status => _status ??= _constructStatus();
+  GeneratedIntColumn _constructStatus() {
+    return GeneratedIntColumn('status', $tableName, true,
+        defaultValue: const Constant(0));
+  }
+
+  final VerificationMeta _horaInicioMeta = const VerificationMeta('horaInicio');
+  GeneratedDateTimeColumn _horaInicio;
+  @override
+  GeneratedDateTimeColumn get horaInicio =>
+      _horaInicio ??= _constructHoraInicio();
+  GeneratedDateTimeColumn _constructHoraInicio() {
+    return GeneratedDateTimeColumn(
+      'hora_inicio',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _horaFimMeta = const VerificationMeta('horaFim');
+  GeneratedDateTimeColumn _horaFim;
+  @override
+  GeneratedDateTimeColumn get horaFim => _horaFim ??= _constructHoraFim();
+  GeneratedDateTimeColumn _constructHoraFim() {
+    return GeneratedDateTimeColumn(
+      'hora_fim',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _filtrosMeta = const VerificationMeta('filtros');
+  GeneratedTextColumn _filtros;
+  @override
+  GeneratedTextColumn get filtros => _filtros ??= _constructFiltros();
+  GeneratedTextColumn _constructFiltros() {
+    return GeneratedTextColumn('filtros', $tableName, false, maxTextLength: 10);
   }
 
   final VerificationMeta _idCidadeMeta = const VerificationMeta('idCidade');
@@ -543,74 +726,46 @@ class $ConteudoTable extends Conteudo
     );
   }
 
-  final VerificationMeta _urlMeta = const VerificationMeta('url');
-  GeneratedTextColumn _url;
+  final VerificationMeta _cidadeMeta = const VerificationMeta('cidade');
+  GeneratedTextColumn _cidade;
   @override
-  GeneratedTextColumn get url => _url ??= _constructUrl();
-  GeneratedTextColumn _constructUrl() {
-    return GeneratedTextColumn('url', $tableName, false, maxTextLength: 500);
+  GeneratedTextColumn get cidade => _cidade ??= _constructCidade();
+  GeneratedTextColumn _constructCidade() {
+    return GeneratedTextColumn('cidade', $tableName, false, maxTextLength: 500);
   }
 
-  final VerificationMeta _filtroAssuntosMeta =
-      const VerificationMeta('filtroAssuntos');
-  GeneratedTextColumn _filtroAssuntos;
+  final VerificationMeta _ufMeta = const VerificationMeta('uf');
+  GeneratedTextColumn _uf;
   @override
-  GeneratedTextColumn get filtroAssuntos =>
-      _filtroAssuntos ??= _constructFiltroAssuntos();
-  GeneratedTextColumn _constructFiltroAssuntos() {
-    return GeneratedTextColumn('filtro_assuntos', $tableName, false,
+  GeneratedTextColumn get uf => _uf ??= _constructUf();
+  GeneratedTextColumn _constructUf() {
+    return GeneratedTextColumn('uf', $tableName, false, maxTextLength: 500);
+  }
+
+  final VerificationMeta _previsaoMeta = const VerificationMeta('previsao');
+  GeneratedTextColumn _previsao;
+  @override
+  GeneratedTextColumn get previsao => _previsao ??= _constructPrevisao();
+  GeneratedTextColumn _constructPrevisao() {
+    return GeneratedTextColumn('previsao', $tableName, false,
         maxTextLength: 500);
   }
 
-  final VerificationMeta _timerRequestMeta =
-      const VerificationMeta('timerRequest');
-  GeneratedIntColumn _timerRequest;
+  final VerificationMeta _camposMeta = const VerificationMeta('campos');
+  GeneratedTextColumn _campos;
   @override
-  GeneratedIntColumn get timerRequest =>
-      _timerRequest ??= _constructTimerRequest();
-  GeneratedIntColumn _constructTimerRequest() {
+  GeneratedTextColumn get campos => _campos ??= _constructCampos();
+  GeneratedTextColumn _constructCampos() {
+    return GeneratedTextColumn('campos', $tableName, false, maxTextLength: 500);
+  }
+
+  final VerificationMeta _idArquivoMeta = const VerificationMeta('idArquivo');
+  GeneratedIntColumn _idArquivo;
+  @override
+  GeneratedIntColumn get idArquivo => _idArquivo ??= _constructIdArquivo();
+  GeneratedIntColumn _constructIdArquivo() {
     return GeneratedIntColumn(
-      'timer_request',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _dataCadastroMeta =
-      const VerificationMeta('dataCadastro');
-  GeneratedDateTimeColumn _dataCadastro;
-  @override
-  GeneratedDateTimeColumn get dataCadastro =>
-      _dataCadastro ??= _constructDataCadastro();
-  GeneratedDateTimeColumn _constructDataCadastro() {
-    return GeneratedDateTimeColumn(
-      'data_cadastro',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _dataAlteracaoMeta =
-      const VerificationMeta('dataAlteracao');
-  GeneratedDateTimeColumn _dataAlteracao;
-  @override
-  GeneratedDateTimeColumn get dataAlteracao =>
-      _dataAlteracao ??= _constructDataAlteracao();
-  GeneratedDateTimeColumn _constructDataAlteracao() {
-    return GeneratedDateTimeColumn(
-      'data_alteracao',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _versaoMeta = const VerificationMeta('versao');
-  GeneratedIntColumn _versao;
-  @override
-  GeneratedIntColumn get versao => _versao ??= _constructVersao();
-  GeneratedIntColumn _constructVersao() {
-    return GeneratedIntColumn(
-      'versao',
+      'id_arquivo',
       $tableName,
       false,
     );
@@ -619,18 +774,22 @@ class $ConteudoTable extends Conteudo
   @override
   List<GeneratedColumn> get $columns => [
         id,
-        titulo,
         idTipoConteudo,
+        tipoArquivo,
+        nomeArquivo,
         idTemplate,
-        arquivoFormato,
+        titulo,
         tempoExibicao,
+        status,
+        horaInicio,
+        horaFim,
+        filtros,
         idCidade,
-        url,
-        filtroAssuntos,
-        timerRequest,
-        dataCadastro,
-        dataAlteracao,
-        versao
+        cidade,
+        uf,
+        previsao,
+        campos,
+        idArquivo
       ];
   @override
   $ConteudoTable get asDslTable => this;
@@ -646,10 +805,6 @@ class $ConteudoTable extends Conteudo
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
     }
-    if (data.containsKey('titulo')) {
-      context.handle(_tituloMeta,
-          titulo.isAcceptableOrUnknown(data['titulo'], _tituloMeta));
-    }
     if (data.containsKey('id_tipo_conteudo')) {
       context.handle(
           _idTipoConteudoMeta,
@@ -658,19 +813,33 @@ class $ConteudoTable extends Conteudo
     } else if (isInserting) {
       context.missing(_idTipoConteudoMeta);
     }
+    if (data.containsKey('tipo_arquivo')) {
+      context.handle(
+          _tipoArquivoMeta,
+          tipoArquivo.isAcceptableOrUnknown(
+              data['tipo_arquivo'], _tipoArquivoMeta));
+    } else if (isInserting) {
+      context.missing(_tipoArquivoMeta);
+    }
+    if (data.containsKey('nome_arquivo')) {
+      context.handle(
+          _nomeArquivoMeta,
+          nomeArquivo.isAcceptableOrUnknown(
+              data['nome_arquivo'], _nomeArquivoMeta));
+    } else if (isInserting) {
+      context.missing(_nomeArquivoMeta);
+    }
     if (data.containsKey('id_template')) {
       context.handle(
           _idTemplateMeta,
           idTemplate.isAcceptableOrUnknown(
               data['id_template'], _idTemplateMeta));
-    }
-    if (data.containsKey('arquivo_formato')) {
-      context.handle(
-          _arquivoFormatoMeta,
-          arquivoFormato.isAcceptableOrUnknown(
-              data['arquivo_formato'], _arquivoFormatoMeta));
     } else if (isInserting) {
-      context.missing(_arquivoFormatoMeta);
+      context.missing(_idTemplateMeta);
+    }
+    if (data.containsKey('titulo')) {
+      context.handle(_tituloMeta,
+          titulo.isAcceptableOrUnknown(data['titulo'], _tituloMeta));
     }
     if (data.containsKey('tempo_exibicao')) {
       context.handle(
@@ -678,55 +847,64 @@ class $ConteudoTable extends Conteudo
           tempoExibicao.isAcceptableOrUnknown(
               data['tempo_exibicao'], _tempoExibicaoMeta));
     }
+    if (data.containsKey('status')) {
+      context.handle(_statusMeta,
+          status.isAcceptableOrUnknown(data['status'], _statusMeta));
+    }
+    if (data.containsKey('hora_inicio')) {
+      context.handle(
+          _horaInicioMeta,
+          horaInicio.isAcceptableOrUnknown(
+              data['hora_inicio'], _horaInicioMeta));
+    } else if (isInserting) {
+      context.missing(_horaInicioMeta);
+    }
+    if (data.containsKey('hora_fim')) {
+      context.handle(_horaFimMeta,
+          horaFim.isAcceptableOrUnknown(data['hora_fim'], _horaFimMeta));
+    } else if (isInserting) {
+      context.missing(_horaFimMeta);
+    }
+    if (data.containsKey('filtros')) {
+      context.handle(_filtrosMeta,
+          filtros.isAcceptableOrUnknown(data['filtros'], _filtrosMeta));
+    } else if (isInserting) {
+      context.missing(_filtrosMeta);
+    }
     if (data.containsKey('id_cidade')) {
       context.handle(_idCidadeMeta,
           idCidade.isAcceptableOrUnknown(data['id_cidade'], _idCidadeMeta));
     } else if (isInserting) {
       context.missing(_idCidadeMeta);
     }
-    if (data.containsKey('url')) {
-      context.handle(
-          _urlMeta, url.isAcceptableOrUnknown(data['url'], _urlMeta));
+    if (data.containsKey('cidade')) {
+      context.handle(_cidadeMeta,
+          cidade.isAcceptableOrUnknown(data['cidade'], _cidadeMeta));
     } else if (isInserting) {
-      context.missing(_urlMeta);
+      context.missing(_cidadeMeta);
     }
-    if (data.containsKey('filtro_assuntos')) {
-      context.handle(
-          _filtroAssuntosMeta,
-          filtroAssuntos.isAcceptableOrUnknown(
-              data['filtro_assuntos'], _filtroAssuntosMeta));
+    if (data.containsKey('uf')) {
+      context.handle(_ufMeta, uf.isAcceptableOrUnknown(data['uf'], _ufMeta));
     } else if (isInserting) {
-      context.missing(_filtroAssuntosMeta);
+      context.missing(_ufMeta);
     }
-    if (data.containsKey('timer_request')) {
-      context.handle(
-          _timerRequestMeta,
-          timerRequest.isAcceptableOrUnknown(
-              data['timer_request'], _timerRequestMeta));
+    if (data.containsKey('previsao')) {
+      context.handle(_previsaoMeta,
+          previsao.isAcceptableOrUnknown(data['previsao'], _previsaoMeta));
     } else if (isInserting) {
-      context.missing(_timerRequestMeta);
+      context.missing(_previsaoMeta);
     }
-    if (data.containsKey('data_cadastro')) {
-      context.handle(
-          _dataCadastroMeta,
-          dataCadastro.isAcceptableOrUnknown(
-              data['data_cadastro'], _dataCadastroMeta));
+    if (data.containsKey('campos')) {
+      context.handle(_camposMeta,
+          campos.isAcceptableOrUnknown(data['campos'], _camposMeta));
     } else if (isInserting) {
-      context.missing(_dataCadastroMeta);
+      context.missing(_camposMeta);
     }
-    if (data.containsKey('data_alteracao')) {
-      context.handle(
-          _dataAlteracaoMeta,
-          dataAlteracao.isAcceptableOrUnknown(
-              data['data_alteracao'], _dataAlteracaoMeta));
+    if (data.containsKey('id_arquivo')) {
+      context.handle(_idArquivoMeta,
+          idArquivo.isAcceptableOrUnknown(data['id_arquivo'], _idArquivoMeta));
     } else if (isInserting) {
-      context.missing(_dataAlteracaoMeta);
-    }
-    if (data.containsKey('versao')) {
-      context.handle(_versaoMeta,
-          versao.isAcceptableOrUnknown(data['versao'], _versaoMeta));
-    } else if (isInserting) {
-      context.missing(_versaoMeta);
+      context.missing(_idArquivoMeta);
     }
     return context;
   }
@@ -4763,6 +4941,512 @@ class $PlaylistConteudoTable extends PlaylistConteudo
   }
 }
 
+class NoticiaData extends DataClass implements Insertable<NoticiaData> {
+  final int id;
+  final String titulo;
+  final String link;
+  final String descricao;
+  final DateTime dataPublicadao;
+  final int idNoticiaEditoria;
+  final int idFonteNoticia;
+  final int idConteudo;
+  NoticiaData(
+      {@required this.id,
+      @required this.titulo,
+      @required this.link,
+      @required this.descricao,
+      @required this.dataPublicadao,
+      @required this.idNoticiaEditoria,
+      @required this.idFonteNoticia,
+      @required this.idConteudo});
+  factory NoticiaData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+      {String prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final stringType = db.typeSystem.forDartType<String>();
+    final dateTimeType = db.typeSystem.forDartType<DateTime>();
+    return NoticiaData(
+      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      titulo:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}titulo']),
+      link: stringType.mapFromDatabaseResponse(data['${effectivePrefix}link']),
+      descricao: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}descricao']),
+      dataPublicadao: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}data_publicadao']),
+      idNoticiaEditoria: intType.mapFromDatabaseResponse(
+          data['${effectivePrefix}id_noticia_editoria']),
+      idFonteNoticia: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_fonte_noticia']),
+      idConteudo: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_conteudo']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      map['id'] = Variable<int>(id);
+    }
+    if (!nullToAbsent || titulo != null) {
+      map['titulo'] = Variable<String>(titulo);
+    }
+    if (!nullToAbsent || link != null) {
+      map['link'] = Variable<String>(link);
+    }
+    if (!nullToAbsent || descricao != null) {
+      map['descricao'] = Variable<String>(descricao);
+    }
+    if (!nullToAbsent || dataPublicadao != null) {
+      map['data_publicadao'] = Variable<DateTime>(dataPublicadao);
+    }
+    if (!nullToAbsent || idNoticiaEditoria != null) {
+      map['id_noticia_editoria'] = Variable<int>(idNoticiaEditoria);
+    }
+    if (!nullToAbsent || idFonteNoticia != null) {
+      map['id_fonte_noticia'] = Variable<int>(idFonteNoticia);
+    }
+    if (!nullToAbsent || idConteudo != null) {
+      map['id_conteudo'] = Variable<int>(idConteudo);
+    }
+    return map;
+  }
+
+  NoticiaCompanion toCompanion(bool nullToAbsent) {
+    return NoticiaCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      titulo:
+          titulo == null && nullToAbsent ? const Value.absent() : Value(titulo),
+      link: link == null && nullToAbsent ? const Value.absent() : Value(link),
+      descricao: descricao == null && nullToAbsent
+          ? const Value.absent()
+          : Value(descricao),
+      dataPublicadao: dataPublicadao == null && nullToAbsent
+          ? const Value.absent()
+          : Value(dataPublicadao),
+      idNoticiaEditoria: idNoticiaEditoria == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idNoticiaEditoria),
+      idFonteNoticia: idFonteNoticia == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idFonteNoticia),
+      idConteudo: idConteudo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idConteudo),
+    );
+  }
+
+  factory NoticiaData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return NoticiaData(
+      id: serializer.fromJson<int>(json['id']),
+      titulo: serializer.fromJson<String>(json['titulo']),
+      link: serializer.fromJson<String>(json['link']),
+      descricao: serializer.fromJson<String>(json['descricao']),
+      dataPublicadao: serializer.fromJson<DateTime>(json['dataPublicadao']),
+      idNoticiaEditoria: serializer.fromJson<int>(json['idNoticiaEditoria']),
+      idFonteNoticia: serializer.fromJson<int>(json['idFonteNoticia']),
+      idConteudo: serializer.fromJson<int>(json['idConteudo']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'titulo': serializer.toJson<String>(titulo),
+      'link': serializer.toJson<String>(link),
+      'descricao': serializer.toJson<String>(descricao),
+      'dataPublicadao': serializer.toJson<DateTime>(dataPublicadao),
+      'idNoticiaEditoria': serializer.toJson<int>(idNoticiaEditoria),
+      'idFonteNoticia': serializer.toJson<int>(idFonteNoticia),
+      'idConteudo': serializer.toJson<int>(idConteudo),
+    };
+  }
+
+  NoticiaData copyWith(
+          {int id,
+          String titulo,
+          String link,
+          String descricao,
+          DateTime dataPublicadao,
+          int idNoticiaEditoria,
+          int idFonteNoticia,
+          int idConteudo}) =>
+      NoticiaData(
+        id: id ?? this.id,
+        titulo: titulo ?? this.titulo,
+        link: link ?? this.link,
+        descricao: descricao ?? this.descricao,
+        dataPublicadao: dataPublicadao ?? this.dataPublicadao,
+        idNoticiaEditoria: idNoticiaEditoria ?? this.idNoticiaEditoria,
+        idFonteNoticia: idFonteNoticia ?? this.idFonteNoticia,
+        idConteudo: idConteudo ?? this.idConteudo,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('NoticiaData(')
+          ..write('id: $id, ')
+          ..write('titulo: $titulo, ')
+          ..write('link: $link, ')
+          ..write('descricao: $descricao, ')
+          ..write('dataPublicadao: $dataPublicadao, ')
+          ..write('idNoticiaEditoria: $idNoticiaEditoria, ')
+          ..write('idFonteNoticia: $idFonteNoticia, ')
+          ..write('idConteudo: $idConteudo')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      id.hashCode,
+      $mrjc(
+          titulo.hashCode,
+          $mrjc(
+              link.hashCode,
+              $mrjc(
+                  descricao.hashCode,
+                  $mrjc(
+                      dataPublicadao.hashCode,
+                      $mrjc(
+                          idNoticiaEditoria.hashCode,
+                          $mrjc(idFonteNoticia.hashCode,
+                              idConteudo.hashCode))))))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is NoticiaData &&
+          other.id == this.id &&
+          other.titulo == this.titulo &&
+          other.link == this.link &&
+          other.descricao == this.descricao &&
+          other.dataPublicadao == this.dataPublicadao &&
+          other.idNoticiaEditoria == this.idNoticiaEditoria &&
+          other.idFonteNoticia == this.idFonteNoticia &&
+          other.idConteudo == this.idConteudo);
+}
+
+class NoticiaCompanion extends UpdateCompanion<NoticiaData> {
+  final Value<int> id;
+  final Value<String> titulo;
+  final Value<String> link;
+  final Value<String> descricao;
+  final Value<DateTime> dataPublicadao;
+  final Value<int> idNoticiaEditoria;
+  final Value<int> idFonteNoticia;
+  final Value<int> idConteudo;
+  const NoticiaCompanion({
+    this.id = const Value.absent(),
+    this.titulo = const Value.absent(),
+    this.link = const Value.absent(),
+    this.descricao = const Value.absent(),
+    this.dataPublicadao = const Value.absent(),
+    this.idNoticiaEditoria = const Value.absent(),
+    this.idFonteNoticia = const Value.absent(),
+    this.idConteudo = const Value.absent(),
+  });
+  NoticiaCompanion.insert({
+    this.id = const Value.absent(),
+    @required String titulo,
+    @required String link,
+    @required String descricao,
+    @required DateTime dataPublicadao,
+    @required int idNoticiaEditoria,
+    @required int idFonteNoticia,
+    @required int idConteudo,
+  })  : titulo = Value(titulo),
+        link = Value(link),
+        descricao = Value(descricao),
+        dataPublicadao = Value(dataPublicadao),
+        idNoticiaEditoria = Value(idNoticiaEditoria),
+        idFonteNoticia = Value(idFonteNoticia),
+        idConteudo = Value(idConteudo);
+  static Insertable<NoticiaData> custom({
+    Expression<int> id,
+    Expression<String> titulo,
+    Expression<String> link,
+    Expression<String> descricao,
+    Expression<DateTime> dataPublicadao,
+    Expression<int> idNoticiaEditoria,
+    Expression<int> idFonteNoticia,
+    Expression<int> idConteudo,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (titulo != null) 'titulo': titulo,
+      if (link != null) 'link': link,
+      if (descricao != null) 'descricao': descricao,
+      if (dataPublicadao != null) 'data_publicadao': dataPublicadao,
+      if (idNoticiaEditoria != null) 'id_noticia_editoria': idNoticiaEditoria,
+      if (idFonteNoticia != null) 'id_fonte_noticia': idFonteNoticia,
+      if (idConteudo != null) 'id_conteudo': idConteudo,
+    });
+  }
+
+  NoticiaCompanion copyWith(
+      {Value<int> id,
+      Value<String> titulo,
+      Value<String> link,
+      Value<String> descricao,
+      Value<DateTime> dataPublicadao,
+      Value<int> idNoticiaEditoria,
+      Value<int> idFonteNoticia,
+      Value<int> idConteudo}) {
+    return NoticiaCompanion(
+      id: id ?? this.id,
+      titulo: titulo ?? this.titulo,
+      link: link ?? this.link,
+      descricao: descricao ?? this.descricao,
+      dataPublicadao: dataPublicadao ?? this.dataPublicadao,
+      idNoticiaEditoria: idNoticiaEditoria ?? this.idNoticiaEditoria,
+      idFonteNoticia: idFonteNoticia ?? this.idFonteNoticia,
+      idConteudo: idConteudo ?? this.idConteudo,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (titulo.present) {
+      map['titulo'] = Variable<String>(titulo.value);
+    }
+    if (link.present) {
+      map['link'] = Variable<String>(link.value);
+    }
+    if (descricao.present) {
+      map['descricao'] = Variable<String>(descricao.value);
+    }
+    if (dataPublicadao.present) {
+      map['data_publicadao'] = Variable<DateTime>(dataPublicadao.value);
+    }
+    if (idNoticiaEditoria.present) {
+      map['id_noticia_editoria'] = Variable<int>(idNoticiaEditoria.value);
+    }
+    if (idFonteNoticia.present) {
+      map['id_fonte_noticia'] = Variable<int>(idFonteNoticia.value);
+    }
+    if (idConteudo.present) {
+      map['id_conteudo'] = Variable<int>(idConteudo.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('NoticiaCompanion(')
+          ..write('id: $id, ')
+          ..write('titulo: $titulo, ')
+          ..write('link: $link, ')
+          ..write('descricao: $descricao, ')
+          ..write('dataPublicadao: $dataPublicadao, ')
+          ..write('idNoticiaEditoria: $idNoticiaEditoria, ')
+          ..write('idFonteNoticia: $idFonteNoticia, ')
+          ..write('idConteudo: $idConteudo')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $NoticiaTable extends Noticia with TableInfo<$NoticiaTable, NoticiaData> {
+  final GeneratedDatabase _db;
+  final String _alias;
+  $NoticiaTable(this._db, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  GeneratedIntColumn _id;
+  @override
+  GeneratedIntColumn get id => _id ??= _constructId();
+  GeneratedIntColumn _constructId() {
+    return GeneratedIntColumn('id', $tableName, false,
+        hasAutoIncrement: true, declaredAsPrimaryKey: true);
+  }
+
+  final VerificationMeta _tituloMeta = const VerificationMeta('titulo');
+  GeneratedTextColumn _titulo;
+  @override
+  GeneratedTextColumn get titulo => _titulo ??= _constructTitulo();
+  GeneratedTextColumn _constructTitulo() {
+    return GeneratedTextColumn(
+      'titulo',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _linkMeta = const VerificationMeta('link');
+  GeneratedTextColumn _link;
+  @override
+  GeneratedTextColumn get link => _link ??= _constructLink();
+  GeneratedTextColumn _constructLink() {
+    return GeneratedTextColumn(
+      'link',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _descricaoMeta = const VerificationMeta('descricao');
+  GeneratedTextColumn _descricao;
+  @override
+  GeneratedTextColumn get descricao => _descricao ??= _constructDescricao();
+  GeneratedTextColumn _constructDescricao() {
+    return GeneratedTextColumn(
+      'descricao',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _dataPublicadaoMeta =
+      const VerificationMeta('dataPublicadao');
+  GeneratedDateTimeColumn _dataPublicadao;
+  @override
+  GeneratedDateTimeColumn get dataPublicadao =>
+      _dataPublicadao ??= _constructDataPublicadao();
+  GeneratedDateTimeColumn _constructDataPublicadao() {
+    return GeneratedDateTimeColumn(
+      'data_publicadao',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _idNoticiaEditoriaMeta =
+      const VerificationMeta('idNoticiaEditoria');
+  GeneratedIntColumn _idNoticiaEditoria;
+  @override
+  GeneratedIntColumn get idNoticiaEditoria =>
+      _idNoticiaEditoria ??= _constructIdNoticiaEditoria();
+  GeneratedIntColumn _constructIdNoticiaEditoria() {
+    return GeneratedIntColumn(
+      'id_noticia_editoria',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _idFonteNoticiaMeta =
+      const VerificationMeta('idFonteNoticia');
+  GeneratedIntColumn _idFonteNoticia;
+  @override
+  GeneratedIntColumn get idFonteNoticia =>
+      _idFonteNoticia ??= _constructIdFonteNoticia();
+  GeneratedIntColumn _constructIdFonteNoticia() {
+    return GeneratedIntColumn(
+      'id_fonte_noticia',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _idConteudoMeta = const VerificationMeta('idConteudo');
+  GeneratedIntColumn _idConteudo;
+  @override
+  GeneratedIntColumn get idConteudo => _idConteudo ??= _constructIdConteudo();
+  GeneratedIntColumn _constructIdConteudo() {
+    return GeneratedIntColumn(
+      'id_conteudo',
+      $tableName,
+      false,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        titulo,
+        link,
+        descricao,
+        dataPublicadao,
+        idNoticiaEditoria,
+        idFonteNoticia,
+        idConteudo
+      ];
+  @override
+  $NoticiaTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'conteudo';
+  @override
+  final String actualTableName = 'conteudo';
+  @override
+  VerificationContext validateIntegrity(Insertable<NoticiaData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
+    }
+    if (data.containsKey('titulo')) {
+      context.handle(_tituloMeta,
+          titulo.isAcceptableOrUnknown(data['titulo'], _tituloMeta));
+    } else if (isInserting) {
+      context.missing(_tituloMeta);
+    }
+    if (data.containsKey('link')) {
+      context.handle(
+          _linkMeta, link.isAcceptableOrUnknown(data['link'], _linkMeta));
+    } else if (isInserting) {
+      context.missing(_linkMeta);
+    }
+    if (data.containsKey('descricao')) {
+      context.handle(_descricaoMeta,
+          descricao.isAcceptableOrUnknown(data['descricao'], _descricaoMeta));
+    } else if (isInserting) {
+      context.missing(_descricaoMeta);
+    }
+    if (data.containsKey('data_publicadao')) {
+      context.handle(
+          _dataPublicadaoMeta,
+          dataPublicadao.isAcceptableOrUnknown(
+              data['data_publicadao'], _dataPublicadaoMeta));
+    } else if (isInserting) {
+      context.missing(_dataPublicadaoMeta);
+    }
+    if (data.containsKey('id_noticia_editoria')) {
+      context.handle(
+          _idNoticiaEditoriaMeta,
+          idNoticiaEditoria.isAcceptableOrUnknown(
+              data['id_noticia_editoria'], _idNoticiaEditoriaMeta));
+    } else if (isInserting) {
+      context.missing(_idNoticiaEditoriaMeta);
+    }
+    if (data.containsKey('id_fonte_noticia')) {
+      context.handle(
+          _idFonteNoticiaMeta,
+          idFonteNoticia.isAcceptableOrUnknown(
+              data['id_fonte_noticia'], _idFonteNoticiaMeta));
+    } else if (isInserting) {
+      context.missing(_idFonteNoticiaMeta);
+    }
+    if (data.containsKey('id_conteudo')) {
+      context.handle(
+          _idConteudoMeta,
+          idConteudo.isAcceptableOrUnknown(
+              data['id_conteudo'], _idConteudoMeta));
+    } else if (isInserting) {
+      context.missing(_idConteudoMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  NoticiaData map(Map<String, dynamic> data, {String tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return NoticiaData.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $NoticiaTable createAlias(String alias) {
+    return $NoticiaTable(_db, alias);
+  }
+}
+
 abstract class _$Database extends GeneratedDatabase {
   _$Database(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   $ConteudoTable _conteudo;
@@ -4783,6 +5467,8 @@ abstract class _$Database extends GeneratedDatabase {
   $PlaylistConteudoTable _playlistConteudo;
   $PlaylistConteudoTable get playlistConteudo =>
       _playlistConteudo ??= $PlaylistConteudoTable(this);
+  $NoticiaTable _noticia;
+  $NoticiaTable get noticia => _noticia ??= $NoticiaTable(this);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
@@ -4793,6 +5479,7 @@ abstract class _$Database extends GeneratedDatabase {
         equipamentos,
         playerDados,
         playlist,
-        playlistConteudo
+        playlistConteudo,
+        noticia
       ];
 }

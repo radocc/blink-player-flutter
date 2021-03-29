@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:battery/battery.dart';
 import 'package:blink/app/database/database.dart';
+import 'package:blink/app/database/entity/conteudo_entity.dart';
+import 'package:blink/app/services/conteudo_service.dart';
 import 'package:blink/app/services/login_service.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:cpu_reader/cpu_reader.dart';
@@ -20,12 +22,32 @@ class SplashController = _SplashControllerBase with _$SplashController;
 
 abstract class _SplashControllerBase with Store {
   LoginService service;
+  ConteudoService contService;
 
-  _SplashControllerBase({this.service}) {
+  _SplashControllerBase({this.service, this.contService}) {
     //postServer();
   }
 
   Battery _battery = Battery();
+
+  Future<ConteudoData> postConteudos() async {
+    try {
+      //String deviceId;
+      //String linuxId;
+      if (Platform.isAndroid) {
+        //deviceId = await PlatformDeviceId.getDeviceId;
+        var reponse = await contService.downloadConteudo();
+        print(reponse);
+        return reponse;
+      } else if (Platform.isLinux) {
+        // linuxId = await PlatformDeviceId.getDeviceId;
+        var reponse = await contService.downloadConteudo();
+        return reponse;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
   Future<Equipamento> postServer() async {
     try {
@@ -33,7 +55,7 @@ abstract class _SplashControllerBase with Store {
       String linuxId;
       if (Platform.isAndroid) {
         //deviceId = await PlatformDeviceId.getDeviceId;
-        var reponse = await service.logar('123123', '123123');
+        var reponse = await service.logar('5555', '5555');
         print(reponse);
         return reponse;
       } else if (Platform.isLinux) {
@@ -147,13 +169,5 @@ abstract class _SplashControllerBase with Store {
           "Memoria Virtual Livre: ${SysInfo.getFreeVirtualMemory() ~/ MEGABYTE} MB");
       return array;
     }
-  }
-
-  @observable
-  int value = 0;
-
-  @action
-  void increment() {
-    value++;
   }
 }
