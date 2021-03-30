@@ -1,19 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:battery/battery.dart';
 import 'package:blink/app/database/database.dart';
-import 'package:blink/app/database/entity/conteudo_entity.dart';
 import 'package:blink/app/services/conteudo_service.dart';
 import 'package:blink/app/services/login_service.dart';
-import 'package:connectivity/connectivity.dart';
-import 'package:cpu_reader/cpu_reader.dart';
-import 'package:cpu_reader/cpuinfo.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:system_info/system_info.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
-import 'package:wifi/wifi.dart';
 
 part 'splash_controller.g.dart';
 
@@ -26,13 +18,14 @@ abstract class _SplashControllerBase with Store {
 
   _SplashControllerBase({this.service, this.contService});
 
-  Future<Conteudo> postConteudos() async {
+  Future<List<Conteudo>> postConteudos() async {
     try {
       //String deviceId;
       //String linuxId;
       if (Platform.isAndroid) {
         //deviceId = await PlatformDeviceId.getDeviceId;
         var reponse = await contService.downloadConteudo();
+        contService.getAllConteudos();
         print(reponse);
         return reponse;
       } else if (Platform.isLinux) {

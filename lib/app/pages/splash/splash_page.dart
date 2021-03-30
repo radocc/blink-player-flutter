@@ -1,5 +1,4 @@
 import 'package:blink/app/database/database.dart';
-import 'package:blink/app/database/entity/conteudo_entity.dart';
 import 'package:cross_connectivity/cross_connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -143,7 +142,7 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
                             ],
                           ),
                         )
-                      : FutureBuilder<Conteudo>(
+                      : FutureBuilder<List<Conteudo>>(
                           future: controller.postConteudos(),
                           builder: (ctx, snap) {
                             return Text('Ok');

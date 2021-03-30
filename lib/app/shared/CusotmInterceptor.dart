@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CustomIntercetors2 extends InterceptorsWrapper {
+class CustomIntercetorsConteudo extends InterceptorsWrapper {
   @override
   Future onRequest(RequestOptions options) async {
     var prefs = await SharedPreferences.getInstance();
@@ -19,7 +19,7 @@ class CustomIntercetors2 extends InterceptorsWrapper {
 
   @override
   Future onError(DioError err) {
-    print("<-- Error -->");
+    print("<-- Error Conteudo-->");
     print(err.error);
     print(err.message);
     return super.onError(err);

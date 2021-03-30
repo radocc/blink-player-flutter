@@ -37,6 +37,8 @@ class Database extends _$Database {
   // Database._internal()
   //     : super(FlutterQueryExecutor.inDatabaseFolder(path: 'blink.sqlite')) {
   //   playerDAO = PlayerDadosDAO(this);
+  //   equipsDAO = EquipamentoDAO(this);
+  //   conteudoDAO = ConteudoDAO(this);
   // }
 
   static Database instance = Database._internal();
@@ -52,7 +54,7 @@ class Database extends _$Database {
   }
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 4;
 
   @override
   MigrationStrategy get migration {

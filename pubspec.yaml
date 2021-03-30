@@ -68,7 +68,7 @@ dev_dependencies:
   modular_codegen: ^2.0.0+1
   mobx_codegen: ^1.1.1+1
   build_runner: ^1.10.1
-  moor_generator:
+  moor_generator: 
   
 
   flutter_test:

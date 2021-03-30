@@ -4,6 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomIntercetors extends InterceptorsWrapper {
   int _maxCharactersPerLine = 200;
+  RegExp exp_DateTime = RegExp(
+      r'^([+-]?\d?\d\d)-?(\d\d)-?(\d\d)(?:[ T](\d\d)(?::?(\d\d)(?::?(\d\d)(.\d{1,6})?)?)? ?([zZ])?)?$');
 
   @override
   Future onRequest(RequestOptions options) async {
@@ -17,17 +19,31 @@ class CustomIntercetors extends InterceptorsWrapper {
 
   @override
   Future onResponse(Response response) {
-    (response.data as Map<String, Object>).forEach((key, value) {
-      if (key.toUpperCase().contains('DATA') && value != null) {
+    if (response.data is List) {
+      (response.data as List).forEach((item) {
+        readMap(item);
+      });
+    } else {
+      readMap(response.data);
+    }
+
+    return super.onResponse(response);
+  }
+
+  readMap(Map<String, Object> map) {
+    map.forEach((key, value) {
+      if (value != null) {
         try {
           var data = DateFormat('yy-MM-ddThh:mm:ss.SS-Z').parse(value);
-          response.data[key] = data.millisecondsSinceEpoch;
+          map[key] = data.millisecondsSinceEpoch;
         } catch (e) {
-          print(e);
+          try {
+            var time = DateFormat('hh:mm:ss').parse(value);
+            map[key] = time.millisecondsSinceEpoch;
+          } catch (e) {}
         }
       }
     });
-    return super.onResponse(response);
   }
 
   @override

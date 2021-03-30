@@ -6,10 +6,21 @@ import 'package:flutter/material.dart';
 class ConteudoRepository extends AbstractRepository {
   final Dio dio;
 
-  ConteudoRepository({@required this.dio});
+  ConteudoRepository({@required this.dio}) : super('conteudo');
 
-  Future<Conteudo> downloadConteudo() async {
-    var resp = await dio.post(getUrl('filtrar/equipamento'));
-    return Conteudo.fromJson(resp.data);
+  Future<List<Conteudo>> downloadConteudo() async {
+    //   Response resp = await dio.get(getUrl('conteudo/filtrar/equipamento'));
+    //   var listConteudo = (resp.data as List).map((item) {
+    //     return Conteudo.fromJson(item);
+    //   }).toList();
+    // }
+    try {
+      var response = await dio.get(getUrl('/filtrar/equipamento'));
+      return (response.data as List)
+          .map((item) => Conteudo.fromJson(item))
+          .toList();
+    } catch (error, stacktrace) {
+      throw Exception("Exception occured: $error stackTrace: $stacktrace");
+    }
   }
 }

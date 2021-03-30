@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:blink/app/pages/splash/splash_page.dart';
+import 'package:blink/app/repositories/arquivo_repository.dart';
 import 'package:blink/app/repositories/conteudo_repository.dart';
 import 'package:blink/app/repositories/login_repository.dart';
 import 'package:blink/app/services/conteudo_service.dart';
@@ -41,9 +42,14 @@ class AppModule extends MainModule {
         Bind((i) => LoginService(loginRep: i.get<LoginRepository>())),
         // Equipamentos
         Bind((i) => ConteudoRepository(
-            dio: i.get<Dio>()..interceptors.add(CustomIntercetors2()))),
+            dio: i.get<Dio>()..interceptors.add(CustomIntercetorsConteudo()))),
         Bind((i) => Dio(BaseOptions(baseUrl: URL_CONTEUDO))),
         Bind((i) => ConteudoService(conteudoRepo: i.get<ConteudoRepository>())),
+        // Mídias
+        Bind((i) => ArquivoRepository(
+            dio: i.get<Dio>()..interceptors.add(CustomIntercetors()))),
+        Bind((i) => Dio(BaseOptions(baseUrl: URL_LOGIN))),
+        Bind((i) => LoginService(loginRep: i.get<LoginRepository>())),
       ];
 
   @override
