@@ -8,5 +8,5 @@ const String URL_LOGIN =
 const String URL_CONTEUDO =
     'http://192.168.2.108:8105/TVBlink-Web/rest/conteudo/filtrar/equipamento';
 
-const String ULR_SEQ_CONTEUDO =
-    'http://192.168.2.103:8080/TVBlink-Web/rest/conteudo/filtrar/equipamento/sequencia';
+//const String ULR_DOWN_MIDIAS =
+// 'http://192.168.2.108:8105/BaseWeb/rest/arquivo/binario/194';

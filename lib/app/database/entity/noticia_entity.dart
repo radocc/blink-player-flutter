@@ -1,7 +1,7 @@
 import 'package:moor/moor.dart';
 
 class Noticias extends Table {
-  String get tableName => 'conteudo';
+  String get tableName => 'noticias';
 
   IntColumn get id => integer().autoIncrement()();
   TextColumn get titulo => text()();

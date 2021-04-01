@@ -28,21 +28,21 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
   Conteudo(
       {@required this.id,
       @required this.idTipoConteudo,
-      @required this.tipoArquivo,
-      @required this.nomeArquivo,
-      @required this.idTemplate,
+      this.tipoArquivo,
+      this.nomeArquivo,
+      this.idTemplate,
       this.titulo,
       this.tempoExibicao,
       this.status,
-      @required this.horaInicio,
-      @required this.horaFim,
-      @required this.filtros,
-      @required this.idCidade,
-      @required this.cidade,
-      @required this.uf,
-      @required this.previsao,
-      @required this.campos,
-      @required this.idArquivo});
+      this.horaInicio,
+      this.horaFim,
+      this.filtros,
+      this.idCidade,
+      this.cidade,
+      this.uf,
+      this.previsao,
+      this.campos,
+      this.idArquivo});
   factory Conteudo.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -395,34 +395,22 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
   ConteudosCompanion.insert({
     this.id = const Value.absent(),
     @required int idTipoConteudo,
-    @required int tipoArquivo,
-    @required String nomeArquivo,
-    @required int idTemplate,
+    this.tipoArquivo = const Value.absent(),
+    this.nomeArquivo = const Value.absent(),
+    this.idTemplate = const Value.absent(),
     this.titulo = const Value.absent(),
     this.tempoExibicao = const Value.absent(),
     this.status = const Value.absent(),
-    @required DateTime horaInicio,
-    @required DateTime horaFim,
-    @required String filtros,
-    @required int idCidade,
-    @required String cidade,
-    @required String uf,
-    @required String previsao,
-    @required String campos,
-    @required int idArquivo,
-  })  : idTipoConteudo = Value(idTipoConteudo),
-        tipoArquivo = Value(tipoArquivo),
-        nomeArquivo = Value(nomeArquivo),
-        idTemplate = Value(idTemplate),
-        horaInicio = Value(horaInicio),
-        horaFim = Value(horaFim),
-        filtros = Value(filtros),
-        idCidade = Value(idCidade),
-        cidade = Value(cidade),
-        uf = Value(uf),
-        previsao = Value(previsao),
-        campos = Value(campos),
-        idArquivo = Value(idArquivo);
+    this.horaInicio = const Value.absent(),
+    this.horaFim = const Value.absent(),
+    this.filtros = const Value.absent(),
+    this.idCidade = const Value.absent(),
+    this.cidade = const Value.absent(),
+    this.uf = const Value.absent(),
+    this.previsao = const Value.absent(),
+    this.campos = const Value.absent(),
+    this.idArquivo = const Value.absent(),
+  }) : idTipoConteudo = Value(idTipoConteudo);
   static Insertable<Conteudo> custom({
     Expression<int> id,
     Expression<int> idTipoConteudo,
@@ -622,7 +610,7 @@ class $ConteudosTable extends Conteudos
     return GeneratedIntColumn(
       'tipo_arquivo',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -636,7 +624,7 @@ class $ConteudosTable extends Conteudos
     return GeneratedTextColumn(
       'nome_arquivo',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -648,7 +636,7 @@ class $ConteudosTable extends Conteudos
     return GeneratedIntColumn(
       'id_template',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -690,7 +678,7 @@ class $ConteudosTable extends Conteudos
     return GeneratedDateTimeColumn(
       'hora_inicio',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -702,7 +690,7 @@ class $ConteudosTable extends Conteudos
     return GeneratedDateTimeColumn(
       'hora_fim',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -711,7 +699,7 @@ class $ConteudosTable extends Conteudos
   @override
   GeneratedTextColumn get filtros => _filtros ??= _constructFiltros();
   GeneratedTextColumn _constructFiltros() {
-    return GeneratedTextColumn('filtros', $tableName, false, maxTextLength: 10);
+    return GeneratedTextColumn('filtros', $tableName, true, maxTextLength: 10);
   }
 
   final VerificationMeta _idCidadeMeta = const VerificationMeta('idCidade');
@@ -722,7 +710,7 @@ class $ConteudosTable extends Conteudos
     return GeneratedIntColumn(
       'id_cidade',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -731,7 +719,7 @@ class $ConteudosTable extends Conteudos
   @override
   GeneratedTextColumn get cidade => _cidade ??= _constructCidade();
   GeneratedTextColumn _constructCidade() {
-    return GeneratedTextColumn('cidade', $tableName, false, maxTextLength: 500);
+    return GeneratedTextColumn('cidade', $tableName, true, maxTextLength: 500);
   }
 
   final VerificationMeta _ufMeta = const VerificationMeta('uf');
@@ -739,7 +727,7 @@ class $ConteudosTable extends Conteudos
   @override
   GeneratedTextColumn get uf => _uf ??= _constructUf();
   GeneratedTextColumn _constructUf() {
-    return GeneratedTextColumn('uf', $tableName, false, maxTextLength: 500);
+    return GeneratedTextColumn('uf', $tableName, true, maxTextLength: 500);
   }
 
   final VerificationMeta _previsaoMeta = const VerificationMeta('previsao');
@@ -747,7 +735,7 @@ class $ConteudosTable extends Conteudos
   @override
   GeneratedTextColumn get previsao => _previsao ??= _constructPrevisao();
   GeneratedTextColumn _constructPrevisao() {
-    return GeneratedTextColumn('previsao', $tableName, false,
+    return GeneratedTextColumn('previsao', $tableName, true,
         maxTextLength: 500);
   }
 
@@ -756,7 +744,7 @@ class $ConteudosTable extends Conteudos
   @override
   GeneratedTextColumn get campos => _campos ??= _constructCampos();
   GeneratedTextColumn _constructCampos() {
-    return GeneratedTextColumn('campos', $tableName, false, maxTextLength: 500);
+    return GeneratedTextColumn('campos', $tableName, true, maxTextLength: 500);
   }
 
   final VerificationMeta _idArquivoMeta = const VerificationMeta('idArquivo');
@@ -767,7 +755,7 @@ class $ConteudosTable extends Conteudos
     return GeneratedIntColumn(
       'id_arquivo',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -818,24 +806,18 @@ class $ConteudosTable extends Conteudos
           _tipoArquivoMeta,
           tipoArquivo.isAcceptableOrUnknown(
               data['tipo_arquivo'], _tipoArquivoMeta));
-    } else if (isInserting) {
-      context.missing(_tipoArquivoMeta);
     }
     if (data.containsKey('nome_arquivo')) {
       context.handle(
           _nomeArquivoMeta,
           nomeArquivo.isAcceptableOrUnknown(
               data['nome_arquivo'], _nomeArquivoMeta));
-    } else if (isInserting) {
-      context.missing(_nomeArquivoMeta);
     }
     if (data.containsKey('id_template')) {
       context.handle(
           _idTemplateMeta,
           idTemplate.isAcceptableOrUnknown(
               data['id_template'], _idTemplateMeta));
-    } else if (isInserting) {
-      context.missing(_idTemplateMeta);
     }
     if (data.containsKey('titulo')) {
       context.handle(_tituloMeta,
@@ -856,55 +838,37 @@ class $ConteudosTable extends Conteudos
           _horaInicioMeta,
           horaInicio.isAcceptableOrUnknown(
               data['hora_inicio'], _horaInicioMeta));
-    } else if (isInserting) {
-      context.missing(_horaInicioMeta);
     }
     if (data.containsKey('hora_fim')) {
       context.handle(_horaFimMeta,
           horaFim.isAcceptableOrUnknown(data['hora_fim'], _horaFimMeta));
-    } else if (isInserting) {
-      context.missing(_horaFimMeta);
     }
     if (data.containsKey('filtros')) {
       context.handle(_filtrosMeta,
           filtros.isAcceptableOrUnknown(data['filtros'], _filtrosMeta));
-    } else if (isInserting) {
-      context.missing(_filtrosMeta);
     }
     if (data.containsKey('id_cidade')) {
       context.handle(_idCidadeMeta,
           idCidade.isAcceptableOrUnknown(data['id_cidade'], _idCidadeMeta));
-    } else if (isInserting) {
-      context.missing(_idCidadeMeta);
     }
     if (data.containsKey('cidade')) {
       context.handle(_cidadeMeta,
           cidade.isAcceptableOrUnknown(data['cidade'], _cidadeMeta));
-    } else if (isInserting) {
-      context.missing(_cidadeMeta);
     }
     if (data.containsKey('uf')) {
       context.handle(_ufMeta, uf.isAcceptableOrUnknown(data['uf'], _ufMeta));
-    } else if (isInserting) {
-      context.missing(_ufMeta);
     }
     if (data.containsKey('previsao')) {
       context.handle(_previsaoMeta,
           previsao.isAcceptableOrUnknown(data['previsao'], _previsaoMeta));
-    } else if (isInserting) {
-      context.missing(_previsaoMeta);
     }
     if (data.containsKey('campos')) {
       context.handle(_camposMeta,
           campos.isAcceptableOrUnknown(data['campos'], _camposMeta));
-    } else if (isInserting) {
-      context.missing(_camposMeta);
     }
     if (data.containsKey('id_arquivo')) {
       context.handle(_idArquivoMeta,
           idArquivo.isAcceptableOrUnknown(data['id_arquivo'], _idArquivoMeta));
-    } else if (isInserting) {
-      context.missing(_idArquivoMeta);
     }
     return context;
   }
@@ -5367,9 +5331,9 @@ class $NoticiasTable extends Noticias with TableInfo<$NoticiasTable, Noticia> {
   @override
   $NoticiasTable get asDslTable => this;
   @override
-  String get $tableName => _alias ?? 'conteudo';
+  String get $tableName => _alias ?? 'noticias';
   @override
-  final String actualTableName = 'conteudo';
+  final String actualTableName = 'noticias';
   @override
   VerificationContext validateIntegrity(Insertable<Noticia> instance,
       {bool isInserting = false}) {
