@@ -19,11 +19,13 @@ class CustomIntercetors extends InterceptorsWrapper {
 
   @override
   Future onResponse(Response response) {
-    if (response.data is List) {
+    if (response.data is List<int>) {
+      return super.onResponse(response);
+    } else if (response.data is List) {
       (response.data as List).forEach((item) {
         readMap(item);
       });
-    } else {
+    } else if (response.data is Map) {
       readMap(response.data);
     }
 

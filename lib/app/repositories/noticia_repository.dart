@@ -3,19 +3,21 @@ import 'package:blink/app/repositories/abstract_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-class ConteudoRepository extends AbstractRepository {
+class NoticiaRepository extends AbstractRepository{
+
   final Dio dio;
 
-  ConteudoRepository({@required this.dio}) : super('conteudo');
+  NoticiaRepository({@required this.dio}) : super('noticia');
 
-  Future<List<Conteudo>> downloadConteudo() async {
+  Future<List<Noticia>> downloadNoticias() async {
     try {
-      var response = await dio.get(getUrl('/filtrar/equipamento'));
+      var response = await dio.get(getUrl('/filtrar/conteudos'));
       return (response.data as List)
-          .map((item) => Conteudo.fromJson(item))
+          .map((item) => Noticia.fromJson(item))
           .toList();
     } catch (error, stacktrace) {
       throw Exception("Exception occured: $error stackTrace: $stacktrace");
     }
   }
+
 }

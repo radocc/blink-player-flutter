@@ -85,5 +85,18 @@ void main() {
     }
   });
 
+  HttpOverrides.global = new MyHttpOverrides();
   runApp(ModularApp(module: AppModule()));
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port) {
+        final isValidHost = ["192.168.2.108"].contains(host);
+        return isValidHost;
+        //true;
+      };
+  }
 }

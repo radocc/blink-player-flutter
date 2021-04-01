@@ -5331,9 +5331,9 @@ class $NoticiasTable extends Noticias with TableInfo<$NoticiasTable, Noticia> {
   @override
   $NoticiasTable get asDslTable => this;
   @override
-  String get $tableName => _alias ?? 'conteudo';
+  String get $tableName => _alias ?? 'noticias';
   @override
-  final String actualTableName = 'conteudo';
+  final String actualTableName = 'noticias';
   @override
   VerificationContext validateIntegrity(Insertable<Noticia> instance,
       {bool isInserting = false}) {

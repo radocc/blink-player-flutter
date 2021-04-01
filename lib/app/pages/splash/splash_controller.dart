@@ -18,16 +18,28 @@ abstract class _SplashControllerBase with Store {
 
   _SplashControllerBase({this.service, this.contService});
 
+  // Future getArchive() async {
+  //   var response = await arqRepository.downloadMidia("194");
+  //   return response;
+  // }
+
   Future<List<Conteudo>> postConteudos() async {
     try {
       //String deviceId;
       //String linuxId;
+      int number = await contService.load();
+      var conteudos;
       if (Platform.isAndroid) {
         //deviceId = await PlatformDeviceId.getDeviceId;
-        var reponse = await contService.downloadConteudo();
-        contService.getAllConteudos();
-        print(reponse);
-        return reponse;
+        if (number > 0) {
+          conteudos = contService.downloadConteudo();
+        } else {
+          conteudos = await contService.downloadConteudo();
+        }
+
+        //var conteudos = await contService.downloadConteudo();
+
+        return conteudos;
       } else if (Platform.isLinux) {
         // linuxId = await PlatformDeviceId.getDeviceId;
         var reponse = await contService.downloadConteudo();

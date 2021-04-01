@@ -6,6 +6,9 @@ abstract class AbstractBaseRepository {
   AbstractBaseRepository(this.context);
 
   String getUrl(String url) {
-    return environment.baseUrl + environment.applicationBase + url;
+    return environment.baseUrl +
+        environment.applicationBase +
+        this.context +
+        url;
   }
 }
