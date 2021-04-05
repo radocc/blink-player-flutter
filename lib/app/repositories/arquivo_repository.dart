@@ -1,12 +1,7 @@
-import 'dart:io';
-import 'dart:isolate';
-
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/repositories/abstract_base_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:archive/archive.dart';
-import 'package:path_provider/path_provider.dart';
 
 class ArquivoRepository extends AbstractBaseRepository {
   final Dio dio;

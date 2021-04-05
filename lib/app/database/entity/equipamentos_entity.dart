@@ -1,7 +1,7 @@
 import 'package:moor/moor.dart';
 
 class Equipamentos extends Table {
-  String get tableName => 'equipamentos';
+  String get tableName => 'equipamento';
 
   IntColumn get id => integer().autoIncrement()();
   TextColumn get nome => text().withLength(max: 200).nullable()();

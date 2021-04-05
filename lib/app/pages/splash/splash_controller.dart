@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:blink/app/components/loading_midias.dart';
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/services/conteudo_service.dart';
 import 'package:blink/app/services/login_service.dart';
@@ -36,9 +37,8 @@ abstract class _SplashControllerBase with Store {
         } else {
           conteudos = await contService.downloadConteudo();
         }
-
+        
         //var conteudos = await contService.downloadConteudo();
-
         return conteudos;
       } else if (Platform.isLinux) {
         // linuxId = await PlatformDeviceId.getDeviceId;
@@ -46,7 +46,8 @@ abstract class _SplashControllerBase with Store {
         return reponse;
       }
     } catch (e) {
-      print(e.toString());
+      throw new Exception("Erro interno: " + e.toString());
+      //print(e.toString());
     }
   }
 

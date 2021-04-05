@@ -13,7 +13,8 @@ class LoadingMidiasState extends State<LoadingMidias> {
     final now = new DateTime.now();
     final formatter = new DateFormat('dd-MM-yyyy hh-MM').format(now);
 
-    return Column(
+    return Scaffold(
+        body: Column(
       children: <Widget>[
         Container(
           child: Padding(
@@ -43,14 +44,13 @@ class LoadingMidiasState extends State<LoadingMidias> {
           child: Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   constraints: BoxConstraints(minWidth: 100, maxHeight: 180),
                   child: Image.asset('assets/logo_versa.png'),
                 ),
-                SizedBox(height: 15),
-                Text('Atualizando seus contteúdos...'),
+                SizedBox(height: 10),
+                Text('Atualizando seus conteúdos...'),
                 SizedBox(height: 15),
                 CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.green)),
@@ -59,6 +59,6 @@ class LoadingMidiasState extends State<LoadingMidias> {
           ),
         ),
       ],
-    );
+    ));
   }
 }

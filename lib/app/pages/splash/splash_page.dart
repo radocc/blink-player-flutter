@@ -90,11 +90,21 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
                       : FutureBuilder<List<Conteudo>>(
                           future: controller.postConteudos(),
                           builder: (ctx, snap) {
+                            if (!snap.hasData && !snap.hasError) {
+                              return LoadingMidias();
+                            } else if (snap.hasError) {
+                              return Center(
+                                child: Text("${snap.error.toString()}"),
+                              );
+                            } else {
+                              return HomePage();
+                            }
                             // if (snap.connectionState ==
                             //     ConnectionState.waiting) {
                             //   return LoadingMidias();
                             // }
-                            return HomePage();
+                            //
+                            //return HomePage();
                           });
               }
             }));
