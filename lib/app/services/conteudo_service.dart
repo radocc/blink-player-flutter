@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:blink/app/components/loading_midias.dart';
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/modules/carousel/carousel_controller.dart';
 import 'package:blink/app/repositories/arquivo_repository.dart';
@@ -22,15 +23,22 @@ class ConteudoService {
       @required this.arquivoService});
 
   Future<List<Conteudo>> downloadConteudo() async {
-    var conteudo = await this.conteudoRepo.downloadConteudo();
-    if (conteudo != null) {
-      for (var item in conteudo) {
-        await Database.instance.conteudoDAO.addValueEquipments(item);
+    int sizeDirectory = await load();
+
+    if (sizeDirectory == 0) {
+      var conteudo = await this.conteudoRepo.downloadConteudo();
+      if (conteudo != null) {
+        for (var item in conteudo) {
+          await Database.instance.conteudoDAO.addValueEquipments(item);
+        }
+        //Database.instance.conteudoDAO.addValueEquipments(conteudo);n t
+        await this.downloadMidias(conteudo);
       }
-      //Database.instance.conteudoDAO.addValueEquipments(conteudo);
-      await this.downloadMidias(conteudo);
+      return conteudo;
+    } else {
+      var conteudo = this.conteudoRepo.downloadConteudo();
+      return conteudo;
     }
-    return conteudo;
   }
 
   Future downloadMidias(List<Conteudo> lista) async {
@@ -63,16 +71,14 @@ class ConteudoService {
     for (FileSystemEntity file in files) {
       if (file is File) {
         String ext = extension(file.path);
-        //
         // Verifica se é uma imagem ou video e adiciona na lista
-        //
         if (this.controller.extVideo.contains(ext) ||
             controller.extImg.contains(ext)) {
           this.files.add(file);
         }
       }
     }
-    print('Tamanho: ' + this.files.length.toString());
+    print('Qtd. Imagem/video: ' + this.files.length.toString());
     return this.files.length;
   }
 }
