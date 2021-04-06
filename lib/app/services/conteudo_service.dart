@@ -31,7 +31,7 @@ class ConteudoService {
         for (var item in conteudo) {
           await Database.instance.conteudoDAO.addValueEquipments(item);
         }
-        //Database.instance.conteudoDAO.addValueEquipments(conteudo);n t
+        //Database.instance.conteudoDAO.addValueEquipments(conteudo);
         await this.downloadMidias(conteudo);
       }
       return conteudo;
