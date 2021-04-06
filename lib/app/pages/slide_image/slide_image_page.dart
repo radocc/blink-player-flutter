@@ -38,10 +38,11 @@ class _SlideImagePageState
     //
     // Define os widget que serão exibido no slide de imagem
     //
+    //fit: BoxFit.fill,
     return Container(
       child: Image.file(
         this.widget.url,
-        fit: BoxFit.cover,
+        fit: BoxFit.fill,
       ),
     );
   }
