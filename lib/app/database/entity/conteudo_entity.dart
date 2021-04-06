@@ -3,7 +3,8 @@ import 'package:moor/moor.dart';
 class Conteudos extends Table {
   String get tableName => 'conteudo';
 
-  IntColumn get id => integer().autoIncrement()();
+  IntColumn get id => integer()();
+  IntColumn get status => integer().withDefault(const Constant(0)).nullable()();
   IntColumn get idTipoConteudo => integer()();
   IntColumn get tipoArquivo => integer().nullable()();
   TextColumn get nomeArquivo => text().nullable()();
@@ -12,7 +13,6 @@ class Conteudos extends Table {
       text().withDefault(const Constant('')).withLength(max: 200).nullable()();
   IntColumn get tempoExibicao =>
       integer().withDefault(const Constant(0)).nullable()();
-  IntColumn get status => integer().withDefault(const Constant(0)).nullable()();
   DateTimeColumn get horaInicio => dateTime().nullable()();
   DateTimeColumn get horaFim => dateTime().nullable()();
   TextColumn get filtros => text().withLength(max: 10).nullable()();
@@ -22,6 +22,8 @@ class Conteudos extends Table {
   TextColumn get previsao => text().withLength(max: 500).nullable()();
   TextColumn get campos => text().withLength(max: 500).nullable()();
   IntColumn get idArquivo => integer().nullable()();
-  //Loteria
+
+  @override
+  Set<Column> get primaryKey => {id, status};
 
 }

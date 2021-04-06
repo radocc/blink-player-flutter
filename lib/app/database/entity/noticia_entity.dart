@@ -11,5 +11,6 @@ class Noticias extends Table {
   IntColumn get idNoticiaEditoria => integer()();
   IntColumn get idFonteNoticia => integer()();
   IntColumn get idConteudo => integer()();
+  IntColumn get idTemplate => integer()();
 
 }

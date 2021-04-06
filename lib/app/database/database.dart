@@ -1,9 +1,18 @@
 import 'dart:io';
 
+import 'package:blink/app/database/dao/atualizacao_conteudo_dao.dart';
+import 'package:blink/app/database/dao/atualizacao_dao.dart';
+import 'package:blink/app/database/dao/atualizacao_status_dao.dart';
+import 'package:blink/app/database/dao/configuracao_dao.dart';
 import 'package:blink/app/database/dao/conteudo_dao.dart';
 import 'package:blink/app/database/dao/equipamento_dao.dart';
 import 'package:blink/app/database/dao/noticia_dao.dart';
 import 'package:blink/app/database/dao/player_dados_dao.dart';
+import 'package:blink/app/database/dao/template_dao.dart';
+import 'package:blink/app/database/entity/atualizacao_conteudo_entity.dart';
+import 'package:blink/app/database/entity/atualizacao_entity.dart';
+import 'package:blink/app/database/entity/atualizacao_status_entity.dart';
+import 'package:blink/app/database/entity/configuracao_entity.dart';
 import 'package:blink/app/database/entity/conteudo_agendamento_entity.dart';
 import 'package:blink/app/database/entity/conteudo_campo_entity.dart';
 import 'package:blink/app/database/entity/conteudo_entity.dart';
@@ -12,6 +21,7 @@ import 'package:blink/app/database/entity/player_dados.dart';
 import 'package:blink/app/database/entity/playlist_conteudo_entity.dart';
 import 'package:blink/app/database/entity/playlist_entity.dart';
 import 'package:blink/app/database/entity/noticia_entity.dart';
+import 'package:blink/app/database/entity/template_entity.dart';
 import 'package:moor/moor.dart';
 import 'package:moor/ffi.dart';
 import 'package:path/path.dart' as p;
@@ -20,6 +30,11 @@ import 'package:path_provider/path_provider.dart';
 part 'database.g.dart';
 
 @UseMoor(tables: [
+  Configuracoes,
+  Atualizacoes,
+  AtualizacoesStatus,
+  AtualizacoesConteudo,
+  Templates,
   Conteudos,
   ConteudoAgendamentos,
   ConteudoCampos,
@@ -34,6 +49,11 @@ class Database extends _$Database {
   EquipamentoDAO equipsDAO;
   ConteudoDAO conteudoDAO;
   NoticiaDAO noticiaDAO;
+  ConfiguracaoDAO configuracaoDAO;
+  AtualizacaoDAO atualizacaoDAO;
+  AtualizacaoStatusDAO atualizacaoStatusDAO;
+  AtualizacaoConteudoDAO atualizacaoConteudoDAO;
+  TemplateDAO templateDAO;
 
   // static Database instance = Database._internal();
   // Database._internal()
@@ -54,6 +74,11 @@ class Database extends _$Database {
     equipsDAO = EquipamentoDAO(this);
     conteudoDAO = ConteudoDAO(this);
     noticiaDAO = NoticiaDAO(this);
+    configuracaoDAO = ConfiguracaoDAO(this);
+    atualizacaoDAO = AtualizacaoDAO(this);
+    atualizacaoStatusDAO = AtualizacaoStatusDAO(this);
+    atualizacaoConteudoDAO = AtualizacaoConteudoDAO(this);
+    templateDAO = TemplateDAO(this);
   }
 
   @override

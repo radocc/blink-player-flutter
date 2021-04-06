@@ -7,15 +7,1587 @@ part of 'database.dart';
 // **************************************************************************
 
 // ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
+class Configuracoe extends DataClass implements Insertable<Configuracoe> {
+  final int id;
+  final bool atualizaInicio;
+  final String atualizacaoHorarios;
+  Configuracoe(
+      {@required this.id,
+      @required this.atualizaInicio,
+      this.atualizacaoHorarios});
+  factory Configuracoe.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+      {String prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final boolType = db.typeSystem.forDartType<bool>();
+    final stringType = db.typeSystem.forDartType<String>();
+    return Configuracoe(
+      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      atualizaInicio: boolType
+          .mapFromDatabaseResponse(data['${effectivePrefix}atualiza_inicio']),
+      atualizacaoHorarios: stringType.mapFromDatabaseResponse(
+          data['${effectivePrefix}atualizacao_horarios']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      map['id'] = Variable<int>(id);
+    }
+    if (!nullToAbsent || atualizaInicio != null) {
+      map['atualiza_inicio'] = Variable<bool>(atualizaInicio);
+    }
+    if (!nullToAbsent || atualizacaoHorarios != null) {
+      map['atualizacao_horarios'] = Variable<String>(atualizacaoHorarios);
+    }
+    return map;
+  }
+
+  ConfiguracoesCompanion toCompanion(bool nullToAbsent) {
+    return ConfiguracoesCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      atualizaInicio: atualizaInicio == null && nullToAbsent
+          ? const Value.absent()
+          : Value(atualizaInicio),
+      atualizacaoHorarios: atualizacaoHorarios == null && nullToAbsent
+          ? const Value.absent()
+          : Value(atualizacaoHorarios),
+    );
+  }
+
+  factory Configuracoe.fromJson(Map<String, dynamic> json,
+      {ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return Configuracoe(
+      id: serializer.fromJson<int>(json['id']),
+      atualizaInicio: serializer.fromJson<bool>(json['atualizaInicio']),
+      atualizacaoHorarios:
+          serializer.fromJson<String>(json['atualizacaoHorarios']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'atualizaInicio': serializer.toJson<bool>(atualizaInicio),
+      'atualizacaoHorarios': serializer.toJson<String>(atualizacaoHorarios),
+    };
+  }
+
+  Configuracoe copyWith(
+          {int id, bool atualizaInicio, String atualizacaoHorarios}) =>
+      Configuracoe(
+        id: id ?? this.id,
+        atualizaInicio: atualizaInicio ?? this.atualizaInicio,
+        atualizacaoHorarios: atualizacaoHorarios ?? this.atualizacaoHorarios,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Configuracoe(')
+          ..write('id: $id, ')
+          ..write('atualizaInicio: $atualizaInicio, ')
+          ..write('atualizacaoHorarios: $atualizacaoHorarios')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(id.hashCode,
+      $mrjc(atualizaInicio.hashCode, atualizacaoHorarios.hashCode)));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is Configuracoe &&
+          other.id == this.id &&
+          other.atualizaInicio == this.atualizaInicio &&
+          other.atualizacaoHorarios == this.atualizacaoHorarios);
+}
+
+class ConfiguracoesCompanion extends UpdateCompanion<Configuracoe> {
+  final Value<int> id;
+  final Value<bool> atualizaInicio;
+  final Value<String> atualizacaoHorarios;
+  const ConfiguracoesCompanion({
+    this.id = const Value.absent(),
+    this.atualizaInicio = const Value.absent(),
+    this.atualizacaoHorarios = const Value.absent(),
+  });
+  ConfiguracoesCompanion.insert({
+    this.id = const Value.absent(),
+    this.atualizaInicio = const Value.absent(),
+    this.atualizacaoHorarios = const Value.absent(),
+  });
+  static Insertable<Configuracoe> custom({
+    Expression<int> id,
+    Expression<bool> atualizaInicio,
+    Expression<String> atualizacaoHorarios,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (atualizaInicio != null) 'atualiza_inicio': atualizaInicio,
+      if (atualizacaoHorarios != null)
+        'atualizacao_horarios': atualizacaoHorarios,
+    });
+  }
+
+  ConfiguracoesCompanion copyWith(
+      {Value<int> id,
+      Value<bool> atualizaInicio,
+      Value<String> atualizacaoHorarios}) {
+    return ConfiguracoesCompanion(
+      id: id ?? this.id,
+      atualizaInicio: atualizaInicio ?? this.atualizaInicio,
+      atualizacaoHorarios: atualizacaoHorarios ?? this.atualizacaoHorarios,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (atualizaInicio.present) {
+      map['atualiza_inicio'] = Variable<bool>(atualizaInicio.value);
+    }
+    if (atualizacaoHorarios.present) {
+      map['atualizacao_horarios'] = Variable<String>(atualizacaoHorarios.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ConfiguracoesCompanion(')
+          ..write('id: $id, ')
+          ..write('atualizaInicio: $atualizaInicio, ')
+          ..write('atualizacaoHorarios: $atualizacaoHorarios')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ConfiguracoesTable extends Configuracoes
+    with TableInfo<$ConfiguracoesTable, Configuracoe> {
+  final GeneratedDatabase _db;
+  final String _alias;
+  $ConfiguracoesTable(this._db, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  GeneratedIntColumn _id;
+  @override
+  GeneratedIntColumn get id => _id ??= _constructId();
+  GeneratedIntColumn _constructId() {
+    return GeneratedIntColumn('id', $tableName, false,
+        hasAutoIncrement: true, declaredAsPrimaryKey: true);
+  }
+
+  final VerificationMeta _atualizaInicioMeta =
+      const VerificationMeta('atualizaInicio');
+  GeneratedBoolColumn _atualizaInicio;
+  @override
+  GeneratedBoolColumn get atualizaInicio =>
+      _atualizaInicio ??= _constructAtualizaInicio();
+  GeneratedBoolColumn _constructAtualizaInicio() {
+    return GeneratedBoolColumn('atualiza_inicio', $tableName, false,
+        defaultValue: const Constant(true));
+  }
+
+  final VerificationMeta _atualizacaoHorariosMeta =
+      const VerificationMeta('atualizacaoHorarios');
+  GeneratedTextColumn _atualizacaoHorarios;
+  @override
+  GeneratedTextColumn get atualizacaoHorarios =>
+      _atualizacaoHorarios ??= _constructAtualizacaoHorarios();
+  GeneratedTextColumn _constructAtualizacaoHorarios() {
+    return GeneratedTextColumn('atualizacao_horarios', $tableName, true,
+        defaultValue: const Constant('08:00:00;10:00:00;13:00:00;16:00:00'));
+  }
+
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, atualizaInicio, atualizacaoHorarios];
+  @override
+  $ConfiguracoesTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'configuracao';
+  @override
+  final String actualTableName = 'configuracao';
+  @override
+  VerificationContext validateIntegrity(Insertable<Configuracoe> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
+    }
+    if (data.containsKey('atualiza_inicio')) {
+      context.handle(
+          _atualizaInicioMeta,
+          atualizaInicio.isAcceptableOrUnknown(
+              data['atualiza_inicio'], _atualizaInicioMeta));
+    }
+    if (data.containsKey('atualizacao_horarios')) {
+      context.handle(
+          _atualizacaoHorariosMeta,
+          atualizacaoHorarios.isAcceptableOrUnknown(
+              data['atualizacao_horarios'], _atualizacaoHorariosMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Configuracoe map(Map<String, dynamic> data, {String tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return Configuracoe.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $ConfiguracoesTable createAlias(String alias) {
+    return $ConfiguracoesTable(_db, alias);
+  }
+}
+
+class Atualizacoe extends DataClass implements Insertable<Atualizacoe> {
+  final int id;
+  final DateTime inicio;
+  final DateTime fim;
+  final String mensagem;
+  final String sequencia;
+  Atualizacoe(
+      {@required this.id,
+      @required this.inicio,
+      this.fim,
+      this.mensagem,
+      this.sequencia});
+  factory Atualizacoe.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+      {String prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final dateTimeType = db.typeSystem.forDartType<DateTime>();
+    final stringType = db.typeSystem.forDartType<String>();
+    return Atualizacoe(
+      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      inicio: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}inicio']),
+      fim: dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}fim']),
+      mensagem: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}mensagem']),
+      sequencia: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}sequencia']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      map['id'] = Variable<int>(id);
+    }
+    if (!nullToAbsent || inicio != null) {
+      map['inicio'] = Variable<DateTime>(inicio);
+    }
+    if (!nullToAbsent || fim != null) {
+      map['fim'] = Variable<DateTime>(fim);
+    }
+    if (!nullToAbsent || mensagem != null) {
+      map['mensagem'] = Variable<String>(mensagem);
+    }
+    if (!nullToAbsent || sequencia != null) {
+      map['sequencia'] = Variable<String>(sequencia);
+    }
+    return map;
+  }
+
+  AtualizacoesCompanion toCompanion(bool nullToAbsent) {
+    return AtualizacoesCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      inicio:
+          inicio == null && nullToAbsent ? const Value.absent() : Value(inicio),
+      fim: fim == null && nullToAbsent ? const Value.absent() : Value(fim),
+      mensagem: mensagem == null && nullToAbsent
+          ? const Value.absent()
+          : Value(mensagem),
+      sequencia: sequencia == null && nullToAbsent
+          ? const Value.absent()
+          : Value(sequencia),
+    );
+  }
+
+  factory Atualizacoe.fromJson(Map<String, dynamic> json,
+      {ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return Atualizacoe(
+      id: serializer.fromJson<int>(json['id']),
+      inicio: serializer.fromJson<DateTime>(json['inicio']),
+      fim: serializer.fromJson<DateTime>(json['fim']),
+      mensagem: serializer.fromJson<String>(json['mensagem']),
+      sequencia: serializer.fromJson<String>(json['sequencia']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'inicio': serializer.toJson<DateTime>(inicio),
+      'fim': serializer.toJson<DateTime>(fim),
+      'mensagem': serializer.toJson<String>(mensagem),
+      'sequencia': serializer.toJson<String>(sequencia),
+    };
+  }
+
+  Atualizacoe copyWith(
+          {int id,
+          DateTime inicio,
+          DateTime fim,
+          String mensagem,
+          String sequencia}) =>
+      Atualizacoe(
+        id: id ?? this.id,
+        inicio: inicio ?? this.inicio,
+        fim: fim ?? this.fim,
+        mensagem: mensagem ?? this.mensagem,
+        sequencia: sequencia ?? this.sequencia,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Atualizacoe(')
+          ..write('id: $id, ')
+          ..write('inicio: $inicio, ')
+          ..write('fim: $fim, ')
+          ..write('mensagem: $mensagem, ')
+          ..write('sequencia: $sequencia')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      id.hashCode,
+      $mrjc(inicio.hashCode,
+          $mrjc(fim.hashCode, $mrjc(mensagem.hashCode, sequencia.hashCode)))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is Atualizacoe &&
+          other.id == this.id &&
+          other.inicio == this.inicio &&
+          other.fim == this.fim &&
+          other.mensagem == this.mensagem &&
+          other.sequencia == this.sequencia);
+}
+
+class AtualizacoesCompanion extends UpdateCompanion<Atualizacoe> {
+  final Value<int> id;
+  final Value<DateTime> inicio;
+  final Value<DateTime> fim;
+  final Value<String> mensagem;
+  final Value<String> sequencia;
+  const AtualizacoesCompanion({
+    this.id = const Value.absent(),
+    this.inicio = const Value.absent(),
+    this.fim = const Value.absent(),
+    this.mensagem = const Value.absent(),
+    this.sequencia = const Value.absent(),
+  });
+  AtualizacoesCompanion.insert({
+    this.id = const Value.absent(),
+    this.inicio = const Value.absent(),
+    this.fim = const Value.absent(),
+    this.mensagem = const Value.absent(),
+    this.sequencia = const Value.absent(),
+  });
+  static Insertable<Atualizacoe> custom({
+    Expression<int> id,
+    Expression<DateTime> inicio,
+    Expression<DateTime> fim,
+    Expression<String> mensagem,
+    Expression<String> sequencia,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (inicio != null) 'inicio': inicio,
+      if (fim != null) 'fim': fim,
+      if (mensagem != null) 'mensagem': mensagem,
+      if (sequencia != null) 'sequencia': sequencia,
+    });
+  }
+
+  AtualizacoesCompanion copyWith(
+      {Value<int> id,
+      Value<DateTime> inicio,
+      Value<DateTime> fim,
+      Value<String> mensagem,
+      Value<String> sequencia}) {
+    return AtualizacoesCompanion(
+      id: id ?? this.id,
+      inicio: inicio ?? this.inicio,
+      fim: fim ?? this.fim,
+      mensagem: mensagem ?? this.mensagem,
+      sequencia: sequencia ?? this.sequencia,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (inicio.present) {
+      map['inicio'] = Variable<DateTime>(inicio.value);
+    }
+    if (fim.present) {
+      map['fim'] = Variable<DateTime>(fim.value);
+    }
+    if (mensagem.present) {
+      map['mensagem'] = Variable<String>(mensagem.value);
+    }
+    if (sequencia.present) {
+      map['sequencia'] = Variable<String>(sequencia.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AtualizacoesCompanion(')
+          ..write('id: $id, ')
+          ..write('inicio: $inicio, ')
+          ..write('fim: $fim, ')
+          ..write('mensagem: $mensagem, ')
+          ..write('sequencia: $sequencia')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $AtualizacoesTable extends Atualizacoes
+    with TableInfo<$AtualizacoesTable, Atualizacoe> {
+  final GeneratedDatabase _db;
+  final String _alias;
+  $AtualizacoesTable(this._db, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  GeneratedIntColumn _id;
+  @override
+  GeneratedIntColumn get id => _id ??= _constructId();
+  GeneratedIntColumn _constructId() {
+    return GeneratedIntColumn('id', $tableName, false,
+        hasAutoIncrement: true, declaredAsPrimaryKey: true);
+  }
+
+  final VerificationMeta _inicioMeta = const VerificationMeta('inicio');
+  GeneratedDateTimeColumn _inicio;
+  @override
+  GeneratedDateTimeColumn get inicio => _inicio ??= _constructInicio();
+  GeneratedDateTimeColumn _constructInicio() {
+    return GeneratedDateTimeColumn('inicio', $tableName, false,
+        defaultValue: Constant(DateTime.now()));
+  }
+
+  final VerificationMeta _fimMeta = const VerificationMeta('fim');
+  GeneratedDateTimeColumn _fim;
+  @override
+  GeneratedDateTimeColumn get fim => _fim ??= _constructFim();
+  GeneratedDateTimeColumn _constructFim() {
+    return GeneratedDateTimeColumn(
+      'fim',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _mensagemMeta = const VerificationMeta('mensagem');
+  GeneratedTextColumn _mensagem;
+  @override
+  GeneratedTextColumn get mensagem => _mensagem ??= _constructMensagem();
+  GeneratedTextColumn _constructMensagem() {
+    return GeneratedTextColumn(
+      'mensagem',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _sequenciaMeta = const VerificationMeta('sequencia');
+  GeneratedTextColumn _sequencia;
+  @override
+  GeneratedTextColumn get sequencia => _sequencia ??= _constructSequencia();
+  GeneratedTextColumn _constructSequencia() {
+    return GeneratedTextColumn(
+      'sequencia',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [id, inicio, fim, mensagem, sequencia];
+  @override
+  $AtualizacoesTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'atualizacao';
+  @override
+  final String actualTableName = 'atualizacao';
+  @override
+  VerificationContext validateIntegrity(Insertable<Atualizacoe> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
+    }
+    if (data.containsKey('inicio')) {
+      context.handle(_inicioMeta,
+          inicio.isAcceptableOrUnknown(data['inicio'], _inicioMeta));
+    }
+    if (data.containsKey('fim')) {
+      context.handle(
+          _fimMeta, fim.isAcceptableOrUnknown(data['fim'], _fimMeta));
+    }
+    if (data.containsKey('mensagem')) {
+      context.handle(_mensagemMeta,
+          mensagem.isAcceptableOrUnknown(data['mensagem'], _mensagemMeta));
+    }
+    if (data.containsKey('sequencia')) {
+      context.handle(_sequenciaMeta,
+          sequencia.isAcceptableOrUnknown(data['sequencia'], _sequenciaMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Atualizacoe map(Map<String, dynamic> data, {String tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return Atualizacoe.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $AtualizacoesTable createAlias(String alias) {
+    return $AtualizacoesTable(_db, alias);
+  }
+}
+
+class AtualizacaoStatus extends DataClass
+    implements Insertable<AtualizacaoStatus> {
+  final int id;
+  final int idAtualizacao;
+  final DateTime data;
+  final String mensagem;
+  final int status;
+  AtualizacaoStatus(
+      {@required this.id,
+      @required this.idAtualizacao,
+      @required this.data,
+      this.mensagem,
+      @required this.status});
+  factory AtualizacaoStatus.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final dateTimeType = db.typeSystem.forDartType<DateTime>();
+    final stringType = db.typeSystem.forDartType<String>();
+    return AtualizacaoStatus(
+      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      idAtualizacao: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_atualizacao']),
+      data:
+          dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}data']),
+      mensagem: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}mensagem']),
+      status: intType.mapFromDatabaseResponse(data['${effectivePrefix}status']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      map['id'] = Variable<int>(id);
+    }
+    if (!nullToAbsent || idAtualizacao != null) {
+      map['id_atualizacao'] = Variable<int>(idAtualizacao);
+    }
+    if (!nullToAbsent || data != null) {
+      map['data'] = Variable<DateTime>(data);
+    }
+    if (!nullToAbsent || mensagem != null) {
+      map['mensagem'] = Variable<String>(mensagem);
+    }
+    if (!nullToAbsent || status != null) {
+      map['status'] = Variable<int>(status);
+    }
+    return map;
+  }
+
+  AtualizacoesStatusCompanion toCompanion(bool nullToAbsent) {
+    return AtualizacoesStatusCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      idAtualizacao: idAtualizacao == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idAtualizacao),
+      data: data == null && nullToAbsent ? const Value.absent() : Value(data),
+      mensagem: mensagem == null && nullToAbsent
+          ? const Value.absent()
+          : Value(mensagem),
+      status:
+          status == null && nullToAbsent ? const Value.absent() : Value(status),
+    );
+  }
+
+  factory AtualizacaoStatus.fromJson(Map<String, dynamic> json,
+      {ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return AtualizacaoStatus(
+      id: serializer.fromJson<int>(json['id']),
+      idAtualizacao: serializer.fromJson<int>(json['idAtualizacao']),
+      data: serializer.fromJson<DateTime>(json['data']),
+      mensagem: serializer.fromJson<String>(json['mensagem']),
+      status: serializer.fromJson<int>(json['status']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'idAtualizacao': serializer.toJson<int>(idAtualizacao),
+      'data': serializer.toJson<DateTime>(data),
+      'mensagem': serializer.toJson<String>(mensagem),
+      'status': serializer.toJson<int>(status),
+    };
+  }
+
+  AtualizacaoStatus copyWith(
+          {int id,
+          int idAtualizacao,
+          DateTime data,
+          String mensagem,
+          int status}) =>
+      AtualizacaoStatus(
+        id: id ?? this.id,
+        idAtualizacao: idAtualizacao ?? this.idAtualizacao,
+        data: data ?? this.data,
+        mensagem: mensagem ?? this.mensagem,
+        status: status ?? this.status,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('AtualizacaoStatus(')
+          ..write('id: $id, ')
+          ..write('idAtualizacao: $idAtualizacao, ')
+          ..write('data: $data, ')
+          ..write('mensagem: $mensagem, ')
+          ..write('status: $status')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      id.hashCode,
+      $mrjc(idAtualizacao.hashCode,
+          $mrjc(data.hashCode, $mrjc(mensagem.hashCode, status.hashCode)))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is AtualizacaoStatus &&
+          other.id == this.id &&
+          other.idAtualizacao == this.idAtualizacao &&
+          other.data == this.data &&
+          other.mensagem == this.mensagem &&
+          other.status == this.status);
+}
+
+class AtualizacoesStatusCompanion extends UpdateCompanion<AtualizacaoStatus> {
+  final Value<int> id;
+  final Value<int> idAtualizacao;
+  final Value<DateTime> data;
+  final Value<String> mensagem;
+  final Value<int> status;
+  const AtualizacoesStatusCompanion({
+    this.id = const Value.absent(),
+    this.idAtualizacao = const Value.absent(),
+    this.data = const Value.absent(),
+    this.mensagem = const Value.absent(),
+    this.status = const Value.absent(),
+  });
+  AtualizacoesStatusCompanion.insert({
+    this.id = const Value.absent(),
+    @required int idAtualizacao,
+    this.data = const Value.absent(),
+    this.mensagem = const Value.absent(),
+    @required int status,
+  })  : idAtualizacao = Value(idAtualizacao),
+        status = Value(status);
+  static Insertable<AtualizacaoStatus> custom({
+    Expression<int> id,
+    Expression<int> idAtualizacao,
+    Expression<DateTime> data,
+    Expression<String> mensagem,
+    Expression<int> status,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (idAtualizacao != null) 'id_atualizacao': idAtualizacao,
+      if (data != null) 'data': data,
+      if (mensagem != null) 'mensagem': mensagem,
+      if (status != null) 'status': status,
+    });
+  }
+
+  AtualizacoesStatusCompanion copyWith(
+      {Value<int> id,
+      Value<int> idAtualizacao,
+      Value<DateTime> data,
+      Value<String> mensagem,
+      Value<int> status}) {
+    return AtualizacoesStatusCompanion(
+      id: id ?? this.id,
+      idAtualizacao: idAtualizacao ?? this.idAtualizacao,
+      data: data ?? this.data,
+      mensagem: mensagem ?? this.mensagem,
+      status: status ?? this.status,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (idAtualizacao.present) {
+      map['id_atualizacao'] = Variable<int>(idAtualizacao.value);
+    }
+    if (data.present) {
+      map['data'] = Variable<DateTime>(data.value);
+    }
+    if (mensagem.present) {
+      map['mensagem'] = Variable<String>(mensagem.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<int>(status.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AtualizacoesStatusCompanion(')
+          ..write('id: $id, ')
+          ..write('idAtualizacao: $idAtualizacao, ')
+          ..write('data: $data, ')
+          ..write('mensagem: $mensagem, ')
+          ..write('status: $status')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $AtualizacoesStatusTable extends AtualizacoesStatus
+    with TableInfo<$AtualizacoesStatusTable, AtualizacaoStatus> {
+  final GeneratedDatabase _db;
+  final String _alias;
+  $AtualizacoesStatusTable(this._db, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  GeneratedIntColumn _id;
+  @override
+  GeneratedIntColumn get id => _id ??= _constructId();
+  GeneratedIntColumn _constructId() {
+    return GeneratedIntColumn('id', $tableName, false,
+        hasAutoIncrement: true, declaredAsPrimaryKey: true);
+  }
+
+  final VerificationMeta _idAtualizacaoMeta =
+      const VerificationMeta('idAtualizacao');
+  GeneratedIntColumn _idAtualizacao;
+  @override
+  GeneratedIntColumn get idAtualizacao =>
+      _idAtualizacao ??= _constructIdAtualizacao();
+  GeneratedIntColumn _constructIdAtualizacao() {
+    return GeneratedIntColumn('id_atualizacao', $tableName, false,
+        $customConstraints: 'NOT NULL REFERENCES atualizacao(id)');
+  }
+
+  final VerificationMeta _dataMeta = const VerificationMeta('data');
+  GeneratedDateTimeColumn _data;
+  @override
+  GeneratedDateTimeColumn get data => _data ??= _constructData();
+  GeneratedDateTimeColumn _constructData() {
+    return GeneratedDateTimeColumn('data', $tableName, false,
+        defaultValue: Constant(DateTime.now()));
+  }
+
+  final VerificationMeta _mensagemMeta = const VerificationMeta('mensagem');
+  GeneratedTextColumn _mensagem;
+  @override
+  GeneratedTextColumn get mensagem => _mensagem ??= _constructMensagem();
+  GeneratedTextColumn _constructMensagem() {
+    return GeneratedTextColumn(
+      'mensagem',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _statusMeta = const VerificationMeta('status');
+  GeneratedIntColumn _status;
+  @override
+  GeneratedIntColumn get status => _status ??= _constructStatus();
+  GeneratedIntColumn _constructStatus() {
+    return GeneratedIntColumn(
+      'status',
+      $tableName,
+      false,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, idAtualizacao, data, mensagem, status];
+  @override
+  $AtualizacoesStatusTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'atualizacaostatus';
+  @override
+  final String actualTableName = 'atualizacaostatus';
+  @override
+  VerificationContext validateIntegrity(Insertable<AtualizacaoStatus> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
+    }
+    if (data.containsKey('id_atualizacao')) {
+      context.handle(
+          _idAtualizacaoMeta,
+          idAtualizacao.isAcceptableOrUnknown(
+              data['id_atualizacao'], _idAtualizacaoMeta));
+    } else if (isInserting) {
+      context.missing(_idAtualizacaoMeta);
+    }
+    if (data.containsKey('data')) {
+      context.handle(
+          _dataMeta, this.data.isAcceptableOrUnknown(data['data'], _dataMeta));
+    }
+    if (data.containsKey('mensagem')) {
+      context.handle(_mensagemMeta,
+          mensagem.isAcceptableOrUnknown(data['mensagem'], _mensagemMeta));
+    }
+    if (data.containsKey('status')) {
+      context.handle(_statusMeta,
+          status.isAcceptableOrUnknown(data['status'], _statusMeta));
+    } else if (isInserting) {
+      context.missing(_statusMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  AtualizacaoStatus map(Map<String, dynamic> data, {String tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return AtualizacaoStatus.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $AtualizacoesStatusTable createAlias(String alias) {
+    return $AtualizacoesStatusTable(_db, alias);
+  }
+}
+
+class AtualizacaoConteudo extends DataClass
+    implements Insertable<AtualizacaoConteudo> {
+  final int id;
+  final int idAtualizacao;
+  final int tipoObjeto;
+  final int idObjeto;
+  final DateTime data;
+  AtualizacaoConteudo(
+      {@required this.id,
+      @required this.idAtualizacao,
+      @required this.tipoObjeto,
+      @required this.idObjeto,
+      @required this.data});
+  factory AtualizacaoConteudo.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final dateTimeType = db.typeSystem.forDartType<DateTime>();
+    return AtualizacaoConteudo(
+      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      idAtualizacao: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_atualizacao']),
+      tipoObjeto: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_objeto']),
+      idObjeto:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_objeto']),
+      data:
+          dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}data']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      map['id'] = Variable<int>(id);
+    }
+    if (!nullToAbsent || idAtualizacao != null) {
+      map['id_atualizacao'] = Variable<int>(idAtualizacao);
+    }
+    if (!nullToAbsent || tipoObjeto != null) {
+      map['tipo_objeto'] = Variable<int>(tipoObjeto);
+    }
+    if (!nullToAbsent || idObjeto != null) {
+      map['id_objeto'] = Variable<int>(idObjeto);
+    }
+    if (!nullToAbsent || data != null) {
+      map['data'] = Variable<DateTime>(data);
+    }
+    return map;
+  }
+
+  AtualizacoesConteudoCompanion toCompanion(bool nullToAbsent) {
+    return AtualizacoesConteudoCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      idAtualizacao: idAtualizacao == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idAtualizacao),
+      tipoObjeto: tipoObjeto == null && nullToAbsent
+          ? const Value.absent()
+          : Value(tipoObjeto),
+      idObjeto: idObjeto == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idObjeto),
+      data: data == null && nullToAbsent ? const Value.absent() : Value(data),
+    );
+  }
+
+  factory AtualizacaoConteudo.fromJson(Map<String, dynamic> json,
+      {ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return AtualizacaoConteudo(
+      id: serializer.fromJson<int>(json['id']),
+      idAtualizacao: serializer.fromJson<int>(json['idAtualizacao']),
+      tipoObjeto: serializer.fromJson<int>(json['tipoObjeto']),
+      idObjeto: serializer.fromJson<int>(json['idObjeto']),
+      data: serializer.fromJson<DateTime>(json['data']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'idAtualizacao': serializer.toJson<int>(idAtualizacao),
+      'tipoObjeto': serializer.toJson<int>(tipoObjeto),
+      'idObjeto': serializer.toJson<int>(idObjeto),
+      'data': serializer.toJson<DateTime>(data),
+    };
+  }
+
+  AtualizacaoConteudo copyWith(
+          {int id,
+          int idAtualizacao,
+          int tipoObjeto,
+          int idObjeto,
+          DateTime data}) =>
+      AtualizacaoConteudo(
+        id: id ?? this.id,
+        idAtualizacao: idAtualizacao ?? this.idAtualizacao,
+        tipoObjeto: tipoObjeto ?? this.tipoObjeto,
+        idObjeto: idObjeto ?? this.idObjeto,
+        data: data ?? this.data,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('AtualizacaoConteudo(')
+          ..write('id: $id, ')
+          ..write('idAtualizacao: $idAtualizacao, ')
+          ..write('tipoObjeto: $tipoObjeto, ')
+          ..write('idObjeto: $idObjeto, ')
+          ..write('data: $data')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      id.hashCode,
+      $mrjc(
+          idAtualizacao.hashCode,
+          $mrjc(
+              tipoObjeto.hashCode, $mrjc(idObjeto.hashCode, data.hashCode)))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is AtualizacaoConteudo &&
+          other.id == this.id &&
+          other.idAtualizacao == this.idAtualizacao &&
+          other.tipoObjeto == this.tipoObjeto &&
+          other.idObjeto == this.idObjeto &&
+          other.data == this.data);
+}
+
+class AtualizacoesConteudoCompanion
+    extends UpdateCompanion<AtualizacaoConteudo> {
+  final Value<int> id;
+  final Value<int> idAtualizacao;
+  final Value<int> tipoObjeto;
+  final Value<int> idObjeto;
+  final Value<DateTime> data;
+  const AtualizacoesConteudoCompanion({
+    this.id = const Value.absent(),
+    this.idAtualizacao = const Value.absent(),
+    this.tipoObjeto = const Value.absent(),
+    this.idObjeto = const Value.absent(),
+    this.data = const Value.absent(),
+  });
+  AtualizacoesConteudoCompanion.insert({
+    this.id = const Value.absent(),
+    @required int idAtualizacao,
+    @required int tipoObjeto,
+    @required int idObjeto,
+    this.data = const Value.absent(),
+  })  : idAtualizacao = Value(idAtualizacao),
+        tipoObjeto = Value(tipoObjeto),
+        idObjeto = Value(idObjeto);
+  static Insertable<AtualizacaoConteudo> custom({
+    Expression<int> id,
+    Expression<int> idAtualizacao,
+    Expression<int> tipoObjeto,
+    Expression<int> idObjeto,
+    Expression<DateTime> data,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (idAtualizacao != null) 'id_atualizacao': idAtualizacao,
+      if (tipoObjeto != null) 'tipo_objeto': tipoObjeto,
+      if (idObjeto != null) 'id_objeto': idObjeto,
+      if (data != null) 'data': data,
+    });
+  }
+
+  AtualizacoesConteudoCompanion copyWith(
+      {Value<int> id,
+      Value<int> idAtualizacao,
+      Value<int> tipoObjeto,
+      Value<int> idObjeto,
+      Value<DateTime> data}) {
+    return AtualizacoesConteudoCompanion(
+      id: id ?? this.id,
+      idAtualizacao: idAtualizacao ?? this.idAtualizacao,
+      tipoObjeto: tipoObjeto ?? this.tipoObjeto,
+      idObjeto: idObjeto ?? this.idObjeto,
+      data: data ?? this.data,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (idAtualizacao.present) {
+      map['id_atualizacao'] = Variable<int>(idAtualizacao.value);
+    }
+    if (tipoObjeto.present) {
+      map['tipo_objeto'] = Variable<int>(tipoObjeto.value);
+    }
+    if (idObjeto.present) {
+      map['id_objeto'] = Variable<int>(idObjeto.value);
+    }
+    if (data.present) {
+      map['data'] = Variable<DateTime>(data.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AtualizacoesConteudoCompanion(')
+          ..write('id: $id, ')
+          ..write('idAtualizacao: $idAtualizacao, ')
+          ..write('tipoObjeto: $tipoObjeto, ')
+          ..write('idObjeto: $idObjeto, ')
+          ..write('data: $data')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $AtualizacoesConteudoTable extends AtualizacoesConteudo
+    with TableInfo<$AtualizacoesConteudoTable, AtualizacaoConteudo> {
+  final GeneratedDatabase _db;
+  final String _alias;
+  $AtualizacoesConteudoTable(this._db, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  GeneratedIntColumn _id;
+  @override
+  GeneratedIntColumn get id => _id ??= _constructId();
+  GeneratedIntColumn _constructId() {
+    return GeneratedIntColumn('id', $tableName, false,
+        hasAutoIncrement: true, declaredAsPrimaryKey: true);
+  }
+
+  final VerificationMeta _idAtualizacaoMeta =
+      const VerificationMeta('idAtualizacao');
+  GeneratedIntColumn _idAtualizacao;
+  @override
+  GeneratedIntColumn get idAtualizacao =>
+      _idAtualizacao ??= _constructIdAtualizacao();
+  GeneratedIntColumn _constructIdAtualizacao() {
+    return GeneratedIntColumn('id_atualizacao', $tableName, false,
+        $customConstraints: 'NOT NULL REFERENCES atualizacao(id)');
+  }
+
+  final VerificationMeta _tipoObjetoMeta = const VerificationMeta('tipoObjeto');
+  GeneratedIntColumn _tipoObjeto;
+  @override
+  GeneratedIntColumn get tipoObjeto => _tipoObjeto ??= _constructTipoObjeto();
+  GeneratedIntColumn _constructTipoObjeto() {
+    return GeneratedIntColumn(
+      'tipo_objeto',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _idObjetoMeta = const VerificationMeta('idObjeto');
+  GeneratedIntColumn _idObjeto;
+  @override
+  GeneratedIntColumn get idObjeto => _idObjeto ??= _constructIdObjeto();
+  GeneratedIntColumn _constructIdObjeto() {
+    return GeneratedIntColumn(
+      'id_objeto',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _dataMeta = const VerificationMeta('data');
+  GeneratedDateTimeColumn _data;
+  @override
+  GeneratedDateTimeColumn get data => _data ??= _constructData();
+  GeneratedDateTimeColumn _constructData() {
+    return GeneratedDateTimeColumn('data', $tableName, false,
+        defaultValue: Constant(DateTime.now()));
+  }
+
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, idAtualizacao, tipoObjeto, idObjeto, data];
+  @override
+  $AtualizacoesConteudoTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'atualizacaoconteudo';
+  @override
+  final String actualTableName = 'atualizacaoconteudo';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<AtualizacaoConteudo> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
+    }
+    if (data.containsKey('id_atualizacao')) {
+      context.handle(
+          _idAtualizacaoMeta,
+          idAtualizacao.isAcceptableOrUnknown(
+              data['id_atualizacao'], _idAtualizacaoMeta));
+    } else if (isInserting) {
+      context.missing(_idAtualizacaoMeta);
+    }
+    if (data.containsKey('tipo_objeto')) {
+      context.handle(
+          _tipoObjetoMeta,
+          tipoObjeto.isAcceptableOrUnknown(
+              data['tipo_objeto'], _tipoObjetoMeta));
+    } else if (isInserting) {
+      context.missing(_tipoObjetoMeta);
+    }
+    if (data.containsKey('id_objeto')) {
+      context.handle(_idObjetoMeta,
+          idObjeto.isAcceptableOrUnknown(data['id_objeto'], _idObjetoMeta));
+    } else if (isInserting) {
+      context.missing(_idObjetoMeta);
+    }
+    if (data.containsKey('data')) {
+      context.handle(
+          _dataMeta, this.data.isAcceptableOrUnknown(data['data'], _dataMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  AtualizacaoConteudo map(Map<String, dynamic> data, {String tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return AtualizacaoConteudo.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $AtualizacoesConteudoTable createAlias(String alias) {
+    return $AtualizacoesConteudoTable(_db, alias);
+  }
+}
+
+class Template extends DataClass implements Insertable<Template> {
+  final int id;
+  final String nome;
+  final int status;
+  final int idTipoConteudo;
+  final int idArquivo;
+  Template(
+      {@required this.id,
+      this.nome,
+      @required this.status,
+      @required this.idTipoConteudo,
+      @required this.idArquivo});
+  factory Template.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+      {String prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final stringType = db.typeSystem.forDartType<String>();
+    return Template(
+      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      nome: stringType.mapFromDatabaseResponse(data['${effectivePrefix}nome']),
+      status: intType.mapFromDatabaseResponse(data['${effectivePrefix}status']),
+      idTipoConteudo: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_tipo_conteudo']),
+      idArquivo:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_arquivo']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      map['id'] = Variable<int>(id);
+    }
+    if (!nullToAbsent || nome != null) {
+      map['nome'] = Variable<String>(nome);
+    }
+    if (!nullToAbsent || status != null) {
+      map['status'] = Variable<int>(status);
+    }
+    if (!nullToAbsent || idTipoConteudo != null) {
+      map['id_tipo_conteudo'] = Variable<int>(idTipoConteudo);
+    }
+    if (!nullToAbsent || idArquivo != null) {
+      map['id_arquivo'] = Variable<int>(idArquivo);
+    }
+    return map;
+  }
+
+  TemplatesCompanion toCompanion(bool nullToAbsent) {
+    return TemplatesCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      nome: nome == null && nullToAbsent ? const Value.absent() : Value(nome),
+      status:
+          status == null && nullToAbsent ? const Value.absent() : Value(status),
+      idTipoConteudo: idTipoConteudo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idTipoConteudo),
+      idArquivo: idArquivo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idArquivo),
+    );
+  }
+
+  factory Template.fromJson(Map<String, dynamic> json,
+      {ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return Template(
+      id: serializer.fromJson<int>(json['id']),
+      nome: serializer.fromJson<String>(json['nome']),
+      status: serializer.fromJson<int>(json['status']),
+      idTipoConteudo: serializer.fromJson<int>(json['idTipoConteudo']),
+      idArquivo: serializer.fromJson<int>(json['idArquivo']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'nome': serializer.toJson<String>(nome),
+      'status': serializer.toJson<int>(status),
+      'idTipoConteudo': serializer.toJson<int>(idTipoConteudo),
+      'idArquivo': serializer.toJson<int>(idArquivo),
+    };
+  }
+
+  Template copyWith(
+          {int id,
+          String nome,
+          int status,
+          int idTipoConteudo,
+          int idArquivo}) =>
+      Template(
+        id: id ?? this.id,
+        nome: nome ?? this.nome,
+        status: status ?? this.status,
+        idTipoConteudo: idTipoConteudo ?? this.idTipoConteudo,
+        idArquivo: idArquivo ?? this.idArquivo,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Template(')
+          ..write('id: $id, ')
+          ..write('nome: $nome, ')
+          ..write('status: $status, ')
+          ..write('idTipoConteudo: $idTipoConteudo, ')
+          ..write('idArquivo: $idArquivo')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      id.hashCode,
+      $mrjc(
+          nome.hashCode,
+          $mrjc(status.hashCode,
+              $mrjc(idTipoConteudo.hashCode, idArquivo.hashCode)))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is Template &&
+          other.id == this.id &&
+          other.nome == this.nome &&
+          other.status == this.status &&
+          other.idTipoConteudo == this.idTipoConteudo &&
+          other.idArquivo == this.idArquivo);
+}
+
+class TemplatesCompanion extends UpdateCompanion<Template> {
+  final Value<int> id;
+  final Value<String> nome;
+  final Value<int> status;
+  final Value<int> idTipoConteudo;
+  final Value<int> idArquivo;
+  const TemplatesCompanion({
+    this.id = const Value.absent(),
+    this.nome = const Value.absent(),
+    this.status = const Value.absent(),
+    this.idTipoConteudo = const Value.absent(),
+    this.idArquivo = const Value.absent(),
+  });
+  TemplatesCompanion.insert({
+    this.id = const Value.absent(),
+    this.nome = const Value.absent(),
+    @required int status,
+    @required int idTipoConteudo,
+    @required int idArquivo,
+  })  : status = Value(status),
+        idTipoConteudo = Value(idTipoConteudo),
+        idArquivo = Value(idArquivo);
+  static Insertable<Template> custom({
+    Expression<int> id,
+    Expression<String> nome,
+    Expression<int> status,
+    Expression<int> idTipoConteudo,
+    Expression<int> idArquivo,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (nome != null) 'nome': nome,
+      if (status != null) 'status': status,
+      if (idTipoConteudo != null) 'id_tipo_conteudo': idTipoConteudo,
+      if (idArquivo != null) 'id_arquivo': idArquivo,
+    });
+  }
+
+  TemplatesCompanion copyWith(
+      {Value<int> id,
+      Value<String> nome,
+      Value<int> status,
+      Value<int> idTipoConteudo,
+      Value<int> idArquivo}) {
+    return TemplatesCompanion(
+      id: id ?? this.id,
+      nome: nome ?? this.nome,
+      status: status ?? this.status,
+      idTipoConteudo: idTipoConteudo ?? this.idTipoConteudo,
+      idArquivo: idArquivo ?? this.idArquivo,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (nome.present) {
+      map['nome'] = Variable<String>(nome.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<int>(status.value);
+    }
+    if (idTipoConteudo.present) {
+      map['id_tipo_conteudo'] = Variable<int>(idTipoConteudo.value);
+    }
+    if (idArquivo.present) {
+      map['id_arquivo'] = Variable<int>(idArquivo.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TemplatesCompanion(')
+          ..write('id: $id, ')
+          ..write('nome: $nome, ')
+          ..write('status: $status, ')
+          ..write('idTipoConteudo: $idTipoConteudo, ')
+          ..write('idArquivo: $idArquivo')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $TemplatesTable extends Templates
+    with TableInfo<$TemplatesTable, Template> {
+  final GeneratedDatabase _db;
+  final String _alias;
+  $TemplatesTable(this._db, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  GeneratedIntColumn _id;
+  @override
+  GeneratedIntColumn get id => _id ??= _constructId();
+  GeneratedIntColumn _constructId() {
+    return GeneratedIntColumn('id', $tableName, false,
+        hasAutoIncrement: true, declaredAsPrimaryKey: true);
+  }
+
+  final VerificationMeta _nomeMeta = const VerificationMeta('nome');
+  GeneratedTextColumn _nome;
+  @override
+  GeneratedTextColumn get nome => _nome ??= _constructNome();
+  GeneratedTextColumn _constructNome() {
+    return GeneratedTextColumn('nome', $tableName, true, maxTextLength: 200);
+  }
+
+  final VerificationMeta _statusMeta = const VerificationMeta('status');
+  GeneratedIntColumn _status;
+  @override
+  GeneratedIntColumn get status => _status ??= _constructStatus();
+  GeneratedIntColumn _constructStatus() {
+    return GeneratedIntColumn(
+      'status',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _idTipoConteudoMeta =
+      const VerificationMeta('idTipoConteudo');
+  GeneratedIntColumn _idTipoConteudo;
+  @override
+  GeneratedIntColumn get idTipoConteudo =>
+      _idTipoConteudo ??= _constructIdTipoConteudo();
+  GeneratedIntColumn _constructIdTipoConteudo() {
+    return GeneratedIntColumn(
+      'id_tipo_conteudo',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _idArquivoMeta = const VerificationMeta('idArquivo');
+  GeneratedIntColumn _idArquivo;
+  @override
+  GeneratedIntColumn get idArquivo => _idArquivo ??= _constructIdArquivo();
+  GeneratedIntColumn _constructIdArquivo() {
+    return GeneratedIntColumn(
+      'id_arquivo',
+      $tableName,
+      false,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, nome, status, idTipoConteudo, idArquivo];
+  @override
+  $TemplatesTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'template';
+  @override
+  final String actualTableName = 'template';
+  @override
+  VerificationContext validateIntegrity(Insertable<Template> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
+    }
+    if (data.containsKey('nome')) {
+      context.handle(
+          _nomeMeta, nome.isAcceptableOrUnknown(data['nome'], _nomeMeta));
+    }
+    if (data.containsKey('status')) {
+      context.handle(_statusMeta,
+          status.isAcceptableOrUnknown(data['status'], _statusMeta));
+    } else if (isInserting) {
+      context.missing(_statusMeta);
+    }
+    if (data.containsKey('id_tipo_conteudo')) {
+      context.handle(
+          _idTipoConteudoMeta,
+          idTipoConteudo.isAcceptableOrUnknown(
+              data['id_tipo_conteudo'], _idTipoConteudoMeta));
+    } else if (isInserting) {
+      context.missing(_idTipoConteudoMeta);
+    }
+    if (data.containsKey('id_arquivo')) {
+      context.handle(_idArquivoMeta,
+          idArquivo.isAcceptableOrUnknown(data['id_arquivo'], _idArquivoMeta));
+    } else if (isInserting) {
+      context.missing(_idArquivoMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Template map(Map<String, dynamic> data, {String tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return Template.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $TemplatesTable createAlias(String alias) {
+    return $TemplatesTable(_db, alias);
+  }
+}
+
 class Conteudo extends DataClass implements Insertable<Conteudo> {
   final int id;
+  final int status;
   final int idTipoConteudo;
   final int tipoArquivo;
   final String nomeArquivo;
   final int idTemplate;
   final String titulo;
   final int tempoExibicao;
-  final int status;
   final DateTime horaInicio;
   final DateTime horaFim;
   final String filtros;
@@ -27,13 +1599,13 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
   final int idArquivo;
   Conteudo(
       {@required this.id,
+      this.status,
       @required this.idTipoConteudo,
       this.tipoArquivo,
       this.nomeArquivo,
       this.idTemplate,
       this.titulo,
       this.tempoExibicao,
-      this.status,
       this.horaInicio,
       this.horaFim,
       this.filtros,
@@ -51,6 +1623,7 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
     final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return Conteudo(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      status: intType.mapFromDatabaseResponse(data['${effectivePrefix}status']),
       idTipoConteudo: intType
           .mapFromDatabaseResponse(data['${effectivePrefix}id_tipo_conteudo']),
       tipoArquivo: intType
@@ -63,7 +1636,6 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
           stringType.mapFromDatabaseResponse(data['${effectivePrefix}titulo']),
       tempoExibicao: intType
           .mapFromDatabaseResponse(data['${effectivePrefix}tempo_exibicao']),
-      status: intType.mapFromDatabaseResponse(data['${effectivePrefix}status']),
       horaInicio: dateTimeType
           .mapFromDatabaseResponse(data['${effectivePrefix}hora_inicio']),
       horaFim: dateTimeType
@@ -89,6 +1661,9 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
     if (!nullToAbsent || id != null) {
       map['id'] = Variable<int>(id);
     }
+    if (!nullToAbsent || status != null) {
+      map['status'] = Variable<int>(status);
+    }
     if (!nullToAbsent || idTipoConteudo != null) {
       map['id_tipo_conteudo'] = Variable<int>(idTipoConteudo);
     }
@@ -106,9 +1681,6 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
     }
     if (!nullToAbsent || tempoExibicao != null) {
       map['tempo_exibicao'] = Variable<int>(tempoExibicao);
-    }
-    if (!nullToAbsent || status != null) {
-      map['status'] = Variable<int>(status);
     }
     if (!nullToAbsent || horaInicio != null) {
       map['hora_inicio'] = Variable<DateTime>(horaInicio);
@@ -143,6 +1715,8 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
   ConteudosCompanion toCompanion(bool nullToAbsent) {
     return ConteudosCompanion(
       id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      status:
+          status == null && nullToAbsent ? const Value.absent() : Value(status),
       idTipoConteudo: idTipoConteudo == null && nullToAbsent
           ? const Value.absent()
           : Value(idTipoConteudo),
@@ -160,8 +1734,6 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
       tempoExibicao: tempoExibicao == null && nullToAbsent
           ? const Value.absent()
           : Value(tempoExibicao),
-      status:
-          status == null && nullToAbsent ? const Value.absent() : Value(status),
       horaInicio: horaInicio == null && nullToAbsent
           ? const Value.absent()
           : Value(horaInicio),
@@ -193,13 +1765,13 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return Conteudo(
       id: serializer.fromJson<int>(json['id']),
+      status: serializer.fromJson<int>(json['status']),
       idTipoConteudo: serializer.fromJson<int>(json['idTipoConteudo']),
       tipoArquivo: serializer.fromJson<int>(json['tipoArquivo']),
       nomeArquivo: serializer.fromJson<String>(json['nomeArquivo']),
       idTemplate: serializer.fromJson<int>(json['idTemplate']),
       titulo: serializer.fromJson<String>(json['titulo']),
       tempoExibicao: serializer.fromJson<int>(json['tempoExibicao']),
-      status: serializer.fromJson<int>(json['status']),
       horaInicio: serializer.fromJson<DateTime>(json['horaInicio']),
       horaFim: serializer.fromJson<DateTime>(json['horaFim']),
       filtros: serializer.fromJson<String>(json['filtros']),
@@ -216,13 +1788,13 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
+      'status': serializer.toJson<int>(status),
       'idTipoConteudo': serializer.toJson<int>(idTipoConteudo),
       'tipoArquivo': serializer.toJson<int>(tipoArquivo),
       'nomeArquivo': serializer.toJson<String>(nomeArquivo),
       'idTemplate': serializer.toJson<int>(idTemplate),
       'titulo': serializer.toJson<String>(titulo),
       'tempoExibicao': serializer.toJson<int>(tempoExibicao),
-      'status': serializer.toJson<int>(status),
       'horaInicio': serializer.toJson<DateTime>(horaInicio),
       'horaFim': serializer.toJson<DateTime>(horaFim),
       'filtros': serializer.toJson<String>(filtros),
@@ -237,13 +1809,13 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
 
   Conteudo copyWith(
           {int id,
+          int status,
           int idTipoConteudo,
           int tipoArquivo,
           String nomeArquivo,
           int idTemplate,
           String titulo,
           int tempoExibicao,
-          int status,
           DateTime horaInicio,
           DateTime horaFim,
           String filtros,
@@ -255,13 +1827,13 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
           int idArquivo}) =>
       Conteudo(
         id: id ?? this.id,
+        status: status ?? this.status,
         idTipoConteudo: idTipoConteudo ?? this.idTipoConteudo,
         tipoArquivo: tipoArquivo ?? this.tipoArquivo,
         nomeArquivo: nomeArquivo ?? this.nomeArquivo,
         idTemplate: idTemplate ?? this.idTemplate,
         titulo: titulo ?? this.titulo,
         tempoExibicao: tempoExibicao ?? this.tempoExibicao,
-        status: status ?? this.status,
         horaInicio: horaInicio ?? this.horaInicio,
         horaFim: horaFim ?? this.horaFim,
         filtros: filtros ?? this.filtros,
@@ -276,13 +1848,13 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
   String toString() {
     return (StringBuffer('Conteudo(')
           ..write('id: $id, ')
+          ..write('status: $status, ')
           ..write('idTipoConteudo: $idTipoConteudo, ')
           ..write('tipoArquivo: $tipoArquivo, ')
           ..write('nomeArquivo: $nomeArquivo, ')
           ..write('idTemplate: $idTemplate, ')
           ..write('titulo: $titulo, ')
           ..write('tempoExibicao: $tempoExibicao, ')
-          ..write('status: $status, ')
           ..write('horaInicio: $horaInicio, ')
           ..write('horaFim: $horaFim, ')
           ..write('filtros: $filtros, ')
@@ -300,19 +1872,19 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
   int get hashCode => $mrjf($mrjc(
       id.hashCode,
       $mrjc(
-          idTipoConteudo.hashCode,
+          status.hashCode,
           $mrjc(
-              tipoArquivo.hashCode,
+              idTipoConteudo.hashCode,
               $mrjc(
-                  nomeArquivo.hashCode,
+                  tipoArquivo.hashCode,
                   $mrjc(
-                      idTemplate.hashCode,
+                      nomeArquivo.hashCode,
                       $mrjc(
-                          titulo.hashCode,
+                          idTemplate.hashCode,
                           $mrjc(
-                              tempoExibicao.hashCode,
+                              titulo.hashCode,
                               $mrjc(
-                                  status.hashCode,
+                                  tempoExibicao.hashCode,
                                   $mrjc(
                                       horaInicio.hashCode,
                                       $mrjc(
@@ -337,13 +1909,13 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
       identical(this, other) ||
       (other is Conteudo &&
           other.id == this.id &&
+          other.status == this.status &&
           other.idTipoConteudo == this.idTipoConteudo &&
           other.tipoArquivo == this.tipoArquivo &&
           other.nomeArquivo == this.nomeArquivo &&
           other.idTemplate == this.idTemplate &&
           other.titulo == this.titulo &&
           other.tempoExibicao == this.tempoExibicao &&
-          other.status == this.status &&
           other.horaInicio == this.horaInicio &&
           other.horaFim == this.horaFim &&
           other.filtros == this.filtros &&
@@ -357,13 +1929,13 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
 
 class ConteudosCompanion extends UpdateCompanion<Conteudo> {
   final Value<int> id;
+  final Value<int> status;
   final Value<int> idTipoConteudo;
   final Value<int> tipoArquivo;
   final Value<String> nomeArquivo;
   final Value<int> idTemplate;
   final Value<String> titulo;
   final Value<int> tempoExibicao;
-  final Value<int> status;
   final Value<DateTime> horaInicio;
   final Value<DateTime> horaFim;
   final Value<String> filtros;
@@ -375,13 +1947,13 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
   final Value<int> idArquivo;
   const ConteudosCompanion({
     this.id = const Value.absent(),
+    this.status = const Value.absent(),
     this.idTipoConteudo = const Value.absent(),
     this.tipoArquivo = const Value.absent(),
     this.nomeArquivo = const Value.absent(),
     this.idTemplate = const Value.absent(),
     this.titulo = const Value.absent(),
     this.tempoExibicao = const Value.absent(),
-    this.status = const Value.absent(),
     this.horaInicio = const Value.absent(),
     this.horaFim = const Value.absent(),
     this.filtros = const Value.absent(),
@@ -393,14 +1965,14 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
     this.idArquivo = const Value.absent(),
   });
   ConteudosCompanion.insert({
-    this.id = const Value.absent(),
+    @required int id,
+    this.status = const Value.absent(),
     @required int idTipoConteudo,
     this.tipoArquivo = const Value.absent(),
     this.nomeArquivo = const Value.absent(),
     this.idTemplate = const Value.absent(),
     this.titulo = const Value.absent(),
     this.tempoExibicao = const Value.absent(),
-    this.status = const Value.absent(),
     this.horaInicio = const Value.absent(),
     this.horaFim = const Value.absent(),
     this.filtros = const Value.absent(),
@@ -410,16 +1982,17 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
     this.previsao = const Value.absent(),
     this.campos = const Value.absent(),
     this.idArquivo = const Value.absent(),
-  }) : idTipoConteudo = Value(idTipoConteudo);
+  })  : id = Value(id),
+        idTipoConteudo = Value(idTipoConteudo);
   static Insertable<Conteudo> custom({
     Expression<int> id,
+    Expression<int> status,
     Expression<int> idTipoConteudo,
     Expression<int> tipoArquivo,
     Expression<String> nomeArquivo,
     Expression<int> idTemplate,
     Expression<String> titulo,
     Expression<int> tempoExibicao,
-    Expression<int> status,
     Expression<DateTime> horaInicio,
     Expression<DateTime> horaFim,
     Expression<String> filtros,
@@ -432,13 +2005,13 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
+      if (status != null) 'status': status,
       if (idTipoConteudo != null) 'id_tipo_conteudo': idTipoConteudo,
       if (tipoArquivo != null) 'tipo_arquivo': tipoArquivo,
       if (nomeArquivo != null) 'nome_arquivo': nomeArquivo,
       if (idTemplate != null) 'id_template': idTemplate,
       if (titulo != null) 'titulo': titulo,
       if (tempoExibicao != null) 'tempo_exibicao': tempoExibicao,
-      if (status != null) 'status': status,
       if (horaInicio != null) 'hora_inicio': horaInicio,
       if (horaFim != null) 'hora_fim': horaFim,
       if (filtros != null) 'filtros': filtros,
@@ -453,13 +2026,13 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
 
   ConteudosCompanion copyWith(
       {Value<int> id,
+      Value<int> status,
       Value<int> idTipoConteudo,
       Value<int> tipoArquivo,
       Value<String> nomeArquivo,
       Value<int> idTemplate,
       Value<String> titulo,
       Value<int> tempoExibicao,
-      Value<int> status,
       Value<DateTime> horaInicio,
       Value<DateTime> horaFim,
       Value<String> filtros,
@@ -471,13 +2044,13 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
       Value<int> idArquivo}) {
     return ConteudosCompanion(
       id: id ?? this.id,
+      status: status ?? this.status,
       idTipoConteudo: idTipoConteudo ?? this.idTipoConteudo,
       tipoArquivo: tipoArquivo ?? this.tipoArquivo,
       nomeArquivo: nomeArquivo ?? this.nomeArquivo,
       idTemplate: idTemplate ?? this.idTemplate,
       titulo: titulo ?? this.titulo,
       tempoExibicao: tempoExibicao ?? this.tempoExibicao,
-      status: status ?? this.status,
       horaInicio: horaInicio ?? this.horaInicio,
       horaFim: horaFim ?? this.horaFim,
       filtros: filtros ?? this.filtros,
@@ -496,6 +2069,9 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
     if (id.present) {
       map['id'] = Variable<int>(id.value);
     }
+    if (status.present) {
+      map['status'] = Variable<int>(status.value);
+    }
     if (idTipoConteudo.present) {
       map['id_tipo_conteudo'] = Variable<int>(idTipoConteudo.value);
     }
@@ -513,9 +2089,6 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
     }
     if (tempoExibicao.present) {
       map['tempo_exibicao'] = Variable<int>(tempoExibicao.value);
-    }
-    if (status.present) {
-      map['status'] = Variable<int>(status.value);
     }
     if (horaInicio.present) {
       map['hora_inicio'] = Variable<DateTime>(horaInicio.value);
@@ -551,13 +2124,13 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
   String toString() {
     return (StringBuffer('ConteudosCompanion(')
           ..write('id: $id, ')
+          ..write('status: $status, ')
           ..write('idTipoConteudo: $idTipoConteudo, ')
           ..write('tipoArquivo: $tipoArquivo, ')
           ..write('nomeArquivo: $nomeArquivo, ')
           ..write('idTemplate: $idTemplate, ')
           ..write('titulo: $titulo, ')
           ..write('tempoExibicao: $tempoExibicao, ')
-          ..write('status: $status, ')
           ..write('horaInicio: $horaInicio, ')
           ..write('horaFim: $horaFim, ')
           ..write('filtros: $filtros, ')
@@ -582,8 +2155,20 @@ class $ConteudosTable extends Conteudos
   @override
   GeneratedIntColumn get id => _id ??= _constructId();
   GeneratedIntColumn _constructId() {
-    return GeneratedIntColumn('id', $tableName, false,
-        hasAutoIncrement: true, declaredAsPrimaryKey: true);
+    return GeneratedIntColumn(
+      'id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _statusMeta = const VerificationMeta('status');
+  GeneratedIntColumn _status;
+  @override
+  GeneratedIntColumn get status => _status ??= _constructStatus();
+  GeneratedIntColumn _constructStatus() {
+    return GeneratedIntColumn('status', $tableName, true,
+        defaultValue: const Constant(0));
   }
 
   final VerificationMeta _idTipoConteudoMeta =
@@ -657,15 +2242,6 @@ class $ConteudosTable extends Conteudos
       _tempoExibicao ??= _constructTempoExibicao();
   GeneratedIntColumn _constructTempoExibicao() {
     return GeneratedIntColumn('tempo_exibicao', $tableName, true,
-        defaultValue: const Constant(0));
-  }
-
-  final VerificationMeta _statusMeta = const VerificationMeta('status');
-  GeneratedIntColumn _status;
-  @override
-  GeneratedIntColumn get status => _status ??= _constructStatus();
-  GeneratedIntColumn _constructStatus() {
-    return GeneratedIntColumn('status', $tableName, true,
         defaultValue: const Constant(0));
   }
 
@@ -762,13 +2338,13 @@ class $ConteudosTable extends Conteudos
   @override
   List<GeneratedColumn> get $columns => [
         id,
+        status,
         idTipoConteudo,
         tipoArquivo,
         nomeArquivo,
         idTemplate,
         titulo,
         tempoExibicao,
-        status,
         horaInicio,
         horaFim,
         filtros,
@@ -792,6 +2368,12 @@ class $ConteudosTable extends Conteudos
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('status')) {
+      context.handle(_statusMeta,
+          status.isAcceptableOrUnknown(data['status'], _statusMeta));
     }
     if (data.containsKey('id_tipo_conteudo')) {
       context.handle(
@@ -828,10 +2410,6 @@ class $ConteudosTable extends Conteudos
           _tempoExibicaoMeta,
           tempoExibicao.isAcceptableOrUnknown(
               data['tempo_exibicao'], _tempoExibicaoMeta));
-    }
-    if (data.containsKey('status')) {
-      context.handle(_statusMeta,
-          status.isAcceptableOrUnknown(data['status'], _statusMeta));
     }
     if (data.containsKey('hora_inicio')) {
       context.handle(
@@ -874,7 +2452,7 @@ class $ConteudosTable extends Conteudos
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {id, status};
   @override
   Conteudo map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
@@ -2755,9 +4333,9 @@ class $EquipamentosTable extends Equipamentos
   @override
   $EquipamentosTable get asDslTable => this;
   @override
-  String get $tableName => _alias ?? 'equipamentos';
+  String get $tableName => _alias ?? 'equipamento';
   @override
-  final String actualTableName = 'equipamentos';
+  final String actualTableName = 'equipamento';
   @override
   VerificationContext validateIntegrity(Insertable<Equipamento> instance,
       {bool isInserting = false}) {
@@ -4714,7 +6292,7 @@ class $PlaylistConteudosTable extends PlaylistConteudos
   GeneratedIntColumn get idConteudo => _idConteudo ??= _constructIdConteudo();
   GeneratedIntColumn _constructIdConteudo() {
     return GeneratedIntColumn('id_conteudo', $tableName, false,
-        $customConstraints: 'NULL REFERENCES conteudo(id)');
+        $customConstraints: 'NOT NULL REFERENCES conteudo(id)');
   }
 
   final VerificationMeta _idPlaylistMeta = const VerificationMeta('idPlaylist');
@@ -4723,7 +6301,7 @@ class $PlaylistConteudosTable extends PlaylistConteudos
   GeneratedIntColumn get idPlaylist => _idPlaylist ??= _constructIdPlaylist();
   GeneratedIntColumn _constructIdPlaylist() {
     return GeneratedIntColumn('id_playlist', $tableName, false,
-        $customConstraints: 'NULL REFERENCES playlist(id)');
+        $customConstraints: 'NOT NULL REFERENCES playlist(id)');
   }
 
   final VerificationMeta _idVinculadoMeta =
@@ -4912,6 +6490,7 @@ class Noticia extends DataClass implements Insertable<Noticia> {
   final int idNoticiaEditoria;
   final int idFonteNoticia;
   final int idConteudo;
+  final int idTemplate;
   Noticia(
       {@required this.id,
       @required this.titulo,
@@ -4920,7 +6499,8 @@ class Noticia extends DataClass implements Insertable<Noticia> {
       @required this.dataPublicadao,
       @required this.idNoticiaEditoria,
       @required this.idFonteNoticia,
-      @required this.idConteudo});
+      @required this.idConteudo,
+      @required this.idTemplate});
   factory Noticia.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -4942,6 +6522,8 @@ class Noticia extends DataClass implements Insertable<Noticia> {
           .mapFromDatabaseResponse(data['${effectivePrefix}id_fonte_noticia']),
       idConteudo: intType
           .mapFromDatabaseResponse(data['${effectivePrefix}id_conteudo']),
+      idTemplate: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_template']),
     );
   }
   @override
@@ -4971,6 +6553,9 @@ class Noticia extends DataClass implements Insertable<Noticia> {
     if (!nullToAbsent || idConteudo != null) {
       map['id_conteudo'] = Variable<int>(idConteudo);
     }
+    if (!nullToAbsent || idTemplate != null) {
+      map['id_template'] = Variable<int>(idTemplate);
+    }
     return map;
   }
 
@@ -4995,6 +6580,9 @@ class Noticia extends DataClass implements Insertable<Noticia> {
       idConteudo: idConteudo == null && nullToAbsent
           ? const Value.absent()
           : Value(idConteudo),
+      idTemplate: idTemplate == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idTemplate),
     );
   }
 
@@ -5010,6 +6598,7 @@ class Noticia extends DataClass implements Insertable<Noticia> {
       idNoticiaEditoria: serializer.fromJson<int>(json['idNoticiaEditoria']),
       idFonteNoticia: serializer.fromJson<int>(json['idFonteNoticia']),
       idConteudo: serializer.fromJson<int>(json['idConteudo']),
+      idTemplate: serializer.fromJson<int>(json['idTemplate']),
     );
   }
   @override
@@ -5024,6 +6613,7 @@ class Noticia extends DataClass implements Insertable<Noticia> {
       'idNoticiaEditoria': serializer.toJson<int>(idNoticiaEditoria),
       'idFonteNoticia': serializer.toJson<int>(idFonteNoticia),
       'idConteudo': serializer.toJson<int>(idConteudo),
+      'idTemplate': serializer.toJson<int>(idTemplate),
     };
   }
 
@@ -5035,7 +6625,8 @@ class Noticia extends DataClass implements Insertable<Noticia> {
           DateTime dataPublicadao,
           int idNoticiaEditoria,
           int idFonteNoticia,
-          int idConteudo}) =>
+          int idConteudo,
+          int idTemplate}) =>
       Noticia(
         id: id ?? this.id,
         titulo: titulo ?? this.titulo,
@@ -5045,6 +6636,7 @@ class Noticia extends DataClass implements Insertable<Noticia> {
         idNoticiaEditoria: idNoticiaEditoria ?? this.idNoticiaEditoria,
         idFonteNoticia: idFonteNoticia ?? this.idFonteNoticia,
         idConteudo: idConteudo ?? this.idConteudo,
+        idTemplate: idTemplate ?? this.idTemplate,
       );
   @override
   String toString() {
@@ -5056,7 +6648,8 @@ class Noticia extends DataClass implements Insertable<Noticia> {
           ..write('dataPublicadao: $dataPublicadao, ')
           ..write('idNoticiaEditoria: $idNoticiaEditoria, ')
           ..write('idFonteNoticia: $idFonteNoticia, ')
-          ..write('idConteudo: $idConteudo')
+          ..write('idConteudo: $idConteudo, ')
+          ..write('idTemplate: $idTemplate')
           ..write(')'))
         .toString();
   }
@@ -5074,8 +6667,10 @@ class Noticia extends DataClass implements Insertable<Noticia> {
                       dataPublicadao.hashCode,
                       $mrjc(
                           idNoticiaEditoria.hashCode,
-                          $mrjc(idFonteNoticia.hashCode,
-                              idConteudo.hashCode))))))));
+                          $mrjc(
+                              idFonteNoticia.hashCode,
+                              $mrjc(idConteudo.hashCode,
+                                  idTemplate.hashCode)))))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -5087,7 +6682,8 @@ class Noticia extends DataClass implements Insertable<Noticia> {
           other.dataPublicadao == this.dataPublicadao &&
           other.idNoticiaEditoria == this.idNoticiaEditoria &&
           other.idFonteNoticia == this.idFonteNoticia &&
-          other.idConteudo == this.idConteudo);
+          other.idConteudo == this.idConteudo &&
+          other.idTemplate == this.idTemplate);
 }
 
 class NoticiasCompanion extends UpdateCompanion<Noticia> {
@@ -5099,6 +6695,7 @@ class NoticiasCompanion extends UpdateCompanion<Noticia> {
   final Value<int> idNoticiaEditoria;
   final Value<int> idFonteNoticia;
   final Value<int> idConteudo;
+  final Value<int> idTemplate;
   const NoticiasCompanion({
     this.id = const Value.absent(),
     this.titulo = const Value.absent(),
@@ -5108,6 +6705,7 @@ class NoticiasCompanion extends UpdateCompanion<Noticia> {
     this.idNoticiaEditoria = const Value.absent(),
     this.idFonteNoticia = const Value.absent(),
     this.idConteudo = const Value.absent(),
+    this.idTemplate = const Value.absent(),
   });
   NoticiasCompanion.insert({
     this.id = const Value.absent(),
@@ -5118,13 +6716,15 @@ class NoticiasCompanion extends UpdateCompanion<Noticia> {
     @required int idNoticiaEditoria,
     @required int idFonteNoticia,
     @required int idConteudo,
+    @required int idTemplate,
   })  : titulo = Value(titulo),
         link = Value(link),
         descricao = Value(descricao),
         dataPublicadao = Value(dataPublicadao),
         idNoticiaEditoria = Value(idNoticiaEditoria),
         idFonteNoticia = Value(idFonteNoticia),
-        idConteudo = Value(idConteudo);
+        idConteudo = Value(idConteudo),
+        idTemplate = Value(idTemplate);
   static Insertable<Noticia> custom({
     Expression<int> id,
     Expression<String> titulo,
@@ -5134,6 +6734,7 @@ class NoticiasCompanion extends UpdateCompanion<Noticia> {
     Expression<int> idNoticiaEditoria,
     Expression<int> idFonteNoticia,
     Expression<int> idConteudo,
+    Expression<int> idTemplate,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -5144,6 +6745,7 @@ class NoticiasCompanion extends UpdateCompanion<Noticia> {
       if (idNoticiaEditoria != null) 'id_noticia_editoria': idNoticiaEditoria,
       if (idFonteNoticia != null) 'id_fonte_noticia': idFonteNoticia,
       if (idConteudo != null) 'id_conteudo': idConteudo,
+      if (idTemplate != null) 'id_template': idTemplate,
     });
   }
 
@@ -5155,7 +6757,8 @@ class NoticiasCompanion extends UpdateCompanion<Noticia> {
       Value<DateTime> dataPublicadao,
       Value<int> idNoticiaEditoria,
       Value<int> idFonteNoticia,
-      Value<int> idConteudo}) {
+      Value<int> idConteudo,
+      Value<int> idTemplate}) {
     return NoticiasCompanion(
       id: id ?? this.id,
       titulo: titulo ?? this.titulo,
@@ -5165,6 +6768,7 @@ class NoticiasCompanion extends UpdateCompanion<Noticia> {
       idNoticiaEditoria: idNoticiaEditoria ?? this.idNoticiaEditoria,
       idFonteNoticia: idFonteNoticia ?? this.idFonteNoticia,
       idConteudo: idConteudo ?? this.idConteudo,
+      idTemplate: idTemplate ?? this.idTemplate,
     );
   }
 
@@ -5195,6 +6799,9 @@ class NoticiasCompanion extends UpdateCompanion<Noticia> {
     if (idConteudo.present) {
       map['id_conteudo'] = Variable<int>(idConteudo.value);
     }
+    if (idTemplate.present) {
+      map['id_template'] = Variable<int>(idTemplate.value);
+    }
     return map;
   }
 
@@ -5208,7 +6815,8 @@ class NoticiasCompanion extends UpdateCompanion<Noticia> {
           ..write('dataPublicadao: $dataPublicadao, ')
           ..write('idNoticiaEditoria: $idNoticiaEditoria, ')
           ..write('idFonteNoticia: $idFonteNoticia, ')
-          ..write('idConteudo: $idConteudo')
+          ..write('idConteudo: $idConteudo, ')
+          ..write('idTemplate: $idTemplate')
           ..write(')'))
         .toString();
   }
@@ -5317,6 +6925,18 @@ class $NoticiasTable extends Noticias with TableInfo<$NoticiasTable, Noticia> {
     );
   }
 
+  final VerificationMeta _idTemplateMeta = const VerificationMeta('idTemplate');
+  GeneratedIntColumn _idTemplate;
+  @override
+  GeneratedIntColumn get idTemplate => _idTemplate ??= _constructIdTemplate();
+  GeneratedIntColumn _constructIdTemplate() {
+    return GeneratedIntColumn(
+      'id_template',
+      $tableName,
+      false,
+    );
+  }
+
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -5326,14 +6946,15 @@ class $NoticiasTable extends Noticias with TableInfo<$NoticiasTable, Noticia> {
         dataPublicadao,
         idNoticiaEditoria,
         idFonteNoticia,
-        idConteudo
+        idConteudo,
+        idTemplate
       ];
   @override
   $NoticiasTable get asDslTable => this;
   @override
-  String get $tableName => _alias ?? 'noticias';
+  String get $tableName => _alias ?? 'noticia';
   @override
-  final String actualTableName = 'noticias';
+  final String actualTableName = 'noticia';
   @override
   VerificationContext validateIntegrity(Insertable<Noticia> instance,
       {bool isInserting = false}) {
@@ -5392,6 +7013,14 @@ class $NoticiasTable extends Noticias with TableInfo<$NoticiasTable, Noticia> {
     } else if (isInserting) {
       context.missing(_idConteudoMeta);
     }
+    if (data.containsKey('id_template')) {
+      context.handle(
+          _idTemplateMeta,
+          idTemplate.isAcceptableOrUnknown(
+              data['id_template'], _idTemplateMeta));
+    } else if (isInserting) {
+      context.missing(_idTemplateMeta);
+    }
     return context;
   }
 
@@ -5411,6 +7040,20 @@ class $NoticiasTable extends Noticias with TableInfo<$NoticiasTable, Noticia> {
 
 abstract class _$Database extends GeneratedDatabase {
   _$Database(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
+  $ConfiguracoesTable _configuracoes;
+  $ConfiguracoesTable get configuracoes =>
+      _configuracoes ??= $ConfiguracoesTable(this);
+  $AtualizacoesTable _atualizacoes;
+  $AtualizacoesTable get atualizacoes =>
+      _atualizacoes ??= $AtualizacoesTable(this);
+  $AtualizacoesStatusTable _atualizacoesStatus;
+  $AtualizacoesStatusTable get atualizacoesStatus =>
+      _atualizacoesStatus ??= $AtualizacoesStatusTable(this);
+  $AtualizacoesConteudoTable _atualizacoesConteudo;
+  $AtualizacoesConteudoTable get atualizacoesConteudo =>
+      _atualizacoesConteudo ??= $AtualizacoesConteudoTable(this);
+  $TemplatesTable _templates;
+  $TemplatesTable get templates => _templates ??= $TemplatesTable(this);
   $ConteudosTable _conteudos;
   $ConteudosTable get conteudos => _conteudos ??= $ConteudosTable(this);
   $ConteudoAgendamentosTable _conteudoAgendamentos;
@@ -5435,6 +7078,11 @@ abstract class _$Database extends GeneratedDatabase {
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
+        configuracoes,
+        atualizacoes,
+        atualizacoesStatus,
+        atualizacoesConteudo,
+        templates,
         conteudos,
         conteudoAgendamentos,
         conteudoCampos,
