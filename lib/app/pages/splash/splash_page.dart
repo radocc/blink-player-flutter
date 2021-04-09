@@ -29,7 +29,7 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
   @override
   Widget build(BuildContext context) {
     final now = new DateTime.now();
-    final formatter = new DateFormat('dd-MM-yyyy hh-MM').format(now);
+    final formatter = new DateFormat('dd-MM-yyyy HH:mm').format(now);
 
     return Scaffold(
         body: FutureBuilder<Equipamento>(
@@ -99,12 +99,6 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
                             } else {
                               return HomePage();
                             }
-                            // if (snap.connectionState ==
-                            //     ConnectionState.waiting) {
-                            //   return LoadingMidias();
-                            // }
-                            //
-                            //return HomePage();
                           });
               }
             }));

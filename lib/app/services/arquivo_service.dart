@@ -7,22 +7,23 @@ import 'package:path_provider/path_provider.dart';
 class ArquivoService {
   Directory _dir;
 
-
   Future salvarArquivo(List<int> arquivo, int idArquivo, String nome) async {
     _dir = await getApplicationDocumentsDirectory();
     // Abre a porta para receber a porta de comunicação dentro do Isolate
     ReceivePort receiveIsolatePort = ReceivePort();
     // Cria o Isolate com o metodo e a porta criada anteriormente
-    await Isolate.spawn(dataLoader, receiveIsolatePort.sendPort);
+    var isolate = await Isolate.spawn(dataLoader, receiveIsolatePort.sendPort);
 
     // Guarda a porta enviada pelo Isolate
     SendPort sendToIsolatePort = await receiveIsolatePort.first;
 
     // Envia a requisição com o link para o Isolate baixar o json
-    bool msg = await sendReceive(sendToIsolatePort, arquivo, idArquivo,
-        nome, _dir.path);
+    bool msg = await sendReceive(
+        sendToIsolatePort, arquivo, idArquivo, nome, _dir.path);
 
-    // Exibi os dados baixados
+    // mata o isolate após o download
+    isolate.kill(priority: Isolate.immediate);
+    
   }
 
   static dataLoader(SendPort sendPort) async {

@@ -13,7 +13,7 @@ import 'app/database/database.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Battery _battery = Battery();
-  const oneSec = const Duration(seconds: 10);
+  const oneSec = const Duration(seconds: 15);
 
   Future valueHardware2() async {
     if (Platform.isLinux) {
@@ -27,16 +27,28 @@ void main() {
       array.add(porcentFreeMemoryFormated);
       return array;
     } else if (Platform.isAndroid) {
-      const int MEGABYTE = 1024 * 1024;
+      //const int MEGABYTE = 1024 * 1024;
       final int batteryLevel = await _battery.batteryLevel;
       int level = await Wifi.level;
       String wifiName = await Wifi.ssid;
       List<String> array = [];
-      var totalFreeMemory = (SysInfo.getFreePhysicalMemory() ~/ MEGABYTE * 100);
-      var totalMemory = SysInfo.getTotalPhysicalMemory() ~/ MEGABYTE;
-      var porcentFreeMemory = totalFreeMemory / totalMemory;
+      var totalFreeMemory = (SysInfo.getFreePhysicalMemory());
+      var totalMemory = SysInfo.getTotalPhysicalMemory();
+      var totalFreeVirtualMemory = (SysInfo.getFreeVirtualMemory());
+      print('Free virtual: $totalFreeVirtualMemory');
+      var totalVirtualMemory = SysInfo.getTotalVirtualMemory();
+      print('total virtual: $totalVirtualMemory');
+      var porcentFreeMemory = (totalFreeMemory / totalMemory) * 100;
       String porcentFreeMemoryFormated =
           porcentFreeMemory.toStringAsPrecision(2).substring(0, 1);
+      // print('Total de Memoria: ' +
+      //     totalMemory.toString() +
+      //     ' \nMemoria livre: ' +
+      //     totalFreeMemory.toString() +
+      //     ' \nPorcentual de Memoria Livre: ' +
+      //     porcentFreeMemory.toString() +
+      //     ' \nMemoria Formatada: ' +
+      //     porcentFreeMemoryFormated);
       array.add(batteryLevel.toString());
       array.add(level.toString());
       array.add(wifiName);

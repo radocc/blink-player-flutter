@@ -9,7 +9,7 @@ class ConteudoAgendamentos extends Table {
   TextColumn get diaSemana => text().withDefault(const Constant('')).withLength(max:255).nullable()();
   DateTimeColumn get horaInicio => dateTime().withDefault(Constant(DateTime.now())).nullable()();
   DateTimeColumn get horaFim => dateTime().withDefault(Constant(DateTime.now())).nullable()();
-  IntColumn get idConteudo => integer().customConstraint('NULL REFERENCES conteudo(id)')();
+  IntColumn get idConteudo => integer()();
   DateTimeColumn get dataCadastro => dateTime()();
   DateTimeColumn get dataAlteracao => dateTime()();
   IntColumn get versao => integer()();

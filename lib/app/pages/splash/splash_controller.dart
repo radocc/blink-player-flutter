@@ -46,8 +46,9 @@ abstract class _SplashControllerBase with Store {
         return reponse;
       }
     } catch (e) {
+      print(e.toString());
       throw new Exception("Erro interno: " + e.toString());
-      //print(e.toString());
+      
     }
   }
 

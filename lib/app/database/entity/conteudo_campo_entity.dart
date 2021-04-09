@@ -14,7 +14,7 @@ class ConteudoCampos extends Table {
   RealColumn get top => real()();  
   RealColumn get left => real()();  
   IntColumn get sequencia => integer()();
-  IntColumn get idConteudo => integer().customConstraint('NULL REFERENCES conteudo(id)')();
+  IntColumn get idConteudo => integer()();
   DateTimeColumn get dataCadastro => dateTime()();
   DateTimeColumn get dataAlteracao => dateTime()();
   IntColumn get versao => integer()();

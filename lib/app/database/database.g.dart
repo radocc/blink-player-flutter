@@ -2933,8 +2933,11 @@ class $ConteudoAgendamentosTable extends ConteudoAgendamentos
   @override
   GeneratedIntColumn get idConteudo => _idConteudo ??= _constructIdConteudo();
   GeneratedIntColumn _constructIdConteudo() {
-    return GeneratedIntColumn('id_conteudo', $tableName, false,
-        $customConstraints: 'NULL REFERENCES conteudo(id)');
+    return GeneratedIntColumn(
+      'id_conteudo',
+      $tableName,
+      false,
+    );
   }
 
   final VerificationMeta _dataCadastroMeta =
@@ -3803,8 +3806,11 @@ class $ConteudoCamposTable extends ConteudoCampos
   @override
   GeneratedIntColumn get idConteudo => _idConteudo ??= _constructIdConteudo();
   GeneratedIntColumn _constructIdConteudo() {
-    return GeneratedIntColumn('id_conteudo', $tableName, false,
-        $customConstraints: 'NULL REFERENCES conteudo(id)');
+    return GeneratedIntColumn(
+      'id_conteudo',
+      $tableName,
+      false,
+    );
   }
 
   final VerificationMeta _dataCadastroMeta =
@@ -6291,8 +6297,11 @@ class $PlaylistConteudosTable extends PlaylistConteudos
   @override
   GeneratedIntColumn get idConteudo => _idConteudo ??= _constructIdConteudo();
   GeneratedIntColumn _constructIdConteudo() {
-    return GeneratedIntColumn('id_conteudo', $tableName, false,
-        $customConstraints: 'NOT NULL REFERENCES conteudo(id)');
+    return GeneratedIntColumn(
+      'id_conteudo',
+      $tableName,
+      false,
+    );
   }
 
   final VerificationMeta _idPlaylistMeta = const VerificationMeta('idPlaylist');
