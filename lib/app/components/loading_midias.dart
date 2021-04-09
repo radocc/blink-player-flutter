@@ -11,7 +11,7 @@ class LoadingMidiasState extends State<LoadingMidias> {
   @override
   Widget build(BuildContext context) {
     final now = new DateTime.now();
-    final formatter = new DateFormat('dd-MM-yyyy hh-MM').format(now);
+    final formatter = new DateFormat('dd-MM-yyyy HH:mm').format(now);
 
     return Scaffold(
         body: Column(
@@ -52,7 +52,7 @@ class LoadingMidiasState extends State<LoadingMidias> {
                 SizedBox(height: 10),
                 Text('Atualizando seus conteúdos...'),
                 SizedBox(height: 15),
-                CircularProgressIndicator(
+                LinearProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.green)),
               ],
             ),

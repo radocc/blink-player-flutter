@@ -7,7 +7,12 @@
         {
             "name": "blink",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+        },{
+            "name": "blink profile",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
         }
     ]
 }

@@ -21,6 +21,13 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   @override
   void initState() {
     super.initState();
+    //controller.setLandscape();
+  }
+
+  @override
+  void dispose() {
+    //controller.setDisposeLandscape();
+    super.dispose();
   }
 
   @override

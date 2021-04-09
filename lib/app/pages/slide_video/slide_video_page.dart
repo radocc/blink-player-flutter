@@ -59,16 +59,28 @@ class _SlideVideoPageState
     //
     // Define os widget que serão exibido no slide de Video
     //
-    return Container(
-      child: AspectRatio(
-        aspectRatio: _controller.value.aspectRatio,
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: <Widget>[
-            VideoPlayer(_controller),
-          ],
-        ),
+    // Full Screan
+    // return Container(
+    //   child: AspectRatio(
+    //     aspectRatio: _controller.value.aspectRatio,
+    //     child: Stack(
+    //       alignment: Alignment.bottomCenter,
+    //       children: <Widget>[
+    //         VideoPlayer(_controller),
+    //       ],
+    //     ),
+    //   ),
+    // );
+    // 
+    // Video não esticado
+     return FittedBox(
+      fit: BoxFit.contain,
+      child: SizedBox(
+        height: _controller.value.size?.height ?? 0,
+        width: _controller.value.size?.width ?? 0,
+        child: VideoPlayer(_controller),
       ),
     );
+
   }
 }

@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:blink/app/components/loading_midias.dart';
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/modules/carousel/carousel_controller.dart';
 import 'package:blink/app/repositories/arquivo_repository.dart';
@@ -44,19 +43,21 @@ class ConteudoService {
   Future downloadMidias(List<Conteudo> lista) async {
     if (lista != null && lista.isNotEmpty) {
       List<int> arquivo;
-      List<Future> futures = [];
+      //List<Future> futures = [];
       for (var conteudo in lista) {
         print('VAI BAIXAR ARQUIVO ${conteudo.idArquivo}');
         arquivo = await arquivoRepo.downloadMidia(conteudo, (received, total) {
           //print('DOWNLOAD $received - $total');
         });
-        futures.add(arquivoService.salvarArquivo(
-            arquivo, conteudo.idArquivo, conteudo.nomeArquivo));
+        //futures.add(arquivoService.salvarArquivo(
+         //   arquivo, conteudo.idArquivo, conteudo.nomeArquivo));
+        await arquivoService.salvarArquivo(
+            arquivo, conteudo.idArquivo, conteudo.nomeArquivo);
         print('Baixou arquivo ${conteudo.idArquivo}');
       }
-      await Future.wait(futures).then((_) {
-        print('TERMINOU TODOS');
-      });
+      //await Future.wait(futures).then((_) {
+       // print('TERMINOU TODOS');
+      //});
     }
   }
 
