@@ -8,7 +8,12 @@ part of 'splash_controller.dart';
 
 final $SplashController = BindInject(
   (i) => SplashController(
-      service: i<LoginService>(), contService: i<ConteudoService>()),
+      service: i<LoginService>(),
+      contService: i<ConteudoService>(),
+      conexaoService: i<ConexaoService>(),
+      noticiaService: i<NoticiaService>(),
+      templateService: i<TemplateService>(),
+      prevService: i<PrevisaoTempoService>()),
   singleton: true,
   lazy: true,
 );

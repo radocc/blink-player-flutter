@@ -8,6 +8,7 @@ import 'package:blink/app/database/dao/conteudo_dao.dart';
 import 'package:blink/app/database/dao/equipamento_dao.dart';
 import 'package:blink/app/database/dao/noticia_dao.dart';
 import 'package:blink/app/database/dao/player_dados_dao.dart';
+import 'package:blink/app/database/dao/previsao_tempo_imagem_dao.dart';
 import 'package:blink/app/database/dao/template_dao.dart';
 import 'package:blink/app/database/entity/atualizacao_conteudo_entity.dart';
 import 'package:blink/app/database/entity/atualizacao_entity.dart';
@@ -27,6 +28,8 @@ import 'package:moor/ffi.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
+import 'entity/previsao_tempo_imagem_entity.dart';
+
 part 'database.g.dart';
 
 @UseMoor(tables: [
@@ -42,7 +45,8 @@ part 'database.g.dart';
   PlayerDados,
   Playlists,
   PlaylistConteudos,
-  Noticias
+  Noticias,
+  PrevisaoImagemTempos
 ])
 class Database extends _$Database {
   PlayerDadosDAO playerDAO;
@@ -54,6 +58,7 @@ class Database extends _$Database {
   AtualizacaoStatusDAO atualizacaoStatusDAO;
   AtualizacaoConteudoDAO atualizacaoConteudoDAO;
   TemplateDAO templateDAO;
+  PrevisaoImagemTemposDAO previsaoTempoDAO;
 
   // static Database instance = Database._internal();
   // Database._internal()
@@ -79,6 +84,7 @@ class Database extends _$Database {
     atualizacaoStatusDAO = AtualizacaoStatusDAO(this);
     atualizacaoConteudoDAO = AtualizacaoConteudoDAO(this);
     templateDAO = TemplateDAO(this);
+    previsaoTempoDAO = PrevisaoImagemTemposDAO(this);
   }
 
   @override

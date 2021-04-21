@@ -6,7 +6,9 @@ class Templates extends Table {
 
   IntColumn get id => integer().autoIncrement()();
   TextColumn get nome => text().withLength(max: 200).nullable()();
-  IntColumn get status => integer()();
+  TextColumn get nomeArquivo => text().withLength(max: 200).nullable()();
+  //IntColumn get status => integer()();
   IntColumn get idTipoConteudo => integer()();
+  IntColumn get tipoArquivo => integer()();
   IntColumn get idArquivo => integer()();
 }

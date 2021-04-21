@@ -5,6 +5,7 @@ import 'package:blink/app/modules/carousel/carousel_controller.dart';
 import 'package:blink/app/repositories/arquivo_repository.dart';
 import 'package:blink/app/repositories/conteudo_repository.dart';
 import 'package:blink/app/services/arquivo_service.dart';
+import 'package:http/http.dart';
 import 'package:moor/moor.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -15,6 +16,8 @@ class ConteudoService {
   ArquivoService arquivoService;
   var controller = CarouselController();
   List<File> files;
+  final _urlImage1 =
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Orange-Whole-%26-Split.jpg/1920px-Orange-Whole-%26-Split.jpg';
 
   ConteudoService(
       {@required this.conteudoRepo,
@@ -46,19 +49,53 @@ class ConteudoService {
       //List<Future> futures = [];
       for (var conteudo in lista) {
         print('VAI BAIXAR ARQUIVO ${conteudo.idArquivo}');
-        arquivo = await arquivoRepo.downloadMidia(conteudo, (received, total) {
-          //print('DOWNLOAD $received - $total');
-        });
-        //futures.add(arquivoService.salvarArquivo(
-         //   arquivo, conteudo.idArquivo, conteudo.nomeArquivo));
-        await arquivoService.salvarArquivo(
-            arquivo, conteudo.idArquivo, conteudo.nomeArquivo);
-        print('Baixou arquivo ${conteudo.idArquivo}');
+        if (conteudo.idArquivo != null) {
+          arquivo =
+              await arquivoRepo.downloadMidia(conteudo, (received, total) {
+            //print('DOWNLOAD $received - $total');
+          });
+
+          //futures.add(arquivoService.salvarArquivo(
+          //   arquivo, conteudo.idArquivo, conteudo.nomeArquivo));
+          await arquivoService.salvarArquivo(
+              arquivo, conteudo.idArquivo, conteudo.nomeArquivo);
+          print('Baixou arquivo ${conteudo.idArquivo}');
+        } else if (conteudo.idTemplate != null) {
+          arquivo =
+              await arquivoRepo.downloadMidia(conteudo, (received, total) {
+            //print('DOWNLOAD $received - $total');
+          });
+
+          await arquivoService.salvarArquivo(
+              arquivo, conteudo.idTemplate, conteudo.nomeArquivo);
+        } else {
+          //Rever
+          await savePhoto();
+        }
       }
       //await Future.wait(futures).then((_) {
-       // print('TERMINOU TODOS');
+      // print('TERMINOU TODOS');
       //});
     }
+  }
+
+  Future<void> savePhoto() async {
+    //Pego imagem
+    final response = await get(_urlImage1);
+    // Pego nome da Imagem
+    final imageName = basename(_urlImage1);
+    // Pego o dir
+    final appDir = (await getApplicationDocumentsDirectory()).path;
+    // Pego o dir
+    // final dir = '${appDir.path}/blink_tv';
+
+    // Salvo a imagem no dir
+    // Uso para exibir a imagem
+    final localPath = join(appDir, imageName);
+
+    // Download
+    final imageFile = File(localPath);
+    await imageFile.writeAsBytes(response.bodyBytes);
   }
 
   Future<int> load() async {

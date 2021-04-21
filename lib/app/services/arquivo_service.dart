@@ -23,7 +23,6 @@ class ArquivoService {
 
     // mata o isolate após o download
     isolate.kill(priority: Isolate.immediate);
-    
   }
 
   static dataLoader(SendPort sendPort) async {
@@ -44,12 +43,14 @@ class ArquivoService {
       String path = msg[4];
 
       print('VAI DESCOMPACTAR ARQUIVO ${idArquivo}');
+
+
       var gzip = GZipDecoder().decodeBytes(arquivo);
       print('ARQUIVO DESCOMPACTADO ${idArquivo}');
       var file = File('${path}/${nome}');
+      //await file.writeAsBytes(arquivo);
       await file.writeAsBytes(gzip);
       print('ARQUIVO GRAVADO ${idArquivo}');
-
       // Envia a resposta do http
       replyTo.send(true);
     }

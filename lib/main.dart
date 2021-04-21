@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:battery/battery.dart';
 import 'package:flutter/material.dart';
 import 'package:blink/app/app_module.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:system_info/system_info.dart';
 import 'package:wifi/wifi.dart';
@@ -12,6 +13,7 @@ import 'app/database/database.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   Battery _battery = Battery();
   const oneSec = const Duration(seconds: 15);
 

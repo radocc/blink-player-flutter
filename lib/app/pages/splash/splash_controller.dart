@@ -3,8 +3,14 @@ import 'dart:io';
 
 import 'package:blink/app/components/loading_midias.dart';
 import 'package:blink/app/database/database.dart';
+import 'package:blink/app/services/conexao_service.dart';
 import 'package:blink/app/services/conteudo_service.dart';
 import 'package:blink/app/services/login_service.dart';
+import 'package:blink/app/services/noticia_service.dart';
+import 'package:blink/app/services/previsao_tempo_service.dart';
+import 'package:blink/app/services/template_service.dart';
+import 'package:blink/app/shared/events.dart';
+import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -16,13 +22,33 @@ class SplashController = _SplashControllerBase with _$SplashController;
 abstract class _SplashControllerBase with Store {
   LoginService service;
   ConteudoService contService;
+  NoticiaService noticiaService;
+  TemplateService templateService;
+  PrevisaoTempoService prevService;
+  ConexaoService conexaoService;
+  StreamSubscription<bool> streamEquipBody;
+  StreamController<Equipamento> streamPostServer =
+      StreamController<Equipamento>();
 
-  _SplashControllerBase({this.service, this.contService});
+  _SplashControllerBase({
+    this.service,
+    this.contService,
+    this.conexaoService,
+    this.noticiaService,
+    this.templateService,
+    this.prevService
+  });
 
-  // Future getArchive() async {
-  //   var response = await arqRepository.downloadMidia("194");
-  //   return response;
-  // }
+  onInit() {
+    streamEquipBody = Events.equipBody.stream.listen((value) {
+      print('STREAM: $value');
+      if (value) {
+        postServer();
+      }
+    });
+
+    postServer();
+  }
 
   Future<List<Conteudo>> postConteudos() async {
     try {
@@ -37,7 +63,7 @@ abstract class _SplashControllerBase with Store {
         } else {
           conteudos = await contService.downloadConteudo();
         }
-        
+
         //var conteudos = await contService.downloadConteudo();
         return conteudos;
       } else if (Platform.isLinux) {
@@ -48,7 +74,6 @@ abstract class _SplashControllerBase with Store {
     } catch (e) {
       print(e.toString());
       throw new Exception("Erro interno: " + e.toString());
-      
     }
   }
 
@@ -58,57 +83,58 @@ abstract class _SplashControllerBase with Store {
       String linuxId;
       if (Platform.isAndroid) {
         //deviceId = await PlatformDeviceId.getDeviceId;
-        var reponse = await service.logar('5555', '5555');
-        print(reponse);
-        return reponse;
+        var response = await service.logar('5555', '5555');
+        print(response);
+        streamPostServer.add(response);
+        return response;
       } else if (Platform.isLinux) {
         // linuxId = await PlatformDeviceId.getDeviceId;
-        var reponse = await service.logar(linuxId, '123123');
-        return reponse;
+        var response = await service.logar(linuxId, '123123');
+        streamPostServer.add(response);
+        return response;
       }
-    } catch (e) {
-      print(e.toString());
+    } on DioError catch (e) {
+      print(e.response.statusCode);
+      streamPostServer.addError(e);
+      //Events.alertEmptyBody.add(e.response.data);
+      throw Exception("Exception occured: $e");
     }
   }
 
-  Future<bool> downloadConteudos() async {
-    await this.contService.downloadConteudo();
+  Future<List<Noticia>> postNoticias() async {
+    try {
+      var response = await noticiaService.saveNoticias(5);
+      print(response);
+      return response;
+    } on DioError catch (e) {
+      print(e.response.statusCode);
+      throw Exception("Exception occured: $e");
+    }
   }
 
-  // Future isInternetMobile() async {
-  //   var connectivityResult = await (Connectivity().checkConnectivity());
-  //   if (connectivityResult == ConnectivityResult.mobile) {
-  //     if (await DataConnectionChecker().hasConnection) {
-  //       return valueHardware();
-  //     } else {
-  //       //return false;
-  //     }
-  //   } else if (connectivityResult == ConnectivityResult.wifi) {
-  //     if (await DataConnectionChecker().hasConnection) {
-  //       return valueHardware();
-  //     } else {
-  //       //return false;
-  //     }
-  //   } else {
-  //     print('Sem conexão com a internet');
-  //   }
-  // }
-
-  Future<bool> isInternetLinux() async {
+  Future<List<Template>> postTemplates() async {
     try {
-      final result = await InternetAddress.lookup('google.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        return true;
-      }
-    } on SocketException catch (_) {}
+      var response = await templateService.saveTemplate(2);
+      print(response);
+      return response;
+    } on DioError catch (e) {
+      print(e.response.statusCode);
+      throw Exception("Exception occured: $e");
+    }
   }
 
-  Stream<bool> isInternetLinux2() async* {
+  Future<List<PrevisaoImagemTempo>> postPrevisaoTempo() async {
     try {
-      final result = await InternetAddress.lookup('google.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        yield true;
-      }
-    } on SocketException catch (_) {}
+      var response = await prevService.savePrevisaoTempo(1);
+      print(response);
+      return response;
+    } on DioError catch (e) {
+      print(e.response.statusCode);
+      throw Exception("Exception occured: $e");
+    }
+  }
+
+  dispose() {
+    streamEquipBody.cancel();
   }
 }

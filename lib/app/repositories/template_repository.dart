@@ -5,23 +5,23 @@ import 'package:blink/app/repositories/abstract_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-class NoticiaRepository extends AbstractRepository {
+class TemplateRepository extends AbstractRepository {
   final Dio dio;
 
-  NoticiaRepository({@required this.dio}) : super('dados');
+  TemplateRepository({@required this.dio}) : super('dados');
 
-  Future<List<Noticia>> downloadNoticia(int identificacao) async {
+  Future<List<Template>> downloadTemplate(int identificacao) async {
     try {
       var response = await dio.post(getUrl(''),
           data: {"identificacao": identificacao});
 
       Map<String, dynamic> data = jsonDecode(response.data);
       List<dynamic> items = data['lista'];
-      List<Noticia> noticias = <Noticia>[];
+      List<Template> template = <Template>[];
       for (var item in items) {
-        noticias.add(Noticia.fromJson(item));
+        template.add(Template.fromJson(item));
       }
-      return noticias;
+      return template;
     } catch (error, stacktrace) {
       throw Exception("Exception occured: $error stackTrace: $stacktrace");
     }

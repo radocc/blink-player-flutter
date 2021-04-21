@@ -1,9 +1,10 @@
-import 'dart:async';
+
 
 import 'package:blink/app/components/template_size.dart';
 import 'package:blink/app/modules/carousel/carousel_page.dart';
 import 'package:blink/app/shared/screen_size.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:path_provider/path_provider.dart';
@@ -21,6 +22,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   @override
   void initState() {
     super.initState();
+    //SystemChrome.setEnabledSystemUIOverlays([]);
     //controller.setLandscape();
   }
 

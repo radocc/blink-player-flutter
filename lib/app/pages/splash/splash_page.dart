@@ -2,6 +2,7 @@ import 'package:blink/app/components/loading_midias.dart';
 import 'package:blink/app/components/screen_ative_false.dart';
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/modules/home/home_page.dart';
+import 'package:blink/app/shared/events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
@@ -18,11 +19,13 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends ModularState<SplashPage, SplashController> {
   @override
   void initState() {
+    controller.onInit();
     super.initState();
   }
 
   @override
   void dispose() {
+    controller.dispose();
     super.dispose();
   }
 
@@ -32,8 +35,8 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
     final formatter = new DateFormat('dd-MM-yyyy HH:mm').format(now);
 
     return Scaffold(
-        body: FutureBuilder<Equipamento>(
-            future: controller.postServer(),
+        body: StreamBuilder<Equipamento>(
+            stream: controller.streamPostServer.stream,
             builder: (ctx, snap) {
               if (snap.connectionState == ConnectionState.waiting) {
                 return Center(
@@ -72,8 +75,12 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
                                     AlwaysStoppedAnimation<Color>(Colors.red),
                               ),
                               SizedBox(height: 25),
-                              Text('Erro ao buscar os dados no servidor',
-                                  style: TextStyle(fontWeight: FontWeight.w500))
+                              Text('Erro ao buscar os dados no servidor, ',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.w500)),
+                              Text('revisar a conexão com a internet, ',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.w500)),
                             ],
                           ),
                         ),
@@ -87,8 +94,9 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
                           nome: snap.data.nome,
                           data: formatter,
                           uuid: snap.data.uuid)
-                      : FutureBuilder<List<Conteudo>>(
-                          future: controller.postConteudos(),
+                          //template
+                      : FutureBuilder<List<Template>>(
+                          future: controller.postTemplates(),
                           builder: (ctx, snap) {
                             if (!snap.hasData && !snap.hasError) {
                               return LoadingMidias();
@@ -101,6 +109,9 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
                             }
                           });
               }
-            }));
+            }
+            
+          )
+    );
   }
 }

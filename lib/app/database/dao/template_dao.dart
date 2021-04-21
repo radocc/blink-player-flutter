@@ -7,4 +7,8 @@ part 'template_dao.g.dart';
 @UseDao(tables: [Templates])
 class TemplateDAO extends DatabaseAccessor<Database> with _$TemplateDAOMixin {
   TemplateDAO(Database db) : super(db);
+
+    Future addValueTemplate(Template entity) {
+    return into(templates).insertOnConflictUpdate(entity);
+  }
 }

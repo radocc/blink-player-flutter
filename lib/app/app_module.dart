@@ -1,17 +1,20 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:blink/app/modules/home/home_controller.dart';
 import 'package:blink/app/pages/splash/splash_page.dart';
 import 'package:blink/app/repositories/arquivo_repository.dart';
 import 'package:blink/app/repositories/conteudo_repository.dart';
 import 'package:blink/app/repositories/login_repository.dart';
+import 'package:blink/app/repositories/noticia_repository.dart';
+import 'package:blink/app/repositories/previsao_tempo_repository.dart';
+import 'package:blink/app/repositories/template_repository.dart';
 import 'package:blink/app/services/arquivo_service.dart';
+import 'package:blink/app/services/conexao_service.dart';
 import 'package:blink/app/services/conteudo_service.dart';
 import 'package:blink/app/services/login_service.dart';
+import 'package:blink/app/services/noticia_service.dart';
+import 'package:blink/app/services/previsao_tempo_service.dart';
+import 'package:blink/app/services/template_service.dart';
 import 'package:blink/app/shared/CusotmInterceptor.dart';
 import 'package:blink/app/shared/interceptions.dart';
-import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 
 import 'pages/splash/splash_controller.dart';
@@ -41,25 +44,48 @@ class AppModule extends MainModule {
         Bind((i) => SplashController(
             service: i.get<LoginService>(),
             contService: i.get<ConteudoService>(),
-            )),
+            conexaoService: i.get<ConexaoService>(),
+            noticiaService: i.get<NoticiaService>(),
+            templateService: i.get<TemplateService>(),
+            prevService: i.get<PrevisaoTempoService>())),
         Bind((i) => LoginRepository(
             dio: i.get<Dio>()..interceptors.add(CustomIntercetors()))),
         Bind((i) => Dio(BaseOptions(baseUrl: URL_LOGIN))),
         Bind((i) => LoginService(loginRep: i.get<LoginRepository>())),
-        // Equipamentos
+        // Conteudo
         Bind((i) => ConteudoRepository(
             dio: i.get<Dio>()..interceptors.add(CustomIntercetorsConteudo()))),
         Bind((i) => Dio(BaseOptions(baseUrl: URL_CONTEUDO))),
         Bind((i) => ArquivoService()),
         Bind((i) => ConteudoService(
-          conteudoRepo: i.get<ConteudoRepository>(), 
-          arquivoRepo: i.get<ArquivoRepository>(), 
-          arquivoService: i.get<ArquivoService>())
-        ),
+            conteudoRepo: i.get<ConteudoRepository>(),
+            arquivoRepo: i.get<ArquivoRepository>(),
+            arquivoService: i.get<ArquivoService>())),
+        Bind((i) => ConexaoService(), lazy: false),
         // Mídias
         Bind((i) => ArquivoRepository(
             dio: i.get<Dio>()..interceptors.add(CustomIntercetorsConteudo()))),
-        //Bind((i) => Dio(BaseOptions(baseUrl: ULR_DOWN_MIDIAS))),
+        // Noticias
+        Bind((i) => NoticiaService(
+            noticiaRepo: i.get<NoticiaRepository>(),
+            arquivoRepo: i.get<ArquivoRepository>(),
+            arquivoService: i.get<ArquivoService>())),
+        Bind((i) => NoticiaRepository(
+            dio: i.get<Dio>()..interceptors.add(CustomIntercetors()))),
+        //Template
+        Bind((i) => TemplateService(
+            tempRepo: i.get<TemplateRepository>(),
+            arquivoRepo: i.get<ArquivoRepository>(),
+            arquivoService: i.get<ArquivoService>())),
+        Bind((i) => TemplateRepository(
+            dio: i.get<Dio>()..interceptors.add(CustomIntercetors()))),
+        //PrevisaoTempo
+        Bind((i) => PrevisaoTempoService(
+            prevRepo: i.get<PrevisaoTempoRepository>(),
+            arquivoRepo: i.get<ArquivoRepository>(),
+            arquivoService: i.get<ArquivoService>())),
+        Bind((i) => PrevisaoTempoRepository(
+            dio: i.get<Dio>()..interceptors.add(CustomIntercetors()))),
       ];
 
   @override
