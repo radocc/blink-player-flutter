@@ -1,6 +1,7 @@
 import 'package:moor/moor.dart';
 
-class PrevisaoImagemTempos extends Table {
+@DataClassName('PrevisaoTempoImagem')
+class PrevisaoTempoImagens extends Table {
   @override
   String get tableName => 'previsao_tempo_imagem';
 

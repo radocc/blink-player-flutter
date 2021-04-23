@@ -84,7 +84,7 @@ class _CarouselPageState
       _controller.animateTo(
         0,
         duration: Duration(milliseconds: 500),
-        curve: Curves.easeIn,
+        curve: Curves.linear,
       );
     }
     //
@@ -93,7 +93,7 @@ class _CarouselPageState
     else {
       _controller.nextPage(
         duration: Duration(milliseconds: 500),
-        curve: Curves.easeIn,
+        curve: Curves.linear,
       );
     }
   }
@@ -120,7 +120,6 @@ class _CarouselPageState
 
   @override
   Widget build(BuildContext context) {
-    //SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     return Scaffold(
       // Future para listar os arquivos e separar em imagem e video
       body: FutureBuilder<bool>(

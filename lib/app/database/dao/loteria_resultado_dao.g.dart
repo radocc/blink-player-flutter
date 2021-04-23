@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'previsao_tempo_imagem_dao.dart';
+part of 'loteria_resultado_dao.dart';
 
 // **************************************************************************
 // DaoGenerator
 // **************************************************************************
 
-mixin _$PrevisaoTempoImagemDAOMixin on DatabaseAccessor<Database> {
-  $PrevisaoTempoImagensTable get previsaoTempoImagens =>
-      attachedDatabase.previsaoTempoImagens;
+mixin _$LoteriaResultadosDAOMixin on DatabaseAccessor<Database> {
+  $LoteriaResultadosTable get loteriaResultados =>
+      attachedDatabase.loteriaResultados;
 }

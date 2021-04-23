@@ -8,6 +8,7 @@ import 'package:blink/app/services/conteudo_service.dart';
 import 'package:blink/app/services/login_service.dart';
 import 'package:blink/app/services/noticia_service.dart';
 import 'package:blink/app/services/previsao_tempo_service.dart';
+import 'package:blink/app/services/sincroniza_service.dart';
 import 'package:blink/app/services/template_service.dart';
 import 'package:blink/app/shared/events.dart';
 import 'package:dio/dio.dart';
@@ -20,37 +21,32 @@ part 'splash_controller.g.dart';
 class SplashController = _SplashControllerBase with _$SplashController;
 
 abstract class _SplashControllerBase with Store {
-  LoginService service;
-  ConteudoService contService;
-  NoticiaService noticiaService;
-  TemplateService templateService;
-  PrevisaoTempoService prevService;
-  ConexaoService conexaoService;
+  final LoginService service;
+  final SincronizaService syncService;
+
   StreamSubscription<bool> streamEquipBody;
   StreamController<Equipamento> streamPostServer =
       StreamController<Equipamento>();
 
-  _SplashControllerBase({
-    this.service,
-    this.contService,
-    this.conexaoService,
-    this.noticiaService,
-    this.templateService,
-    this.prevService
-  });
+  _SplashControllerBase(this.service, this.syncService);
 
-  onInit() {
+  onInit() async {
     streamEquipBody = Events.equipBody.stream.listen((value) {
       print('STREAM: $value');
       if (value) {
-        postServer();
+        login();
       }
     });
 
-    postServer();
+    login();
   }
 
-  Future<List<Conteudo>> postConteudos() async {
+  Future sincronizar() async {
+    await syncService.iniciar();
+    return true;
+  }
+
+  /* Future<List<Conteudo>> postConteudos() async {
     try {
       //String deviceId;
       //String linuxId;
@@ -75,9 +71,9 @@ abstract class _SplashControllerBase with Store {
       print(e.toString());
       throw new Exception("Erro interno: " + e.toString());
     }
-  }
+  } */
 
-  Future<Equipamento> postServer() async {
+  Future<Equipamento> login() async {
     try {
       //String deviceId;
       String linuxId;
@@ -96,12 +92,12 @@ abstract class _SplashControllerBase with Store {
     } on DioError catch (e) {
       print(e.response.statusCode);
       streamPostServer.addError(e);
-      //Events.alertEmptyBody.add(e.response.data);
       throw Exception("Exception occured: $e");
     }
+    return null;
   }
 
-  Future<List<Noticia>> postNoticias() async {
+  /* Future<List<Noticia>> postNoticias() async {
     try {
       var response = await noticiaService.saveNoticias(5);
       print(response);
@@ -110,9 +106,9 @@ abstract class _SplashControllerBase with Store {
       print(e.response.statusCode);
       throw Exception("Exception occured: $e");
     }
-  }
+  } */
 
-  Future<List<Template>> postTemplates() async {
+  /*  Future<List<Template>> postTemplates() async {
     try {
       var response = await templateService.saveTemplate(2);
       print(response);
@@ -121,9 +117,9 @@ abstract class _SplashControllerBase with Store {
       print(e.response.statusCode);
       throw Exception("Exception occured: $e");
     }
-  }
+  } */
 
-  Future<List<PrevisaoImagemTempo>> postPrevisaoTempo() async {
+  /*  Future<List<PrevisaoImagemTempo>> postPrevisaoTempo() async {
     try {
       var response = await prevService.savePrevisaoTempo(1);
       print(response);
@@ -132,7 +128,7 @@ abstract class _SplashControllerBase with Store {
       print(e.response.statusCode);
       throw Exception("Exception occured: $e");
     }
-  }
+  } */
 
   dispose() {
     streamEquipBody.cancel();

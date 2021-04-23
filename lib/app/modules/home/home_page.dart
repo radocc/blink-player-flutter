@@ -23,12 +23,12 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   void initState() {
     super.initState();
     //SystemChrome.setEnabledSystemUIOverlays([]);
-    //controller.setLandscape();
+    controller.setLandscape();
   }
 
   @override
   void dispose() {
-    //controller.setDisposeLandscape();
+    controller.setDisposeLandscape();
     super.dispose();
   }
 

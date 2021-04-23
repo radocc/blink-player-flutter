@@ -2,10 +2,46 @@ import 'dart:io';
 import 'dart:isolate';
 
 import 'package:archive/archive_io.dart';
+import 'package:blink/app/repositories/arquivo_repository.dart';
 import 'package:path_provider/path_provider.dart';
 
 class ArquivoService {
   Directory _dir;
+  ArquivoRepository repo;
+
+  ArquivoService(this.repo);
+
+  Future<List<int>> downloadMidia(
+      int idArquivo, String nome, Function(int, int) onProgress) async {
+    var arquivo = await repo.downloadMidia(idArquivo, onProgress);
+    if (arquivo.isNotEmpty) {
+      await salvarArquivo(arquivo, idArquivo, nome);
+    }
+  }
+
+  /* Future downloadMidias(int idArquivo) async {
+    if (conteudos != null && conteudos.isNotEmpty) {
+      List<int> arquivo;
+      //List<Future> futures = [];
+      for (var conteudo in conteudos) {
+        print('VAI BAIXAR ARQUIVO ${conteudo.idArquivo}');
+          arquivo =
+              await arquivoService.downloadMidia(conteudo, (received, total) {
+            //print('DOWNLOAD $received - $total');
+          });
+
+          //futures.add(arquivoService.salvarArquivo(
+          //   arquivo, conteudo.idArquivo, conteudo.nomeArquivo));
+          await arquivoService.salvarArquivo(
+              arquivo, conteudo.idArquivo, conteudo.nomeArquivo);
+          print('Baixou arquivo ${conteudo.idArquivo}');
+        
+      }
+      //await Future.wait(futures).then((_) {
+      // print('TERMINOU TODOS');
+      //});
+    }
+  } */
 
   Future salvarArquivo(List<int> arquivo, int idArquivo, String nome) async {
     _dir = await getApplicationDocumentsDirectory();
@@ -43,7 +79,6 @@ class ArquivoService {
       String path = msg[4];
 
       print('VAI DESCOMPACTAR ARQUIVO ${idArquivo}');
-
 
       var gzip = GZipDecoder().decodeBytes(arquivo);
       print('ARQUIVO DESCOMPACTADO ${idArquivo}');

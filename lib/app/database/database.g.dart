@@ -1649,6 +1649,8 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
   final String previsao;
   final String campos;
   final int idArquivo;
+  final int audio;
+  final int tipo;
   Conteudo(
       {@required this.id,
       this.status,
@@ -1666,7 +1668,9 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
       this.uf,
       this.previsao,
       this.campos,
-      this.idArquivo});
+      this.idArquivo,
+      this.audio,
+      this.tipo});
   factory Conteudo.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -1705,6 +1709,8 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
           stringType.mapFromDatabaseResponse(data['${effectivePrefix}campos']),
       idArquivo:
           intType.mapFromDatabaseResponse(data['${effectivePrefix}id_arquivo']),
+      audio: intType.mapFromDatabaseResponse(data['${effectivePrefix}audio']),
+      tipo: intType.mapFromDatabaseResponse(data['${effectivePrefix}tipo']),
     );
   }
   @override
@@ -1761,6 +1767,12 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
     if (!nullToAbsent || idArquivo != null) {
       map['id_arquivo'] = Variable<int>(idArquivo);
     }
+    if (!nullToAbsent || audio != null) {
+      map['audio'] = Variable<int>(audio);
+    }
+    if (!nullToAbsent || tipo != null) {
+      map['tipo'] = Variable<int>(tipo);
+    }
     return map;
   }
 
@@ -1809,6 +1821,9 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
       idArquivo: idArquivo == null && nullToAbsent
           ? const Value.absent()
           : Value(idArquivo),
+      audio:
+          audio == null && nullToAbsent ? const Value.absent() : Value(audio),
+      tipo: tipo == null && nullToAbsent ? const Value.absent() : Value(tipo),
     );
   }
 
@@ -1833,6 +1848,8 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
       previsao: serializer.fromJson<String>(json['previsao']),
       campos: serializer.fromJson<String>(json['campos']),
       idArquivo: serializer.fromJson<int>(json['idArquivo']),
+      audio: serializer.fromJson<int>(json['audio']),
+      tipo: serializer.fromJson<int>(json['tipo']),
     );
   }
   @override
@@ -1856,6 +1873,8 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
       'previsao': serializer.toJson<String>(previsao),
       'campos': serializer.toJson<String>(campos),
       'idArquivo': serializer.toJson<int>(idArquivo),
+      'audio': serializer.toJson<int>(audio),
+      'tipo': serializer.toJson<int>(tipo),
     };
   }
 
@@ -1876,7 +1895,9 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
           String uf,
           String previsao,
           String campos,
-          int idArquivo}) =>
+          int idArquivo,
+          int audio,
+          int tipo}) =>
       Conteudo(
         id: id ?? this.id,
         status: status ?? this.status,
@@ -1895,6 +1916,8 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
         previsao: previsao ?? this.previsao,
         campos: campos ?? this.campos,
         idArquivo: idArquivo ?? this.idArquivo,
+        audio: audio ?? this.audio,
+        tipo: tipo ?? this.tipo,
       );
   @override
   String toString() {
@@ -1915,7 +1938,9 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
           ..write('uf: $uf, ')
           ..write('previsao: $previsao, ')
           ..write('campos: $campos, ')
-          ..write('idArquivo: $idArquivo')
+          ..write('idArquivo: $idArquivo, ')
+          ..write('audio: $audio, ')
+          ..write('tipo: $tipo')
           ..write(')'))
         .toString();
   }
@@ -1954,8 +1979,13 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
                                                               $mrjc(
                                                                   campos
                                                                       .hashCode,
-                                                                  idArquivo
-                                                                      .hashCode)))))))))))))))));
+                                                                  $mrjc(
+                                                                      idArquivo
+                                                                          .hashCode,
+                                                                      $mrjc(
+                                                                          audio
+                                                                              .hashCode,
+                                                                          tipo.hashCode)))))))))))))))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -1976,7 +2006,9 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
           other.uf == this.uf &&
           other.previsao == this.previsao &&
           other.campos == this.campos &&
-          other.idArquivo == this.idArquivo);
+          other.idArquivo == this.idArquivo &&
+          other.audio == this.audio &&
+          other.tipo == this.tipo);
 }
 
 class ConteudosCompanion extends UpdateCompanion<Conteudo> {
@@ -1997,6 +2029,8 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
   final Value<String> previsao;
   final Value<String> campos;
   final Value<int> idArquivo;
+  final Value<int> audio;
+  final Value<int> tipo;
   const ConteudosCompanion({
     this.id = const Value.absent(),
     this.status = const Value.absent(),
@@ -2015,6 +2049,8 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
     this.previsao = const Value.absent(),
     this.campos = const Value.absent(),
     this.idArquivo = const Value.absent(),
+    this.audio = const Value.absent(),
+    this.tipo = const Value.absent(),
   });
   ConteudosCompanion.insert({
     @required int id,
@@ -2034,6 +2070,8 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
     this.previsao = const Value.absent(),
     this.campos = const Value.absent(),
     this.idArquivo = const Value.absent(),
+    this.audio = const Value.absent(),
+    this.tipo = const Value.absent(),
   })  : id = Value(id),
         idTipoConteudo = Value(idTipoConteudo);
   static Insertable<Conteudo> custom({
@@ -2054,6 +2092,8 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
     Expression<String> previsao,
     Expression<String> campos,
     Expression<int> idArquivo,
+    Expression<int> audio,
+    Expression<int> tipo,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -2073,6 +2113,8 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
       if (previsao != null) 'previsao': previsao,
       if (campos != null) 'campos': campos,
       if (idArquivo != null) 'id_arquivo': idArquivo,
+      if (audio != null) 'audio': audio,
+      if (tipo != null) 'tipo': tipo,
     });
   }
 
@@ -2093,7 +2135,9 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
       Value<String> uf,
       Value<String> previsao,
       Value<String> campos,
-      Value<int> idArquivo}) {
+      Value<int> idArquivo,
+      Value<int> audio,
+      Value<int> tipo}) {
     return ConteudosCompanion(
       id: id ?? this.id,
       status: status ?? this.status,
@@ -2112,6 +2156,8 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
       previsao: previsao ?? this.previsao,
       campos: campos ?? this.campos,
       idArquivo: idArquivo ?? this.idArquivo,
+      audio: audio ?? this.audio,
+      tipo: tipo ?? this.tipo,
     );
   }
 
@@ -2169,6 +2215,12 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
     if (idArquivo.present) {
       map['id_arquivo'] = Variable<int>(idArquivo.value);
     }
+    if (audio.present) {
+      map['audio'] = Variable<int>(audio.value);
+    }
+    if (tipo.present) {
+      map['tipo'] = Variable<int>(tipo.value);
+    }
     return map;
   }
 
@@ -2191,7 +2243,9 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
           ..write('uf: $uf, ')
           ..write('previsao: $previsao, ')
           ..write('campos: $campos, ')
-          ..write('idArquivo: $idArquivo')
+          ..write('idArquivo: $idArquivo, ')
+          ..write('audio: $audio, ')
+          ..write('tipo: $tipo')
           ..write(')'))
         .toString();
   }
@@ -2364,7 +2418,7 @@ class $ConteudosTable extends Conteudos
   GeneratedTextColumn get previsao => _previsao ??= _constructPrevisao();
   GeneratedTextColumn _constructPrevisao() {
     return GeneratedTextColumn('previsao', $tableName, true,
-        maxTextLength: 500);
+        maxTextLength: 5000);
   }
 
   final VerificationMeta _camposMeta = const VerificationMeta('campos');
@@ -2382,6 +2436,30 @@ class $ConteudosTable extends Conteudos
   GeneratedIntColumn _constructIdArquivo() {
     return GeneratedIntColumn(
       'id_arquivo',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _audioMeta = const VerificationMeta('audio');
+  GeneratedIntColumn _audio;
+  @override
+  GeneratedIntColumn get audio => _audio ??= _constructAudio();
+  GeneratedIntColumn _constructAudio() {
+    return GeneratedIntColumn(
+      'audio',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _tipoMeta = const VerificationMeta('tipo');
+  GeneratedIntColumn _tipo;
+  @override
+  GeneratedIntColumn get tipo => _tipo ??= _constructTipo();
+  GeneratedIntColumn _constructTipo() {
+    return GeneratedIntColumn(
+      'tipo',
       $tableName,
       true,
     );
@@ -2405,7 +2483,9 @@ class $ConteudosTable extends Conteudos
         uf,
         previsao,
         campos,
-        idArquivo
+        idArquivo,
+        audio,
+        tipo
       ];
   @override
   $ConteudosTable get asDslTable => this;
@@ -2499,6 +2579,14 @@ class $ConteudosTable extends Conteudos
     if (data.containsKey('id_arquivo')) {
       context.handle(_idArquivoMeta,
           idArquivo.isAcceptableOrUnknown(data['id_arquivo'], _idArquivoMeta));
+    }
+    if (data.containsKey('audio')) {
+      context.handle(
+          _audioMeta, audio.isAcceptableOrUnknown(data['audio'], _audioMeta));
+    }
+    if (data.containsKey('tipo')) {
+      context.handle(
+          _tipoMeta, tipo.isAcceptableOrUnknown(data['tipo'], _tipoMeta));
     }
     return context;
   }
@@ -7217,28 +7305,28 @@ class $NoticiasTable extends Noticias with TableInfo<$NoticiasTable, Noticia> {
   }
 }
 
-class PrevisaoImagemTempo extends DataClass
-    implements Insertable<PrevisaoImagemTempo> {
+class PrevisaoTempoImagem extends DataClass
+    implements Insertable<PrevisaoTempoImagem> {
   final int id;
   final String texto;
   final String sigla;
   final String nomeArquivo;
   final int idArquivo;
   final String descricao;
-  PrevisaoImagemTempo(
+  PrevisaoTempoImagem(
       {@required this.id,
       this.texto,
       this.sigla,
       this.nomeArquivo,
       @required this.idArquivo,
       this.descricao});
-  factory PrevisaoImagemTempo.fromData(
+  factory PrevisaoTempoImagem.fromData(
       Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
     final intType = db.typeSystem.forDartType<int>();
     final stringType = db.typeSystem.forDartType<String>();
-    return PrevisaoImagemTempo(
+    return PrevisaoTempoImagem(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       texto:
           stringType.mapFromDatabaseResponse(data['${effectivePrefix}texto']),
@@ -7276,8 +7364,8 @@ class PrevisaoImagemTempo extends DataClass
     return map;
   }
 
-  PrevisaoImagemTemposCompanion toCompanion(bool nullToAbsent) {
-    return PrevisaoImagemTemposCompanion(
+  PrevisaoTempoImagensCompanion toCompanion(bool nullToAbsent) {
+    return PrevisaoTempoImagensCompanion(
       id: id == null && nullToAbsent ? const Value.absent() : Value(id),
       texto:
           texto == null && nullToAbsent ? const Value.absent() : Value(texto),
@@ -7295,10 +7383,10 @@ class PrevisaoImagemTempo extends DataClass
     );
   }
 
-  factory PrevisaoImagemTempo.fromJson(Map<String, dynamic> json,
+  factory PrevisaoTempoImagem.fromJson(Map<String, dynamic> json,
       {ValueSerializer serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
-    return PrevisaoImagemTempo(
+    return PrevisaoTempoImagem(
       id: serializer.fromJson<int>(json['id']),
       texto: serializer.fromJson<String>(json['texto']),
       sigla: serializer.fromJson<String>(json['sigla']),
@@ -7320,14 +7408,14 @@ class PrevisaoImagemTempo extends DataClass
     };
   }
 
-  PrevisaoImagemTempo copyWith(
+  PrevisaoTempoImagem copyWith(
           {int id,
           String texto,
           String sigla,
           String nomeArquivo,
           int idArquivo,
           String descricao}) =>
-      PrevisaoImagemTempo(
+      PrevisaoTempoImagem(
         id: id ?? this.id,
         texto: texto ?? this.texto,
         sigla: sigla ?? this.sigla,
@@ -7337,7 +7425,7 @@ class PrevisaoImagemTempo extends DataClass
       );
   @override
   String toString() {
-    return (StringBuffer('PrevisaoImagemTempo(')
+    return (StringBuffer('PrevisaoTempoImagem(')
           ..write('id: $id, ')
           ..write('texto: $texto, ')
           ..write('sigla: $sigla, ')
@@ -7360,7 +7448,7 @@ class PrevisaoImagemTempo extends DataClass
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
-      (other is PrevisaoImagemTempo &&
+      (other is PrevisaoTempoImagem &&
           other.id == this.id &&
           other.texto == this.texto &&
           other.sigla == this.sigla &&
@@ -7369,15 +7457,15 @@ class PrevisaoImagemTempo extends DataClass
           other.descricao == this.descricao);
 }
 
-class PrevisaoImagemTemposCompanion
-    extends UpdateCompanion<PrevisaoImagemTempo> {
+class PrevisaoTempoImagensCompanion
+    extends UpdateCompanion<PrevisaoTempoImagem> {
   final Value<int> id;
   final Value<String> texto;
   final Value<String> sigla;
   final Value<String> nomeArquivo;
   final Value<int> idArquivo;
   final Value<String> descricao;
-  const PrevisaoImagemTemposCompanion({
+  const PrevisaoTempoImagensCompanion({
     this.id = const Value.absent(),
     this.texto = const Value.absent(),
     this.sigla = const Value.absent(),
@@ -7385,7 +7473,7 @@ class PrevisaoImagemTemposCompanion
     this.idArquivo = const Value.absent(),
     this.descricao = const Value.absent(),
   });
-  PrevisaoImagemTemposCompanion.insert({
+  PrevisaoTempoImagensCompanion.insert({
     this.id = const Value.absent(),
     this.texto = const Value.absent(),
     this.sigla = const Value.absent(),
@@ -7393,7 +7481,7 @@ class PrevisaoImagemTemposCompanion
     @required int idArquivo,
     this.descricao = const Value.absent(),
   }) : idArquivo = Value(idArquivo);
-  static Insertable<PrevisaoImagemTempo> custom({
+  static Insertable<PrevisaoTempoImagem> custom({
     Expression<int> id,
     Expression<String> texto,
     Expression<String> sigla,
@@ -7411,14 +7499,14 @@ class PrevisaoImagemTemposCompanion
     });
   }
 
-  PrevisaoImagemTemposCompanion copyWith(
+  PrevisaoTempoImagensCompanion copyWith(
       {Value<int> id,
       Value<String> texto,
       Value<String> sigla,
       Value<String> nomeArquivo,
       Value<int> idArquivo,
       Value<String> descricao}) {
-    return PrevisaoImagemTemposCompanion(
+    return PrevisaoTempoImagensCompanion(
       id: id ?? this.id,
       texto: texto ?? this.texto,
       sigla: sigla ?? this.sigla,
@@ -7454,7 +7542,7 @@ class PrevisaoImagemTemposCompanion
 
   @override
   String toString() {
-    return (StringBuffer('PrevisaoImagemTemposCompanion(')
+    return (StringBuffer('PrevisaoTempoImagensCompanion(')
           ..write('id: $id, ')
           ..write('texto: $texto, ')
           ..write('sigla: $sigla, ')
@@ -7466,11 +7554,11 @@ class PrevisaoImagemTemposCompanion
   }
 }
 
-class $PrevisaoImagemTemposTable extends PrevisaoImagemTempos
-    with TableInfo<$PrevisaoImagemTemposTable, PrevisaoImagemTempo> {
+class $PrevisaoTempoImagensTable extends PrevisaoTempoImagens
+    with TableInfo<$PrevisaoTempoImagensTable, PrevisaoTempoImagem> {
   final GeneratedDatabase _db;
   final String _alias;
-  $PrevisaoImagemTemposTable(this._db, [this._alias]);
+  $PrevisaoTempoImagensTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   GeneratedIntColumn _id;
   @override
@@ -7532,14 +7620,14 @@ class $PrevisaoImagemTemposTable extends PrevisaoImagemTempos
   List<GeneratedColumn> get $columns =>
       [id, texto, sigla, nomeArquivo, idArquivo, descricao];
   @override
-  $PrevisaoImagemTemposTable get asDslTable => this;
+  $PrevisaoTempoImagensTable get asDslTable => this;
   @override
   String get $tableName => _alias ?? 'previsao_tempo_imagem';
   @override
   final String actualTableName = 'previsao_tempo_imagem';
   @override
   VerificationContext validateIntegrity(
-      Insertable<PrevisaoImagemTempo> instance,
+      Insertable<PrevisaoTempoImagem> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -7576,14 +7664,838 @@ class $PrevisaoImagemTemposTable extends PrevisaoImagemTempos
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  PrevisaoImagemTempo map(Map<String, dynamic> data, {String tablePrefix}) {
+  PrevisaoTempoImagem map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return PrevisaoImagemTempo.fromData(data, _db, prefix: effectivePrefix);
+    return PrevisaoTempoImagem.fromData(data, _db, prefix: effectivePrefix);
   }
 
   @override
-  $PrevisaoImagemTemposTable createAlias(String alias) {
-    return $PrevisaoImagemTemposTable(_db, alias);
+  $PrevisaoTempoImagensTable createAlias(String alias) {
+    return $PrevisaoTempoImagensTable(_db, alias);
+  }
+}
+
+class LoteriaResultado extends DataClass
+    implements Insertable<LoteriaResultado> {
+  final int id;
+  final int idLoteria;
+  final int idArquivo;
+  final String jsonPremios;
+  final int numeros;
+  final DateTime dataSorteio;
+  final int codigoSorteio;
+  final String jsonCidades;
+  final DateTime dataProximoSorteio;
+  LoteriaResultado(
+      {this.id,
+      this.idLoteria,
+      this.idArquivo,
+      this.jsonPremios,
+      this.numeros,
+      this.dataSorteio,
+      this.codigoSorteio,
+      this.jsonCidades,
+      this.dataProximoSorteio});
+  factory LoteriaResultado.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final stringType = db.typeSystem.forDartType<String>();
+    final dateTimeType = db.typeSystem.forDartType<DateTime>();
+    return LoteriaResultado(
+      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      idLoteria:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_loteria']),
+      idArquivo:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_arquivo']),
+      jsonPremios: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}json_premios']),
+      numeros:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}numeros']),
+      dataSorteio: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}data_sorteio']),
+      codigoSorteio: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}codigo_sorteio']),
+      jsonCidades: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}json_cidades']),
+      dataProximoSorteio: dateTimeType.mapFromDatabaseResponse(
+          data['${effectivePrefix}data_proximo_sorteio']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      map['id'] = Variable<int>(id);
+    }
+    if (!nullToAbsent || idLoteria != null) {
+      map['id_loteria'] = Variable<int>(idLoteria);
+    }
+    if (!nullToAbsent || idArquivo != null) {
+      map['id_arquivo'] = Variable<int>(idArquivo);
+    }
+    if (!nullToAbsent || jsonPremios != null) {
+      map['json_premios'] = Variable<String>(jsonPremios);
+    }
+    if (!nullToAbsent || numeros != null) {
+      map['numeros'] = Variable<int>(numeros);
+    }
+    if (!nullToAbsent || dataSorteio != null) {
+      map['data_sorteio'] = Variable<DateTime>(dataSorteio);
+    }
+    if (!nullToAbsent || codigoSorteio != null) {
+      map['codigo_sorteio'] = Variable<int>(codigoSorteio);
+    }
+    if (!nullToAbsent || jsonCidades != null) {
+      map['json_cidades'] = Variable<String>(jsonCidades);
+    }
+    if (!nullToAbsent || dataProximoSorteio != null) {
+      map['data_proximo_sorteio'] = Variable<DateTime>(dataProximoSorteio);
+    }
+    return map;
+  }
+
+  LoteriaResultadosCompanion toCompanion(bool nullToAbsent) {
+    return LoteriaResultadosCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      idLoteria: idLoteria == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idLoteria),
+      idArquivo: idArquivo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idArquivo),
+      jsonPremios: jsonPremios == null && nullToAbsent
+          ? const Value.absent()
+          : Value(jsonPremios),
+      numeros: numeros == null && nullToAbsent
+          ? const Value.absent()
+          : Value(numeros),
+      dataSorteio: dataSorteio == null && nullToAbsent
+          ? const Value.absent()
+          : Value(dataSorteio),
+      codigoSorteio: codigoSorteio == null && nullToAbsent
+          ? const Value.absent()
+          : Value(codigoSorteio),
+      jsonCidades: jsonCidades == null && nullToAbsent
+          ? const Value.absent()
+          : Value(jsonCidades),
+      dataProximoSorteio: dataProximoSorteio == null && nullToAbsent
+          ? const Value.absent()
+          : Value(dataProximoSorteio),
+    );
+  }
+
+  factory LoteriaResultado.fromJson(Map<String, dynamic> json,
+      {ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return LoteriaResultado(
+      id: serializer.fromJson<int>(json['id']),
+      idLoteria: serializer.fromJson<int>(json['idLoteria']),
+      idArquivo: serializer.fromJson<int>(json['idArquivo']),
+      jsonPremios: serializer.fromJson<String>(json['jsonPremios']),
+      numeros: serializer.fromJson<int>(json['numeros']),
+      dataSorteio: serializer.fromJson<DateTime>(json['dataSorteio']),
+      codigoSorteio: serializer.fromJson<int>(json['codigoSorteio']),
+      jsonCidades: serializer.fromJson<String>(json['jsonCidades']),
+      dataProximoSorteio:
+          serializer.fromJson<DateTime>(json['dataProximoSorteio']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'idLoteria': serializer.toJson<int>(idLoteria),
+      'idArquivo': serializer.toJson<int>(idArquivo),
+      'jsonPremios': serializer.toJson<String>(jsonPremios),
+      'numeros': serializer.toJson<int>(numeros),
+      'dataSorteio': serializer.toJson<DateTime>(dataSorteio),
+      'codigoSorteio': serializer.toJson<int>(codigoSorteio),
+      'jsonCidades': serializer.toJson<String>(jsonCidades),
+      'dataProximoSorteio': serializer.toJson<DateTime>(dataProximoSorteio),
+    };
+  }
+
+  LoteriaResultado copyWith(
+          {int id,
+          int idLoteria,
+          int idArquivo,
+          String jsonPremios,
+          int numeros,
+          DateTime dataSorteio,
+          int codigoSorteio,
+          String jsonCidades,
+          DateTime dataProximoSorteio}) =>
+      LoteriaResultado(
+        id: id ?? this.id,
+        idLoteria: idLoteria ?? this.idLoteria,
+        idArquivo: idArquivo ?? this.idArquivo,
+        jsonPremios: jsonPremios ?? this.jsonPremios,
+        numeros: numeros ?? this.numeros,
+        dataSorteio: dataSorteio ?? this.dataSorteio,
+        codigoSorteio: codigoSorteio ?? this.codigoSorteio,
+        jsonCidades: jsonCidades ?? this.jsonCidades,
+        dataProximoSorteio: dataProximoSorteio ?? this.dataProximoSorteio,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('LoteriaResultado(')
+          ..write('id: $id, ')
+          ..write('idLoteria: $idLoteria, ')
+          ..write('idArquivo: $idArquivo, ')
+          ..write('jsonPremios: $jsonPremios, ')
+          ..write('numeros: $numeros, ')
+          ..write('dataSorteio: $dataSorteio, ')
+          ..write('codigoSorteio: $codigoSorteio, ')
+          ..write('jsonCidades: $jsonCidades, ')
+          ..write('dataProximoSorteio: $dataProximoSorteio')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      id.hashCode,
+      $mrjc(
+          idLoteria.hashCode,
+          $mrjc(
+              idArquivo.hashCode,
+              $mrjc(
+                  jsonPremios.hashCode,
+                  $mrjc(
+                      numeros.hashCode,
+                      $mrjc(
+                          dataSorteio.hashCode,
+                          $mrjc(
+                              codigoSorteio.hashCode,
+                              $mrjc(jsonCidades.hashCode,
+                                  dataProximoSorteio.hashCode)))))))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is LoteriaResultado &&
+          other.id == this.id &&
+          other.idLoteria == this.idLoteria &&
+          other.idArquivo == this.idArquivo &&
+          other.jsonPremios == this.jsonPremios &&
+          other.numeros == this.numeros &&
+          other.dataSorteio == this.dataSorteio &&
+          other.codigoSorteio == this.codigoSorteio &&
+          other.jsonCidades == this.jsonCidades &&
+          other.dataProximoSorteio == this.dataProximoSorteio);
+}
+
+class LoteriaResultadosCompanion extends UpdateCompanion<LoteriaResultado> {
+  final Value<int> id;
+  final Value<int> idLoteria;
+  final Value<int> idArquivo;
+  final Value<String> jsonPremios;
+  final Value<int> numeros;
+  final Value<DateTime> dataSorteio;
+  final Value<int> codigoSorteio;
+  final Value<String> jsonCidades;
+  final Value<DateTime> dataProximoSorteio;
+  const LoteriaResultadosCompanion({
+    this.id = const Value.absent(),
+    this.idLoteria = const Value.absent(),
+    this.idArquivo = const Value.absent(),
+    this.jsonPremios = const Value.absent(),
+    this.numeros = const Value.absent(),
+    this.dataSorteio = const Value.absent(),
+    this.codigoSorteio = const Value.absent(),
+    this.jsonCidades = const Value.absent(),
+    this.dataProximoSorteio = const Value.absent(),
+  });
+  LoteriaResultadosCompanion.insert({
+    this.id = const Value.absent(),
+    this.idLoteria = const Value.absent(),
+    this.idArquivo = const Value.absent(),
+    this.jsonPremios = const Value.absent(),
+    this.numeros = const Value.absent(),
+    this.dataSorteio = const Value.absent(),
+    this.codigoSorteio = const Value.absent(),
+    this.jsonCidades = const Value.absent(),
+    this.dataProximoSorteio = const Value.absent(),
+  });
+  static Insertable<LoteriaResultado> custom({
+    Expression<int> id,
+    Expression<int> idLoteria,
+    Expression<int> idArquivo,
+    Expression<String> jsonPremios,
+    Expression<int> numeros,
+    Expression<DateTime> dataSorteio,
+    Expression<int> codigoSorteio,
+    Expression<String> jsonCidades,
+    Expression<DateTime> dataProximoSorteio,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (idLoteria != null) 'id_loteria': idLoteria,
+      if (idArquivo != null) 'id_arquivo': idArquivo,
+      if (jsonPremios != null) 'json_premios': jsonPremios,
+      if (numeros != null) 'numeros': numeros,
+      if (dataSorteio != null) 'data_sorteio': dataSorteio,
+      if (codigoSorteio != null) 'codigo_sorteio': codigoSorteio,
+      if (jsonCidades != null) 'json_cidades': jsonCidades,
+      if (dataProximoSorteio != null)
+        'data_proximo_sorteio': dataProximoSorteio,
+    });
+  }
+
+  LoteriaResultadosCompanion copyWith(
+      {Value<int> id,
+      Value<int> idLoteria,
+      Value<int> idArquivo,
+      Value<String> jsonPremios,
+      Value<int> numeros,
+      Value<DateTime> dataSorteio,
+      Value<int> codigoSorteio,
+      Value<String> jsonCidades,
+      Value<DateTime> dataProximoSorteio}) {
+    return LoteriaResultadosCompanion(
+      id: id ?? this.id,
+      idLoteria: idLoteria ?? this.idLoteria,
+      idArquivo: idArquivo ?? this.idArquivo,
+      jsonPremios: jsonPremios ?? this.jsonPremios,
+      numeros: numeros ?? this.numeros,
+      dataSorteio: dataSorteio ?? this.dataSorteio,
+      codigoSorteio: codigoSorteio ?? this.codigoSorteio,
+      jsonCidades: jsonCidades ?? this.jsonCidades,
+      dataProximoSorteio: dataProximoSorteio ?? this.dataProximoSorteio,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (idLoteria.present) {
+      map['id_loteria'] = Variable<int>(idLoteria.value);
+    }
+    if (idArquivo.present) {
+      map['id_arquivo'] = Variable<int>(idArquivo.value);
+    }
+    if (jsonPremios.present) {
+      map['json_premios'] = Variable<String>(jsonPremios.value);
+    }
+    if (numeros.present) {
+      map['numeros'] = Variable<int>(numeros.value);
+    }
+    if (dataSorteio.present) {
+      map['data_sorteio'] = Variable<DateTime>(dataSorteio.value);
+    }
+    if (codigoSorteio.present) {
+      map['codigo_sorteio'] = Variable<int>(codigoSorteio.value);
+    }
+    if (jsonCidades.present) {
+      map['json_cidades'] = Variable<String>(jsonCidades.value);
+    }
+    if (dataProximoSorteio.present) {
+      map['data_proximo_sorteio'] =
+          Variable<DateTime>(dataProximoSorteio.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('LoteriaResultadosCompanion(')
+          ..write('id: $id, ')
+          ..write('idLoteria: $idLoteria, ')
+          ..write('idArquivo: $idArquivo, ')
+          ..write('jsonPremios: $jsonPremios, ')
+          ..write('numeros: $numeros, ')
+          ..write('dataSorteio: $dataSorteio, ')
+          ..write('codigoSorteio: $codigoSorteio, ')
+          ..write('jsonCidades: $jsonCidades, ')
+          ..write('dataProximoSorteio: $dataProximoSorteio')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $LoteriaResultadosTable extends LoteriaResultados
+    with TableInfo<$LoteriaResultadosTable, LoteriaResultado> {
+  final GeneratedDatabase _db;
+  final String _alias;
+  $LoteriaResultadosTable(this._db, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  GeneratedIntColumn _id;
+  @override
+  GeneratedIntColumn get id => _id ??= _constructId();
+  GeneratedIntColumn _constructId() {
+    return GeneratedIntColumn('id', $tableName, true,
+        hasAutoIncrement: true, declaredAsPrimaryKey: true);
+  }
+
+  final VerificationMeta _idLoteriaMeta = const VerificationMeta('idLoteria');
+  GeneratedIntColumn _idLoteria;
+  @override
+  GeneratedIntColumn get idLoteria => _idLoteria ??= _constructIdLoteria();
+  GeneratedIntColumn _constructIdLoteria() {
+    return GeneratedIntColumn(
+      'id_loteria',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _idArquivoMeta = const VerificationMeta('idArquivo');
+  GeneratedIntColumn _idArquivo;
+  @override
+  GeneratedIntColumn get idArquivo => _idArquivo ??= _constructIdArquivo();
+  GeneratedIntColumn _constructIdArquivo() {
+    return GeneratedIntColumn(
+      'id_arquivo',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _jsonPremiosMeta =
+      const VerificationMeta('jsonPremios');
+  GeneratedTextColumn _jsonPremios;
+  @override
+  GeneratedTextColumn get jsonPremios =>
+      _jsonPremios ??= _constructJsonPremios();
+  GeneratedTextColumn _constructJsonPremios() {
+    return GeneratedTextColumn(
+      'json_premios',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _numerosMeta = const VerificationMeta('numeros');
+  GeneratedIntColumn _numeros;
+  @override
+  GeneratedIntColumn get numeros => _numeros ??= _constructNumeros();
+  GeneratedIntColumn _constructNumeros() {
+    return GeneratedIntColumn(
+      'numeros',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _dataSorteioMeta =
+      const VerificationMeta('dataSorteio');
+  GeneratedDateTimeColumn _dataSorteio;
+  @override
+  GeneratedDateTimeColumn get dataSorteio =>
+      _dataSorteio ??= _constructDataSorteio();
+  GeneratedDateTimeColumn _constructDataSorteio() {
+    return GeneratedDateTimeColumn(
+      'data_sorteio',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _codigoSorteioMeta =
+      const VerificationMeta('codigoSorteio');
+  GeneratedIntColumn _codigoSorteio;
+  @override
+  GeneratedIntColumn get codigoSorteio =>
+      _codigoSorteio ??= _constructCodigoSorteio();
+  GeneratedIntColumn _constructCodigoSorteio() {
+    return GeneratedIntColumn(
+      'codigo_sorteio',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _jsonCidadesMeta =
+      const VerificationMeta('jsonCidades');
+  GeneratedTextColumn _jsonCidades;
+  @override
+  GeneratedTextColumn get jsonCidades =>
+      _jsonCidades ??= _constructJsonCidades();
+  GeneratedTextColumn _constructJsonCidades() {
+    return GeneratedTextColumn(
+      'json_cidades',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _dataProximoSorteioMeta =
+      const VerificationMeta('dataProximoSorteio');
+  GeneratedDateTimeColumn _dataProximoSorteio;
+  @override
+  GeneratedDateTimeColumn get dataProximoSorteio =>
+      _dataProximoSorteio ??= _constructDataProximoSorteio();
+  GeneratedDateTimeColumn _constructDataProximoSorteio() {
+    return GeneratedDateTimeColumn(
+      'data_proximo_sorteio',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        idLoteria,
+        idArquivo,
+        jsonPremios,
+        numeros,
+        dataSorteio,
+        codigoSorteio,
+        jsonCidades,
+        dataProximoSorteio
+      ];
+  @override
+  $LoteriaResultadosTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'loteria_resultado';
+  @override
+  final String actualTableName = 'loteria_resultado';
+  @override
+  VerificationContext validateIntegrity(Insertable<LoteriaResultado> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
+    }
+    if (data.containsKey('id_loteria')) {
+      context.handle(_idLoteriaMeta,
+          idLoteria.isAcceptableOrUnknown(data['id_loteria'], _idLoteriaMeta));
+    }
+    if (data.containsKey('id_arquivo')) {
+      context.handle(_idArquivoMeta,
+          idArquivo.isAcceptableOrUnknown(data['id_arquivo'], _idArquivoMeta));
+    }
+    if (data.containsKey('json_premios')) {
+      context.handle(
+          _jsonPremiosMeta,
+          jsonPremios.isAcceptableOrUnknown(
+              data['json_premios'], _jsonPremiosMeta));
+    }
+    if (data.containsKey('numeros')) {
+      context.handle(_numerosMeta,
+          numeros.isAcceptableOrUnknown(data['numeros'], _numerosMeta));
+    }
+    if (data.containsKey('data_sorteio')) {
+      context.handle(
+          _dataSorteioMeta,
+          dataSorteio.isAcceptableOrUnknown(
+              data['data_sorteio'], _dataSorteioMeta));
+    }
+    if (data.containsKey('codigo_sorteio')) {
+      context.handle(
+          _codigoSorteioMeta,
+          codigoSorteio.isAcceptableOrUnknown(
+              data['codigo_sorteio'], _codigoSorteioMeta));
+    }
+    if (data.containsKey('json_cidades')) {
+      context.handle(
+          _jsonCidadesMeta,
+          jsonCidades.isAcceptableOrUnknown(
+              data['json_cidades'], _jsonCidadesMeta));
+    }
+    if (data.containsKey('data_proximo_sorteio')) {
+      context.handle(
+          _dataProximoSorteioMeta,
+          dataProximoSorteio.isAcceptableOrUnknown(
+              data['data_proximo_sorteio'], _dataProximoSorteioMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  LoteriaResultado map(Map<String, dynamic> data, {String tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return LoteriaResultado.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $LoteriaResultadosTable createAlias(String alias) {
+    return $LoteriaResultadosTable(_db, alias);
+  }
+}
+
+class PrevisaoTempo extends DataClass implements Insertable<PrevisaoTempo> {
+  final int id;
+  final DateTime data;
+  final int idCidade;
+  final String jsonData;
+  PrevisaoTempo({this.id, this.data, this.idCidade, this.jsonData});
+  factory PrevisaoTempo.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final dateTimeType = db.typeSystem.forDartType<DateTime>();
+    final stringType = db.typeSystem.forDartType<String>();
+    return PrevisaoTempo(
+      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      data:
+          dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}data']),
+      idCidade:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_cidade']),
+      jsonData: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}json_data']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      map['id'] = Variable<int>(id);
+    }
+    if (!nullToAbsent || data != null) {
+      map['data'] = Variable<DateTime>(data);
+    }
+    if (!nullToAbsent || idCidade != null) {
+      map['id_cidade'] = Variable<int>(idCidade);
+    }
+    if (!nullToAbsent || jsonData != null) {
+      map['json_data'] = Variable<String>(jsonData);
+    }
+    return map;
+  }
+
+  PrevisaoTemposCompanion toCompanion(bool nullToAbsent) {
+    return PrevisaoTemposCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      data: data == null && nullToAbsent ? const Value.absent() : Value(data),
+      idCidade: idCidade == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idCidade),
+      jsonData: jsonData == null && nullToAbsent
+          ? const Value.absent()
+          : Value(jsonData),
+    );
+  }
+
+  factory PrevisaoTempo.fromJson(Map<String, dynamic> json,
+      {ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return PrevisaoTempo(
+      id: serializer.fromJson<int>(json['id']),
+      data: serializer.fromJson<DateTime>(json['data']),
+      idCidade: serializer.fromJson<int>(json['idCidade']),
+      jsonData: serializer.fromJson<String>(json['jsonData']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'data': serializer.toJson<DateTime>(data),
+      'idCidade': serializer.toJson<int>(idCidade),
+      'jsonData': serializer.toJson<String>(jsonData),
+    };
+  }
+
+  PrevisaoTempo copyWith(
+          {int id, DateTime data, int idCidade, String jsonData}) =>
+      PrevisaoTempo(
+        id: id ?? this.id,
+        data: data ?? this.data,
+        idCidade: idCidade ?? this.idCidade,
+        jsonData: jsonData ?? this.jsonData,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('PrevisaoTempo(')
+          ..write('id: $id, ')
+          ..write('data: $data, ')
+          ..write('idCidade: $idCidade, ')
+          ..write('jsonData: $jsonData')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(id.hashCode,
+      $mrjc(data.hashCode, $mrjc(idCidade.hashCode, jsonData.hashCode))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is PrevisaoTempo &&
+          other.id == this.id &&
+          other.data == this.data &&
+          other.idCidade == this.idCidade &&
+          other.jsonData == this.jsonData);
+}
+
+class PrevisaoTemposCompanion extends UpdateCompanion<PrevisaoTempo> {
+  final Value<int> id;
+  final Value<DateTime> data;
+  final Value<int> idCidade;
+  final Value<String> jsonData;
+  const PrevisaoTemposCompanion({
+    this.id = const Value.absent(),
+    this.data = const Value.absent(),
+    this.idCidade = const Value.absent(),
+    this.jsonData = const Value.absent(),
+  });
+  PrevisaoTemposCompanion.insert({
+    this.id = const Value.absent(),
+    this.data = const Value.absent(),
+    this.idCidade = const Value.absent(),
+    this.jsonData = const Value.absent(),
+  });
+  static Insertable<PrevisaoTempo> custom({
+    Expression<int> id,
+    Expression<DateTime> data,
+    Expression<int> idCidade,
+    Expression<String> jsonData,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (data != null) 'data': data,
+      if (idCidade != null) 'id_cidade': idCidade,
+      if (jsonData != null) 'json_data': jsonData,
+    });
+  }
+
+  PrevisaoTemposCompanion copyWith(
+      {Value<int> id,
+      Value<DateTime> data,
+      Value<int> idCidade,
+      Value<String> jsonData}) {
+    return PrevisaoTemposCompanion(
+      id: id ?? this.id,
+      data: data ?? this.data,
+      idCidade: idCidade ?? this.idCidade,
+      jsonData: jsonData ?? this.jsonData,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (data.present) {
+      map['data'] = Variable<DateTime>(data.value);
+    }
+    if (idCidade.present) {
+      map['id_cidade'] = Variable<int>(idCidade.value);
+    }
+    if (jsonData.present) {
+      map['json_data'] = Variable<String>(jsonData.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PrevisaoTemposCompanion(')
+          ..write('id: $id, ')
+          ..write('data: $data, ')
+          ..write('idCidade: $idCidade, ')
+          ..write('jsonData: $jsonData')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PrevisaoTemposTable extends PrevisaoTempos
+    with TableInfo<$PrevisaoTemposTable, PrevisaoTempo> {
+  final GeneratedDatabase _db;
+  final String _alias;
+  $PrevisaoTemposTable(this._db, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  GeneratedIntColumn _id;
+  @override
+  GeneratedIntColumn get id => _id ??= _constructId();
+  GeneratedIntColumn _constructId() {
+    return GeneratedIntColumn('id', $tableName, true,
+        hasAutoIncrement: true, declaredAsPrimaryKey: true);
+  }
+
+  final VerificationMeta _dataMeta = const VerificationMeta('data');
+  GeneratedDateTimeColumn _data;
+  @override
+  GeneratedDateTimeColumn get data => _data ??= _constructData();
+  GeneratedDateTimeColumn _constructData() {
+    return GeneratedDateTimeColumn(
+      'data',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _idCidadeMeta = const VerificationMeta('idCidade');
+  GeneratedIntColumn _idCidade;
+  @override
+  GeneratedIntColumn get idCidade => _idCidade ??= _constructIdCidade();
+  GeneratedIntColumn _constructIdCidade() {
+    return GeneratedIntColumn(
+      'id_cidade',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _jsonDataMeta = const VerificationMeta('jsonData');
+  GeneratedTextColumn _jsonData;
+  @override
+  GeneratedTextColumn get jsonData => _jsonData ??= _constructJsonData();
+  GeneratedTextColumn _constructJsonData() {
+    return GeneratedTextColumn(
+      'json_data',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [id, data, idCidade, jsonData];
+  @override
+  $PrevisaoTemposTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'previsao_tempo';
+  @override
+  final String actualTableName = 'previsao_tempo';
+  @override
+  VerificationContext validateIntegrity(Insertable<PrevisaoTempo> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
+    }
+    if (data.containsKey('data')) {
+      context.handle(
+          _dataMeta, this.data.isAcceptableOrUnknown(data['data'], _dataMeta));
+    }
+    if (data.containsKey('id_cidade')) {
+      context.handle(_idCidadeMeta,
+          idCidade.isAcceptableOrUnknown(data['id_cidade'], _idCidadeMeta));
+    }
+    if (data.containsKey('json_data')) {
+      context.handle(_jsonDataMeta,
+          jsonData.isAcceptableOrUnknown(data['json_data'], _jsonDataMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  PrevisaoTempo map(Map<String, dynamic> data, {String tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return PrevisaoTempo.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $PrevisaoTemposTable createAlias(String alias) {
+    return $PrevisaoTemposTable(_db, alias);
   }
 }
 
@@ -7623,9 +8535,15 @@ abstract class _$Database extends GeneratedDatabase {
       _playlistConteudos ??= $PlaylistConteudosTable(this);
   $NoticiasTable _noticias;
   $NoticiasTable get noticias => _noticias ??= $NoticiasTable(this);
-  $PrevisaoImagemTemposTable _previsaoImagemTempos;
-  $PrevisaoImagemTemposTable get previsaoImagemTempos =>
-      _previsaoImagemTempos ??= $PrevisaoImagemTemposTable(this);
+  $PrevisaoTempoImagensTable _previsaoTempoImagens;
+  $PrevisaoTempoImagensTable get previsaoTempoImagens =>
+      _previsaoTempoImagens ??= $PrevisaoTempoImagensTable(this);
+  $LoteriaResultadosTable _loteriaResultados;
+  $LoteriaResultadosTable get loteriaResultados =>
+      _loteriaResultados ??= $LoteriaResultadosTable(this);
+  $PrevisaoTemposTable _previsaoTempos;
+  $PrevisaoTemposTable get previsaoTempos =>
+      _previsaoTempos ??= $PrevisaoTemposTable(this);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
@@ -7643,6 +8561,8 @@ abstract class _$Database extends GeneratedDatabase {
         playlists,
         playlistConteudos,
         noticias,
-        previsaoImagemTempos
+        previsaoTempoImagens,
+        loteriaResultados,
+        previsaoTempos
       ];
 }

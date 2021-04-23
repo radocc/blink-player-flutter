@@ -41,34 +41,21 @@ class _SlideImagePageState
     //
     // Define os widget que serão exibido no slide de imagem
     //
-    var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
-    final now = new DateTime.now();
-    final formatter = new DateFormat('dd-MM-yyyy hh-MM').format(now);
 
     ScreenSize controller = ScreenSize();
 
     //WUXGA - 1920X1200 -- Ok
     if (controller.isDesktopXl(context: context)) {
       return Container(
-        width: width,
-        height: height,
         child: Image.file(
           this.widget.url,
-          fit: BoxFit.contain,
+          //fit: BoxFit.cover,
         ),
       );
     }
     //720p 1280x720 -- Ok //1080p 1920x1080 -- Ok
     if (controller.isDesktopLg(context: context)) {
-      // return Container(
-      //   width: width,
-      //   height: height,
-      //   child: Image.file(
-      //     this.widget.url,
-      //     fit: BoxFit.contain,
-      //   ),
-      // );
+      //contain
       return Container(
         child: Image.file(
           this.widget.url,
@@ -81,7 +68,8 @@ class _SlideImagePageState
       return Container(
         child: Image.file(
           this.widget.url,
-          fit: BoxFit.fill,
+          //fill
+          fit: BoxFit.cover,
         ),
       );
     } // Mobile -- Ok

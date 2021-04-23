@@ -95,8 +95,8 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
                           data: formatter,
                           uuid: snap.data.uuid)
                           //template
-                      : FutureBuilder<List<Template>>(
-                          future: controller.postTemplates(),
+                      : FutureBuilder(
+                          future: controller.sincronizar(),
                           builder: (ctx, snap) {
                             if (!snap.hasData && !snap.hasError) {
                               return LoadingMidias();

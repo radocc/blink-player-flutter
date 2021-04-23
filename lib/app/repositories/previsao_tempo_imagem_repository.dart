@@ -3,9 +3,8 @@ import 'package:blink/app/database/database.dart';
 import 'package:blink/app/models/enuns/dados_dentificacao_enum.dart';
 import 'package:blink/app/repositories/dados_repository.dart';
 
-class NoticiaRepository extends DadosRepository<Noticia> {
-  // final Dio dio;
+class PrevisaoTempoImagemRepository extends DadosRepository<PrevisaoTempoImagem> {
 
-  NoticiaRepository() : super(DadosIdentificacao.NOTICIA);
+  PrevisaoTempoImagemRepository() : super(DadosIdentificacao.PREVISAO_IMAGEM_TEMPO);
 
 }

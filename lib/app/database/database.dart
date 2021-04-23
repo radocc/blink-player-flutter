@@ -18,6 +18,7 @@ import 'package:blink/app/database/entity/conteudo_agendamento_entity.dart';
 import 'package:blink/app/database/entity/conteudo_campo_entity.dart';
 import 'package:blink/app/database/entity/conteudo_entity.dart';
 import 'package:blink/app/database/entity/equipamentos_entity.dart';
+import 'package:blink/app/database/entity/loteria_entity.dart';
 import 'package:blink/app/database/entity/player_dados.dart';
 import 'package:blink/app/database/entity/playlist_conteudo_entity.dart';
 import 'package:blink/app/database/entity/playlist_entity.dart';
@@ -28,6 +29,9 @@ import 'package:moor/ffi.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
+import 'dao/loteria_resultado_dao.dart';
+import 'dao/previsao_tempo_dao.dart';
+import 'entity/previsao_tempo_entity.dart';
 import 'entity/previsao_tempo_imagem_entity.dart';
 
 part 'database.g.dart';
@@ -46,7 +50,9 @@ part 'database.g.dart';
   Playlists,
   PlaylistConteudos,
   Noticias,
-  PrevisaoImagemTempos
+  PrevisaoTempoImagens,
+  LoteriaResultados,
+  PrevisaoTempos
 ])
 class Database extends _$Database {
   PlayerDadosDAO playerDAO;
@@ -58,7 +64,9 @@ class Database extends _$Database {
   AtualizacaoStatusDAO atualizacaoStatusDAO;
   AtualizacaoConteudoDAO atualizacaoConteudoDAO;
   TemplateDAO templateDAO;
-  PrevisaoImagemTemposDAO previsaoTempoDAO;
+  PrevisaoTempoImagemDAO previsaoTempoDAO;
+  LoteriaResultadosDAO loteriaResultadosDAO;
+  PrevisaoTemposDAO previsaoTemposDAO;
 
   // static Database instance = Database._internal();
   // Database._internal()
@@ -84,7 +92,9 @@ class Database extends _$Database {
     atualizacaoStatusDAO = AtualizacaoStatusDAO(this);
     atualizacaoConteudoDAO = AtualizacaoConteudoDAO(this);
     templateDAO = TemplateDAO(this);
-    previsaoTempoDAO = PrevisaoImagemTemposDAO(this);
+    previsaoTempoDAO = PrevisaoTempoImagemDAO(this);
+    loteriaResultadosDAO = LoteriaResultadosDAO(this);
+    previsaoTemposDAO = PrevisaoTemposDAO(this);
   }
 
   @override

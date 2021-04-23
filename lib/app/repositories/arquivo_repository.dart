@@ -1,30 +1,19 @@
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/repositories/abstract_base_repository.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 
 class ArquivoRepository extends AbstractBaseRepository {
-  final Dio dio;
-
-  ArquivoRepository({@required this.dio}) : super('arquivo');
+  ArquivoRepository() : super('arquivo');
 
   Future<List<int>> downloadMidia(
-      Conteudo conteudo, Function(int, int) onProgress) async {
+      int idArquivo, Function(int, int) onProgress) async {
     try {
-      var response;
-      if (conteudo.idArquivo != null) {
-        response = await dio.get(getUrl('/binario/${conteudo.idArquivo}'),
-            options: RequestOptions(
-              responseType: ResponseType.bytes,
-              onReceiveProgress: onProgress,
-            ));
-      } else if (conteudo.idTemplate != null) {
-        response = await dio.get(getUrl('/binario/${conteudo.idTemplate}'),
-            options: RequestOptions(
-              responseType: ResponseType.bytes,
-              onReceiveProgress: onProgress,
-            ));
-      }
+      var response = await dio.get(getUrl('/binario/$idArquivo'),
+          options: RequestOptions(
+            responseType: ResponseType.bytes,
+            onReceiveProgress: onProgress,
+          ));
+
       //var file = File('$_dir/$idArquivo');
       //return file.writeAsBytes(response.bodyBytes);
       // var response = await dio.download(
@@ -90,8 +79,8 @@ class ArquivoRepository extends AbstractBaseRepository {
     }
   }
 
-  Future<List<int>> downloadPrevisaoTempo(
-      PrevisaoImagemTempo previsaoTempo, Function(int, int) onProgress) async {
+  Future<List<int>> downloadImagemPrevisaoTempo(
+      PrevisaoTempoImagem previsaoTempo, Function(int, int) onProgress) async {
     try {
       var response =
           await dio.get(getUrl('/binario/${previsaoTempo.idArquivo}'),
@@ -100,9 +89,8 @@ class ArquivoRepository extends AbstractBaseRepository {
                 onReceiveProgress: onProgress,
               ));
 
-      if (response.statusCode == 200 && response.data != []) {
-        return response.data;
-      }
+      return response.data;
+
       //var file = File('$_dir/$idArquivo');
       //return file.writeAsBytes(response.bodyBytes);
       // var response = await dio.download(

@@ -37,9 +37,9 @@ void main() {
       var totalFreeMemory = (SysInfo.getFreePhysicalMemory());
       var totalMemory = SysInfo.getTotalPhysicalMemory();
       var totalFreeVirtualMemory = (SysInfo.getFreeVirtualMemory());
-      print('Free virtual: $totalFreeVirtualMemory');
+      // print('Free virtual: $totalFreeVirtualMemory');
       var totalVirtualMemory = SysInfo.getTotalVirtualMemory();
-      print('total virtual: $totalVirtualMemory');
+      // print('total virtual: $totalVirtualMemory');
       var porcentFreeMemory = (totalFreeMemory / totalMemory) * 100;
       String porcentFreeMemoryFormated =
           porcentFreeMemory.toStringAsPrecision(2).substring(0, 1);
@@ -62,7 +62,7 @@ void main() {
   Timer.periodic(oneSec, (Timer timer) {
     if (Platform.isAndroid) {
       valueHardware2().then((value) => {
-            print('save value android'),
+            // print('save value android'),
             Database.instance.playerDAO.addValueHardware(PlayerDado(
               bateria: double.parse(value[0]),
               sinalWifi: double.parse(value[1]),
@@ -76,11 +76,11 @@ void main() {
               idUsuarioCadastro: null,
               idUsuarioAlteracao: null,
             )),
-            print(value.toString())
+            // print(value.toString())
           });
     } else {
       valueHardware2().then((value) => {
-            print('save value linux'),
+            // print('save value linux'),
             Database.instance.playerDAO.addValueHardware(PlayerDado(
               bateria: null,
               sinalWifi: null,
@@ -94,7 +94,7 @@ void main() {
               idUsuarioCadastro: null,
               idUsuarioAlteracao: null,
             )),
-            print(value.toString())
+            // print(value.toString())
           });
     }
   });

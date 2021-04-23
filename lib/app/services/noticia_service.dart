@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:blink/app/database/dao/noticia_dao.dart';
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/modules/carousel/carousel_controller.dart';
 import 'package:blink/app/repositories/arquivo_repository.dart';
 import 'package:blink/app/repositories/noticia_repository.dart';
+import 'package:blink/app/services/dados_service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:path/path.dart';
@@ -11,36 +13,26 @@ import 'package:path_provider/path_provider.dart';
 
 import 'arquivo_service.dart';
 
-class NoticiaService {
+class NoticiaService extends DadosService<Noticia> {
   NoticiaRepository noticiaRepo;
   ArquivoRepository arquivoRepo;
   ArquivoService arquivoService;
+  NoticiaDAO dao = Database.instance.noticiaDAO; 
   var controller = CarouselController();
   List<File> files;
   final _urlImage1 =
       'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Orange-Whole-%26-Split.jpg/1920px-Orange-Whole-%26-Split.jpg';
 
-  NoticiaService(
-      {@required this.noticiaRepo,
-      @required this.arquivoRepo,
-      @required this.arquivoService});
+  NoticiaService(this.noticiaRepo) : super(noticiaRepo);
 
-  Future<List<Noticia>> saveNoticias(int identificacao) async {
-    int sizeDirectory = await load();
-
-    if (sizeDirectory == 0) {
-      var noticia = await this.noticiaRepo.downloadNoticia(identificacao);
-      if (noticia != null) {
-        for (var item in noticia) {
-          await Database.instance.noticiaDAO.saveValueNotice(item);
-        }
-        await this.downloadMidias(noticia);
-      }
-      return noticia;
-    } else {
-      var noticia = this.noticiaRepo.downloadNoticia(identificacao);
-      return noticia;
+  Future<List<Noticia>> download() async {
+    var noticias = await super.download();
+    if (noticias.isNotEmpty) {
+      noticias.forEach((noticia) async {
+        await dao.save(noticia);
+      });
     }
+    return noticias;
   }
 
   Future downloadMidias(List<Noticia> lista) async {

@@ -4,9 +4,9 @@ import 'package:dio/dio.dart';
 import 'package:moor/moor.dart';
 
 class LoginRepository extends AbstractRepository {
-  final Dio dio;
+  // final Dio dio;
 
-  LoginRepository({@required this.dio}) : super('equipamento');
+  LoginRepository() : super('equipamento');
 
   Future<Equipamento> logar(String uuid, String onSignal) async {
     try {
