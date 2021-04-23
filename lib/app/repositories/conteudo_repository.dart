@@ -4,9 +4,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class ConteudoRepository extends AbstractRepository {
-  final Dio dio;
+  // final Dio dio;
 
-  ConteudoRepository({@required this.dio}) : super('conteudo');
+  ConteudoRepository() : super('conteudo');
 
   Future<List<Conteudo>> downloadConteudo() async {
     try {

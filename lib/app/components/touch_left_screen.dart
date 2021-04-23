@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TouchLeftScreen extends StatefulWidget {
+  final double topSize;
+
+  const TouchLeftScreen({Key key, this.topSize}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => TouchLeftScreenState();
 }
@@ -39,30 +43,24 @@ class TouchLeftScreenState extends State<TouchLeftScreen> {
     final now = new DateTime.now();
     final formatter = new DateFormat('dd-MM-yyyy hh-MM').format(now);
 
-    return GestureDetector(
-      onTapDown: (TapDownDetails details) => onTapDown(context, details),
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(0,12,0,0),
-        child: Container(
-          child: Opacity(
-            opacity: _visible == true ? 1.0 : 0.0,
-            child: ListTile(
-              title: Text(formatter),
-              trailing: Wrap(
-                spacing: 12,
-                children: <Widget>[
-                  ConnectivityBuilder(builder: (context, isConnected, status) {
-                    return Icon(
-                        isConnected == true ? Icons.wifi : Icons.wifi_off);
-                  }),
-                  ConnectivityBuilder(builder: (context, isConnected, status) {
-                    return Icon(isConnected == true
-                        ? Icons.cloud_queue
-                        : Icons.cloud_off);
-                  }),
-                ],
-              ),
-            ),
+    return Padding(
+      padding: EdgeInsets.fromLTRB(0, widget.topSize, 0, 0),
+      child: Container(
+        child: ListTile(
+          title: Text(formatter),
+          trailing: Wrap(
+            spacing: 12,
+            children: <Widget>[
+              ConnectivityBuilder(builder: (context, isConnected, status) {
+                return Icon(isConnected == true ? Icons.wifi : Icons.wifi_off,
+                    color: Colors.redAccent[700]);
+              }),
+              ConnectivityBuilder(builder: (context, isConnected, status) {
+                return Icon(
+                    isConnected == true ? Icons.cloud_queue : Icons.cloud_off,
+                    color: Colors.redAccent[700]);
+              }),
+            ],
           ),
         ),
       ),

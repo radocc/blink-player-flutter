@@ -4,13 +4,18 @@ import 'package:dio/dio.dart';
 import 'package:moor/moor.dart';
 
 class LoginRepository extends AbstractRepository {
-  final Dio dio;
+  // final Dio dio;
 
-  LoginRepository({@required this.dio}) : super('equipamento');
+  LoginRepository() : super('equipamento');
 
   Future<Equipamento> logar(String uuid, String onSignal) async {
-    var resp = await dio
-        .post(getUrl('/logar'), data: {"uuid": uuid, "idOneSignal": onSignal});
-    return Equipamento.fromJson(resp.data);
+    try {
+      var resp = await dio.post(getUrl('/logar'),
+          data: {"uuid": uuid, "idOneSignal": onSignal});
+      return Equipamento.fromJson(resp.data);
+    } catch (error) {
+      //print(error.response.statusCode);
+      throw Exception("Exception occured: $error");
+    }
   }
 }

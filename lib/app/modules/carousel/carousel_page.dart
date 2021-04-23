@@ -1,8 +1,11 @@
 import 'dart:io';
 
+import 'package:blink/app/components/touch_left_screen.dart';
 import 'package:blink/app/pages/slide_image/slide_image_page.dart';
 import 'package:blink/app/pages/slide_video/slide_video_page.dart';
+import 'package:cross_connectivity/cross_connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:path/path.dart';
 import 'carousel_controller.dart';
@@ -61,7 +64,8 @@ class _CarouselPageState
         //
         // Verifica se é uma imagem ou video e adiciona na lista
         //
-        if (controller.extVideo.contains(ext) || controller.extImg.contains(ext)) {
+        if (controller.extVideo.contains(ext) ||
+            controller.extImg.contains(ext)) {
           this.files.add(file);
         }
       }
@@ -80,7 +84,7 @@ class _CarouselPageState
       _controller.animateTo(
         0,
         duration: Duration(milliseconds: 500),
-        curve: Curves.easeIn,
+        curve: Curves.linear,
       );
     }
     //
@@ -89,7 +93,7 @@ class _CarouselPageState
     else {
       _controller.nextPage(
         duration: Duration(milliseconds: 500),
-        curve: Curves.easeIn,
+        curve: Curves.linear,
       );
     }
   }
@@ -127,14 +131,29 @@ class _CarouselPageState
             );
           }
           // Area do Carousel
-          return PageView(
-            controller: _controller,
-            children: [
-              //
-              // slide de imagem e video
-              //
-              for (File arquivo in this.files) getItem(arquivo),
-            ],
+
+          return Scaffold(
+            body: ConnectivityBuilder(
+              builder: (context, isConnection, status) {
+                print('CONEXAO ${status.toString()}');
+                return Stack(
+                  children: <Widget>[
+                    PageView(
+                      controller: _controller,
+                      children: [
+                        //
+                        // slide de imagem e video
+                        //
+                        for (File arquivo in this.files) getItem(arquivo),
+                      ],
+                    ), 
+                    Positioned(
+                      child: isConnection == false ? TouchLeftScreen(topSize: 0): Container(),
+                    )
+                  ],
+                );
+              },
+            ),
           );
         },
       ),

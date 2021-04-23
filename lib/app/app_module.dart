@@ -1,32 +1,31 @@
-import 'dart:developer';
-import 'dart:io';
-
+import 'package:blink/app/app_widget.dart';
+import 'package:blink/app/modules/carousel/carousel_controller.dart';
 import 'package:blink/app/modules/home/home_controller.dart';
+import 'package:blink/app/modules/home/home_module.dart';
 import 'package:blink/app/pages/splash/splash_page.dart';
 import 'package:blink/app/repositories/arquivo_repository.dart';
 import 'package:blink/app/repositories/conteudo_repository.dart';
+import 'package:blink/app/repositories/dio/custom_dio.dart';
 import 'package:blink/app/repositories/login_repository.dart';
+import 'package:blink/app/repositories/noticia_repository.dart';
+import 'package:blink/app/repositories/previsao_tempo_imagem_repository.dart';
+import 'package:blink/app/repositories/template_repository.dart';
 import 'package:blink/app/services/arquivo_service.dart';
+import 'package:blink/app/services/conexao_service.dart';
 import 'package:blink/app/services/conteudo_service.dart';
 import 'package:blink/app/services/login_service.dart';
-import 'package:blink/app/shared/CusotmInterceptor.dart';
-import 'package:blink/app/shared/interceptions.dart';
-import 'package:dio/adapter.dart';
-import 'package:dio/dio.dart';
-
-import 'pages/splash/splash_controller.dart';
-import 'package:blink/app/modules/carousel/carousel_controller.dart';
-
-import 'pages/slide_image/slide_image_controller.dart';
-import 'pages/slide_video/slide_video_controller.dart';
+import 'package:blink/app/services/noticia_service.dart';
+import 'package:blink/app/services/previsao_tempo_service.dart';
+import 'package:blink/app/services/sincroniza_service.dart';
+import 'package:blink/app/services/template_service.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import 'app_controller.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter/material.dart';
-import 'package:blink/app/app_widget.dart';
-import 'package:blink/app/modules/home/home_module.dart';
+import 'pages/slide_image/slide_image_controller.dart';
+import 'pages/slide_video/slide_video_controller.dart';
+import 'pages/splash/splash_controller.dart';
 
-import 'shared/constrants.dart';
 
 class AppModule extends MainModule {
   @override
@@ -37,29 +36,27 @@ class AppModule extends MainModule {
         $CarouselController,
         $HomeController,
         $AppController,
-        // Login
-        Bind((i) => SplashController(
-            service: i.get<LoginService>(),
-            contService: i.get<ConteudoService>(),
-            )),
-        Bind((i) => LoginRepository(
-            dio: i.get<Dio>()..interceptors.add(CustomIntercetors()))),
-        Bind((i) => Dio(BaseOptions(baseUrl: URL_LOGIN))),
+        $CustomDIO,
+        Bind((i) => SincronizaService(
+          i.get<ConteudoService>(),
+          i.get<NoticiaService>(),
+          i.get<TemplateService>(),
+          i.get<ArquivoService>(),
+        )),
+        Bind((i) => SplashController(i.get<LoginService>(),i.get<SincronizaService>(),)),
+        Bind((i) => LoginRepository()),
         Bind((i) => LoginService(loginRep: i.get<LoginRepository>())),
-        // Equipamentos
-        Bind((i) => ConteudoRepository(
-            dio: i.get<Dio>()..interceptors.add(CustomIntercetorsConteudo()))),
-        Bind((i) => Dio(BaseOptions(baseUrl: URL_CONTEUDO))),
-        Bind((i) => ArquivoService()),
-        Bind((i) => ConteudoService(
-          conteudoRepo: i.get<ConteudoRepository>(), 
-          arquivoRepo: i.get<ArquivoRepository>(), 
-          arquivoService: i.get<ArquivoService>())
-        ),
-        // Mídias
-        Bind((i) => ArquivoRepository(
-            dio: i.get<Dio>()..interceptors.add(CustomIntercetorsConteudo()))),
-        //Bind((i) => Dio(BaseOptions(baseUrl: ULR_DOWN_MIDIAS))),
+        Bind((i) => ConteudoRepository()),
+        Bind((i) => ArquivoService(i.get<ArquivoRepository>())),
+        Bind((i) => ConteudoService(i.get<ConteudoRepository>(),)),
+        Bind((i) => ConexaoService(), lazy: false),
+        Bind((i) => ArquivoRepository()),
+        Bind((i) => NoticiaService(i.get<NoticiaRepository>())),
+        Bind((i) => NoticiaRepository()),
+        Bind((i) => TemplateService(i.get<TemplateRepository>())),
+        Bind((i) => TemplateRepository()),
+        Bind((i) => PrevisaoTempoService(i.get<PrevisaoTempoImagemRepository>())),
+        Bind((i) => PrevisaoTempoImagemRepository()),
       ];
 
   @override
