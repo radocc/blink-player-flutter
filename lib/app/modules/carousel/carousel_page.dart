@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:blink/app/components/touch_left_screen.dart';
+import 'package:blink/app/database/dao/conteudo_dao.dart';
+import 'package:blink/app/database/database.dart';
+import 'package:blink/app/models/conteudo_template_model.dart';
 import 'package:blink/app/pages/slide_image/slide_image_page.dart';
 import 'package:blink/app/pages/slide_video/slide_video_page.dart';
 import 'package:cross_connectivity/cross_connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:path/path.dart';
 import 'carousel_controller.dart';
@@ -22,6 +24,9 @@ class _CarouselPageState
     extends ModularState<CarouselPage, CarouselController> {
   PageController _controller;
   List<File> files;
+  List<ConteudoTemplateModel> filesConteudo;
+  ConteudoDAO dao = Database.instance.conteudoDAO;
+  FileSystemEntity file;
 
   @override
   void initState() {
@@ -43,35 +48,48 @@ class _CarouselPageState
     // Armazenamento de imagem e video que será retornado
     //
     this.files = [];
+    this.filesConteudo = [];
+
     //
     // Lista todos os arquivos e pastas do diretorio passado na classe
     // anterior
     //
     Directory directory = await widget.dir;
-    List<FileSystemEntity> files = directory.listSync();
+    //List<FileSystemEntity> files = directory.listSync();
+    this.filesConteudo = await dao.getAllConteudoWithTemplate();
 
     //
     // DEBUG
     //
     print(directory.path);
 
-    for (FileSystemEntity file in files) {
+    //for (FileSystemEntity file in files) {
       //
       // Verifica se a entidade é um arquivo
-      //
-      if (file is File) {
-        String ext = extension(file.path);
-        //
-        // Verifica se é uma imagem ou video e adiciona na lista
-        //
-        if (controller.extVideo.contains(ext) ||
-            controller.extImg.contains(ext)) {
-          this.files.add(file);
+      
+      this.filesConteudo.forEach((e) async {
+        if (e.conteudo.nomeArquivo == null) {
+          file = File('${directory.path}/${e.template.nomeArquivo}');
+        } else {
+          file = File('${directory.path}/${e.conteudo.nomeArquivo}');
         }
-      }
+        
+
+        if (file is File) {
+          String ext = extension(file.path);
+          //
+          // Verifica se é uma imagem ou video e adiciona na lista
+          //
+          if (controller.extVideo.contains(ext) ||
+              controller.extImg.contains(ext)) {
+            this.files.add(file);
+          }
+        }
+      });
+      
+      return true;
     }
-    return true;
-  }
+ // }
 
   //
   // Proximo slide
@@ -146,9 +164,11 @@ class _CarouselPageState
                         //
                         for (File arquivo in this.files) getItem(arquivo),
                       ],
-                    ), 
+                    ),
                     Positioned(
-                      child: isConnection == false ? TouchLeftScreen(topSize: 0): Container(),
+                      child: isConnection == false
+                          ? TouchLeftScreen(topSize: 0)
+                          : Container(),
                     )
                   ],
                 );

@@ -37,6 +37,11 @@ class CustomIntercetors extends InterceptorsWrapper {
     map.forEach((key, value) {
       if (value != null) {
         try {
+          if (value is List) {
+            value.forEach((element) {
+              readMap(element);
+            });
+          }
           var data = dateFormat.parse(value);
           map[key] = data.millisecondsSinceEpoch;
         } catch (e) {
