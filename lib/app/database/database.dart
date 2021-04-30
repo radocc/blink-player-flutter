@@ -10,6 +10,7 @@ import 'package:blink/app/database/dao/noticia_dao.dart';
 import 'package:blink/app/database/dao/player_dados_dao.dart';
 import 'package:blink/app/database/dao/previsao_tempo_imagem_dao.dart';
 import 'package:blink/app/database/dao/template_dao.dart';
+import 'package:blink/app/database/dao/sequencia_conteudo_dao.dart';
 import 'package:blink/app/database/entity/atualizacao_conteudo_entity.dart';
 import 'package:blink/app/database/entity/atualizacao_entity.dart';
 import 'package:blink/app/database/entity/atualizacao_status_entity.dart';
@@ -33,6 +34,7 @@ import 'dao/loteria_resultado_dao.dart';
 import 'dao/previsao_tempo_dao.dart';
 import 'entity/previsao_tempo_entity.dart';
 import 'entity/previsao_tempo_imagem_entity.dart';
+import 'entity/sequencia_conteudo_entity.dart';
 
 part 'database.g.dart';
 
@@ -52,7 +54,8 @@ part 'database.g.dart';
   Noticias,
   PrevisaoTempoImagens,
   LoteriaResultados,
-  PrevisaoTempos
+  PrevisaoTempos,
+  SequenciaConteudos,
 ])
 class Database extends _$Database {
   PlayerDadosDAO playerDAO;
@@ -67,6 +70,7 @@ class Database extends _$Database {
   PrevisaoTempoImagemDAO previsaoTempoDAO;
   LoteriaResultadosDAO loteriaResultadosDAO;
   PrevisaoTemposDAO previsaoTemposDAO;
+  SequenciaConteudoDAO sequenciaConteudoDAO;
 
   // static Database instance = Database._internal();
   // Database._internal()
@@ -95,10 +99,11 @@ class Database extends _$Database {
     previsaoTempoDAO = PrevisaoTempoImagemDAO(this);
     loteriaResultadosDAO = LoteriaResultadosDAO(this);
     previsaoTemposDAO = PrevisaoTemposDAO(this);
+    sequenciaConteudoDAO = SequenciaConteudoDAO(this);
   }
 
   @override
-  int get schemaVersion => 7;
+  int get schemaVersion => 6;
 
   @override
   MigrationStrategy get migration {

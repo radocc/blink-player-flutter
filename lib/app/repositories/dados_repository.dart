@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:blink/app/models/dados_model.dart';
 import 'package:blink/app/models/enuns/dados_dentificacao_enum.dart';
 import 'package:blink/app/repositories/abstract_repository.dart';

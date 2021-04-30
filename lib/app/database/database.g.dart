@@ -2426,7 +2426,8 @@ class $ConteudosTable extends Conteudos
   @override
   GeneratedTextColumn get campos => _campos ??= _constructCampos();
   GeneratedTextColumn _constructCampos() {
-    return GeneratedTextColumn('campos', $tableName, true, maxTextLength: 500);
+    return GeneratedTextColumn('campos', $tableName, true,
+        maxTextLength: 10000);
   }
 
   final VerificationMeta _idArquivoMeta = const VerificationMeta('idArquivo');
@@ -8499,6 +8500,201 @@ class $PrevisaoTemposTable extends PrevisaoTempos
   }
 }
 
+class SequenciaConteudo extends DataClass
+    implements Insertable<SequenciaConteudo> {
+  final int id;
+  final int idSequencia;
+  SequenciaConteudo({@required this.id, this.idSequencia});
+  factory SequenciaConteudo.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    return SequenciaConteudo(
+      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      idSequencia: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_sequencia']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      map['id'] = Variable<int>(id);
+    }
+    if (!nullToAbsent || idSequencia != null) {
+      map['id_sequencia'] = Variable<int>(idSequencia);
+    }
+    return map;
+  }
+
+  SequenciaConteudosCompanion toCompanion(bool nullToAbsent) {
+    return SequenciaConteudosCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      idSequencia: idSequencia == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idSequencia),
+    );
+  }
+
+  factory SequenciaConteudo.fromJson(Map<String, dynamic> json,
+      {ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return SequenciaConteudo(
+      id: serializer.fromJson<int>(json['id']),
+      idSequencia: serializer.fromJson<int>(json['idSequencia']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'idSequencia': serializer.toJson<int>(idSequencia),
+    };
+  }
+
+  SequenciaConteudo copyWith({int id, int idSequencia}) => SequenciaConteudo(
+        id: id ?? this.id,
+        idSequencia: idSequencia ?? this.idSequencia,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('SequenciaConteudo(')
+          ..write('id: $id, ')
+          ..write('idSequencia: $idSequencia')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(id.hashCode, idSequencia.hashCode));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is SequenciaConteudo &&
+          other.id == this.id &&
+          other.idSequencia == this.idSequencia);
+}
+
+class SequenciaConteudosCompanion extends UpdateCompanion<SequenciaConteudo> {
+  final Value<int> id;
+  final Value<int> idSequencia;
+  const SequenciaConteudosCompanion({
+    this.id = const Value.absent(),
+    this.idSequencia = const Value.absent(),
+  });
+  SequenciaConteudosCompanion.insert({
+    this.id = const Value.absent(),
+    this.idSequencia = const Value.absent(),
+  });
+  static Insertable<SequenciaConteudo> custom({
+    Expression<int> id,
+    Expression<int> idSequencia,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (idSequencia != null) 'id_sequencia': idSequencia,
+    });
+  }
+
+  SequenciaConteudosCompanion copyWith(
+      {Value<int> id, Value<int> idSequencia}) {
+    return SequenciaConteudosCompanion(
+      id: id ?? this.id,
+      idSequencia: idSequencia ?? this.idSequencia,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (idSequencia.present) {
+      map['id_sequencia'] = Variable<int>(idSequencia.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SequenciaConteudosCompanion(')
+          ..write('id: $id, ')
+          ..write('idSequencia: $idSequencia')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $SequenciaConteudosTable extends SequenciaConteudos
+    with TableInfo<$SequenciaConteudosTable, SequenciaConteudo> {
+  final GeneratedDatabase _db;
+  final String _alias;
+  $SequenciaConteudosTable(this._db, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  GeneratedIntColumn _id;
+  @override
+  GeneratedIntColumn get id => _id ??= _constructId();
+  GeneratedIntColumn _constructId() {
+    return GeneratedIntColumn('id', $tableName, false,
+        hasAutoIncrement: true, declaredAsPrimaryKey: true);
+  }
+
+  final VerificationMeta _idSequenciaMeta =
+      const VerificationMeta('idSequencia');
+  GeneratedIntColumn _idSequencia;
+  @override
+  GeneratedIntColumn get idSequencia =>
+      _idSequencia ??= _constructIdSequencia();
+  GeneratedIntColumn _constructIdSequencia() {
+    return GeneratedIntColumn(
+      'id_sequencia',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [id, idSequencia];
+  @override
+  $SequenciaConteudosTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'sequencia_conteudo';
+  @override
+  final String actualTableName = 'sequencia_conteudo';
+  @override
+  VerificationContext validateIntegrity(Insertable<SequenciaConteudo> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
+    }
+    if (data.containsKey('id_sequencia')) {
+      context.handle(
+          _idSequenciaMeta,
+          idSequencia.isAcceptableOrUnknown(
+              data['id_sequencia'], _idSequenciaMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SequenciaConteudo map(Map<String, dynamic> data, {String tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return SequenciaConteudo.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $SequenciaConteudosTable createAlias(String alias) {
+    return $SequenciaConteudosTable(_db, alias);
+  }
+}
+
 abstract class _$Database extends GeneratedDatabase {
   _$Database(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   $ConfiguracoesTable _configuracoes;
@@ -8544,6 +8740,9 @@ abstract class _$Database extends GeneratedDatabase {
   $PrevisaoTemposTable _previsaoTempos;
   $PrevisaoTemposTable get previsaoTempos =>
       _previsaoTempos ??= $PrevisaoTemposTable(this);
+  $SequenciaConteudosTable _sequenciaConteudos;
+  $SequenciaConteudosTable get sequenciaConteudos =>
+      _sequenciaConteudos ??= $SequenciaConteudosTable(this);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
@@ -8563,6 +8762,7 @@ abstract class _$Database extends GeneratedDatabase {
         noticias,
         previsaoTempoImagens,
         loteriaResultados,
-        previsaoTempos
+        previsaoTempos,
+        sequenciaConteudos
       ];
 }

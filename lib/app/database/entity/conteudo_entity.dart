@@ -20,7 +20,7 @@ class Conteudos extends Table {
   TextColumn get cidade => text().withLength(max: 500).nullable()();
   TextColumn get uf => text().withLength(max: 500).nullable()();
   TextColumn get previsao => text().withLength(max: 5000).nullable()();
-  TextColumn get campos => text().withLength(max: 500).nullable()();
+  TextColumn get campos => text().withLength(max: 10000).nullable()();
   IntColumn get idArquivo => integer().nullable()();
   IntColumn get audio => integer().nullable()();
   IntColumn get tipo => integer().nullable()();

@@ -1,15 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:blink/app/components/loading_midias.dart';
 import 'package:blink/app/database/database.dart';
-import 'package:blink/app/services/conexao_service.dart';
-import 'package:blink/app/services/conteudo_service.dart';
 import 'package:blink/app/services/login_service.dart';
-import 'package:blink/app/services/noticia_service.dart';
-import 'package:blink/app/services/previsao_tempo_service.dart';
 import 'package:blink/app/services/sincroniza_service.dart';
-import 'package:blink/app/services/template_service.dart';
 import 'package:blink/app/shared/events.dart';
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
