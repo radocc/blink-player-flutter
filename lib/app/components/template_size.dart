@@ -30,7 +30,7 @@ class _TemplateSizeWidgetState extends State<TemplateSizeWidget> {
               children: [
                 Container(
                   child: Image.asset(
-                    'assets/teste.png',
+                    'assets/teste.jpeg',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -52,6 +52,24 @@ class _TemplateSizeWidgetState extends State<TemplateSizeWidget> {
                     ),
                   ),
                 ),
+                // Positioned(
+                //   top: widget.valueTopPositioned,
+                //   left: widget.valueLeftPositioned,
+                //   child: Container(
+                //     child: Row(
+                //       children: [
+                //         Text(
+                //           'Numero Mega cena',
+                //           style: TextStyle(
+                //               color: Colors.white,
+                //               fontSize: controller.totalWidth(context: context) /
+                //                   20.0,
+                //               fontWeight: FontWeight.w700),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
