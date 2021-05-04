@@ -22,6 +22,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
     super.initState();
     //SystemChrome.setEnabledSystemUIOverlays([]);
     controller.setLandscape();
+    controller.createText();
   }
 
   @override

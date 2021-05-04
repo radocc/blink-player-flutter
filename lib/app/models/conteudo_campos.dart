@@ -1,5 +1,5 @@
 
-class ConteudoCampo {
+class ConteudosCampo {
 
   int id;
   String nome;
@@ -21,7 +21,7 @@ class ConteudoCampo {
   double width;
   double valor;
 
-   ConteudoCampo({this.id, 
+   ConteudosCampo({this.id, 
     this.nome, 
     this.tipo, 
     this.fonte, 
@@ -41,7 +41,7 @@ class ConteudoCampo {
     this.width,
     this.valor});
 
-  ConteudoCampo.fromJson(Map<String, dynamic> json) {
+  ConteudosCampo.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     nome = json['nome'];
     tipo = json['tipo'];
