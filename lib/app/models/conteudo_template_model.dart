@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:blink/app/database/database.dart';
 
 class ConteudoTemplateModel {
   Conteudo conteudo;
   Template template;
   SequenciaConteudo sequenciaConteudo;
+  File file;
 
   ConteudoTemplateModel(
       {this.conteudo, this.template, this.sequenciaConteudo});

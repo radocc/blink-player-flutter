@@ -13,13 +13,13 @@ class ConteudosCampo {
   double positionLeft;
   String imagemFormato;
   String resolucaoImagem;
-  double angulo;
+  int angulo;
   int numeroLinha;
   int sequencia;
   int indice;
-  double height;
-  double width;
-  double valor;
+  int height;
+  int width;
+  String valor;
 
    ConteudosCampo({this.id, 
     this.nome, 
