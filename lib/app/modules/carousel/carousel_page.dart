@@ -82,6 +82,7 @@ class _CarouselPageState
           //
           if (controller.extVideo.contains(ext) ||
               controller.extImg.contains(ext)) {
+            e.file = file;
             this.files.add(file);
           }
         }
@@ -119,19 +120,19 @@ class _CarouselPageState
   //
   // Verifica se é um slide de imagem ou de video
   //
-  Widget getItem(File arquivo) {
-    String ext = extension(arquivo.path);
+  Widget getItem(ConteudoTemplateModel conteudo) {
+    String ext = extension(conteudo.file.path);
     //
     // Slide de video
     //
     if (controller.extVideo.contains(ext)) {
-      return SlideVideoPage(arquivo, next: nextPage);
+      return SlideVideoPage(conteudo, next: nextPage);
     }
     //
     // Slide de imagem
     //
     if (controller.extImg.contains(ext)) {
-      return SlideImagePage(arquivo, next: nextPage);
+      return SlideImagePage(conteudo, next: nextPage);
     }
     return null;
   }
@@ -162,7 +163,7 @@ class _CarouselPageState
                         //
                         // slide de imagem e video
                         //
-                        for (File arquivo in this.files) getItem(arquivo),
+                        for (ConteudoTemplateModel conteudo in this.filesConteudo) getItem(conteudo),
                       ],
                     ),
                     Positioned(
