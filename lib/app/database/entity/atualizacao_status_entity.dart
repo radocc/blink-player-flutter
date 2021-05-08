@@ -8,7 +8,10 @@ class AtualizacoesStatus extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get idAtualizacao =>
       integer().customConstraint('NOT NULL REFERENCES atualizacao(id)')();
-  DateTimeColumn get data => dateTime().withDefault(Constant(DateTime.now()))();
-  TextColumn get mensagem => text().nullable()();
-  IntColumn get status => integer()();
+  DateTimeColumn get dataInicial => dateTime().withDefault(Constant(DateTime.now()))();
+  DateTimeColumn get dataDownload => dateTime().nullable()();
+  DateTimeColumn get dataProcessado => dateTime().nullable()();
+  DateTimeColumn get dataFinal => dateTime().nullable()();
+  TextColumn get mensagem => text().nullable().nullable()();
+  IntColumn get identificacao => integer().nullable()();
 }

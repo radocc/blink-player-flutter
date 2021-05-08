@@ -1,12 +1,11 @@
-import 'package:device_info/device_info.dart';
-import 'package:flutter/services.dart';
-import 'package:mobx/mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'dart:io';
+
+import 'package:flutter/services.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:http/http.dart';
+import 'package:mobx/mobx.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:platform_device_id/platform_device_id.dart';
 
 part 'home_controller.g.dart';
 

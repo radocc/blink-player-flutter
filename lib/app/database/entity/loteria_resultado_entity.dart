@@ -5,12 +5,12 @@ class LoteriaResultados extends Table {
 
   IntColumn get id => integer().autoIncrement().nullable()();
   IntColumn get idLoteria => integer().nullable()();
-  IntColumn get idArquivo => integer().nullable()();
   TextColumn get jsonPremios => text().nullable()();
-  IntColumn get numeros => integer().nullable()();
+  TextColumn get numeros => text().nullable()();
   DateTimeColumn get dataSorteio => dateTime().nullable()();
   IntColumn get codigoSorteio => integer().nullable()();
   TextColumn get jsonCidades => text().nullable()();
   DateTimeColumn get dataProximoSorteio => dateTime().nullable()();
+  RealColumn get valorProximoSorteio => real().nullable()();
 }
 

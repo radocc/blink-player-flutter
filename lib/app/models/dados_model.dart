@@ -1,6 +1,7 @@
 import 'package:blink/app/models/exceptions/dados_exception.dart';
 import 'package:blink/app/models/factory_model.dart';
 import 'package:blink/app/shared/constants.dart';
+import 'package:intl/intl.dart';
 
 class DadosModel<T> {
   int inicio = 0;
@@ -54,7 +55,7 @@ class DadosModel<T> {
       data['totalRegistros'] = totalRegistros;
     if (ultimaRequisicao != null)
       data['ultimaRequisicao'] = dateFormat.format(ultimaRequisicao);
-    if (ultimaRequisicao != null)
+    if (proximaRequisicao != null)
       data['proximaRequisicao'] = dateFormat.format(proximaRequisicao);
     if (identificacao != null)
       data['identificacao'] = identificacao;

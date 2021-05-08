@@ -1,6 +1,6 @@
 import 'package:blink/app/database/dao/abstract_dao.dart';
 import 'package:blink/app/database/database.dart';
-import 'package:blink/app/database/entity/loteria_entity.dart';
+import 'package:blink/app/database/entity/loteria_resultado_entity.dart';
 import 'package:moor/moor.dart';
 
 part 'loteria_resultado_dao.g.dart';
