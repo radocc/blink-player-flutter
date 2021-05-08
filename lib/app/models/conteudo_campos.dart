@@ -17,7 +17,7 @@ class ConteudosCampo {
   int numeroLinha;
   int sequencia;
   int indice;
-  int height;
+  num height;
   int width;
   String valor;
 

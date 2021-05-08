@@ -140,12 +140,19 @@ class _SlideImagePageState
         var px = campoConvert.positionLeft * width / 100;
         var py = campoConvert.positionTop * height / 100;
 
+        var fontColor = campoConvert.fonteCor.replaceAll('#', '0xFF');
+        print(fontColor);
+
         //Crio stack com os Atributos
         children.add(
           Positioned(
             left: px,
             top: py,
-            child: Text(campoConvert.nome),
+            child: Text(campoConvert.nome,
+                style: TextStyle(
+                    fontSize: campoConvert.fonteTamanho,
+                    fontFamily: campoConvert.fonte,
+                    color: Color(int.parse(fontColor)))),
           ),
         );
       });
