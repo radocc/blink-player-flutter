@@ -39,6 +39,7 @@ class SincronizaService {
       await downloadConteudos();
       await downloadTemplates();
     }
+    
     //await downloadPrevisaoImagemTempo();
     //await downloadPrevisaoTempo();
     await downloadSequenciaConteudo();
