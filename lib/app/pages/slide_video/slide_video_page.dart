@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:blink/app/models/conteudo_template_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:video_player/video_player.dart';
@@ -7,7 +6,8 @@ import 'slide_video_controller.dart';
 
 class SlideVideoPage extends StatefulWidget {
   final Function next;
-  final File url;
+  final ConteudoTemplateModel url;
+  //final File url;
   const SlideVideoPage(this.url, {@required this.next});
 
   @override
@@ -24,7 +24,8 @@ class _SlideVideoPageState
     //
     // Controlador do video
     //
-    _controller = VideoPlayerController.file(widget.url)
+    //_controller = VideoPlayerController.file(widget.url)
+    _controller = VideoPlayerController.file(widget.url.file)
       ..initialize().then((value) {
         _controller.addListener(() {
           setState(() {

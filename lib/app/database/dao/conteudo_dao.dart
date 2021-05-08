@@ -17,10 +17,10 @@ class ConteudoDAO extends AbstractDAO<Conteudo> with _$ConteudoDAOMixin {
   // Future addValueEquipments(Conteudo entity) {
   //   return into(conteudos).insertOnConflictUpdate(entity);
   // }
-    Future<List<Conteudo>> getAllConteudos() async {
+  
+  Future<List<Conteudo>> getAllConteudos() async {
     return (select(conteudos)).get();
   } 
-  
 
   Future<List<ConteudoTemplateModel>> getAllConteudoWithTemplate() async {
     final query = await (select(conteudos)

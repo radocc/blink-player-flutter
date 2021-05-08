@@ -60,7 +60,7 @@ class SincronizaService {
     }catch(e){
       atualizacao.mensagem = e.toString();
       atualizacao = await atualizacaoDAO.save(atualizacao);
-    }
+    } 
     return true;
   }
 
