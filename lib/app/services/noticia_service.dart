@@ -6,7 +6,6 @@ import 'package:blink/app/modules/carousel/carousel_controller.dart';
 import 'package:blink/app/repositories/arquivo_repository.dart';
 import 'package:blink/app/repositories/noticia_repository.dart';
 import 'package:blink/app/services/dados_service.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';

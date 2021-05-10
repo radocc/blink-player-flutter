@@ -1,7 +1,6 @@
 import 'package:blink/app/models/exceptions/dados_exception.dart';
 import 'package:blink/app/models/factory_model.dart';
 import 'package:blink/app/shared/constants.dart';
-import 'package:intl/intl.dart';
 
 class DadosModel<T> {
   int inicio = 0;

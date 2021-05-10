@@ -2,7 +2,6 @@ import 'package:blink/app/components/loading_midias.dart';
 import 'package:blink/app/modules/ative_player/ative_player_page.dart';
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/modules/home/home_page.dart';
-import 'package:blink/app/shared/events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';

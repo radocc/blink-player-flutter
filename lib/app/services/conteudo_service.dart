@@ -4,8 +4,6 @@ import 'package:blink/app/database/dao/atualizacao_conteudo_dao.dart';
 import 'package:blink/app/database/dao/atualizacao_status_dao.dart';
 import 'package:blink/app/database/dao/conteudo_dao.dart';
 import 'package:blink/app/database/database.dart';
-import 'package:blink/app/database/entity/atualizacao_entity.dart';
-import 'package:blink/app/models/dados_model.dart';
 import 'package:blink/app/models/enuns/tipoconteudo_enum.dart';
 import 'package:blink/app/modules/carousel/carousel_controller.dart';
 import 'package:blink/app/repositories/conteudo_repository.dart';
