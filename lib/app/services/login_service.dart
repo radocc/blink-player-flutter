@@ -14,7 +14,7 @@ class LoginService {
 
   Future<Equipamento> logar() async{
     String deviceId = "";
-    var idOneSignal = "";
+    var idOneSignal = "123465";
     // var status = await OneSignal.shared.getPermissionSubscriptionState();
     // idOneSignal = status.subscriptionStatus.userId;
 

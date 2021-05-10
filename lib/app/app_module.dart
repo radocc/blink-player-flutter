@@ -28,6 +28,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'app_controller.dart';
+import 'modules/ative_player/ative_player_controller.dart';
 import 'pages/slide_image/slide_image_controller.dart';
 import 'pages/slide_video/slide_video_controller.dart';
 import 'pages/splash/splash_controller.dart';
@@ -39,6 +40,7 @@ class AppModule extends MainModule {
         $SlideImageController,
         $SlideVideoController,
         $CarouselController,
+        $AtivePlayerController,
         $HomeController,
         $AppController,
         $CustomDIO,

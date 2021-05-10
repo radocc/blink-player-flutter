@@ -100,11 +100,8 @@ class _CarouselPageState
     // Ultima pagina, volta o slide para primeira pagina
     //
     if (_controller.page == files.length - 1) {
-      _controller.animateTo(
-        0,
-        duration: Duration(milliseconds: 500),
-        curve: Curves.linear,
-      );
+      //_controller.jumpTo(0);
+      _controller.jumpToPage(0);
     }
     //
     // Avança para o proximo slide
