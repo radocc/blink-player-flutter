@@ -25,15 +25,19 @@ class NoticiaService extends DadosService<Noticia> {
 
   NoticiaService(this.noticiaRepo) : super(noticiaRepo);
 
-  Future<List<Noticia>> download() async {
-    var noticias = await super.download();
-    if (noticias.isNotEmpty) {
-      noticias.forEach((noticia) async {
-        await dao.save(noticia);
-      });
-    }
-    return noticias;
+  getDAO(){
+    return dao;
   }
+
+  // Future<List<Noticia>> download() async {
+  //   var noticias = await super.download();
+  //   if (noticias.isNotEmpty) {
+  //     noticias.forEach((noticia) async {
+  //       await conteudoDao.save(noticia);
+  //     });
+  //   }
+  //   return noticias;
+  // }
 
   Future downloadMidias(List<Noticia> lista) async {
     if (lista != null && lista.isNotEmpty) {

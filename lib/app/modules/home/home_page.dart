@@ -2,6 +2,7 @@ import 'package:blink/app/modules/carousel/carousel_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:path_provider/path_provider.dart';
+
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {

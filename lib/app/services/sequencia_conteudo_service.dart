@@ -14,16 +14,20 @@ class SequenciaConteudoService extends DadosService<SequenciaConteudo> {
 
   SequenciaConteudoService(this.seqRepo) : super(seqRepo);
 
-  Future<List<SequenciaConteudo>> download() async {
-
-      var templates = await super.download();
-      if (templates != null) {
-        for (var item in templates) {
-          await dao.save(item);
-        }
-      }
-      return templates;
-    
+  getDAO(){
+    return dao;
   }
+
+  // Future<List<SequenciaConteudo>> download() async {
+
+  //     var templates = await super.download();
+  //     if (templates != null) {
+  //       for (var item in templates) {
+  //         await conteudoDao.save(item);
+  //       }
+  //     }
+  //     return templates;
+    
+  // }
 
 }

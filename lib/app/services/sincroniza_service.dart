@@ -1,11 +1,12 @@
 import 'dart:io';
 
+import 'package:blink/app/database/dao/atualizacao_dao.dart';
 import 'package:blink/app/database/dao/sequencia_conteudo_dao.dart';
 import 'package:blink/app/database/database.dart';
-import 'package:blink/app/models/enuns/tipoconteudo_enum.dart';
 import 'package:blink/app/modules/carousel/carousel_controller.dart';
 import 'package:blink/app/services/arquivo_service.dart';
 import 'package:blink/app/services/conteudo_service.dart';
+import 'package:blink/app/services/loteria_resultado_service.dart';
 import 'package:blink/app/services/noticia_service.dart';
 import 'package:blink/app/services/previsao_imagem_tempo_service.dart';
 import 'package:blink/app/services/previsao_tempo_service.dart';
@@ -19,9 +20,12 @@ class SincronizaService {
   ArquivoService arquivoService;
   NoticiaService noticiaService;
   TemplateService templateService;
+  LoteriaResultadoService loteriaResultadoService;
   PrevisaoImagemTempoService previsaoImagemService;
   PrevisaoTempoService previsaoTempoService;
   SequenciaConteudoService sequenciaConteudoService;
+  AtualizacaoDAO atualizacaoDAO = Database.instance.atualizacaoDAO;
+  
 
   SincronizaService(
       this.conteudoService,
@@ -30,19 +34,33 @@ class SincronizaService {
       this.arquivoService,
       this.previsaoImagemService,
       this.previsaoTempoService,
-      this.sequenciaConteudoService);
+      this.sequenciaConteudoService,
+      this.loteriaResultadoService);
 
   Future iniciar() async {
+    Atualizacoe atualizacao = Atualizacoe();
+    atualizacao.inicio = DateTime.now();
+    atualizacao = await atualizacaoDAO.save(atualizacao);
     int sizeDir = await load();
 
-    if (sizeDir == 0) {
-      await downloadConteudos();
-      await downloadTemplates();
-    }
-    
-    //await downloadPrevisaoImagemTempo();
-    //await downloadPrevisaoTempo();
-    await downloadSequenciaConteudo();
+    // if (sizeDir == 0) {
+      
+    // }
+    try{
+      await downloadConteudos( atualizacao );
+      await downloadTemplates( atualizacao );
+      await downloadPrevisaoImagemTempo( atualizacao );
+      await downloadPrevisaoTempo( atualizacao );
+      await downloadSequenciaConteudo( atualizacao );
+      await downloadNoticias( atualizacao );
+      await downloadLoteriaResultado( atualizacao );
+      atualizacao.fim = DateTime.now();      
+      atualizacao = await atualizacaoDAO.save(atualizacao);
+
+    }catch(e){
+      atualizacao.mensagem = e.toString();
+      atualizacao = await atualizacaoDAO.save(atualizacao);
+    } 
     return true;
   }
 
@@ -50,43 +68,53 @@ class SincronizaService {
   var controller = CarouselController();
   List<File> files;
 
-  Future downloadConteudos() async {
+  Future downloadConteudos(Atualizacoe atualizacao) async {
     //**Faz o download dos conteudos */
-    var conteudos = await conteudoService.download();
-    for (var conteudo in conteudos) {
-      var tipo = conteudo.idTipoConteudo;
-      if (tipo == TipoConteudo.IMAGENS.index ||
-          tipo == TipoConteudo.VIDEO.index) {
-        await arquivoService.downloadMidia(
-            conteudo.idArquivo, conteudo.nomeArquivo, (_, __) {});
-      } else if (tipo == TipoConteudo.COTACAO.index) {}
-    }
+    var conteudos = await conteudoService.download( atualizacao );
+    // for (var conteudo in conteudos) {
+    //   var tipo = conteudo.idTipoConteudo;
+    //   if (tipo == TipoConteudo.IMAGENS.index ||
+    //       tipo == TipoConteudo.VIDEO.index) {
+    //     await arquivoService.downloadMidia(
+    //         conteudo.idArquivo, conteudo.nomeArquivo, (_, __) {});
+    //   } else if (tipo == TipoConteudo.COTACAO.index) {}
+    // }
   }
 
-  Future downloadTemplates() async {
+  Future downloadTemplates(Atualizacoe atualizacao) async {
     //**Faz o download dos Templates */
-    var templates = await templateService.download();
-    for (var template in templates) {
-      await arquivoService.downloadMidia(
-          template.idArquivo, template.nomeArquivo, (_, __) {});
-    }
+    var templates = await templateService.download( atualizacao );
+    // for (var template in templates) {
+    //   await arquivoService.downloadMidia(
+    //       template.idArquivo, template.nomeArquivo, (_, __) {});
+    // }
   }
 
-  Future downloadPrevisaoImagemTempo() async {
+  Future downloadNoticias(Atualizacoe atualizacao) async {
+    //**Faz o download das Noticias */
+    await noticiaService.download( atualizacao );
+  }
+
+  Future downloadLoteriaResultado(Atualizacoe atualizacao) async {
+    //**Faz o download das Noticias */
+    await loteriaResultadoService.download( atualizacao );
+  }
+
+  Future downloadPrevisaoImagemTempo(Atualizacoe atualizacao) async {
     //**Faz o download das Imagens de Previsão de Tempo */
-    var previsaoImgTempo = await previsaoImagemService.download();
+    var previsaoImgTempo = await previsaoImagemService.download( atualizacao );
     for (var previsaoImagem in previsaoImgTempo) {
       await arquivoService.downloadMidia(
           previsaoImagem.idArquivo, previsaoImagem.nomeArquivo, (_, __) {});
     }
   }
 
-  Future downloadPrevisaoTempo() async {
+  Future downloadPrevisaoTempo(Atualizacoe atualizacao) async {
     //**Faz o download das Previsões de Tempo */
-    await templateService.download();
+    await templateService.download( atualizacao );
   }
 
-  Future downloadSequenciaConteudo() async {
+  Future downloadSequenciaConteudo(Atualizacoe atualizacao) async {
     //**Faz o download da Sequencia de Conteudo e Template */
     List<SequenciaConteudo> sizeTable = await dao.getAllSequence();
 
@@ -97,7 +125,7 @@ class SincronizaService {
         print('Erro ao excluir ${e.body}');
       }
     }
-    await sequenciaConteudoService.download();
+    await sequenciaConteudoService.download( atualizacao );
   }
 
   Future<int> load() async {

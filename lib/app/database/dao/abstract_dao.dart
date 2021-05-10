@@ -6,8 +6,10 @@ abstract class AbstractDAO<T extends Insertable<DataClass>>
   TableInfo _table;
   AbstractDAO(Database db) : super(db);
 
-  Future save(T entity) {
-    return into(_table).insertOnConflictUpdate(entity);
+  Future save(T entity)async {
+     var row = await into(_table).insertOnConflictUpdate(entity);
+     print('RoW-save ' + row.toString());
+     return (select(_table)..where((dynamic tbl) => tbl.id.equals(row))).getSingle();
   }
 
   set table(TableInfo value) => _table = value;

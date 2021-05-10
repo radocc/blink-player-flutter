@@ -1,5 +1,4 @@
 import 'package:blink/app/database/database.dart';
-import 'package:blink/app/database/entity/conteudo_agendamento_entity.dart';
 import 'package:moor/moor.dart';
 
 part 'conteudo_agenda_dao.g.dart';

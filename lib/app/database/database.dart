@@ -19,7 +19,7 @@ import 'package:blink/app/database/entity/conteudo_agendamento_entity.dart';
 import 'package:blink/app/database/entity/conteudo_campo_entity.dart';
 import 'package:blink/app/database/entity/conteudo_entity.dart';
 import 'package:blink/app/database/entity/equipamentos_entity.dart';
-import 'package:blink/app/database/entity/loteria_entity.dart';
+import 'package:blink/app/database/entity/loteria_resultado_entity.dart';
 import 'package:blink/app/database/entity/player_dados.dart';
 import 'package:blink/app/database/entity/playlist_conteudo_entity.dart';
 import 'package:blink/app/database/entity/playlist_entity.dart';

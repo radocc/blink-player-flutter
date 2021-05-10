@@ -6,4 +6,7 @@ part of 'atualizacao_status_dao.dart';
 // DaoGenerator
 // **************************************************************************
 
-mixin _$AtualizacaoStatusDAOMixin on DatabaseAccessor<Database> {}
+mixin _$AtualizacaoStatusDAOMixin on DatabaseAccessor<Database> {
+  $AtualizacoesStatusTable get atualizacoesStatus =>
+      attachedDatabase.atualizacoesStatus;
+}

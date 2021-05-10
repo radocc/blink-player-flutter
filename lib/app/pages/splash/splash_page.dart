@@ -1,5 +1,5 @@
 import 'package:blink/app/components/loading_midias.dart';
-import 'package:blink/app/components/screen_ative_false.dart';
+import 'package:blink/app/modules/ative_player/ative_player_page.dart';
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/modules/home/home_page.dart';
 import 'package:blink/app/shared/events.dart';
@@ -89,7 +89,7 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
                   );
                 } else
                   return snap.data.ativado == false
-                      ? ScreenAtiveFalse(
+                      ? AtivePlayerPage(
                           id: snap.data.id.toString(),
                           nome: snap.data.nome,
                           data: formatter,

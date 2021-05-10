@@ -1,20 +1,23 @@
+import 'package:blink/app/modules/ative_player/ative_player_controller.dart';
 import 'package:cross_connectivity/cross_connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 
-class ScreenAtiveFalse extends StatefulWidget {
+class AtivePlayerPage extends StatefulWidget {
   final String id;
   final String nome;
   final String data;
   final String uuid;
 
-  const ScreenAtiveFalse({Key key, this.id, this.nome, this.data, this.uuid}) : super(key: key);
+  const AtivePlayerPage({Key key, this.id, this.nome, this.data, this.uuid}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => ScreenAtiveFalseState();
+  _AtivePlayerPageState createState() => _AtivePlayerPageState();
+
 }
 
-class ScreenAtiveFalseState extends State<ScreenAtiveFalse> {
+class _AtivePlayerPageState extends ModularState<AtivePlayerPage, AtivePlayerController> {
   @override
   Widget build(BuildContext context) {
     final now = new DateTime.now();
@@ -66,7 +69,7 @@ class ScreenAtiveFalseState extends State<ScreenAtiveFalse> {
           SizedBox(height: 30),
           ElevatedButton(
               onPressed: () {
-                //controller.postServer();
+                controller.verificar();
               },
               child: Text('Verificar'))
         ],

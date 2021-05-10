@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:blink/app/app_module.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:system_info/system_info.dart';
 import 'package:wifi/wifi.dart';
 
@@ -16,6 +18,7 @@ void main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   Battery _battery = Battery();
   const oneSec = const Duration(seconds: 15);
+  // ativarOneSignal();
 
   Future valueHardware2() async {
     final int batteryLevel = await _battery.batteryLevel;
@@ -75,5 +78,40 @@ void main() {
     }
   });
 
+  HttpOverrides.global = new MyHttpOverrides();
+
   runApp(ModularApp(module: AppModule()));
+}
+
+Future ativarOneSignal() async {
+  await OneSignal.shared.setRequiresUserPrivacyConsent(false);
+  // await OneSignal.shared.consentGranted(true);
+  await OneSignal.shared.init(
+    "6f13f597-f061-4c62-a65b-e933a0e15fa6",
+    iOSSettings: {
+      OSiOSSettings.autoPrompt: false,
+      OSiOSSettings.inAppLaunchUrl: true
+    }
+  );
+  OneSignal.shared.setInFocusDisplayType(OSNotificationDisplayType.notification);
+  OneSignal.shared.setNotificationReceivedHandler((OSNotification notification) {
+    // will be called whenever a notification is received
+  });
+  // OneSignal.shared.promptUserForPushNotificationPermission();
+  OneSignal.shared.setNotificationOpenedHandler((OSNotificationOpenedResult result) {
+    // will be called whenever a notification is opened/button pressed.
+  });
+}
+
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port) {
+        final isValidHost = ["192.168.2.108"].contains(host);
+        return isValidHost;
+        //true;
+      };
+  }
 }

@@ -8,6 +8,7 @@ import 'package:blink/app/shared/events.dart';
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:platform_device_id/platform_device_id.dart';
 
 part 'splash_controller.g.dart';
 
@@ -69,20 +70,11 @@ abstract class _SplashControllerBase with Store {
 
   Future<Equipamento> login() async {
     try {
-      //String deviceId;
-      String linuxId;
-      if (Platform.isAndroid) {
-        //deviceId = await PlatformDeviceId.getDeviceId;
-        var response = await service.logar('5555', '5555');
-        print(response);
-        streamPostServer.add(response);
-        return response;
-      } else if (Platform.isLinux) {
-        // linuxId = await PlatformDeviceId.getDeviceId;
-        var response = await service.logar(linuxId, '123123');
-        streamPostServer.add(response);
-        return response;
-      }
+
+      var response = await service.logar();
+      streamPostServer.add(response);
+      return response;
+      
     } on DioError catch (e) {
       print(e.response.statusCode);
       streamPostServer.addError(e);

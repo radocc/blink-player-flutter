@@ -8,9 +8,9 @@ part of 'database.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
 class Configuracoe extends DataClass implements Insertable<Configuracoe> {
-  final int id;
-  final bool atualizaInicio;
-  final String atualizacaoHorarios;
+  int id;
+  bool atualizaInicio;
+  String atualizacaoHorarios;
   Configuracoe(
       {@required this.id,
       @required this.atualizaInicio,
@@ -106,10 +106,10 @@ class Configuracoe extends DataClass implements Insertable<Configuracoe> {
 }
 
 class ConfiguracoesCompanion extends UpdateCompanion<Configuracoe> {
-  final Value<int> id;
-  final Value<bool> atualizaInicio;
-  final Value<String> atualizacaoHorarios;
-  const ConfiguracoesCompanion({
+  Value<int> id;
+  Value<bool> atualizaInicio;
+  Value<String> atualizacaoHorarios;
+  ConfiguracoesCompanion({
     this.id = const Value.absent(),
     this.atualizaInicio = const Value.absent(),
     this.atualizacaoHorarios = const Value.absent(),
@@ -252,11 +252,11 @@ class $ConfiguracoesTable extends Configuracoes
 }
 
 class Atualizacoe extends DataClass implements Insertable<Atualizacoe> {
-  final int id;
-  final DateTime inicio;
-  final DateTime fim;
-  final String mensagem;
-  final String sequencia;
+  int id;
+  DateTime inicio;
+  DateTime fim;
+  String mensagem;
+  String sequencia;
   Atualizacoe(
       {@required this.id,
       @required this.inicio,
@@ -381,12 +381,12 @@ class Atualizacoe extends DataClass implements Insertable<Atualizacoe> {
 }
 
 class AtualizacoesCompanion extends UpdateCompanion<Atualizacoe> {
-  final Value<int> id;
-  final Value<DateTime> inicio;
-  final Value<DateTime> fim;
-  final Value<String> mensagem;
-  final Value<String> sequencia;
-  const AtualizacoesCompanion({
+  Value<int> id;
+  Value<DateTime> inicio;
+  Value<DateTime> fim;
+  Value<String> mensagem;
+  Value<String> sequencia;
+  AtualizacoesCompanion({
     this.id = const Value.absent(),
     this.inicio = const Value.absent(),
     this.fim = const Value.absent(),
@@ -575,17 +575,23 @@ class $AtualizacoesTable extends Atualizacoes
 
 class AtualizacaoStatus extends DataClass
     implements Insertable<AtualizacaoStatus> {
-  final int id;
-  final int idAtualizacao;
-  final DateTime data;
-  final String mensagem;
-  final int status;
+  int id;
+  int idAtualizacao;
+  DateTime dataInicial;
+  DateTime dataDownload;
+  DateTime dataProcessado;
+  DateTime dataFinal;
+  String mensagem;
+  int identificacao;
   AtualizacaoStatus(
       {@required this.id,
       @required this.idAtualizacao,
-      @required this.data,
+      @required this.dataInicial,
+      this.dataDownload,
+      this.dataProcessado,
+      this.dataFinal,
       this.mensagem,
-      @required this.status});
+      this.identificacao});
   factory AtualizacaoStatus.fromData(
       Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
@@ -597,11 +603,18 @@ class AtualizacaoStatus extends DataClass
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       idAtualizacao: intType
           .mapFromDatabaseResponse(data['${effectivePrefix}id_atualizacao']),
-      data:
-          dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}data']),
+      dataInicial: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}data_inicial']),
+      dataDownload: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}data_download']),
+      dataProcessado: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}data_processado']),
+      dataFinal: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}data_final']),
       mensagem: stringType
           .mapFromDatabaseResponse(data['${effectivePrefix}mensagem']),
-      status: intType.mapFromDatabaseResponse(data['${effectivePrefix}status']),
+      identificacao: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}identificacao']),
     );
   }
   @override
@@ -613,14 +626,23 @@ class AtualizacaoStatus extends DataClass
     if (!nullToAbsent || idAtualizacao != null) {
       map['id_atualizacao'] = Variable<int>(idAtualizacao);
     }
-    if (!nullToAbsent || data != null) {
-      map['data'] = Variable<DateTime>(data);
+    if (!nullToAbsent || dataInicial != null) {
+      map['data_inicial'] = Variable<DateTime>(dataInicial);
+    }
+    if (!nullToAbsent || dataDownload != null) {
+      map['data_download'] = Variable<DateTime>(dataDownload);
+    }
+    if (!nullToAbsent || dataProcessado != null) {
+      map['data_processado'] = Variable<DateTime>(dataProcessado);
+    }
+    if (!nullToAbsent || dataFinal != null) {
+      map['data_final'] = Variable<DateTime>(dataFinal);
     }
     if (!nullToAbsent || mensagem != null) {
       map['mensagem'] = Variable<String>(mensagem);
     }
-    if (!nullToAbsent || status != null) {
-      map['status'] = Variable<int>(status);
+    if (!nullToAbsent || identificacao != null) {
+      map['identificacao'] = Variable<int>(identificacao);
     }
     return map;
   }
@@ -631,12 +653,24 @@ class AtualizacaoStatus extends DataClass
       idAtualizacao: idAtualizacao == null && nullToAbsent
           ? const Value.absent()
           : Value(idAtualizacao),
-      data: data == null && nullToAbsent ? const Value.absent() : Value(data),
+      dataInicial: dataInicial == null && nullToAbsent
+          ? const Value.absent()
+          : Value(dataInicial),
+      dataDownload: dataDownload == null && nullToAbsent
+          ? const Value.absent()
+          : Value(dataDownload),
+      dataProcessado: dataProcessado == null && nullToAbsent
+          ? const Value.absent()
+          : Value(dataProcessado),
+      dataFinal: dataFinal == null && nullToAbsent
+          ? const Value.absent()
+          : Value(dataFinal),
       mensagem: mensagem == null && nullToAbsent
           ? const Value.absent()
           : Value(mensagem),
-      status:
-          status == null && nullToAbsent ? const Value.absent() : Value(status),
+      identificacao: identificacao == null && nullToAbsent
+          ? const Value.absent()
+          : Value(identificacao),
     );
   }
 
@@ -646,9 +680,12 @@ class AtualizacaoStatus extends DataClass
     return AtualizacaoStatus(
       id: serializer.fromJson<int>(json['id']),
       idAtualizacao: serializer.fromJson<int>(json['idAtualizacao']),
-      data: serializer.fromJson<DateTime>(json['data']),
+      dataInicial: serializer.fromJson<DateTime>(json['dataInicial']),
+      dataDownload: serializer.fromJson<DateTime>(json['dataDownload']),
+      dataProcessado: serializer.fromJson<DateTime>(json['dataProcessado']),
+      dataFinal: serializer.fromJson<DateTime>(json['dataFinal']),
       mensagem: serializer.fromJson<String>(json['mensagem']),
-      status: serializer.fromJson<int>(json['status']),
+      identificacao: serializer.fromJson<int>(json['identificacao']),
     );
   }
   @override
@@ -657,33 +694,45 @@ class AtualizacaoStatus extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'idAtualizacao': serializer.toJson<int>(idAtualizacao),
-      'data': serializer.toJson<DateTime>(data),
+      'dataInicial': serializer.toJson<DateTime>(dataInicial),
+      'dataDownload': serializer.toJson<DateTime>(dataDownload),
+      'dataProcessado': serializer.toJson<DateTime>(dataProcessado),
+      'dataFinal': serializer.toJson<DateTime>(dataFinal),
       'mensagem': serializer.toJson<String>(mensagem),
-      'status': serializer.toJson<int>(status),
+      'identificacao': serializer.toJson<int>(identificacao),
     };
   }
 
   AtualizacaoStatus copyWith(
           {int id,
           int idAtualizacao,
-          DateTime data,
+          DateTime dataInicial,
+          DateTime dataDownload,
+          DateTime dataProcessado,
+          DateTime dataFinal,
           String mensagem,
-          int status}) =>
+          int identificacao}) =>
       AtualizacaoStatus(
         id: id ?? this.id,
         idAtualizacao: idAtualizacao ?? this.idAtualizacao,
-        data: data ?? this.data,
+        dataInicial: dataInicial ?? this.dataInicial,
+        dataDownload: dataDownload ?? this.dataDownload,
+        dataProcessado: dataProcessado ?? this.dataProcessado,
+        dataFinal: dataFinal ?? this.dataFinal,
         mensagem: mensagem ?? this.mensagem,
-        status: status ?? this.status,
+        identificacao: identificacao ?? this.identificacao,
       );
   @override
   String toString() {
     return (StringBuffer('AtualizacaoStatus(')
           ..write('id: $id, ')
           ..write('idAtualizacao: $idAtualizacao, ')
-          ..write('data: $data, ')
+          ..write('dataInicial: $dataInicial, ')
+          ..write('dataDownload: $dataDownload, ')
+          ..write('dataProcessado: $dataProcessado, ')
+          ..write('dataFinal: $dataFinal, ')
           ..write('mensagem: $mensagem, ')
-          ..write('status: $status')
+          ..write('identificacao: $identificacao')
           ..write(')'))
         .toString();
   }
@@ -691,68 +740,101 @@ class AtualizacaoStatus extends DataClass
   @override
   int get hashCode => $mrjf($mrjc(
       id.hashCode,
-      $mrjc(idAtualizacao.hashCode,
-          $mrjc(data.hashCode, $mrjc(mensagem.hashCode, status.hashCode)))));
+      $mrjc(
+          idAtualizacao.hashCode,
+          $mrjc(
+              dataInicial.hashCode,
+              $mrjc(
+                  dataDownload.hashCode,
+                  $mrjc(
+                      dataProcessado.hashCode,
+                      $mrjc(
+                          dataFinal.hashCode,
+                          $mrjc(
+                              mensagem.hashCode, identificacao.hashCode))))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
       (other is AtualizacaoStatus &&
           other.id == this.id &&
           other.idAtualizacao == this.idAtualizacao &&
-          other.data == this.data &&
+          other.dataInicial == this.dataInicial &&
+          other.dataDownload == this.dataDownload &&
+          other.dataProcessado == this.dataProcessado &&
+          other.dataFinal == this.dataFinal &&
           other.mensagem == this.mensagem &&
-          other.status == this.status);
+          other.identificacao == this.identificacao);
 }
 
 class AtualizacoesStatusCompanion extends UpdateCompanion<AtualizacaoStatus> {
-  final Value<int> id;
-  final Value<int> idAtualizacao;
-  final Value<DateTime> data;
-  final Value<String> mensagem;
-  final Value<int> status;
-  const AtualizacoesStatusCompanion({
+  Value<int> id;
+  Value<int> idAtualizacao;
+  Value<DateTime> dataInicial;
+  Value<DateTime> dataDownload;
+  Value<DateTime> dataProcessado;
+  Value<DateTime> dataFinal;
+  Value<String> mensagem;
+  Value<int> identificacao;
+  AtualizacoesStatusCompanion({
     this.id = const Value.absent(),
     this.idAtualizacao = const Value.absent(),
-    this.data = const Value.absent(),
+    this.dataInicial = const Value.absent(),
+    this.dataDownload = const Value.absent(),
+    this.dataProcessado = const Value.absent(),
+    this.dataFinal = const Value.absent(),
     this.mensagem = const Value.absent(),
-    this.status = const Value.absent(),
+    this.identificacao = const Value.absent(),
   });
   AtualizacoesStatusCompanion.insert({
     this.id = const Value.absent(),
     @required int idAtualizacao,
-    this.data = const Value.absent(),
+    this.dataInicial = const Value.absent(),
+    this.dataDownload = const Value.absent(),
+    this.dataProcessado = const Value.absent(),
+    this.dataFinal = const Value.absent(),
     this.mensagem = const Value.absent(),
-    @required int status,
-  })  : idAtualizacao = Value(idAtualizacao),
-        status = Value(status);
+    this.identificacao = const Value.absent(),
+  }) : idAtualizacao = Value(idAtualizacao);
   static Insertable<AtualizacaoStatus> custom({
     Expression<int> id,
     Expression<int> idAtualizacao,
-    Expression<DateTime> data,
+    Expression<DateTime> dataInicial,
+    Expression<DateTime> dataDownload,
+    Expression<DateTime> dataProcessado,
+    Expression<DateTime> dataFinal,
     Expression<String> mensagem,
-    Expression<int> status,
+    Expression<int> identificacao,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (idAtualizacao != null) 'id_atualizacao': idAtualizacao,
-      if (data != null) 'data': data,
+      if (dataInicial != null) 'data_inicial': dataInicial,
+      if (dataDownload != null) 'data_download': dataDownload,
+      if (dataProcessado != null) 'data_processado': dataProcessado,
+      if (dataFinal != null) 'data_final': dataFinal,
       if (mensagem != null) 'mensagem': mensagem,
-      if (status != null) 'status': status,
+      if (identificacao != null) 'identificacao': identificacao,
     });
   }
 
   AtualizacoesStatusCompanion copyWith(
       {Value<int> id,
       Value<int> idAtualizacao,
-      Value<DateTime> data,
+      Value<DateTime> dataInicial,
+      Value<DateTime> dataDownload,
+      Value<DateTime> dataProcessado,
+      Value<DateTime> dataFinal,
       Value<String> mensagem,
-      Value<int> status}) {
+      Value<int> identificacao}) {
     return AtualizacoesStatusCompanion(
       id: id ?? this.id,
       idAtualizacao: idAtualizacao ?? this.idAtualizacao,
-      data: data ?? this.data,
+      dataInicial: dataInicial ?? this.dataInicial,
+      dataDownload: dataDownload ?? this.dataDownload,
+      dataProcessado: dataProcessado ?? this.dataProcessado,
+      dataFinal: dataFinal ?? this.dataFinal,
       mensagem: mensagem ?? this.mensagem,
-      status: status ?? this.status,
+      identificacao: identificacao ?? this.identificacao,
     );
   }
 
@@ -765,14 +847,23 @@ class AtualizacoesStatusCompanion extends UpdateCompanion<AtualizacaoStatus> {
     if (idAtualizacao.present) {
       map['id_atualizacao'] = Variable<int>(idAtualizacao.value);
     }
-    if (data.present) {
-      map['data'] = Variable<DateTime>(data.value);
+    if (dataInicial.present) {
+      map['data_inicial'] = Variable<DateTime>(dataInicial.value);
+    }
+    if (dataDownload.present) {
+      map['data_download'] = Variable<DateTime>(dataDownload.value);
+    }
+    if (dataProcessado.present) {
+      map['data_processado'] = Variable<DateTime>(dataProcessado.value);
+    }
+    if (dataFinal.present) {
+      map['data_final'] = Variable<DateTime>(dataFinal.value);
     }
     if (mensagem.present) {
       map['mensagem'] = Variable<String>(mensagem.value);
     }
-    if (status.present) {
-      map['status'] = Variable<int>(status.value);
+    if (identificacao.present) {
+      map['identificacao'] = Variable<int>(identificacao.value);
     }
     return map;
   }
@@ -782,9 +873,12 @@ class AtualizacoesStatusCompanion extends UpdateCompanion<AtualizacaoStatus> {
     return (StringBuffer('AtualizacoesStatusCompanion(')
           ..write('id: $id, ')
           ..write('idAtualizacao: $idAtualizacao, ')
-          ..write('data: $data, ')
+          ..write('dataInicial: $dataInicial, ')
+          ..write('dataDownload: $dataDownload, ')
+          ..write('dataProcessado: $dataProcessado, ')
+          ..write('dataFinal: $dataFinal, ')
           ..write('mensagem: $mensagem, ')
-          ..write('status: $status')
+          ..write('identificacao: $identificacao')
           ..write(')'))
         .toString();
   }
@@ -815,13 +909,55 @@ class $AtualizacoesStatusTable extends AtualizacoesStatus
         $customConstraints: 'NOT NULL REFERENCES atualizacao(id)');
   }
 
-  final VerificationMeta _dataMeta = const VerificationMeta('data');
-  GeneratedDateTimeColumn _data;
+  final VerificationMeta _dataInicialMeta =
+      const VerificationMeta('dataInicial');
+  GeneratedDateTimeColumn _dataInicial;
   @override
-  GeneratedDateTimeColumn get data => _data ??= _constructData();
-  GeneratedDateTimeColumn _constructData() {
-    return GeneratedDateTimeColumn('data', $tableName, false,
+  GeneratedDateTimeColumn get dataInicial =>
+      _dataInicial ??= _constructDataInicial();
+  GeneratedDateTimeColumn _constructDataInicial() {
+    return GeneratedDateTimeColumn('data_inicial', $tableName, false,
         defaultValue: Constant(DateTime.now()));
+  }
+
+  final VerificationMeta _dataDownloadMeta =
+      const VerificationMeta('dataDownload');
+  GeneratedDateTimeColumn _dataDownload;
+  @override
+  GeneratedDateTimeColumn get dataDownload =>
+      _dataDownload ??= _constructDataDownload();
+  GeneratedDateTimeColumn _constructDataDownload() {
+    return GeneratedDateTimeColumn(
+      'data_download',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _dataProcessadoMeta =
+      const VerificationMeta('dataProcessado');
+  GeneratedDateTimeColumn _dataProcessado;
+  @override
+  GeneratedDateTimeColumn get dataProcessado =>
+      _dataProcessado ??= _constructDataProcessado();
+  GeneratedDateTimeColumn _constructDataProcessado() {
+    return GeneratedDateTimeColumn(
+      'data_processado',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _dataFinalMeta = const VerificationMeta('dataFinal');
+  GeneratedDateTimeColumn _dataFinal;
+  @override
+  GeneratedDateTimeColumn get dataFinal => _dataFinal ??= _constructDataFinal();
+  GeneratedDateTimeColumn _constructDataFinal() {
+    return GeneratedDateTimeColumn(
+      'data_final',
+      $tableName,
+      true,
+    );
   }
 
   final VerificationMeta _mensagemMeta = const VerificationMeta('mensagem');
@@ -836,21 +972,31 @@ class $AtualizacoesStatusTable extends AtualizacoesStatus
     );
   }
 
-  final VerificationMeta _statusMeta = const VerificationMeta('status');
-  GeneratedIntColumn _status;
+  final VerificationMeta _identificacaoMeta =
+      const VerificationMeta('identificacao');
+  GeneratedIntColumn _identificacao;
   @override
-  GeneratedIntColumn get status => _status ??= _constructStatus();
-  GeneratedIntColumn _constructStatus() {
+  GeneratedIntColumn get identificacao =>
+      _identificacao ??= _constructIdentificacao();
+  GeneratedIntColumn _constructIdentificacao() {
     return GeneratedIntColumn(
-      'status',
+      'identificacao',
       $tableName,
-      false,
+      true,
     );
   }
 
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, idAtualizacao, data, mensagem, status];
+  List<GeneratedColumn> get $columns => [
+        id,
+        idAtualizacao,
+        dataInicial,
+        dataDownload,
+        dataProcessado,
+        dataFinal,
+        mensagem,
+        identificacao
+      ];
   @override
   $AtualizacoesStatusTable get asDslTable => this;
   @override
@@ -873,19 +1019,37 @@ class $AtualizacoesStatusTable extends AtualizacoesStatus
     } else if (isInserting) {
       context.missing(_idAtualizacaoMeta);
     }
-    if (data.containsKey('data')) {
+    if (data.containsKey('data_inicial')) {
       context.handle(
-          _dataMeta, this.data.isAcceptableOrUnknown(data['data'], _dataMeta));
+          _dataInicialMeta,
+          dataInicial.isAcceptableOrUnknown(
+              data['data_inicial'], _dataInicialMeta));
+    }
+    if (data.containsKey('data_download')) {
+      context.handle(
+          _dataDownloadMeta,
+          dataDownload.isAcceptableOrUnknown(
+              data['data_download'], _dataDownloadMeta));
+    }
+    if (data.containsKey('data_processado')) {
+      context.handle(
+          _dataProcessadoMeta,
+          dataProcessado.isAcceptableOrUnknown(
+              data['data_processado'], _dataProcessadoMeta));
+    }
+    if (data.containsKey('data_final')) {
+      context.handle(_dataFinalMeta,
+          dataFinal.isAcceptableOrUnknown(data['data_final'], _dataFinalMeta));
     }
     if (data.containsKey('mensagem')) {
       context.handle(_mensagemMeta,
           mensagem.isAcceptableOrUnknown(data['mensagem'], _mensagemMeta));
     }
-    if (data.containsKey('status')) {
-      context.handle(_statusMeta,
-          status.isAcceptableOrUnknown(data['status'], _statusMeta));
-    } else if (isInserting) {
-      context.missing(_statusMeta);
+    if (data.containsKey('identificacao')) {
+      context.handle(
+          _identificacaoMeta,
+          identificacao.isAcceptableOrUnknown(
+              data['identificacao'], _identificacaoMeta));
     }
     return context;
   }
@@ -906,11 +1070,11 @@ class $AtualizacoesStatusTable extends AtualizacoesStatus
 
 class AtualizacaoConteudo extends DataClass
     implements Insertable<AtualizacaoConteudo> {
-  final int id;
-  final int idAtualizacao;
-  final int tipoObjeto;
-  final int idObjeto;
-  final DateTime data;
+  int id;
+  int idAtualizacao;
+  int tipoObjeto;
+  int idObjeto;
+  DateTime data;
   AtualizacaoConteudo(
       {@required this.id,
       @required this.idAtualizacao,
@@ -1040,12 +1204,12 @@ class AtualizacaoConteudo extends DataClass
 
 class AtualizacoesConteudoCompanion
     extends UpdateCompanion<AtualizacaoConteudo> {
-  final Value<int> id;
-  final Value<int> idAtualizacao;
-  final Value<int> tipoObjeto;
-  final Value<int> idObjeto;
-  final Value<DateTime> data;
-  const AtualizacoesConteudoCompanion({
+  Value<int> id;
+  Value<int> idAtualizacao;
+  Value<int> tipoObjeto;
+  Value<int> idObjeto;
+  Value<DateTime> data;
+  AtualizacoesConteudoCompanion({
     this.id = const Value.absent(),
     this.idAtualizacao = const Value.absent(),
     this.tipoObjeto = const Value.absent(),
@@ -1246,12 +1410,12 @@ class $AtualizacoesConteudoTable extends AtualizacoesConteudo
 }
 
 class Template extends DataClass implements Insertable<Template> {
-  final int id;
-  final String nome;
-  final String nomeArquivo;
-  final int idTipoConteudo;
-  final int tipoArquivo;
-  final int idArquivo;
+  int id;
+  String nome;
+  String nomeArquivo;
+  int idTipoConteudo;
+  int tipoArquivo;
+  int idArquivo;
   Template(
       {@required this.id,
       this.nome,
@@ -1395,13 +1559,13 @@ class Template extends DataClass implements Insertable<Template> {
 }
 
 class TemplatesCompanion extends UpdateCompanion<Template> {
-  final Value<int> id;
-  final Value<String> nome;
-  final Value<String> nomeArquivo;
-  final Value<int> idTipoConteudo;
-  final Value<int> tipoArquivo;
-  final Value<int> idArquivo;
-  const TemplatesCompanion({
+  Value<int> id;
+  Value<String> nome;
+  Value<String> nomeArquivo;
+  Value<int> idTipoConteudo;
+  Value<int> tipoArquivo;
+  Value<int> idArquivo;
+  TemplatesCompanion({
     this.id = const Value.absent(),
     this.nome = const Value.absent(),
     this.nomeArquivo = const Value.absent(),
@@ -1632,25 +1796,25 @@ class $TemplatesTable extends Templates
 }
 
 class Conteudo extends DataClass implements Insertable<Conteudo> {
-  final int id;
-  final int status;
-  final int idTipoConteudo;
-  final int tipoArquivo;
-  final String nomeArquivo;
-  final int idTemplate;
-  final String titulo;
-  final int tempoExibicao;
-  final DateTime horaInicio;
-  final DateTime horaFim;
-  final String filtros;
-  final int idCidade;
-  final String cidade;
-  final String uf;
-  final String previsao;
-  final String campos;
-  final int idArquivo;
-  final int audio;
-  final int tipo;
+  int id;
+  int status;
+  int idTipoConteudo;
+  int tipoArquivo;
+  String nomeArquivo;
+  int idTemplate;
+  String titulo;
+  int tempoExibicao;
+  DateTime horaInicio;
+  DateTime horaFim;
+  String filtros;
+  int idCidade;
+  String cidade;
+  String uf;
+  String previsao;
+  String campos;
+  int idArquivo;
+  int audio;
+  int tipo;
   Conteudo(
       {@required this.id,
       this.status,
@@ -2012,26 +2176,26 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
 }
 
 class ConteudosCompanion extends UpdateCompanion<Conteudo> {
-  final Value<int> id;
-  final Value<int> status;
-  final Value<int> idTipoConteudo;
-  final Value<int> tipoArquivo;
-  final Value<String> nomeArquivo;
-  final Value<int> idTemplate;
-  final Value<String> titulo;
-  final Value<int> tempoExibicao;
-  final Value<DateTime> horaInicio;
-  final Value<DateTime> horaFim;
-  final Value<String> filtros;
-  final Value<int> idCidade;
-  final Value<String> cidade;
-  final Value<String> uf;
-  final Value<String> previsao;
-  final Value<String> campos;
-  final Value<int> idArquivo;
-  final Value<int> audio;
-  final Value<int> tipo;
-  const ConteudosCompanion({
+  Value<int> id;
+  Value<int> status;
+  Value<int> idTipoConteudo;
+  Value<int> tipoArquivo;
+  Value<String> nomeArquivo;
+  Value<int> idTemplate;
+  Value<String> titulo;
+  Value<int> tempoExibicao;
+  Value<DateTime> horaInicio;
+  Value<DateTime> horaFim;
+  Value<String> filtros;
+  Value<int> idCidade;
+  Value<String> cidade;
+  Value<String> uf;
+  Value<String> previsao;
+  Value<String> campos;
+  Value<int> idArquivo;
+  Value<int> audio;
+  Value<int> tipo;
+  ConteudosCompanion({
     this.id = const Value.absent(),
     this.status = const Value.absent(),
     this.idTipoConteudo = const Value.absent(),
@@ -2608,17 +2772,17 @@ class $ConteudosTable extends Conteudos
 
 class ConteudoAgendamento extends DataClass
     implements Insertable<ConteudoAgendamento> {
-  final int id;
-  final DateTime dataInicio;
-  final DateTime dataFim;
-  final String diaSemana;
-  final DateTime horaInicio;
-  final DateTime horaFim;
-  final int idConteudo;
-  final DateTime dataCadastro;
-  final DateTime dataAlteracao;
-  final int versao;
-  final bool deletado;
+  int id;
+  DateTime dataInicio;
+  DateTime dataFim;
+  String diaSemana;
+  DateTime horaInicio;
+  DateTime horaFim;
+  int idConteudo;
+  DateTime dataCadastro;
+  DateTime dataAlteracao;
+  int versao;
+  bool deletado;
   ConteudoAgendamento(
       {@required this.id,
       this.dataInicio,
@@ -2854,18 +3018,18 @@ class ConteudoAgendamento extends DataClass
 
 class ConteudoAgendamentosCompanion
     extends UpdateCompanion<ConteudoAgendamento> {
-  final Value<int> id;
-  final Value<DateTime> dataInicio;
-  final Value<DateTime> dataFim;
-  final Value<String> diaSemana;
-  final Value<DateTime> horaInicio;
-  final Value<DateTime> horaFim;
-  final Value<int> idConteudo;
-  final Value<DateTime> dataCadastro;
-  final Value<DateTime> dataAlteracao;
-  final Value<int> versao;
-  final Value<bool> deletado;
-  const ConteudoAgendamentosCompanion({
+  Value<int> id;
+  Value<DateTime> dataInicio;
+  Value<DateTime> dataFim;
+  Value<String> diaSemana;
+  Value<DateTime> horaInicio;
+  Value<DateTime> horaFim;
+  Value<int> idConteudo;
+  Value<DateTime> dataCadastro;
+  Value<DateTime> dataAlteracao;
+  Value<int> versao;
+  Value<bool> deletado;
+  ConteudoAgendamentosCompanion({
     this.id = const Value.absent(),
     this.dataInicio = const Value.absent(),
     this.dataFim = const Value.absent(),
@@ -3240,23 +3404,23 @@ class $ConteudoAgendamentosTable extends ConteudoAgendamentos
 }
 
 class ConteudoCampo extends DataClass implements Insertable<ConteudoCampo> {
-  final int id;
-  final String nome;
-  final int tipo;
-  final int limite;
-  final String valor;
-  final bool cadastro;
-  final String fonte;
-  final int fonteTamanho;
-  final String fonteCor;
-  final double top;
-  final double left;
-  final int sequencia;
-  final int idConteudo;
-  final DateTime dataCadastro;
-  final DateTime dataAlteracao;
-  final int versao;
-  final bool deletado;
+  int id;
+  String nome;
+  int tipo;
+  int limite;
+  String valor;
+  bool cadastro;
+  String fonte;
+  int fonteTamanho;
+  String fonteCor;
+  double top;
+  double left;
+  int sequencia;
+  int idConteudo;
+  DateTime dataCadastro;
+  DateTime dataAlteracao;
+  int versao;
+  bool deletado;
   ConteudoCampo(
       {@required this.id,
       this.nome,
@@ -3582,24 +3746,24 @@ class ConteudoCampo extends DataClass implements Insertable<ConteudoCampo> {
 }
 
 class ConteudoCamposCompanion extends UpdateCompanion<ConteudoCampo> {
-  final Value<int> id;
-  final Value<String> nome;
-  final Value<int> tipo;
-  final Value<int> limite;
-  final Value<String> valor;
-  final Value<bool> cadastro;
-  final Value<String> fonte;
-  final Value<int> fonteTamanho;
-  final Value<String> fonteCor;
-  final Value<double> top;
-  final Value<double> left;
-  final Value<int> sequencia;
-  final Value<int> idConteudo;
-  final Value<DateTime> dataCadastro;
-  final Value<DateTime> dataAlteracao;
-  final Value<int> versao;
-  final Value<bool> deletado;
-  const ConteudoCamposCompanion({
+  Value<int> id;
+  Value<String> nome;
+  Value<int> tipo;
+  Value<int> limite;
+  Value<String> valor;
+  Value<bool> cadastro;
+  Value<String> fonte;
+  Value<int> fonteTamanho;
+  Value<String> fonteCor;
+  Value<double> top;
+  Value<double> left;
+  Value<int> sequencia;
+  Value<int> idConteudo;
+  Value<DateTime> dataCadastro;
+  Value<DateTime> dataAlteracao;
+  Value<int> versao;
+  Value<bool> deletado;
+  ConteudoCamposCompanion({
     this.id = const Value.absent(),
     this.nome = const Value.absent(),
     this.tipo = const Value.absent(),
@@ -4156,12 +4320,12 @@ class $ConteudoCamposTable extends ConteudoCampos
 }
 
 class Equipamento extends DataClass implements Insertable<Equipamento> {
-  final int id;
-  final String nome;
-  final String uuid;
-  final DateTime dataCadastro;
-  final DateTime dataAlteracao;
-  final bool ativado;
+  int id;
+  String nome;
+  String uuid;
+  DateTime dataCadastro;
+  DateTime dataAlteracao;
+  bool ativado;
   Equipamento(
       {@required this.id,
       this.nome,
@@ -4304,13 +4468,13 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
 }
 
 class EquipamentosCompanion extends UpdateCompanion<Equipamento> {
-  final Value<int> id;
-  final Value<String> nome;
-  final Value<String> uuid;
-  final Value<DateTime> dataCadastro;
-  final Value<DateTime> dataAlteracao;
-  final Value<bool> ativado;
-  const EquipamentosCompanion({
+  Value<int> id;
+  Value<String> nome;
+  Value<String> uuid;
+  Value<DateTime> dataCadastro;
+  Value<DateTime> dataAlteracao;
+  Value<bool> ativado;
+  EquipamentosCompanion({
     this.id = const Value.absent(),
     this.nome = const Value.absent(),
     this.uuid = const Value.absent(),
@@ -4537,20 +4701,20 @@ class $EquipamentosTable extends Equipamentos
 }
 
 class PlayerDado extends DataClass implements Insertable<PlayerDado> {
-  final int id;
-  final double bateria;
-  final double sinalWifi;
-  final String nomeWifi;
-  final int processador;
-  final int memoria;
-  final int idPlayerEquipamento;
-  final DateTime dataLigado;
-  final DateTime dataCadastro;
-  final DateTime dataAlteracao;
-  final int versao;
-  final bool deletado;
-  final int idUsuarioCadastro;
-  final int idUsuarioAlteracao;
+  int id;
+  double bateria;
+  double sinalWifi;
+  String nomeWifi;
+  int processador;
+  int memoria;
+  int idPlayerEquipamento;
+  DateTime dataLigado;
+  DateTime dataCadastro;
+  DateTime dataAlteracao;
+  int versao;
+  bool deletado;
+  int idUsuarioCadastro;
+  int idUsuarioAlteracao;
   PlayerDado(
       {@required this.id,
       this.bateria,
@@ -4840,21 +5004,21 @@ class PlayerDado extends DataClass implements Insertable<PlayerDado> {
 }
 
 class PlayerDadosCompanion extends UpdateCompanion<PlayerDado> {
-  final Value<int> id;
-  final Value<double> bateria;
-  final Value<double> sinalWifi;
-  final Value<String> nomeWifi;
-  final Value<int> processador;
-  final Value<int> memoria;
-  final Value<int> idPlayerEquipamento;
-  final Value<DateTime> dataLigado;
-  final Value<DateTime> dataCadastro;
-  final Value<DateTime> dataAlteracao;
-  final Value<int> versao;
-  final Value<bool> deletado;
-  final Value<int> idUsuarioCadastro;
-  final Value<int> idUsuarioAlteracao;
-  const PlayerDadosCompanion({
+  Value<int> id;
+  Value<double> bateria;
+  Value<double> sinalWifi;
+  Value<String> nomeWifi;
+  Value<int> processador;
+  Value<int> memoria;
+  Value<int> idPlayerEquipamento;
+  Value<DateTime> dataLigado;
+  Value<DateTime> dataCadastro;
+  Value<DateTime> dataAlteracao;
+  Value<int> versao;
+  Value<bool> deletado;
+  Value<int> idUsuarioCadastro;
+  Value<int> idUsuarioAlteracao;
+  PlayerDadosCompanion({
     this.id = const Value.absent(),
     this.bateria = const Value.absent(),
     this.sinalWifi = const Value.absent(),
@@ -5334,19 +5498,19 @@ class $PlayerDadosTable extends PlayerDados
 }
 
 class Playlist extends DataClass implements Insertable<Playlist> {
-  final int id;
-  final String nome;
-  final bool campanha;
-  final DateTime dataInicio;
-  final DateTime dataFim;
-  final int regraExibicao;
-  final int idPublicacao;
-  final DateTime dataCadastro;
-  final DateTime dataAlteracao;
-  final int versao;
-  final bool deletado;
-  final int idUsuarioCadastro;
-  final int idUsuarioAlteracao;
+  int id;
+  String nome;
+  bool campanha;
+  DateTime dataInicio;
+  DateTime dataFim;
+  int regraExibicao;
+  int idPublicacao;
+  DateTime dataCadastro;
+  DateTime dataAlteracao;
+  int versao;
+  bool deletado;
+  int idUsuarioCadastro;
+  int idUsuarioAlteracao;
   Playlist(
       {@required this.id,
       this.nome,
@@ -5613,20 +5777,20 @@ class Playlist extends DataClass implements Insertable<Playlist> {
 }
 
 class PlaylistsCompanion extends UpdateCompanion<Playlist> {
-  final Value<int> id;
-  final Value<String> nome;
-  final Value<bool> campanha;
-  final Value<DateTime> dataInicio;
-  final Value<DateTime> dataFim;
-  final Value<int> regraExibicao;
-  final Value<int> idPublicacao;
-  final Value<DateTime> dataCadastro;
-  final Value<DateTime> dataAlteracao;
-  final Value<int> versao;
-  final Value<bool> deletado;
-  final Value<int> idUsuarioCadastro;
-  final Value<int> idUsuarioAlteracao;
-  const PlaylistsCompanion({
+  Value<int> id;
+  Value<String> nome;
+  Value<bool> campanha;
+  Value<DateTime> dataInicio;
+  Value<DateTime> dataFim;
+  Value<int> regraExibicao;
+  Value<int> idPublicacao;
+  Value<DateTime> dataCadastro;
+  Value<DateTime> dataAlteracao;
+  Value<int> versao;
+  Value<bool> deletado;
+  Value<int> idUsuarioCadastro;
+  Value<int> idUsuarioAlteracao;
+  PlaylistsCompanion({
     this.id = const Value.absent(),
     this.nome = const Value.absent(),
     this.campanha = const Value.absent(),
@@ -6079,15 +6243,15 @@ class $PlaylistsTable extends Playlists
 
 class PlaylistConteudo extends DataClass
     implements Insertable<PlaylistConteudo> {
-  final int id;
-  final int idConteudo;
-  final int idPlaylist;
-  final int idVinculado;
-  final int sequencia;
-  final DateTime dataCadastro;
-  final DateTime dataAlteracao;
-  final int versao;
-  final bool deletado;
+  int id;
+  int idConteudo;
+  int idPlaylist;
+  int idVinculado;
+  int sequencia;
+  DateTime dataCadastro;
+  DateTime dataAlteracao;
+  int versao;
+  bool deletado;
   PlaylistConteudo(
       {@required this.id,
       @required this.idConteudo,
@@ -6285,16 +6449,16 @@ class PlaylistConteudo extends DataClass
 }
 
 class PlaylistConteudosCompanion extends UpdateCompanion<PlaylistConteudo> {
-  final Value<int> id;
-  final Value<int> idConteudo;
-  final Value<int> idPlaylist;
-  final Value<int> idVinculado;
-  final Value<int> sequencia;
-  final Value<DateTime> dataCadastro;
-  final Value<DateTime> dataAlteracao;
-  final Value<int> versao;
-  final Value<bool> deletado;
-  const PlaylistConteudosCompanion({
+  Value<int> id;
+  Value<int> idConteudo;
+  Value<int> idPlaylist;
+  Value<int> idVinculado;
+  Value<int> sequencia;
+  Value<DateTime> dataCadastro;
+  Value<DateTime> dataAlteracao;
+  Value<int> versao;
+  Value<bool> deletado;
+  PlaylistConteudosCompanion({
     this.id = const Value.absent(),
     this.idConteudo = const Value.absent(),
     this.idPlaylist = const Value.absent(),
@@ -6632,18 +6796,18 @@ class $PlaylistConteudosTable extends PlaylistConteudos
 }
 
 class Noticia extends DataClass implements Insertable<Noticia> {
-  final int idArquivo;
-  final int idFonteNoticia;
-  final int idNoticiaEditoria;
-  final String nomeArquivo;
-  final String link;
-  final String titulo;
-  final DateTime dataPublicadao;
-  final int idTemplate;
-  final int id;
-  final int idConteudo;
-  final String autor;
-  final String descricao;
+  int idArquivo;
+  int idFonteNoticia;
+  int idNoticiaEditoria;
+  String nomeArquivo;
+  String link;
+  String titulo;
+  DateTime dataPublicadao;
+  int idTemplate;
+  int id;
+  int idConteudo;
+  String autor;
+  String descricao;
   Noticia(
       {this.idArquivo,
       this.idFonteNoticia,
@@ -6890,19 +7054,19 @@ class Noticia extends DataClass implements Insertable<Noticia> {
 }
 
 class NoticiasCompanion extends UpdateCompanion<Noticia> {
-  final Value<int> idArquivo;
-  final Value<int> idFonteNoticia;
-  final Value<int> idNoticiaEditoria;
-  final Value<String> nomeArquivo;
-  final Value<String> link;
-  final Value<String> titulo;
-  final Value<DateTime> dataPublicadao;
-  final Value<int> idTemplate;
-  final Value<int> id;
-  final Value<int> idConteudo;
-  final Value<String> autor;
-  final Value<String> descricao;
-  const NoticiasCompanion({
+  Value<int> idArquivo;
+  Value<int> idFonteNoticia;
+  Value<int> idNoticiaEditoria;
+  Value<String> nomeArquivo;
+  Value<String> link;
+  Value<String> titulo;
+  Value<DateTime> dataPublicadao;
+  Value<int> idTemplate;
+  Value<int> id;
+  Value<int> idConteudo;
+  Value<String> autor;
+  Value<String> descricao;
+  NoticiasCompanion({
     this.idArquivo = const Value.absent(),
     this.idFonteNoticia = const Value.absent(),
     this.idNoticiaEditoria = const Value.absent(),
@@ -7308,12 +7472,12 @@ class $NoticiasTable extends Noticias with TableInfo<$NoticiasTable, Noticia> {
 
 class PrevisaoTempoImagem extends DataClass
     implements Insertable<PrevisaoTempoImagem> {
-  final int id;
-  final String texto;
-  final String sigla;
-  final String nomeArquivo;
-  final int idArquivo;
-  final String descricao;
+  int id;
+  String texto;
+  String sigla;
+  String nomeArquivo;
+  int idArquivo;
+  String descricao;
   PrevisaoTempoImagem(
       {@required this.id,
       this.texto,
@@ -7460,13 +7624,13 @@ class PrevisaoTempoImagem extends DataClass
 
 class PrevisaoTempoImagensCompanion
     extends UpdateCompanion<PrevisaoTempoImagem> {
-  final Value<int> id;
-  final Value<String> texto;
-  final Value<String> sigla;
-  final Value<String> nomeArquivo;
-  final Value<int> idArquivo;
-  final Value<String> descricao;
-  const PrevisaoTempoImagensCompanion({
+  Value<int> id;
+  Value<String> texto;
+  Value<String> sigla;
+  Value<String> nomeArquivo;
+  Value<int> idArquivo;
+  Value<String> descricao;
+  PrevisaoTempoImagensCompanion({
     this.id = const Value.absent(),
     this.texto = const Value.absent(),
     this.sigla = const Value.absent(),
@@ -7678,25 +7842,25 @@ class $PrevisaoTempoImagensTable extends PrevisaoTempoImagens
 
 class LoteriaResultado extends DataClass
     implements Insertable<LoteriaResultado> {
-  final int id;
-  final int idLoteria;
-  final int idArquivo;
-  final String jsonPremios;
-  final int numeros;
-  final DateTime dataSorteio;
-  final int codigoSorteio;
-  final String jsonCidades;
-  final DateTime dataProximoSorteio;
+  int id;
+  int idLoteria;
+  String jsonPremios;
+  String numeros;
+  DateTime dataSorteio;
+  int codigoSorteio;
+  String jsonCidades;
+  DateTime dataProximoSorteio;
+  double valorProximoSorteio;
   LoteriaResultado(
       {this.id,
       this.idLoteria,
-      this.idArquivo,
       this.jsonPremios,
       this.numeros,
       this.dataSorteio,
       this.codigoSorteio,
       this.jsonCidades,
-      this.dataProximoSorteio});
+      this.dataProximoSorteio,
+      this.valorProximoSorteio});
   factory LoteriaResultado.fromData(
       Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
@@ -7704,16 +7868,15 @@ class LoteriaResultado extends DataClass
     final intType = db.typeSystem.forDartType<int>();
     final stringType = db.typeSystem.forDartType<String>();
     final dateTimeType = db.typeSystem.forDartType<DateTime>();
+    final doubleType = db.typeSystem.forDartType<double>();
     return LoteriaResultado(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       idLoteria:
           intType.mapFromDatabaseResponse(data['${effectivePrefix}id_loteria']),
-      idArquivo:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_arquivo']),
       jsonPremios: stringType
           .mapFromDatabaseResponse(data['${effectivePrefix}json_premios']),
       numeros:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}numeros']),
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}numeros']),
       dataSorteio: dateTimeType
           .mapFromDatabaseResponse(data['${effectivePrefix}data_sorteio']),
       codigoSorteio: intType
@@ -7722,6 +7885,8 @@ class LoteriaResultado extends DataClass
           .mapFromDatabaseResponse(data['${effectivePrefix}json_cidades']),
       dataProximoSorteio: dateTimeType.mapFromDatabaseResponse(
           data['${effectivePrefix}data_proximo_sorteio']),
+      valorProximoSorteio: doubleType.mapFromDatabaseResponse(
+          data['${effectivePrefix}valor_proximo_sorteio']),
     );
   }
   @override
@@ -7733,14 +7898,11 @@ class LoteriaResultado extends DataClass
     if (!nullToAbsent || idLoteria != null) {
       map['id_loteria'] = Variable<int>(idLoteria);
     }
-    if (!nullToAbsent || idArquivo != null) {
-      map['id_arquivo'] = Variable<int>(idArquivo);
-    }
     if (!nullToAbsent || jsonPremios != null) {
       map['json_premios'] = Variable<String>(jsonPremios);
     }
     if (!nullToAbsent || numeros != null) {
-      map['numeros'] = Variable<int>(numeros);
+      map['numeros'] = Variable<String>(numeros);
     }
     if (!nullToAbsent || dataSorteio != null) {
       map['data_sorteio'] = Variable<DateTime>(dataSorteio);
@@ -7754,6 +7916,9 @@ class LoteriaResultado extends DataClass
     if (!nullToAbsent || dataProximoSorteio != null) {
       map['data_proximo_sorteio'] = Variable<DateTime>(dataProximoSorteio);
     }
+    if (!nullToAbsent || valorProximoSorteio != null) {
+      map['valor_proximo_sorteio'] = Variable<double>(valorProximoSorteio);
+    }
     return map;
   }
 
@@ -7763,9 +7928,6 @@ class LoteriaResultado extends DataClass
       idLoteria: idLoteria == null && nullToAbsent
           ? const Value.absent()
           : Value(idLoteria),
-      idArquivo: idArquivo == null && nullToAbsent
-          ? const Value.absent()
-          : Value(idArquivo),
       jsonPremios: jsonPremios == null && nullToAbsent
           ? const Value.absent()
           : Value(jsonPremios),
@@ -7784,6 +7946,9 @@ class LoteriaResultado extends DataClass
       dataProximoSorteio: dataProximoSorteio == null && nullToAbsent
           ? const Value.absent()
           : Value(dataProximoSorteio),
+      valorProximoSorteio: valorProximoSorteio == null && nullToAbsent
+          ? const Value.absent()
+          : Value(valorProximoSorteio),
     );
   }
 
@@ -7793,14 +7958,15 @@ class LoteriaResultado extends DataClass
     return LoteriaResultado(
       id: serializer.fromJson<int>(json['id']),
       idLoteria: serializer.fromJson<int>(json['idLoteria']),
-      idArquivo: serializer.fromJson<int>(json['idArquivo']),
       jsonPremios: serializer.fromJson<String>(json['jsonPremios']),
-      numeros: serializer.fromJson<int>(json['numeros']),
+      numeros: serializer.fromJson<String>(json['numeros']),
       dataSorteio: serializer.fromJson<DateTime>(json['dataSorteio']),
       codigoSorteio: serializer.fromJson<int>(json['codigoSorteio']),
       jsonCidades: serializer.fromJson<String>(json['jsonCidades']),
       dataProximoSorteio:
           serializer.fromJson<DateTime>(json['dataProximoSorteio']),
+      valorProximoSorteio:
+          serializer.fromJson<double>(json['valorProximoSorteio']),
     );
   }
   @override
@@ -7809,49 +7975,49 @@ class LoteriaResultado extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'idLoteria': serializer.toJson<int>(idLoteria),
-      'idArquivo': serializer.toJson<int>(idArquivo),
       'jsonPremios': serializer.toJson<String>(jsonPremios),
-      'numeros': serializer.toJson<int>(numeros),
+      'numeros': serializer.toJson<String>(numeros),
       'dataSorteio': serializer.toJson<DateTime>(dataSorteio),
       'codigoSorteio': serializer.toJson<int>(codigoSorteio),
       'jsonCidades': serializer.toJson<String>(jsonCidades),
       'dataProximoSorteio': serializer.toJson<DateTime>(dataProximoSorteio),
+      'valorProximoSorteio': serializer.toJson<double>(valorProximoSorteio),
     };
   }
 
   LoteriaResultado copyWith(
           {int id,
           int idLoteria,
-          int idArquivo,
           String jsonPremios,
-          int numeros,
+          String numeros,
           DateTime dataSorteio,
           int codigoSorteio,
           String jsonCidades,
-          DateTime dataProximoSorteio}) =>
+          DateTime dataProximoSorteio,
+          double valorProximoSorteio}) =>
       LoteriaResultado(
         id: id ?? this.id,
         idLoteria: idLoteria ?? this.idLoteria,
-        idArquivo: idArquivo ?? this.idArquivo,
         jsonPremios: jsonPremios ?? this.jsonPremios,
         numeros: numeros ?? this.numeros,
         dataSorteio: dataSorteio ?? this.dataSorteio,
         codigoSorteio: codigoSorteio ?? this.codigoSorteio,
         jsonCidades: jsonCidades ?? this.jsonCidades,
         dataProximoSorteio: dataProximoSorteio ?? this.dataProximoSorteio,
+        valorProximoSorteio: valorProximoSorteio ?? this.valorProximoSorteio,
       );
   @override
   String toString() {
     return (StringBuffer('LoteriaResultado(')
           ..write('id: $id, ')
           ..write('idLoteria: $idLoteria, ')
-          ..write('idArquivo: $idArquivo, ')
           ..write('jsonPremios: $jsonPremios, ')
           ..write('numeros: $numeros, ')
           ..write('dataSorteio: $dataSorteio, ')
           ..write('codigoSorteio: $codigoSorteio, ')
           ..write('jsonCidades: $jsonCidades, ')
-          ..write('dataProximoSorteio: $dataProximoSorteio')
+          ..write('dataProximoSorteio: $dataProximoSorteio, ')
+          ..write('valorProximoSorteio: $valorProximoSorteio')
           ..write(')'))
         .toString();
   }
@@ -7862,79 +8028,78 @@ class LoteriaResultado extends DataClass
       $mrjc(
           idLoteria.hashCode,
           $mrjc(
-              idArquivo.hashCode,
+              jsonPremios.hashCode,
               $mrjc(
-                  jsonPremios.hashCode,
+                  numeros.hashCode,
                   $mrjc(
-                      numeros.hashCode,
+                      dataSorteio.hashCode,
                       $mrjc(
-                          dataSorteio.hashCode,
+                          codigoSorteio.hashCode,
                           $mrjc(
-                              codigoSorteio.hashCode,
-                              $mrjc(jsonCidades.hashCode,
-                                  dataProximoSorteio.hashCode)))))))));
+                              jsonCidades.hashCode,
+                              $mrjc(dataProximoSorteio.hashCode,
+                                  valorProximoSorteio.hashCode)))))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
       (other is LoteriaResultado &&
           other.id == this.id &&
           other.idLoteria == this.idLoteria &&
-          other.idArquivo == this.idArquivo &&
           other.jsonPremios == this.jsonPremios &&
           other.numeros == this.numeros &&
           other.dataSorteio == this.dataSorteio &&
           other.codigoSorteio == this.codigoSorteio &&
           other.jsonCidades == this.jsonCidades &&
-          other.dataProximoSorteio == this.dataProximoSorteio);
+          other.dataProximoSorteio == this.dataProximoSorteio &&
+          other.valorProximoSorteio == this.valorProximoSorteio);
 }
 
 class LoteriaResultadosCompanion extends UpdateCompanion<LoteriaResultado> {
-  final Value<int> id;
-  final Value<int> idLoteria;
-  final Value<int> idArquivo;
-  final Value<String> jsonPremios;
-  final Value<int> numeros;
-  final Value<DateTime> dataSorteio;
-  final Value<int> codigoSorteio;
-  final Value<String> jsonCidades;
-  final Value<DateTime> dataProximoSorteio;
-  const LoteriaResultadosCompanion({
+  Value<int> id;
+  Value<int> idLoteria;
+  Value<String> jsonPremios;
+  Value<String> numeros;
+  Value<DateTime> dataSorteio;
+  Value<int> codigoSorteio;
+  Value<String> jsonCidades;
+  Value<DateTime> dataProximoSorteio;
+  Value<double> valorProximoSorteio;
+  LoteriaResultadosCompanion({
     this.id = const Value.absent(),
     this.idLoteria = const Value.absent(),
-    this.idArquivo = const Value.absent(),
     this.jsonPremios = const Value.absent(),
     this.numeros = const Value.absent(),
     this.dataSorteio = const Value.absent(),
     this.codigoSorteio = const Value.absent(),
     this.jsonCidades = const Value.absent(),
     this.dataProximoSorteio = const Value.absent(),
+    this.valorProximoSorteio = const Value.absent(),
   });
   LoteriaResultadosCompanion.insert({
     this.id = const Value.absent(),
     this.idLoteria = const Value.absent(),
-    this.idArquivo = const Value.absent(),
     this.jsonPremios = const Value.absent(),
     this.numeros = const Value.absent(),
     this.dataSorteio = const Value.absent(),
     this.codigoSorteio = const Value.absent(),
     this.jsonCidades = const Value.absent(),
     this.dataProximoSorteio = const Value.absent(),
+    this.valorProximoSorteio = const Value.absent(),
   });
   static Insertable<LoteriaResultado> custom({
     Expression<int> id,
     Expression<int> idLoteria,
-    Expression<int> idArquivo,
     Expression<String> jsonPremios,
-    Expression<int> numeros,
+    Expression<String> numeros,
     Expression<DateTime> dataSorteio,
     Expression<int> codigoSorteio,
     Expression<String> jsonCidades,
     Expression<DateTime> dataProximoSorteio,
+    Expression<double> valorProximoSorteio,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (idLoteria != null) 'id_loteria': idLoteria,
-      if (idArquivo != null) 'id_arquivo': idArquivo,
       if (jsonPremios != null) 'json_premios': jsonPremios,
       if (numeros != null) 'numeros': numeros,
       if (dataSorteio != null) 'data_sorteio': dataSorteio,
@@ -7942,29 +8107,31 @@ class LoteriaResultadosCompanion extends UpdateCompanion<LoteriaResultado> {
       if (jsonCidades != null) 'json_cidades': jsonCidades,
       if (dataProximoSorteio != null)
         'data_proximo_sorteio': dataProximoSorteio,
+      if (valorProximoSorteio != null)
+        'valor_proximo_sorteio': valorProximoSorteio,
     });
   }
 
   LoteriaResultadosCompanion copyWith(
       {Value<int> id,
       Value<int> idLoteria,
-      Value<int> idArquivo,
       Value<String> jsonPremios,
-      Value<int> numeros,
+      Value<String> numeros,
       Value<DateTime> dataSorteio,
       Value<int> codigoSorteio,
       Value<String> jsonCidades,
-      Value<DateTime> dataProximoSorteio}) {
+      Value<DateTime> dataProximoSorteio,
+      Value<double> valorProximoSorteio}) {
     return LoteriaResultadosCompanion(
       id: id ?? this.id,
       idLoteria: idLoteria ?? this.idLoteria,
-      idArquivo: idArquivo ?? this.idArquivo,
       jsonPremios: jsonPremios ?? this.jsonPremios,
       numeros: numeros ?? this.numeros,
       dataSorteio: dataSorteio ?? this.dataSorteio,
       codigoSorteio: codigoSorteio ?? this.codigoSorteio,
       jsonCidades: jsonCidades ?? this.jsonCidades,
       dataProximoSorteio: dataProximoSorteio ?? this.dataProximoSorteio,
+      valorProximoSorteio: valorProximoSorteio ?? this.valorProximoSorteio,
     );
   }
 
@@ -7977,14 +8144,11 @@ class LoteriaResultadosCompanion extends UpdateCompanion<LoteriaResultado> {
     if (idLoteria.present) {
       map['id_loteria'] = Variable<int>(idLoteria.value);
     }
-    if (idArquivo.present) {
-      map['id_arquivo'] = Variable<int>(idArquivo.value);
-    }
     if (jsonPremios.present) {
       map['json_premios'] = Variable<String>(jsonPremios.value);
     }
     if (numeros.present) {
-      map['numeros'] = Variable<int>(numeros.value);
+      map['numeros'] = Variable<String>(numeros.value);
     }
     if (dataSorteio.present) {
       map['data_sorteio'] = Variable<DateTime>(dataSorteio.value);
@@ -7999,6 +8163,10 @@ class LoteriaResultadosCompanion extends UpdateCompanion<LoteriaResultado> {
       map['data_proximo_sorteio'] =
           Variable<DateTime>(dataProximoSorteio.value);
     }
+    if (valorProximoSorteio.present) {
+      map['valor_proximo_sorteio'] =
+          Variable<double>(valorProximoSorteio.value);
+    }
     return map;
   }
 
@@ -8007,13 +8175,13 @@ class LoteriaResultadosCompanion extends UpdateCompanion<LoteriaResultado> {
     return (StringBuffer('LoteriaResultadosCompanion(')
           ..write('id: $id, ')
           ..write('idLoteria: $idLoteria, ')
-          ..write('idArquivo: $idArquivo, ')
           ..write('jsonPremios: $jsonPremios, ')
           ..write('numeros: $numeros, ')
           ..write('dataSorteio: $dataSorteio, ')
           ..write('codigoSorteio: $codigoSorteio, ')
           ..write('jsonCidades: $jsonCidades, ')
-          ..write('dataProximoSorteio: $dataProximoSorteio')
+          ..write('dataProximoSorteio: $dataProximoSorteio, ')
+          ..write('valorProximoSorteio: $valorProximoSorteio')
           ..write(')'))
         .toString();
   }
@@ -8045,18 +8213,6 @@ class $LoteriaResultadosTable extends LoteriaResultados
     );
   }
 
-  final VerificationMeta _idArquivoMeta = const VerificationMeta('idArquivo');
-  GeneratedIntColumn _idArquivo;
-  @override
-  GeneratedIntColumn get idArquivo => _idArquivo ??= _constructIdArquivo();
-  GeneratedIntColumn _constructIdArquivo() {
-    return GeneratedIntColumn(
-      'id_arquivo',
-      $tableName,
-      true,
-    );
-  }
-
   final VerificationMeta _jsonPremiosMeta =
       const VerificationMeta('jsonPremios');
   GeneratedTextColumn _jsonPremios;
@@ -8072,11 +8228,11 @@ class $LoteriaResultadosTable extends LoteriaResultados
   }
 
   final VerificationMeta _numerosMeta = const VerificationMeta('numeros');
-  GeneratedIntColumn _numeros;
+  GeneratedTextColumn _numeros;
   @override
-  GeneratedIntColumn get numeros => _numeros ??= _constructNumeros();
-  GeneratedIntColumn _constructNumeros() {
-    return GeneratedIntColumn(
+  GeneratedTextColumn get numeros => _numeros ??= _constructNumeros();
+  GeneratedTextColumn _constructNumeros() {
+    return GeneratedTextColumn(
       'numeros',
       $tableName,
       true,
@@ -8139,17 +8295,31 @@ class $LoteriaResultadosTable extends LoteriaResultados
     );
   }
 
+  final VerificationMeta _valorProximoSorteioMeta =
+      const VerificationMeta('valorProximoSorteio');
+  GeneratedRealColumn _valorProximoSorteio;
+  @override
+  GeneratedRealColumn get valorProximoSorteio =>
+      _valorProximoSorteio ??= _constructValorProximoSorteio();
+  GeneratedRealColumn _constructValorProximoSorteio() {
+    return GeneratedRealColumn(
+      'valor_proximo_sorteio',
+      $tableName,
+      true,
+    );
+  }
+
   @override
   List<GeneratedColumn> get $columns => [
         id,
         idLoteria,
-        idArquivo,
         jsonPremios,
         numeros,
         dataSorteio,
         codigoSorteio,
         jsonCidades,
-        dataProximoSorteio
+        dataProximoSorteio,
+        valorProximoSorteio
       ];
   @override
   $LoteriaResultadosTable get asDslTable => this;
@@ -8168,10 +8338,6 @@ class $LoteriaResultadosTable extends LoteriaResultados
     if (data.containsKey('id_loteria')) {
       context.handle(_idLoteriaMeta,
           idLoteria.isAcceptableOrUnknown(data['id_loteria'], _idLoteriaMeta));
-    }
-    if (data.containsKey('id_arquivo')) {
-      context.handle(_idArquivoMeta,
-          idArquivo.isAcceptableOrUnknown(data['id_arquivo'], _idArquivoMeta));
     }
     if (data.containsKey('json_premios')) {
       context.handle(
@@ -8207,6 +8373,12 @@ class $LoteriaResultadosTable extends LoteriaResultados
           dataProximoSorteio.isAcceptableOrUnknown(
               data['data_proximo_sorteio'], _dataProximoSorteioMeta));
     }
+    if (data.containsKey('valor_proximo_sorteio')) {
+      context.handle(
+          _valorProximoSorteioMeta,
+          valorProximoSorteio.isAcceptableOrUnknown(
+              data['valor_proximo_sorteio'], _valorProximoSorteioMeta));
+    }
     return context;
   }
 
@@ -8225,10 +8397,10 @@ class $LoteriaResultadosTable extends LoteriaResultados
 }
 
 class PrevisaoTempo extends DataClass implements Insertable<PrevisaoTempo> {
-  final int id;
-  final DateTime data;
-  final int idCidade;
-  final String jsonData;
+  int id;
+  DateTime data;
+  int idCidade;
+  String jsonData;
   PrevisaoTempo({this.id, this.data, this.idCidade, this.jsonData});
   factory PrevisaoTempo.fromData(
       Map<String, dynamic> data, GeneratedDatabase db,
@@ -8332,11 +8504,11 @@ class PrevisaoTempo extends DataClass implements Insertable<PrevisaoTempo> {
 }
 
 class PrevisaoTemposCompanion extends UpdateCompanion<PrevisaoTempo> {
-  final Value<int> id;
-  final Value<DateTime> data;
-  final Value<int> idCidade;
-  final Value<String> jsonData;
-  const PrevisaoTemposCompanion({
+  Value<int> id;
+  Value<DateTime> data;
+  Value<int> idCidade;
+  Value<String> jsonData;
+  PrevisaoTemposCompanion({
     this.id = const Value.absent(),
     this.data = const Value.absent(),
     this.idCidade = const Value.absent(),
@@ -8502,8 +8674,8 @@ class $PrevisaoTemposTable extends PrevisaoTempos
 
 class SequenciaConteudo extends DataClass
     implements Insertable<SequenciaConteudo> {
-  final int id;
-  final int idSequencia;
+  int id;
+  int idSequencia;
   SequenciaConteudo({@required this.id, this.idSequencia});
   factory SequenciaConteudo.fromData(
       Map<String, dynamic> data, GeneratedDatabase db,
@@ -8578,9 +8750,9 @@ class SequenciaConteudo extends DataClass
 }
 
 class SequenciaConteudosCompanion extends UpdateCompanion<SequenciaConteudo> {
-  final Value<int> id;
-  final Value<int> idSequencia;
-  const SequenciaConteudosCompanion({
+  Value<int> id;
+  Value<int> idSequencia;
+  SequenciaConteudosCompanion({
     this.id = const Value.absent(),
     this.idSequencia = const Value.absent(),
   });

@@ -1,5 +1,4 @@
 import 'package:blink/app/database/database.dart';
-import 'package:blink/app/database/entity/conteudo_campo_entity.dart';
 import 'package:moor/moor.dart';
 
 part 'conteudo_campo_dao.g.dart';
