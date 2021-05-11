@@ -2,14 +2,9 @@ enum TipoConteudo {
     NULO,
     VIDEO,
     IMAGENS,    
-    NOTICIAS,
-    COTACAO,
-    LOTERIAS,
     PREVISAOTEMPO,
-    COORPORATIVO,
-    CURIOSIDADES,
-    SAUDO,
-    RECEITAS,
-    AGENDA,
-    TURISMO
+    NOTICIAS,
+    LOTERIAS,
+    PADRAO,
+    COTACAO
 }

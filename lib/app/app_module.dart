@@ -31,6 +31,7 @@ import 'app_controller.dart';
 import 'modules/ative_player/ative_player_controller.dart';
 import 'pages/slide_image/slide_image_controller.dart';
 import 'pages/slide_video/slide_video_controller.dart';
+import 'pages/slide_previsao_tempo/slide_previsao_tempo_controller.dart';
 import 'pages/splash/splash_controller.dart';
 
 class AppModule extends MainModule {
@@ -39,6 +40,7 @@ class AppModule extends MainModule {
         $SplashController,
         $SlideImageController,
         $SlideVideoController,
+        $SlidePrevisaoTempoController,
         $CarouselController,
         $AtivePlayerController,
         $HomeController,

@@ -2,28 +2,29 @@ import 'dart:convert';
 
 import 'package:blink/app/models/conteudo_campos.dart';
 import 'package:blink/app/models/conteudo_template_model.dart';
+import 'package:blink/app/models/previsao_item_model.dart';
 import 'package:blink/app/shared/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'slide_image_controller.dart';
+import 'slide_previsao_tempo_controller.dart';
 
 //
 // Tempo para passar o slide do carousel
 //
 const nextDuration = Duration(seconds: 10);
 
-class SlideImagePage extends StatefulWidget {
+class SlidePrevisaoTempoPage extends StatefulWidget {
   final Function next;
   final ConteudoTemplateModel conteudoModel;
   //final File url;
-  const SlideImagePage(this.conteudoModel, {@required this.next});
+  const SlidePrevisaoTempoPage(this.conteudoModel, {@required this.next});
 
   @override
-  _SlideImagePageState createState() => _SlideImagePageState();
+  _SlidePrevisaoTempoPageState createState() => _SlidePrevisaoTempoPageState();
 }
 
-class _SlideImagePageState
-    extends ModularState<SlideImagePage, SlideImageController> {
+class _SlidePrevisaoTempoPageState
+    extends ModularState<SlidePrevisaoTempoPage, SlidePrevisaoTempoController> {
   //int currentIndex = 0;
 
   @override
@@ -55,7 +56,7 @@ class _SlideImagePageState
           builder: (BuildContext context, BoxConstraints constraints) {
             return FutureBuilder<Widget>(
               //currentIndex
-              future: getLayout(constraints.maxWidth, constraints.maxHeight),
+              future: getLayoutPrevisaoTempo(constraints.maxWidth, constraints.maxHeight),
               builder: (context, snapshot) {
                 return snapshot.data;
               },
@@ -71,7 +72,7 @@ class _SlideImagePageState
           builder: (BuildContext context, BoxConstraints constraints) {
             return FutureBuilder<Widget>(
               //currentIndex
-              future: getLayout(constraints.maxWidth, constraints.maxHeight,
+              future: getLayoutPrevisaoTempo(constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.cover),
               builder: (context, snapshot) {
                 return snapshot.data;
@@ -88,7 +89,7 @@ class _SlideImagePageState
           builder: (BuildContext context, BoxConstraints constraints) {
             return FutureBuilder<Widget>(
               //currentIndex
-              future: getLayout(constraints.maxWidth, constraints.maxHeight,
+              future: getLayoutPrevisaoTempo(constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.cover),
               builder: (context, snapshot) {
                 return snapshot.data;
@@ -104,7 +105,7 @@ class _SlideImagePageState
           builder: (BuildContext context, BoxConstraints constraints) {
             return FutureBuilder<Widget>(
               //currentIndex
-              future: getLayout(constraints.maxWidth, constraints.maxHeight,
+              future: getLayoutPrevisaoTempo(constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.contain),
               builder: (context, snapshot) {
                 return snapshot.data;
@@ -116,7 +117,7 @@ class _SlideImagePageState
     }
   }
 
-  Future<Widget> getLayout(double width, double height, {BoxFit boxFit}) async {
+  Future<Widget> getLayoutPrevisaoTempo(double width, double height, {BoxFit boxFit}) async {
     //Abre o banco
     // ConteudoDAO dao = Database.instance.conteudoDAO;
     //Chama metodo para buscar no banco
@@ -132,9 +133,52 @@ class _SlideImagePageState
       //print(widget.conteudo.conteudo.campos);
       var content = jsonDecode(widget.conteudoModel.conteudo.campos);
       // Le os atributos do Json Campos'
+
+      var contPrevisao = jsonDecode(widget.conteudoModel.conteudo.previsao);
+      List<PrevisaoItem> list = [];
+
+      contPrevisao.forEach((e) {
+        final campoPrevisaoTempo = PrevisaoItem.fromJson(e);
+        list.add(campoPrevisaoTempo);
+      });
+
       content.forEach((e) {
         // Converte json em Model
         final campoConvert = ConteudosCampo.fromJson(e);
+
+        if (campoConvert.indice != null && campoConvert.indice >= 0) {
+          PrevisaoItem previsao = list.elementAt(campoConvert.indice);
+          switch (campoConvert.variavel) {
+            case 'cidade':
+              campoConvert.valor = widget.conteudoModel.conteudo.cidade +
+                  ' ' +
+                  widget.conteudoModel.conteudo.uf;
+              break;
+            case 'data':
+              //final formatter =
+                //  new DateFormat('dd-MM-yyyy').format(previsao.data);
+              //campoConvert.valor = formatter;
+              break;
+            case 'tempo':
+              campoConvert.valor = previsao.tempo;
+              break;
+            case 'maxima':
+              campoConvert.valor = previsao.maxima.toString();
+              break;
+            case 'minima':
+              campoConvert.valor = previsao.minima.toString();
+              break;
+            case 'iuv':
+              campoConvert.valor = previsao.iuv.toString();
+              break;
+            case 'url':
+              //campoConvert.valor = previsao.url;
+              break;
+            case 'descricao':
+              campoConvert.valor = previsao.descricao;
+              break;
+          }
+        }
 
         //Seto posicao na tela
         var px = campoConvert.positionLeft * width / 100;
@@ -148,7 +192,7 @@ class _SlideImagePageState
           Positioned(
             left: px,
             top: py,
-            child: Text(campoConvert.nome,
+            child: Text(campoConvert.valor,
                 style: TextStyle(
                     fontSize: campoConvert.fonteTamanho,
                     fontFamily: campoConvert.fonte,
@@ -168,7 +212,7 @@ class _SlideImagePageState
       child: Stack(children: children),
     );
   }
-  
+
 /*
   Future<Widget> getLayout(double width, double height, int index) async {
     //Abre o banco

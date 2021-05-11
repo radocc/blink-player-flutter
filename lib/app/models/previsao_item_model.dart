@@ -1,3 +1,4 @@
+
 class PrevisaoItem {
   String tempo;
   String descricao;
@@ -23,7 +24,8 @@ class PrevisaoItem {
     maxima = json['maxima'];
     minima = json['minima'];
     iuv = json['iuv'];
-    data = json['data'];
+    //data = DateFormat.yMd().parse(json['data']);
+    //data = json['data'];
   }
 
   Map<String, dynamic> toJson() {
