@@ -104,9 +104,9 @@ class Database extends _$Database {
     previsaoTempoDAO = PrevisaoTempoImagemDAO(this);
     loteriaResultadosDAO = LoteriaResultadosDAO(this);
     previsaoTemposDAO = PrevisaoTemposDAO(this);
-    sequenciaConteudoDAO = SequenciaConteudoDAO(this);
-    conteudoVisualizadoDAO = ConteudoVisualizadoDAO(this);
+    sequenciaConteudoDAO = SequenciaConteudoDAO(this);    
     equipamentoDAO = EquipamentoDAO(this);
+    conteudoVisualizadoDAO = ConteudoVisualizadoDAO(this,equipamentoDAO);
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'package:blink/app/database/dao/abstract_dao.dart';
+import 'package:blink/app/database/dao/equipamento_dao.dart';
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/database/entity/conteudo_visualizado_entity.dart';
 import 'package:intl/intl.dart';
@@ -9,14 +10,17 @@ part 'conteudo_visualizado_dao.g.dart';
 @UseDao(tables: [ConteudosVisualizados])
 class ConteudoVisualizadoDAO extends AbstractDAO<ConteudoVisualizado> with _$ConteudoVisualizadoDAOMixin {
   
-  ConteudoVisualizadoDAO(Database db) : super(db){
+  Equipamento equipamento;
+  EquipamentoDAO equipamentoDAO;
+
+  ConteudoVisualizadoDAO(Database db, this.equipamentoDAO) : super(db){
     table = conteudosVisualizados;
   }
 
   Future save(ConteudoVisualizado entity)async {
     if ((entity as dynamic).id == null){
       var row = await into(conteudosVisualizados).insertOnConflictUpdate(entity);
-      print('RoW-save ' + row.toString());
+      print('RoW-Save Conteudo Visualizado ' + row.toString());
       var ret = (select(conteudosVisualizados)..where((dynamic tbl) => tbl.id.equals(row))).getSingle();
       return ret;
     }else {
@@ -51,7 +55,13 @@ class ConteudoVisualizadoDAO extends AbstractDAO<ConteudoVisualizado> with _$Con
     }
     conteudoVisualizado.idConteudo = idConteudo;
     conteudoVisualizado.idNoticia = idNoticia;
-    // conteudoVisualizado.idPlayer = ;
+    if (equipamento == null){
+      equipamento = await equipamentoDAO.getEquipamento();
+    }
+    conteudoVisualizado.idPlayer = equipamento.idPlayer;
+    conteudoVisualizado.dataAlteracao = DateTime.now();
+    conteudoVisualizado.dataExecucao = DateTime.now();
+    
     conteudoVisualizado = await save(conteudoVisualizado) ;
     return conteudoVisualizado;
   }

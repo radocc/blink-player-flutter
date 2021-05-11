@@ -117,11 +117,6 @@ class _SlideDefaultPageState
   }
 
   Future<Widget> getLayout(double width, double height, {BoxFit boxFit}) async {
-    //Abre o banco
-    // ConteudoDAO dao = Database.instance.conteudoDAO;
-    //Chama metodo para buscar no banco
-    // List<ConteudoTemplateModel> listaConteudo =
-    //     await dao.getAllConteudoWithTemplate();
     List<Widget> children = [];
 
     //Ler todos os registros do banco

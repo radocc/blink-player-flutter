@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:blink/app/database/dao/noticia_dao.dart';
+import 'package:blink/app/database/dao/template_dao.dart';
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/models/conteudo_campos.dart';
 import 'package:blink/app/models/conteudo_template_model.dart';
@@ -30,11 +31,14 @@ class _SlideNoticiaPageState
   //int currentIndex = 0;
   Noticia noticia;
   NoticiaDAO noticiaDAO;
+  Template template;
+  TemplateDAO templateDAO;
+
   @override
   void initState() {
     super.initState();
     noticiaDAO = Database.instance.noticiaDAO;
-    
+    templateDAO = Database.instance.templateDAO;
     Future.delayed(nextDuration, () {
       //
       // Proximo slide
@@ -124,6 +128,8 @@ class _SlideNoticiaPageState
 
   Future<Widget> getLayout(double width, double height, {BoxFit boxFit}) async {
     noticia = await noticiaDAO.getProxima(widget.conteudoModel.conteudo.id);
+    
+    template = await templateDAO.findPorId(noticia.idTemplate);
     // List<ConteudoTemplateModel> listaConteudo =
     //     await dao.getAllConteudoWithTemplate();
     List<Widget> children = [];
@@ -131,10 +137,10 @@ class _SlideNoticiaPageState
     //Ler todos os registros do banco
     // listaConteudo.forEach((e) async {
     //Verifica se o objeto possui campo
-    if (widget.conteudoModel.conteudo.campos != null) {
+    if (template.campos != null) {
       //Decodifica json do objeto 'Campos' quando existir
       //print(widget.conteudo.conteudo.campos);
-      var content = jsonDecode(widget.conteudoModel.conteudo.campos);
+      var content = jsonDecode( template.campos );
       // Le os atributos do Json Campos'
       content.forEach((e) {
         // Converte json em Model

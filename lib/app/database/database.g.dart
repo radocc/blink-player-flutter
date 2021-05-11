@@ -1416,13 +1416,15 @@ class Template extends DataClass implements Insertable<Template> {
   int idTipoConteudo;
   int tipoArquivo;
   int idArquivo;
+  String campos;
   Template(
       {@required this.id,
       this.nome,
       this.nomeArquivo,
       @required this.idTipoConteudo,
       @required this.tipoArquivo,
-      @required this.idArquivo});
+      @required this.idArquivo,
+      this.campos});
   factory Template.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -1439,6 +1441,8 @@ class Template extends DataClass implements Insertable<Template> {
           .mapFromDatabaseResponse(data['${effectivePrefix}tipo_arquivo']),
       idArquivo:
           intType.mapFromDatabaseResponse(data['${effectivePrefix}id_arquivo']),
+      campos:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}campos']),
     );
   }
   @override
@@ -1462,6 +1466,9 @@ class Template extends DataClass implements Insertable<Template> {
     if (!nullToAbsent || idArquivo != null) {
       map['id_arquivo'] = Variable<int>(idArquivo);
     }
+    if (!nullToAbsent || campos != null) {
+      map['campos'] = Variable<String>(campos);
+    }
     return map;
   }
 
@@ -1481,6 +1488,8 @@ class Template extends DataClass implements Insertable<Template> {
       idArquivo: idArquivo == null && nullToAbsent
           ? const Value.absent()
           : Value(idArquivo),
+      campos:
+          campos == null && nullToAbsent ? const Value.absent() : Value(campos),
     );
   }
 
@@ -1494,6 +1503,7 @@ class Template extends DataClass implements Insertable<Template> {
       idTipoConteudo: serializer.fromJson<int>(json['idTipoConteudo']),
       tipoArquivo: serializer.fromJson<int>(json['tipoArquivo']),
       idArquivo: serializer.fromJson<int>(json['idArquivo']),
+      campos: serializer.fromJson<String>(json['campos']),
     );
   }
   @override
@@ -1506,6 +1516,7 @@ class Template extends DataClass implements Insertable<Template> {
       'idTipoConteudo': serializer.toJson<int>(idTipoConteudo),
       'tipoArquivo': serializer.toJson<int>(tipoArquivo),
       'idArquivo': serializer.toJson<int>(idArquivo),
+      'campos': serializer.toJson<String>(campos),
     };
   }
 
@@ -1515,7 +1526,8 @@ class Template extends DataClass implements Insertable<Template> {
           String nomeArquivo,
           int idTipoConteudo,
           int tipoArquivo,
-          int idArquivo}) =>
+          int idArquivo,
+          String campos}) =>
       Template(
         id: id ?? this.id,
         nome: nome ?? this.nome,
@@ -1523,6 +1535,7 @@ class Template extends DataClass implements Insertable<Template> {
         idTipoConteudo: idTipoConteudo ?? this.idTipoConteudo,
         tipoArquivo: tipoArquivo ?? this.tipoArquivo,
         idArquivo: idArquivo ?? this.idArquivo,
+        campos: campos ?? this.campos,
       );
   @override
   String toString() {
@@ -1532,7 +1545,8 @@ class Template extends DataClass implements Insertable<Template> {
           ..write('nomeArquivo: $nomeArquivo, ')
           ..write('idTipoConteudo: $idTipoConteudo, ')
           ..write('tipoArquivo: $tipoArquivo, ')
-          ..write('idArquivo: $idArquivo')
+          ..write('idArquivo: $idArquivo, ')
+          ..write('campos: $campos')
           ..write(')'))
         .toString();
   }
@@ -1544,8 +1558,10 @@ class Template extends DataClass implements Insertable<Template> {
           nome.hashCode,
           $mrjc(
               nomeArquivo.hashCode,
-              $mrjc(idTipoConteudo.hashCode,
-                  $mrjc(tipoArquivo.hashCode, idArquivo.hashCode))))));
+              $mrjc(
+                  idTipoConteudo.hashCode,
+                  $mrjc(tipoArquivo.hashCode,
+                      $mrjc(idArquivo.hashCode, campos.hashCode)))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -1555,7 +1571,8 @@ class Template extends DataClass implements Insertable<Template> {
           other.nomeArquivo == this.nomeArquivo &&
           other.idTipoConteudo == this.idTipoConteudo &&
           other.tipoArquivo == this.tipoArquivo &&
-          other.idArquivo == this.idArquivo);
+          other.idArquivo == this.idArquivo &&
+          other.campos == this.campos);
 }
 
 class TemplatesCompanion extends UpdateCompanion<Template> {
@@ -1565,6 +1582,7 @@ class TemplatesCompanion extends UpdateCompanion<Template> {
   Value<int> idTipoConteudo;
   Value<int> tipoArquivo;
   Value<int> idArquivo;
+  Value<String> campos;
   TemplatesCompanion({
     this.id = const Value.absent(),
     this.nome = const Value.absent(),
@@ -1572,6 +1590,7 @@ class TemplatesCompanion extends UpdateCompanion<Template> {
     this.idTipoConteudo = const Value.absent(),
     this.tipoArquivo = const Value.absent(),
     this.idArquivo = const Value.absent(),
+    this.campos = const Value.absent(),
   });
   TemplatesCompanion.insert({
     this.id = const Value.absent(),
@@ -1580,6 +1599,7 @@ class TemplatesCompanion extends UpdateCompanion<Template> {
     @required int idTipoConteudo,
     @required int tipoArquivo,
     @required int idArquivo,
+    this.campos = const Value.absent(),
   })  : idTipoConteudo = Value(idTipoConteudo),
         tipoArquivo = Value(tipoArquivo),
         idArquivo = Value(idArquivo);
@@ -1590,6 +1610,7 @@ class TemplatesCompanion extends UpdateCompanion<Template> {
     Expression<int> idTipoConteudo,
     Expression<int> tipoArquivo,
     Expression<int> idArquivo,
+    Expression<String> campos,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -1598,6 +1619,7 @@ class TemplatesCompanion extends UpdateCompanion<Template> {
       if (idTipoConteudo != null) 'id_tipo_conteudo': idTipoConteudo,
       if (tipoArquivo != null) 'tipo_arquivo': tipoArquivo,
       if (idArquivo != null) 'id_arquivo': idArquivo,
+      if (campos != null) 'campos': campos,
     });
   }
 
@@ -1607,7 +1629,8 @@ class TemplatesCompanion extends UpdateCompanion<Template> {
       Value<String> nomeArquivo,
       Value<int> idTipoConteudo,
       Value<int> tipoArquivo,
-      Value<int> idArquivo}) {
+      Value<int> idArquivo,
+      Value<String> campos}) {
     return TemplatesCompanion(
       id: id ?? this.id,
       nome: nome ?? this.nome,
@@ -1615,6 +1638,7 @@ class TemplatesCompanion extends UpdateCompanion<Template> {
       idTipoConteudo: idTipoConteudo ?? this.idTipoConteudo,
       tipoArquivo: tipoArquivo ?? this.tipoArquivo,
       idArquivo: idArquivo ?? this.idArquivo,
+      campos: campos ?? this.campos,
     );
   }
 
@@ -1639,6 +1663,9 @@ class TemplatesCompanion extends UpdateCompanion<Template> {
     if (idArquivo.present) {
       map['id_arquivo'] = Variable<int>(idArquivo.value);
     }
+    if (campos.present) {
+      map['campos'] = Variable<String>(campos.value);
+    }
     return map;
   }
 
@@ -1650,7 +1677,8 @@ class TemplatesCompanion extends UpdateCompanion<Template> {
           ..write('nomeArquivo: $nomeArquivo, ')
           ..write('idTipoConteudo: $idTipoConteudo, ')
           ..write('tipoArquivo: $tipoArquivo, ')
-          ..write('idArquivo: $idArquivo')
+          ..write('idArquivo: $idArquivo, ')
+          ..write('campos: $campos')
           ..write(')'))
         .toString();
   }
@@ -1729,9 +1757,21 @@ class $TemplatesTable extends Templates
     );
   }
 
+  final VerificationMeta _camposMeta = const VerificationMeta('campos');
+  GeneratedTextColumn _campos;
+  @override
+  GeneratedTextColumn get campos => _campos ??= _constructCampos();
+  GeneratedTextColumn _constructCampos() {
+    return GeneratedTextColumn(
+      'campos',
+      $tableName,
+      true,
+    );
+  }
+
   @override
   List<GeneratedColumn> get $columns =>
-      [id, nome, nomeArquivo, idTipoConteudo, tipoArquivo, idArquivo];
+      [id, nome, nomeArquivo, idTipoConteudo, tipoArquivo, idArquivo, campos];
   @override
   $TemplatesTable get asDslTable => this;
   @override
@@ -1777,6 +1817,10 @@ class $TemplatesTable extends Templates
           idArquivo.isAcceptableOrUnknown(data['id_arquivo'], _idArquivoMeta));
     } else if (isInserting) {
       context.missing(_idArquivoMeta);
+    }
+    if (data.containsKey('campos')) {
+      context.handle(_camposMeta,
+          campos.isAcceptableOrUnknown(data['campos'], _camposMeta));
     }
     return context;
   }

@@ -18,7 +18,7 @@ class ConteudosCampo {
   int sequencia;
   int indice;
   num height;
-  int width;
+  num width;
   String valor;
   String variavel;
 

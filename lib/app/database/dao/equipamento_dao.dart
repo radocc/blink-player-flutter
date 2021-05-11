@@ -12,6 +12,10 @@ class EquipamentoDAO extends AbstractDAO<Equipamento> with _$EquipamentoDAOMixin
     table = equipamentos;
   }
 
+  Future<Equipamento> getEquipamento() async{
+    return (select(equipamentos)..limit(1)).getSingle();
+  }
+
   Future addValueEquipments(Equipamento entity) {
     return into(equipamentos).insertOnConflictUpdate(entity);
   }

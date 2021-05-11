@@ -11,4 +11,5 @@ class Templates extends Table {
   IntColumn get idTipoConteudo => integer()();
   IntColumn get tipoArquivo => integer()();
   IntColumn get idArquivo => integer()();
+  TextColumn get campos => text().nullable()();
 }
