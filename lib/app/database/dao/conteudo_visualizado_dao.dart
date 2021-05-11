@@ -13,6 +13,19 @@ class ConteudoVisualizadoDAO extends AbstractDAO<ConteudoVisualizado> with _$Con
     table = conteudosVisualizados;
   }
 
+  Future save(ConteudoVisualizado entity)async {
+    if ((entity as dynamic).id == null){
+      var row = await into(conteudosVisualizados).insertOnConflictUpdate(entity);
+      print('RoW-save ' + row.toString());
+      var ret = (select(conteudosVisualizados)..where((dynamic tbl) => tbl.id.equals(row))).getSingle();
+      return ret;
+    }else {
+      await update(conteudosVisualizados).replace(entity);
+      var ret = (select(conteudosVisualizados)..where((dynamic tbl) => tbl.id.equals((entity as dynamic).id))).getSingle();
+      return ret;
+    }
+  }
+
   // Future<int> getUltimo(int identificacao) async {
   //   var result = await customSelect("Select * from ConteudoVisualizado ",
   //     variables: [Variable.withInt(1)]

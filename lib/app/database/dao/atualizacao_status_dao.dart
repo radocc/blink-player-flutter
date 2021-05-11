@@ -12,6 +12,18 @@ class AtualizacaoStatusDAO extends AbstractDAO<AtualizacaoStatus> with _$Atualiz
     table = atualizacoesStatus;
   }
 
+ Future save(AtualizacaoStatus entity)async {
+    if ((entity as dynamic).id == null){
+      var row = await into(atualizacoesStatus).insertOnConflictUpdate(entity);
+      print('RoW-save ' + row.toString());
+      var ret = (select(atualizacoesStatus)..where((dynamic tbl) => tbl.id.equals(row))).getSingle();
+      return ret;
+    }else {
+      await update(atualizacoesStatus).replace(entity);
+      var ret = (select(atualizacoesStatus)..where((dynamic tbl) => tbl.id.equals((entity as dynamic).id))).getSingle();
+      return ret;
+    }
+  }
 
 
   Future<AtualizacaoStatus> getUltimo(int identificacao) async {
