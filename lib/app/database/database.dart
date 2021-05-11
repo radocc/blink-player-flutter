@@ -5,6 +5,7 @@ import 'package:blink/app/database/dao/atualizacao_dao.dart';
 import 'package:blink/app/database/dao/atualizacao_status_dao.dart';
 import 'package:blink/app/database/dao/configuracao_dao.dart';
 import 'package:blink/app/database/dao/conteudo_dao.dart';
+import 'package:blink/app/database/dao/conteudo_visualizado_dao.dart';
 import 'package:blink/app/database/dao/equipamento_dao.dart';
 import 'package:blink/app/database/dao/noticia_dao.dart';
 import 'package:blink/app/database/dao/player_dados_dao.dart';
@@ -17,7 +18,8 @@ import 'package:blink/app/database/entity/atualizacao_status_entity.dart';
 import 'package:blink/app/database/entity/configuracao_entity.dart';
 import 'package:blink/app/database/entity/conteudo_agendamento_entity.dart';
 import 'package:blink/app/database/entity/conteudo_campo_entity.dart';
-import 'package:blink/app/database/entity/conteudo_entity.dart';
+import 'package:blink/app/database/entity/conteudo_entity.dart'; 
+import 'package:blink/app/database/entity/conteudo_visualizado_entity.dart';
 import 'package:blink/app/database/entity/equipamentos_entity.dart';
 import 'package:blink/app/database/entity/loteria_resultado_entity.dart';
 import 'package:blink/app/database/entity/player_dados.dart';
@@ -56,6 +58,7 @@ part 'database.g.dart';
   LoteriaResultados,
   PrevisaoTempos,
   SequenciaConteudos,
+  ConteudosVisualizados
 ])
 class Database extends _$Database {
   PlayerDadosDAO playerDAO;
@@ -71,6 +74,8 @@ class Database extends _$Database {
   LoteriaResultadosDAO loteriaResultadosDAO;
   PrevisaoTemposDAO previsaoTemposDAO;
   SequenciaConteudoDAO sequenciaConteudoDAO;
+  ConteudoVisualizadoDAO conteudoVisualizadoDAO;
+  EquipamentoDAO equipamentoDAO;
 
   // static Database instance = Database._internal();
   // Database._internal()
@@ -100,10 +105,12 @@ class Database extends _$Database {
     loteriaResultadosDAO = LoteriaResultadosDAO(this);
     previsaoTemposDAO = PrevisaoTemposDAO(this);
     sequenciaConteudoDAO = SequenciaConteudoDAO(this);
+    conteudoVisualizadoDAO = ConteudoVisualizadoDAO(this);
+    equipamentoDAO = EquipamentoDAO(this);
   }
 
   @override
-  int get schemaVersion => 6;
+  int get schemaVersion => 7;
 
   @override
   MigrationStrategy get migration {

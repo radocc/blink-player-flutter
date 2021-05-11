@@ -2,9 +2,14 @@ import 'dart:io';
 
 import 'package:blink/app/components/touch_left_screen.dart';
 import 'package:blink/app/database/dao/conteudo_dao.dart';
+import 'package:blink/app/database/dao/conteudo_visualizado_dao.dart';
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/models/conteudo_template_model.dart';
+import 'package:blink/app/models/enuns/tipoconteudo_enum.dart';
+import 'package:blink/app/pages/slide_default/slide_default_page.dart';
 import 'package:blink/app/pages/slide_image/slide_image_page.dart';
+import 'package:blink/app/pages/slide_loteria/slide_loteria_page.dart';
+import 'package:blink/app/pages/slide_noticia/slide_noticia_page.dart';
 import 'package:blink/app/pages/slide_video/slide_video_page.dart';
 import 'package:cross_connectivity/cross_connectivity.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +31,7 @@ class _CarouselPageState
   List<File> files;
   List<ConteudoTemplateModel> filesConteudo;
   ConteudoDAO dao = Database.instance.conteudoDAO;
+  ConteudoVisualizadoDAO visualizadoDAO = Database.instance.conteudoVisualizadoDAO;
   FileSystemEntity file;
 
   @override
@@ -115,26 +121,36 @@ class _CarouselPageState
         curve: Curves.linear,
       );
     }
+    /**
+     * Rotina para registrar a visualização do Conteudo
+     */
+    // visualizadoDAO.registrarVisualizacao(conteudoTemplate.conteudo.id, null);
   }
 
   //
   // Verifica se é um slide de imagem ou de video
   //
-  Widget getItem(ConteudoTemplateModel conteudo) {
-    String ext = extension(conteudo.file.path);
+  Widget getItem(ConteudoTemplateModel conteudoTemplate) {
+    String ext = extension(conteudoTemplate.file.path);
+    visualizadoDAO.registrarVisualizacao(conteudoTemplate.conteudo.id, null);
     //
     // Slide de video
     //
     if (controller.extVideo.contains(ext)) {
-      return SlideVideoPage(conteudo, next: nextPage);
+      return SlideVideoPage(conteudoTemplate, next: nextPage);
+    }else if (controller.extImg.contains(ext)) {
+      //
+      // Slide de imagem
+      //
+      return SlideImagePage(conteudoTemplate, next: nextPage);
+    }else if (conteudoTemplate.conteudo.tipo == TipoConteudo.PADRAO.index){
+      return SlideDefaultPage(conteudoTemplate, next:nextPage);
+    }else if (conteudoTemplate.conteudo.tipo == TipoConteudo.NOTICIAS.index){
+      return SlideNoticiaPage(conteudoTemplate, next:nextPage);
+    }else if (conteudoTemplate.conteudo.tipo == TipoConteudo.LOTERIAS.index){
+      return SlideLoteriaPage(conteudoTemplate, next:nextPage);
     }
-    //
-    // Slide de imagem
-    //
-    if (controller.extImg.contains(ext)) {
-      return SlideImagePage(conteudo, next: nextPage);
-    }
-    return null;
+    return Container();
   }
 
   @override

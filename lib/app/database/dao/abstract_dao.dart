@@ -8,7 +8,7 @@ abstract class AbstractDAO<T extends Insertable<DataClass>>
 
   Future save(T entity)async {
      var row = await into(_table).insertOnConflictUpdate(entity);
-     print('RoW-save ' + row.toString());
+    //  print('RoW-save ' + row.toString());
      return (select(_table)..where((dynamic tbl) => tbl.id.equals(row))).getSingle();
   }
 

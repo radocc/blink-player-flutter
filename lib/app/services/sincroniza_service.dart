@@ -6,6 +6,7 @@ import 'package:blink/app/database/database.dart';
 import 'package:blink/app/modules/carousel/carousel_controller.dart';
 import 'package:blink/app/services/arquivo_service.dart';
 import 'package:blink/app/services/conteudo_service.dart';
+import 'package:blink/app/services/equipamento_service.dart';
 import 'package:blink/app/services/loteria_resultado_service.dart';
 import 'package:blink/app/services/noticia_service.dart';
 import 'package:blink/app/services/previsao_imagem_tempo_service.dart';
@@ -24,6 +25,7 @@ class SincronizaService {
   PrevisaoImagemTempoService previsaoImagemService;
   PrevisaoTempoService previsaoTempoService;
   SequenciaConteudoService sequenciaConteudoService;
+  EquipamentoService equipamentoService;
   AtualizacaoDAO atualizacaoDAO = Database.instance.atualizacaoDAO;
   
 
@@ -35,7 +37,8 @@ class SincronizaService {
       this.previsaoImagemService,
       this.previsaoTempoService,
       this.sequenciaConteudoService,
-      this.loteriaResultadoService);
+      this.loteriaResultadoService,
+      this.equipamentoService);
 
   Future iniciar() async {
     Atualizacoe atualizacao = Atualizacoe();
@@ -54,6 +57,7 @@ class SincronizaService {
       await downloadSequenciaConteudo( atualizacao );
       await downloadNoticias( atualizacao );
       await downloadLoteriaResultado( atualizacao );
+      await downloadEquipamento( atualizacao );
       atualizacao.fim = DateTime.now();      
       atualizacao = await atualizacaoDAO.save(atualizacao);
 
@@ -98,6 +102,11 @@ class SincronizaService {
   Future downloadLoteriaResultado(Atualizacoe atualizacao) async {
     //**Faz o download das Noticias */
     await loteriaResultadoService.download( atualizacao );
+  }
+
+  Future downloadEquipamento(Atualizacoe atualizacao) async {
+    //**Faz o download das Noticias */
+    await equipamentoService.download( atualizacao );
   }
 
   Future downloadPrevisaoImagemTempo(Atualizacoe atualizacao) async {

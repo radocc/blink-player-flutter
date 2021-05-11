@@ -5,7 +5,9 @@ import 'package:blink/app/modules/home/home_module.dart';
 import 'package:blink/app/pages/splash/splash_page.dart';
 import 'package:blink/app/repositories/arquivo_repository.dart';
 import 'package:blink/app/repositories/conteudo_repository.dart';
+import 'package:blink/app/repositories/conteudo_visualizado_repository.dart';
 import 'package:blink/app/repositories/dio/custom_dio.dart';
+import 'package:blink/app/repositories/equipamento_repository.dart';
 import 'package:blink/app/repositories/login_repository.dart';
 import 'package:blink/app/repositories/loteria_resultado_repository.dart';
 import 'package:blink/app/repositories/noticia_repository.dart';
@@ -16,6 +18,8 @@ import 'package:blink/app/repositories/template_repository.dart';
 import 'package:blink/app/services/arquivo_service.dart';
 import 'package:blink/app/services/conexao_service.dart';
 import 'package:blink/app/services/conteudo_service.dart';
+import 'package:blink/app/services/conteudo_visualizado_service.dart';
+import 'package:blink/app/services/equipamento_service.dart';
 import 'package:blink/app/services/login_service.dart';
 import 'package:blink/app/services/loteria_resultado_service.dart';
 import 'package:blink/app/services/noticia_service.dart';
@@ -50,7 +54,8 @@ class AppModule extends MainModule {
               i.get<PrevisaoImagemTempoService>(),
               i.get<PrevisaoTempoService>(),
               i.get<SequenciaConteudoService>(),
-              i.get<LoteriaResultadoService>()
+              i.get<LoteriaResultadoService>(),
+              i.get<EquipamentoService>()
             )),
         Bind((i) => SplashController(
               i.get<LoginService>(),
@@ -76,6 +81,10 @@ class AppModule extends MainModule {
         Bind((i) => SequenciaConteudoRepository()),
         Bind((i) => LoteriaResultadoService(i.get<LoteriaResultadoRepository>())),
         Bind((i) => LoteriaResultadoRepository()),
+        Bind((i) => ConteudoVisualizadoRepository()),
+        Bind((i) => ConteudoVisualizadoService(i.get<ConteudoVisualizadoRepository>())),
+        Bind((i) => EquipamentoService(i.get<EquipamentoRepository>())),
+        Bind((i) => EquipamentoRepository())
         
       ];
 

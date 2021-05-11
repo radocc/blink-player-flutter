@@ -4322,14 +4322,22 @@ class $ConteudoCamposTable extends ConteudoCampos
 class Equipamento extends DataClass implements Insertable<Equipamento> {
   int id;
   String nome;
+  String nomePlayer;
+  int idPlayer;
   String uuid;
+  String identificador;
+  String idOneSignal;
   DateTime dataCadastro;
   DateTime dataAlteracao;
   bool ativado;
   Equipamento(
       {@required this.id,
       this.nome,
-      @required this.uuid,
+      this.nomePlayer,
+      this.idPlayer,
+      this.uuid,
+      this.identificador,
+      this.idOneSignal,
       this.dataCadastro,
       this.dataAlteracao,
       @required this.ativado});
@@ -4343,7 +4351,15 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
     return Equipamento(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       nome: stringType.mapFromDatabaseResponse(data['${effectivePrefix}nome']),
+      nomePlayer: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}nome_player']),
+      idPlayer:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_player']),
       uuid: stringType.mapFromDatabaseResponse(data['${effectivePrefix}uuid']),
+      identificador: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}identificador']),
+      idOneSignal: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_one_signal']),
       dataCadastro: dateTimeType
           .mapFromDatabaseResponse(data['${effectivePrefix}data_cadastro']),
       dataAlteracao: dateTimeType
@@ -4361,8 +4377,20 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
     if (!nullToAbsent || nome != null) {
       map['nome'] = Variable<String>(nome);
     }
+    if (!nullToAbsent || nomePlayer != null) {
+      map['nome_player'] = Variable<String>(nomePlayer);
+    }
+    if (!nullToAbsent || idPlayer != null) {
+      map['id_player'] = Variable<int>(idPlayer);
+    }
     if (!nullToAbsent || uuid != null) {
       map['uuid'] = Variable<String>(uuid);
+    }
+    if (!nullToAbsent || identificador != null) {
+      map['identificador'] = Variable<String>(identificador);
+    }
+    if (!nullToAbsent || idOneSignal != null) {
+      map['id_one_signal'] = Variable<String>(idOneSignal);
     }
     if (!nullToAbsent || dataCadastro != null) {
       map['data_cadastro'] = Variable<DateTime>(dataCadastro);
@@ -4380,7 +4408,19 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
     return EquipamentosCompanion(
       id: id == null && nullToAbsent ? const Value.absent() : Value(id),
       nome: nome == null && nullToAbsent ? const Value.absent() : Value(nome),
+      nomePlayer: nomePlayer == null && nullToAbsent
+          ? const Value.absent()
+          : Value(nomePlayer),
+      idPlayer: idPlayer == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idPlayer),
       uuid: uuid == null && nullToAbsent ? const Value.absent() : Value(uuid),
+      identificador: identificador == null && nullToAbsent
+          ? const Value.absent()
+          : Value(identificador),
+      idOneSignal: idOneSignal == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idOneSignal),
       dataCadastro: dataCadastro == null && nullToAbsent
           ? const Value.absent()
           : Value(dataCadastro),
@@ -4399,7 +4439,11 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
     return Equipamento(
       id: serializer.fromJson<int>(json['id']),
       nome: serializer.fromJson<String>(json['nome']),
+      nomePlayer: serializer.fromJson<String>(json['nomePlayer']),
+      idPlayer: serializer.fromJson<int>(json['idPlayer']),
       uuid: serializer.fromJson<String>(json['uuid']),
+      identificador: serializer.fromJson<String>(json['identificador']),
+      idOneSignal: serializer.fromJson<String>(json['idOneSignal']),
       dataCadastro: serializer.fromJson<DateTime>(json['dataCadastro']),
       dataAlteracao: serializer.fromJson<DateTime>(json['dataAlteracao']),
       ativado: serializer.fromJson<bool>(json['ativado']),
@@ -4411,7 +4455,11 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'nome': serializer.toJson<String>(nome),
+      'nomePlayer': serializer.toJson<String>(nomePlayer),
+      'idPlayer': serializer.toJson<int>(idPlayer),
       'uuid': serializer.toJson<String>(uuid),
+      'identificador': serializer.toJson<String>(identificador),
+      'idOneSignal': serializer.toJson<String>(idOneSignal),
       'dataCadastro': serializer.toJson<DateTime>(dataCadastro),
       'dataAlteracao': serializer.toJson<DateTime>(dataAlteracao),
       'ativado': serializer.toJson<bool>(ativado),
@@ -4421,14 +4469,22 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
   Equipamento copyWith(
           {int id,
           String nome,
+          String nomePlayer,
+          int idPlayer,
           String uuid,
+          String identificador,
+          String idOneSignal,
           DateTime dataCadastro,
           DateTime dataAlteracao,
           bool ativado}) =>
       Equipamento(
         id: id ?? this.id,
         nome: nome ?? this.nome,
+        nomePlayer: nomePlayer ?? this.nomePlayer,
+        idPlayer: idPlayer ?? this.idPlayer,
         uuid: uuid ?? this.uuid,
+        identificador: identificador ?? this.identificador,
+        idOneSignal: idOneSignal ?? this.idOneSignal,
         dataCadastro: dataCadastro ?? this.dataCadastro,
         dataAlteracao: dataAlteracao ?? this.dataAlteracao,
         ativado: ativado ?? this.ativado,
@@ -4438,7 +4494,11 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
     return (StringBuffer('Equipamento(')
           ..write('id: $id, ')
           ..write('nome: $nome, ')
+          ..write('nomePlayer: $nomePlayer, ')
+          ..write('idPlayer: $idPlayer, ')
           ..write('uuid: $uuid, ')
+          ..write('identificador: $identificador, ')
+          ..write('idOneSignal: $idOneSignal, ')
           ..write('dataCadastro: $dataCadastro, ')
           ..write('dataAlteracao: $dataAlteracao, ')
           ..write('ativado: $ativado')
@@ -4452,16 +4512,30 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
       $mrjc(
           nome.hashCode,
           $mrjc(
-              uuid.hashCode,
-              $mrjc(dataCadastro.hashCode,
-                  $mrjc(dataAlteracao.hashCode, ativado.hashCode))))));
+              nomePlayer.hashCode,
+              $mrjc(
+                  idPlayer.hashCode,
+                  $mrjc(
+                      uuid.hashCode,
+                      $mrjc(
+                          identificador.hashCode,
+                          $mrjc(
+                              idOneSignal.hashCode,
+                              $mrjc(
+                                  dataCadastro.hashCode,
+                                  $mrjc(dataAlteracao.hashCode,
+                                      ativado.hashCode))))))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
       (other is Equipamento &&
           other.id == this.id &&
           other.nome == this.nome &&
+          other.nomePlayer == this.nomePlayer &&
+          other.idPlayer == this.idPlayer &&
           other.uuid == this.uuid &&
+          other.identificador == this.identificador &&
+          other.idOneSignal == this.idOneSignal &&
           other.dataCadastro == this.dataCadastro &&
           other.dataAlteracao == this.dataAlteracao &&
           other.ativado == this.ativado);
@@ -4470,14 +4544,22 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
 class EquipamentosCompanion extends UpdateCompanion<Equipamento> {
   Value<int> id;
   Value<String> nome;
+  Value<String> nomePlayer;
+  Value<int> idPlayer;
   Value<String> uuid;
+  Value<String> identificador;
+  Value<String> idOneSignal;
   Value<DateTime> dataCadastro;
   Value<DateTime> dataAlteracao;
   Value<bool> ativado;
   EquipamentosCompanion({
     this.id = const Value.absent(),
     this.nome = const Value.absent(),
+    this.nomePlayer = const Value.absent(),
+    this.idPlayer = const Value.absent(),
     this.uuid = const Value.absent(),
+    this.identificador = const Value.absent(),
+    this.idOneSignal = const Value.absent(),
     this.dataCadastro = const Value.absent(),
     this.dataAlteracao = const Value.absent(),
     this.ativado = const Value.absent(),
@@ -4485,16 +4567,23 @@ class EquipamentosCompanion extends UpdateCompanion<Equipamento> {
   EquipamentosCompanion.insert({
     this.id = const Value.absent(),
     this.nome = const Value.absent(),
-    @required String uuid,
+    this.nomePlayer = const Value.absent(),
+    this.idPlayer = const Value.absent(),
+    this.uuid = const Value.absent(),
+    this.identificador = const Value.absent(),
+    this.idOneSignal = const Value.absent(),
     this.dataCadastro = const Value.absent(),
     this.dataAlteracao = const Value.absent(),
     @required bool ativado,
-  })  : uuid = Value(uuid),
-        ativado = Value(ativado);
+  }) : ativado = Value(ativado);
   static Insertable<Equipamento> custom({
     Expression<int> id,
     Expression<String> nome,
+    Expression<String> nomePlayer,
+    Expression<int> idPlayer,
     Expression<String> uuid,
+    Expression<String> identificador,
+    Expression<String> idOneSignal,
     Expression<DateTime> dataCadastro,
     Expression<DateTime> dataAlteracao,
     Expression<bool> ativado,
@@ -4502,7 +4591,11 @@ class EquipamentosCompanion extends UpdateCompanion<Equipamento> {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (nome != null) 'nome': nome,
+      if (nomePlayer != null) 'nome_player': nomePlayer,
+      if (idPlayer != null) 'id_player': idPlayer,
       if (uuid != null) 'uuid': uuid,
+      if (identificador != null) 'identificador': identificador,
+      if (idOneSignal != null) 'id_one_signal': idOneSignal,
       if (dataCadastro != null) 'data_cadastro': dataCadastro,
       if (dataAlteracao != null) 'data_alteracao': dataAlteracao,
       if (ativado != null) 'ativado': ativado,
@@ -4512,14 +4605,22 @@ class EquipamentosCompanion extends UpdateCompanion<Equipamento> {
   EquipamentosCompanion copyWith(
       {Value<int> id,
       Value<String> nome,
+      Value<String> nomePlayer,
+      Value<int> idPlayer,
       Value<String> uuid,
+      Value<String> identificador,
+      Value<String> idOneSignal,
       Value<DateTime> dataCadastro,
       Value<DateTime> dataAlteracao,
       Value<bool> ativado}) {
     return EquipamentosCompanion(
       id: id ?? this.id,
       nome: nome ?? this.nome,
+      nomePlayer: nomePlayer ?? this.nomePlayer,
+      idPlayer: idPlayer ?? this.idPlayer,
       uuid: uuid ?? this.uuid,
+      identificador: identificador ?? this.identificador,
+      idOneSignal: idOneSignal ?? this.idOneSignal,
       dataCadastro: dataCadastro ?? this.dataCadastro,
       dataAlteracao: dataAlteracao ?? this.dataAlteracao,
       ativado: ativado ?? this.ativado,
@@ -4535,8 +4636,20 @@ class EquipamentosCompanion extends UpdateCompanion<Equipamento> {
     if (nome.present) {
       map['nome'] = Variable<String>(nome.value);
     }
+    if (nomePlayer.present) {
+      map['nome_player'] = Variable<String>(nomePlayer.value);
+    }
+    if (idPlayer.present) {
+      map['id_player'] = Variable<int>(idPlayer.value);
+    }
     if (uuid.present) {
       map['uuid'] = Variable<String>(uuid.value);
+    }
+    if (identificador.present) {
+      map['identificador'] = Variable<String>(identificador.value);
+    }
+    if (idOneSignal.present) {
+      map['id_one_signal'] = Variable<String>(idOneSignal.value);
     }
     if (dataCadastro.present) {
       map['data_cadastro'] = Variable<DateTime>(dataCadastro.value);
@@ -4555,7 +4668,11 @@ class EquipamentosCompanion extends UpdateCompanion<Equipamento> {
     return (StringBuffer('EquipamentosCompanion(')
           ..write('id: $id, ')
           ..write('nome: $nome, ')
+          ..write('nomePlayer: $nomePlayer, ')
+          ..write('idPlayer: $idPlayer, ')
           ..write('uuid: $uuid, ')
+          ..write('identificador: $identificador, ')
+          ..write('idOneSignal: $idOneSignal, ')
           ..write('dataCadastro: $dataCadastro, ')
           ..write('dataAlteracao: $dataAlteracao, ')
           ..write('ativado: $ativado')
@@ -4586,6 +4703,27 @@ class $EquipamentosTable extends Equipamentos
     return GeneratedTextColumn('nome', $tableName, true, maxTextLength: 200);
   }
 
+  final VerificationMeta _nomePlayerMeta = const VerificationMeta('nomePlayer');
+  GeneratedTextColumn _nomePlayer;
+  @override
+  GeneratedTextColumn get nomePlayer => _nomePlayer ??= _constructNomePlayer();
+  GeneratedTextColumn _constructNomePlayer() {
+    return GeneratedTextColumn('nome_player', $tableName, true,
+        maxTextLength: 200);
+  }
+
+  final VerificationMeta _idPlayerMeta = const VerificationMeta('idPlayer');
+  GeneratedIntColumn _idPlayer;
+  @override
+  GeneratedIntColumn get idPlayer => _idPlayer ??= _constructIdPlayer();
+  GeneratedIntColumn _constructIdPlayer() {
+    return GeneratedIntColumn(
+      'id_player',
+      $tableName,
+      true,
+    );
+  }
+
   final VerificationMeta _uuidMeta = const VerificationMeta('uuid');
   GeneratedTextColumn _uuid;
   @override
@@ -4594,7 +4732,35 @@ class $EquipamentosTable extends Equipamentos
     return GeneratedTextColumn(
       'uuid',
       $tableName,
-      false,
+      true,
+    );
+  }
+
+  final VerificationMeta _identificadorMeta =
+      const VerificationMeta('identificador');
+  GeneratedTextColumn _identificador;
+  @override
+  GeneratedTextColumn get identificador =>
+      _identificador ??= _constructIdentificador();
+  GeneratedTextColumn _constructIdentificador() {
+    return GeneratedTextColumn(
+      'identificador',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _idOneSignalMeta =
+      const VerificationMeta('idOneSignal');
+  GeneratedTextColumn _idOneSignal;
+  @override
+  GeneratedTextColumn get idOneSignal =>
+      _idOneSignal ??= _constructIdOneSignal();
+  GeneratedTextColumn _constructIdOneSignal() {
+    return GeneratedTextColumn(
+      'id_one_signal',
+      $tableName,
+      true,
     );
   }
 
@@ -4639,8 +4805,18 @@ class $EquipamentosTable extends Equipamentos
   }
 
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, nome, uuid, dataCadastro, dataAlteracao, ativado];
+  List<GeneratedColumn> get $columns => [
+        id,
+        nome,
+        nomePlayer,
+        idPlayer,
+        uuid,
+        identificador,
+        idOneSignal,
+        dataCadastro,
+        dataAlteracao,
+        ativado
+      ];
   @override
   $EquipamentosTable get asDslTable => this;
   @override
@@ -4659,11 +4835,31 @@ class $EquipamentosTable extends Equipamentos
       context.handle(
           _nomeMeta, nome.isAcceptableOrUnknown(data['nome'], _nomeMeta));
     }
+    if (data.containsKey('nome_player')) {
+      context.handle(
+          _nomePlayerMeta,
+          nomePlayer.isAcceptableOrUnknown(
+              data['nome_player'], _nomePlayerMeta));
+    }
+    if (data.containsKey('id_player')) {
+      context.handle(_idPlayerMeta,
+          idPlayer.isAcceptableOrUnknown(data['id_player'], _idPlayerMeta));
+    }
     if (data.containsKey('uuid')) {
       context.handle(
           _uuidMeta, uuid.isAcceptableOrUnknown(data['uuid'], _uuidMeta));
-    } else if (isInserting) {
-      context.missing(_uuidMeta);
+    }
+    if (data.containsKey('identificador')) {
+      context.handle(
+          _identificadorMeta,
+          identificador.isAcceptableOrUnknown(
+              data['identificador'], _identificadorMeta));
+    }
+    if (data.containsKey('id_one_signal')) {
+      context.handle(
+          _idOneSignalMeta,
+          idOneSignal.isAcceptableOrUnknown(
+              data['id_one_signal'], _idOneSignalMeta));
     }
     if (data.containsKey('data_cadastro')) {
       context.handle(
@@ -8867,6 +9063,503 @@ class $SequenciaConteudosTable extends SequenciaConteudos
   }
 }
 
+class ConteudoVisualizado extends DataClass
+    implements Insertable<ConteudoVisualizado> {
+  int idApp;
+  int idConteudo;
+  int idPlayer;
+  int idNoticia;
+  int quantidade;
+  String horas;
+  DateTime dataExecucao;
+  DateTime dataAlteracao;
+  ConteudoVisualizado(
+      {this.idApp,
+      this.idConteudo,
+      this.idPlayer,
+      this.idNoticia,
+      this.quantidade,
+      this.horas,
+      this.dataExecucao,
+      this.dataAlteracao});
+  factory ConteudoVisualizado.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
+      {String prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final intType = db.typeSystem.forDartType<int>();
+    final stringType = db.typeSystem.forDartType<String>();
+    final dateTimeType = db.typeSystem.forDartType<DateTime>();
+    return ConteudoVisualizado(
+      idApp: intType.mapFromDatabaseResponse(data['${effectivePrefix}id_app']),
+      idConteudo: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_conteudo']),
+      idPlayer:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_player']),
+      idNoticia:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_noticia']),
+      quantidade:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}quantidade']),
+      horas:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}horas']),
+      dataExecucao: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}data_execucao']),
+      dataAlteracao: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}data_alteracao']),
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || idApp != null) {
+      map['id_app'] = Variable<int>(idApp);
+    }
+    if (!nullToAbsent || idConteudo != null) {
+      map['id_conteudo'] = Variable<int>(idConteudo);
+    }
+    if (!nullToAbsent || idPlayer != null) {
+      map['id_player'] = Variable<int>(idPlayer);
+    }
+    if (!nullToAbsent || idNoticia != null) {
+      map['id_noticia'] = Variable<int>(idNoticia);
+    }
+    if (!nullToAbsent || quantidade != null) {
+      map['quantidade'] = Variable<int>(quantidade);
+    }
+    if (!nullToAbsent || horas != null) {
+      map['horas'] = Variable<String>(horas);
+    }
+    if (!nullToAbsent || dataExecucao != null) {
+      map['data_execucao'] = Variable<DateTime>(dataExecucao);
+    }
+    if (!nullToAbsent || dataAlteracao != null) {
+      map['data_alteracao'] = Variable<DateTime>(dataAlteracao);
+    }
+    return map;
+  }
+
+  ConteudosVisualizadosCompanion toCompanion(bool nullToAbsent) {
+    return ConteudosVisualizadosCompanion(
+      idApp:
+          idApp == null && nullToAbsent ? const Value.absent() : Value(idApp),
+      idConteudo: idConteudo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idConteudo),
+      idPlayer: idPlayer == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idPlayer),
+      idNoticia: idNoticia == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idNoticia),
+      quantidade: quantidade == null && nullToAbsent
+          ? const Value.absent()
+          : Value(quantidade),
+      horas:
+          horas == null && nullToAbsent ? const Value.absent() : Value(horas),
+      dataExecucao: dataExecucao == null && nullToAbsent
+          ? const Value.absent()
+          : Value(dataExecucao),
+      dataAlteracao: dataAlteracao == null && nullToAbsent
+          ? const Value.absent()
+          : Value(dataAlteracao),
+    );
+  }
+
+  factory ConteudoVisualizado.fromJson(Map<String, dynamic> json,
+      {ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return ConteudoVisualizado(
+      idApp: serializer.fromJson<int>(json['idApp']),
+      idConteudo: serializer.fromJson<int>(json['idConteudo']),
+      idPlayer: serializer.fromJson<int>(json['idPlayer']),
+      idNoticia: serializer.fromJson<int>(json['idNoticia']),
+      quantidade: serializer.fromJson<int>(json['quantidade']),
+      horas: serializer.fromJson<String>(json['horas']),
+      dataExecucao: serializer.fromJson<DateTime>(json['dataExecucao']),
+      dataAlteracao: serializer.fromJson<DateTime>(json['dataAlteracao']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'idApp': serializer.toJson<int>(idApp),
+      'idConteudo': serializer.toJson<int>(idConteudo),
+      'idPlayer': serializer.toJson<int>(idPlayer),
+      'idNoticia': serializer.toJson<int>(idNoticia),
+      'quantidade': serializer.toJson<int>(quantidade),
+      'horas': serializer.toJson<String>(horas),
+      'dataExecucao': serializer.toJson<DateTime>(dataExecucao),
+      'dataAlteracao': serializer.toJson<DateTime>(dataAlteracao),
+    };
+  }
+
+  ConteudoVisualizado copyWith(
+          {int idApp,
+          int idConteudo,
+          int idPlayer,
+          int idNoticia,
+          int quantidade,
+          String horas,
+          DateTime dataExecucao,
+          DateTime dataAlteracao}) =>
+      ConteudoVisualizado(
+        idApp: idApp ?? this.idApp,
+        idConteudo: idConteudo ?? this.idConteudo,
+        idPlayer: idPlayer ?? this.idPlayer,
+        idNoticia: idNoticia ?? this.idNoticia,
+        quantidade: quantidade ?? this.quantidade,
+        horas: horas ?? this.horas,
+        dataExecucao: dataExecucao ?? this.dataExecucao,
+        dataAlteracao: dataAlteracao ?? this.dataAlteracao,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('ConteudoVisualizado(')
+          ..write('idApp: $idApp, ')
+          ..write('idConteudo: $idConteudo, ')
+          ..write('idPlayer: $idPlayer, ')
+          ..write('idNoticia: $idNoticia, ')
+          ..write('quantidade: $quantidade, ')
+          ..write('horas: $horas, ')
+          ..write('dataExecucao: $dataExecucao, ')
+          ..write('dataAlteracao: $dataAlteracao')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      idApp.hashCode,
+      $mrjc(
+          idConteudo.hashCode,
+          $mrjc(
+              idPlayer.hashCode,
+              $mrjc(
+                  idNoticia.hashCode,
+                  $mrjc(
+                      quantidade.hashCode,
+                      $mrjc(
+                          horas.hashCode,
+                          $mrjc(dataExecucao.hashCode,
+                              dataAlteracao.hashCode))))))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is ConteudoVisualizado &&
+          other.idApp == this.idApp &&
+          other.idConteudo == this.idConteudo &&
+          other.idPlayer == this.idPlayer &&
+          other.idNoticia == this.idNoticia &&
+          other.quantidade == this.quantidade &&
+          other.horas == this.horas &&
+          other.dataExecucao == this.dataExecucao &&
+          other.dataAlteracao == this.dataAlteracao);
+}
+
+class ConteudosVisualizadosCompanion
+    extends UpdateCompanion<ConteudoVisualizado> {
+  Value<int> idApp;
+  Value<int> idConteudo;
+  Value<int> idPlayer;
+  Value<int> idNoticia;
+  Value<int> quantidade;
+  Value<String> horas;
+  Value<DateTime> dataExecucao;
+  Value<DateTime> dataAlteracao;
+  ConteudosVisualizadosCompanion({
+    this.idApp = const Value.absent(),
+    this.idConteudo = const Value.absent(),
+    this.idPlayer = const Value.absent(),
+    this.idNoticia = const Value.absent(),
+    this.quantidade = const Value.absent(),
+    this.horas = const Value.absent(),
+    this.dataExecucao = const Value.absent(),
+    this.dataAlteracao = const Value.absent(),
+  });
+  ConteudosVisualizadosCompanion.insert({
+    this.idApp = const Value.absent(),
+    this.idConteudo = const Value.absent(),
+    this.idPlayer = const Value.absent(),
+    this.idNoticia = const Value.absent(),
+    this.quantidade = const Value.absent(),
+    this.horas = const Value.absent(),
+    this.dataExecucao = const Value.absent(),
+    this.dataAlteracao = const Value.absent(),
+  });
+  static Insertable<ConteudoVisualizado> custom({
+    Expression<int> idApp,
+    Expression<int> idConteudo,
+    Expression<int> idPlayer,
+    Expression<int> idNoticia,
+    Expression<int> quantidade,
+    Expression<String> horas,
+    Expression<DateTime> dataExecucao,
+    Expression<DateTime> dataAlteracao,
+  }) {
+    return RawValuesInsertable({
+      if (idApp != null) 'id_app': idApp,
+      if (idConteudo != null) 'id_conteudo': idConteudo,
+      if (idPlayer != null) 'id_player': idPlayer,
+      if (idNoticia != null) 'id_noticia': idNoticia,
+      if (quantidade != null) 'quantidade': quantidade,
+      if (horas != null) 'horas': horas,
+      if (dataExecucao != null) 'data_execucao': dataExecucao,
+      if (dataAlteracao != null) 'data_alteracao': dataAlteracao,
+    });
+  }
+
+  ConteudosVisualizadosCompanion copyWith(
+      {Value<int> idApp,
+      Value<int> idConteudo,
+      Value<int> idPlayer,
+      Value<int> idNoticia,
+      Value<int> quantidade,
+      Value<String> horas,
+      Value<DateTime> dataExecucao,
+      Value<DateTime> dataAlteracao}) {
+    return ConteudosVisualizadosCompanion(
+      idApp: idApp ?? this.idApp,
+      idConteudo: idConteudo ?? this.idConteudo,
+      idPlayer: idPlayer ?? this.idPlayer,
+      idNoticia: idNoticia ?? this.idNoticia,
+      quantidade: quantidade ?? this.quantidade,
+      horas: horas ?? this.horas,
+      dataExecucao: dataExecucao ?? this.dataExecucao,
+      dataAlteracao: dataAlteracao ?? this.dataAlteracao,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (idApp.present) {
+      map['id_app'] = Variable<int>(idApp.value);
+    }
+    if (idConteudo.present) {
+      map['id_conteudo'] = Variable<int>(idConteudo.value);
+    }
+    if (idPlayer.present) {
+      map['id_player'] = Variable<int>(idPlayer.value);
+    }
+    if (idNoticia.present) {
+      map['id_noticia'] = Variable<int>(idNoticia.value);
+    }
+    if (quantidade.present) {
+      map['quantidade'] = Variable<int>(quantidade.value);
+    }
+    if (horas.present) {
+      map['horas'] = Variable<String>(horas.value);
+    }
+    if (dataExecucao.present) {
+      map['data_execucao'] = Variable<DateTime>(dataExecucao.value);
+    }
+    if (dataAlteracao.present) {
+      map['data_alteracao'] = Variable<DateTime>(dataAlteracao.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ConteudosVisualizadosCompanion(')
+          ..write('idApp: $idApp, ')
+          ..write('idConteudo: $idConteudo, ')
+          ..write('idPlayer: $idPlayer, ')
+          ..write('idNoticia: $idNoticia, ')
+          ..write('quantidade: $quantidade, ')
+          ..write('horas: $horas, ')
+          ..write('dataExecucao: $dataExecucao, ')
+          ..write('dataAlteracao: $dataAlteracao')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ConteudosVisualizadosTable extends ConteudosVisualizados
+    with TableInfo<$ConteudosVisualizadosTable, ConteudoVisualizado> {
+  final GeneratedDatabase _db;
+  final String _alias;
+  $ConteudosVisualizadosTable(this._db, [this._alias]);
+  final VerificationMeta _idAppMeta = const VerificationMeta('idApp');
+  GeneratedIntColumn _idApp;
+  @override
+  GeneratedIntColumn get idApp => _idApp ??= _constructIdApp();
+  GeneratedIntColumn _constructIdApp() {
+    return GeneratedIntColumn(
+      'id_app',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _idConteudoMeta = const VerificationMeta('idConteudo');
+  GeneratedIntColumn _idConteudo;
+  @override
+  GeneratedIntColumn get idConteudo => _idConteudo ??= _constructIdConteudo();
+  GeneratedIntColumn _constructIdConteudo() {
+    return GeneratedIntColumn(
+      'id_conteudo',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _idPlayerMeta = const VerificationMeta('idPlayer');
+  GeneratedIntColumn _idPlayer;
+  @override
+  GeneratedIntColumn get idPlayer => _idPlayer ??= _constructIdPlayer();
+  GeneratedIntColumn _constructIdPlayer() {
+    return GeneratedIntColumn(
+      'id_player',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _idNoticiaMeta = const VerificationMeta('idNoticia');
+  GeneratedIntColumn _idNoticia;
+  @override
+  GeneratedIntColumn get idNoticia => _idNoticia ??= _constructIdNoticia();
+  GeneratedIntColumn _constructIdNoticia() {
+    return GeneratedIntColumn(
+      'id_noticia',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _quantidadeMeta = const VerificationMeta('quantidade');
+  GeneratedIntColumn _quantidade;
+  @override
+  GeneratedIntColumn get quantidade => _quantidade ??= _constructQuantidade();
+  GeneratedIntColumn _constructQuantidade() {
+    return GeneratedIntColumn(
+      'quantidade',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _horasMeta = const VerificationMeta('horas');
+  GeneratedTextColumn _horas;
+  @override
+  GeneratedTextColumn get horas => _horas ??= _constructHoras();
+  GeneratedTextColumn _constructHoras() {
+    return GeneratedTextColumn(
+      'horas',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _dataExecucaoMeta =
+      const VerificationMeta('dataExecucao');
+  GeneratedDateTimeColumn _dataExecucao;
+  @override
+  GeneratedDateTimeColumn get dataExecucao =>
+      _dataExecucao ??= _constructDataExecucao();
+  GeneratedDateTimeColumn _constructDataExecucao() {
+    return GeneratedDateTimeColumn(
+      'data_execucao',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _dataAlteracaoMeta =
+      const VerificationMeta('dataAlteracao');
+  GeneratedDateTimeColumn _dataAlteracao;
+  @override
+  GeneratedDateTimeColumn get dataAlteracao =>
+      _dataAlteracao ??= _constructDataAlteracao();
+  GeneratedDateTimeColumn _constructDataAlteracao() {
+    return GeneratedDateTimeColumn(
+      'data_alteracao',
+      $tableName,
+      true,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [
+        idApp,
+        idConteudo,
+        idPlayer,
+        idNoticia,
+        quantidade,
+        horas,
+        dataExecucao,
+        dataAlteracao
+      ];
+  @override
+  $ConteudosVisualizadosTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'conteudovisualizado';
+  @override
+  final String actualTableName = 'conteudovisualizado';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<ConteudoVisualizado> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id_app')) {
+      context.handle(
+          _idAppMeta, idApp.isAcceptableOrUnknown(data['id_app'], _idAppMeta));
+    }
+    if (data.containsKey('id_conteudo')) {
+      context.handle(
+          _idConteudoMeta,
+          idConteudo.isAcceptableOrUnknown(
+              data['id_conteudo'], _idConteudoMeta));
+    }
+    if (data.containsKey('id_player')) {
+      context.handle(_idPlayerMeta,
+          idPlayer.isAcceptableOrUnknown(data['id_player'], _idPlayerMeta));
+    }
+    if (data.containsKey('id_noticia')) {
+      context.handle(_idNoticiaMeta,
+          idNoticia.isAcceptableOrUnknown(data['id_noticia'], _idNoticiaMeta));
+    }
+    if (data.containsKey('quantidade')) {
+      context.handle(
+          _quantidadeMeta,
+          quantidade.isAcceptableOrUnknown(
+              data['quantidade'], _quantidadeMeta));
+    }
+    if (data.containsKey('horas')) {
+      context.handle(
+          _horasMeta, horas.isAcceptableOrUnknown(data['horas'], _horasMeta));
+    }
+    if (data.containsKey('data_execucao')) {
+      context.handle(
+          _dataExecucaoMeta,
+          dataExecucao.isAcceptableOrUnknown(
+              data['data_execucao'], _dataExecucaoMeta));
+    }
+    if (data.containsKey('data_alteracao')) {
+      context.handle(
+          _dataAlteracaoMeta,
+          dataAlteracao.isAcceptableOrUnknown(
+              data['data_alteracao'], _dataAlteracaoMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => <GeneratedColumn>{};
+  @override
+  ConteudoVisualizado map(Map<String, dynamic> data, {String tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return ConteudoVisualizado.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  $ConteudosVisualizadosTable createAlias(String alias) {
+    return $ConteudosVisualizadosTable(_db, alias);
+  }
+}
+
 abstract class _$Database extends GeneratedDatabase {
   _$Database(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   $ConfiguracoesTable _configuracoes;
@@ -8915,6 +9608,9 @@ abstract class _$Database extends GeneratedDatabase {
   $SequenciaConteudosTable _sequenciaConteudos;
   $SequenciaConteudosTable get sequenciaConteudos =>
       _sequenciaConteudos ??= $SequenciaConteudosTable(this);
+  $ConteudosVisualizadosTable _conteudosVisualizados;
+  $ConteudosVisualizadosTable get conteudosVisualizados =>
+      _conteudosVisualizados ??= $ConteudosVisualizadosTable(this);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
@@ -8935,6 +9631,7 @@ abstract class _$Database extends GeneratedDatabase {
         previsaoTempoImagens,
         loteriaResultados,
         previsaoTempos,
-        sequenciaConteudos
+        sequenciaConteudos,
+        conteudosVisualizados
       ];
 }

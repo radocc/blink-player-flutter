@@ -53,7 +53,7 @@ class ConteudoService extends DadosService<Conteudo> {
           tipo == TipoConteudo.VIDEO.index) {
         await arquivoService.downloadMidia(
             conteudo.idArquivo, conteudo.nomeArquivo, (_, __) {});
-      } else if (tipo == TipoConteudo.COTACAO.index) {}
+      } 
     }
     return conteudos;
   }

@@ -15,7 +15,8 @@ class AtualizacaoStatusDAO extends AbstractDAO<AtualizacaoStatus> with _$Atualiz
 
 
   Future<AtualizacaoStatus> getUltimo(int identificacao) async {
-    return (select(atualizacoesStatus)..where((tbl) => tbl.identificacao.equals(identificacao))..orderBy([
+    return (select(atualizacoesStatus)..where((tbl) => tbl.identificacao.equals(identificacao)
+    & isNotNull(tbl.dataFinal))..orderBy([
       (u) =>
        OrderingTerm(expression: u.id, mode: OrderingMode.desc)
     ])..limit(1)).getSingle();
