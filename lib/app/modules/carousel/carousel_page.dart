@@ -4,7 +4,9 @@ import 'package:blink/app/components/touch_left_screen.dart';
 import 'package:blink/app/database/dao/conteudo_dao.dart';
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/models/conteudo_template_model.dart';
+import 'package:blink/app/models/enuns/tipoconteudo_enum.dart';
 import 'package:blink/app/pages/slide_image/slide_image_page.dart';
+import 'package:blink/app/pages/slide_previsao_tempo/slide_previsao_tempo.dart';
 import 'package:blink/app/pages/slide_video/slide_video_page.dart';
 import 'package:cross_connectivity/cross_connectivity.dart';
 import 'package:flutter/material.dart';
@@ -64,33 +66,32 @@ class _CarouselPageState
     print(directory.path);
 
     //for (FileSystemEntity file in files) {
-      //
-      // Verifica se a entidade é um arquivo
-      
-      this.filesConteudo.forEach((e) async {
-        if (e.conteudo.nomeArquivo == null) {
-          file = File('${directory.path}/${e.template.nomeArquivo}');
-        } else {
-          file = File('${directory.path}/${e.conteudo.nomeArquivo}');
-        }
-        
+    //
+    // Verifica se a entidade é um arquivo
 
-        if (file is File) {
-          String ext = extension(file.path);
-          //
-          // Verifica se é uma imagem ou video e adiciona na lista
-          //
-          if (controller.extVideo.contains(ext) ||
-              controller.extImg.contains(ext)) {
-            e.file = file;
-            this.files.add(file);
-          }
+    this.filesConteudo.forEach((e) async {
+      if (e.conteudo.nomeArquivo == null) {
+        file = File('${directory.path}/${e.template.nomeArquivo}');
+      } else {
+        file = File('${directory.path}/${e.conteudo.nomeArquivo}');
+      }
+
+      if (file is File) {
+        String ext = extension(file.path);
+        //
+        // Verifica se é uma imagem ou video e adiciona na lista
+        //
+        if (controller.extVideo.contains(ext) ||
+            controller.extImg.contains(ext)) {
+          e.file = file;
+          this.files.add(file);
         }
-      });
-      
-      return true;
-    }
- // }
+      }
+    });
+
+    return true;
+  }
+  // }
 
   //
   // Proximo slide
@@ -117,20 +118,38 @@ class _CarouselPageState
   //
   // Verifica se é um slide de imagem ou de video
   //
-  Widget getItem(ConteudoTemplateModel conteudo) {
-    String ext = extension(conteudo.file.path);
+  Widget getItem(ConteudoTemplateModel conteudoTemplate) {
+    String ext = extension(conteudoTemplate.file.path);
     //
     // Slide de video
     //
-    if (controller.extVideo.contains(ext)) {
-      return SlideVideoPage(conteudo, next: nextPage);
+    var tipo = conteudoTemplate.conteudo.tipo;
+    if (tipo == TipoConteudo.IMAGENS.index ||
+        tipo == TipoConteudo.VIDEO.index) {
+      if (controller.extVideo.contains(ext)) {
+        return SlideVideoPage(conteudoTemplate, next: nextPage);
+      }
+      //
+      // Slide de imagem
+      //
+      if (controller.extImg.contains(ext)) {
+        return SlideImagePage(conteudoTemplate, next: nextPage);
+      }
+    } else if (tipo == TipoConteudo.PREVISAOTEMPO.index) {
+      return SlidePrevisaoTempoPage(conteudoTemplate, next: nextPage);
+    } else if (tipo == TipoConteudo.NOTICIAS.index) {
+    } else {
+      if (controller.extVideo.contains(ext)) {
+        return SlideVideoPage(conteudoTemplate, next: nextPage);
+      }
+      //
+      // Slide de imagem
+      //
+      if (controller.extImg.contains(ext)) {
+        return SlideImagePage(conteudoTemplate, next: nextPage);
+      }
     }
-    //
-    // Slide de imagem
-    //
-    if (controller.extImg.contains(ext)) {
-      return SlideImagePage(conteudo, next: nextPage);
-    }
+
     return null;
   }
 
@@ -160,7 +179,9 @@ class _CarouselPageState
                         //
                         // slide de imagem e video
                         //
-                        for (ConteudoTemplateModel conteudo in this.filesConteudo) getItem(conteudo),
+                        for (ConteudoTemplateModel conteudo
+                            in this.filesConteudo)
+                          getItem(conteudo),
                       ],
                     ),
                     Positioned(

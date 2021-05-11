@@ -20,6 +20,7 @@ class ConteudosCampo {
   num height;
   int width;
   String valor;
+  String variavel;
 
    ConteudosCampo({this.id, 
     this.nome, 
@@ -39,7 +40,8 @@ class ConteudosCampo {
     this.indice,
     this.height,
     this.width,
-    this.valor});
+    this.valor,
+    this.variavel});
 
   ConteudosCampo.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -61,6 +63,7 @@ class ConteudosCampo {
     height = json['height'];
     width = json['width'];
     valor = json['valor'];
+    variavel = json['variavel'];
 
   }
 
@@ -85,6 +88,7 @@ class ConteudosCampo {
     data['height'] = this.height;
     data['width'] = this.width;
     data['valor'] = this.valor;
+    data['variavel'] = this.variavel;
     return data;
   }
 
