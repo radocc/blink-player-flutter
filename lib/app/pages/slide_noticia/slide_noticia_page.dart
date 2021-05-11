@@ -165,7 +165,7 @@ class _SlideNoticiaPageState
           Positioned(
             left: px,
             top: py,
-            child: Text(campoConvert.nome,
+            child: Text(campoConvert.valor,
                 style: TextStyle(
                     fontSize: campoConvert.fonteTamanho,
                     fontFamily: campoConvert.fonte,

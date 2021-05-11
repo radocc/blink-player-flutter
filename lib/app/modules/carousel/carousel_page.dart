@@ -75,7 +75,9 @@ class _CarouselPageState
     // Verifica se a entidade é um arquivo
 
     this.filesConteudo.forEach((e) async {
-      if (e.conteudo.nomeArquivo == null) {
+      if (e.conteudo.tipo == TipoConteudo.NOTICIAS.index) {
+
+      }else if (e.conteudo.nomeArquivo == null){
         file = File('${directory.path}/${e.template.nomeArquivo}');
       } else {
         file = File('${directory.path}/${e.conteudo.nomeArquivo}');
@@ -134,9 +136,9 @@ class _CarouselPageState
     // Slide de video
     //
     var tipo = conteudoTemplate.conteudo.tipo;
-    if (controller.extVideo.contains(ext)) {
+    if (tipo == TipoConteudo.VIDEO.index) {
       return SlideVideoPage(conteudoTemplate, next: nextPage);
-    }else if (controller.extImg.contains(ext)) {
+    }else if (tipo == TipoConteudo.IMAGENS.index) {
       //
       // Slide de imagem
       //

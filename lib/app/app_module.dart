@@ -2,6 +2,9 @@ import 'package:blink/app/app_widget.dart';
 import 'package:blink/app/modules/carousel/carousel_controller.dart';
 import 'package:blink/app/modules/home/home_controller.dart';
 import 'package:blink/app/modules/home/home_module.dart';
+import 'package:blink/app/pages/slide_default/slide_default_controller.dart';
+import 'package:blink/app/pages/slide_loteria/slide_loteria_controller.dart';
+import 'package:blink/app/pages/slide_noticia/slide_noticia_controller.dart';
 import 'package:blink/app/pages/splash/splash_page.dart';
 import 'package:blink/app/repositories/arquivo_repository.dart';
 import 'package:blink/app/repositories/conteudo_repository.dart';
@@ -45,6 +48,9 @@ class AppModule extends MainModule {
         $SlideImageController,
         $SlideVideoController,
         $SlidePrevisaoTempoController,
+        $SlideNoticiaController,
+        $SlideDefaultController,
+        $SlideLoteriaController,
         $CarouselController,
         $AtivePlayerController,
         $HomeController,
