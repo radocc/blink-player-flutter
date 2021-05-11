@@ -14,10 +14,11 @@ import 'app/database/database.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  ativarOneSignal();  
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   Battery _battery = Battery();
   const oneSec = const Duration(seconds: 15);
-  ativarOneSignal();
+  
 
   Future valueHardware2() async {
     final int batteryLevel = await _battery.batteryLevel;

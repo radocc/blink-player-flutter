@@ -9,25 +9,16 @@ import 'package:blink/app/services/dados_service.dart';
 class SequenciaConteudoService extends DadosService<SequenciaConteudo> {
   SequenciaConteudoRepository seqRepo;
   SequenciaConteudoDAO dao = Database.instance.sequenciaConteudoDAO;
-  var controller = CarouselController();
-  List<File> files;
-
+  
   SequenciaConteudoService(this.seqRepo) : super(seqRepo);
 
   getDAO(){
     return dao;
   }
 
-  // Future<List<SequenciaConteudo>> download() async {
+  Future<List<SequenciaConteudo>> finalizar(List<SequenciaConteudo> lista,AtualizacaoStatus status) async {
 
-  //     var templates = await super.download();
-  //     if (templates != null) {
-  //       for (var item in templates) {
-  //         await conteudoDao.save(item);
-  //       }
-  //     }
-  //     return templates;
-    
-  // }
+    return lista;
+  }
 
 }

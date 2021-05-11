@@ -8043,7 +8043,7 @@ class LoteriaResultado extends DataClass
   String jsonPremios;
   String numeros;
   DateTime dataSorteio;
-  int codigoSorteio;
+  String codigoSorteio;
   String jsonCidades;
   DateTime dataProximoSorteio;
   double valorProximoSorteio;
@@ -8075,7 +8075,7 @@ class LoteriaResultado extends DataClass
           stringType.mapFromDatabaseResponse(data['${effectivePrefix}numeros']),
       dataSorteio: dateTimeType
           .mapFromDatabaseResponse(data['${effectivePrefix}data_sorteio']),
-      codigoSorteio: intType
+      codigoSorteio: stringType
           .mapFromDatabaseResponse(data['${effectivePrefix}codigo_sorteio']),
       jsonCidades: stringType
           .mapFromDatabaseResponse(data['${effectivePrefix}json_cidades']),
@@ -8104,7 +8104,7 @@ class LoteriaResultado extends DataClass
       map['data_sorteio'] = Variable<DateTime>(dataSorteio);
     }
     if (!nullToAbsent || codigoSorteio != null) {
-      map['codigo_sorteio'] = Variable<int>(codigoSorteio);
+      map['codigo_sorteio'] = Variable<String>(codigoSorteio);
     }
     if (!nullToAbsent || jsonCidades != null) {
       map['json_cidades'] = Variable<String>(jsonCidades);
@@ -8157,7 +8157,7 @@ class LoteriaResultado extends DataClass
       jsonPremios: serializer.fromJson<String>(json['jsonPremios']),
       numeros: serializer.fromJson<String>(json['numeros']),
       dataSorteio: serializer.fromJson<DateTime>(json['dataSorteio']),
-      codigoSorteio: serializer.fromJson<int>(json['codigoSorteio']),
+      codigoSorteio: serializer.fromJson<String>(json['codigoSorteio']),
       jsonCidades: serializer.fromJson<String>(json['jsonCidades']),
       dataProximoSorteio:
           serializer.fromJson<DateTime>(json['dataProximoSorteio']),
@@ -8174,7 +8174,7 @@ class LoteriaResultado extends DataClass
       'jsonPremios': serializer.toJson<String>(jsonPremios),
       'numeros': serializer.toJson<String>(numeros),
       'dataSorteio': serializer.toJson<DateTime>(dataSorteio),
-      'codigoSorteio': serializer.toJson<int>(codigoSorteio),
+      'codigoSorteio': serializer.toJson<String>(codigoSorteio),
       'jsonCidades': serializer.toJson<String>(jsonCidades),
       'dataProximoSorteio': serializer.toJson<DateTime>(dataProximoSorteio),
       'valorProximoSorteio': serializer.toJson<double>(valorProximoSorteio),
@@ -8187,7 +8187,7 @@ class LoteriaResultado extends DataClass
           String jsonPremios,
           String numeros,
           DateTime dataSorteio,
-          int codigoSorteio,
+          String codigoSorteio,
           String jsonCidades,
           DateTime dataProximoSorteio,
           double valorProximoSorteio}) =>
@@ -8256,7 +8256,7 @@ class LoteriaResultadosCompanion extends UpdateCompanion<LoteriaResultado> {
   Value<String> jsonPremios;
   Value<String> numeros;
   Value<DateTime> dataSorteio;
-  Value<int> codigoSorteio;
+  Value<String> codigoSorteio;
   Value<String> jsonCidades;
   Value<DateTime> dataProximoSorteio;
   Value<double> valorProximoSorteio;
@@ -8288,7 +8288,7 @@ class LoteriaResultadosCompanion extends UpdateCompanion<LoteriaResultado> {
     Expression<String> jsonPremios,
     Expression<String> numeros,
     Expression<DateTime> dataSorteio,
-    Expression<int> codigoSorteio,
+    Expression<String> codigoSorteio,
     Expression<String> jsonCidades,
     Expression<DateTime> dataProximoSorteio,
     Expression<double> valorProximoSorteio,
@@ -8314,7 +8314,7 @@ class LoteriaResultadosCompanion extends UpdateCompanion<LoteriaResultado> {
       Value<String> jsonPremios,
       Value<String> numeros,
       Value<DateTime> dataSorteio,
-      Value<int> codigoSorteio,
+      Value<String> codigoSorteio,
       Value<String> jsonCidades,
       Value<DateTime> dataProximoSorteio,
       Value<double> valorProximoSorteio}) {
@@ -8350,7 +8350,7 @@ class LoteriaResultadosCompanion extends UpdateCompanion<LoteriaResultado> {
       map['data_sorteio'] = Variable<DateTime>(dataSorteio.value);
     }
     if (codigoSorteio.present) {
-      map['codigo_sorteio'] = Variable<int>(codigoSorteio.value);
+      map['codigo_sorteio'] = Variable<String>(codigoSorteio.value);
     }
     if (jsonCidades.present) {
       map['json_cidades'] = Variable<String>(jsonCidades.value);
@@ -8451,12 +8451,12 @@ class $LoteriaResultadosTable extends LoteriaResultados
 
   final VerificationMeta _codigoSorteioMeta =
       const VerificationMeta('codigoSorteio');
-  GeneratedIntColumn _codigoSorteio;
+  GeneratedTextColumn _codigoSorteio;
   @override
-  GeneratedIntColumn get codigoSorteio =>
+  GeneratedTextColumn get codigoSorteio =>
       _codigoSorteio ??= _constructCodigoSorteio();
-  GeneratedIntColumn _constructCodigoSorteio() {
-    return GeneratedIntColumn(
+  GeneratedTextColumn _constructCodigoSorteio() {
+    return GeneratedTextColumn(
       'codigo_sorteio',
       $tableName,
       true,
@@ -9065,6 +9065,7 @@ class $SequenciaConteudosTable extends SequenciaConteudos
 
 class ConteudoVisualizado extends DataClass
     implements Insertable<ConteudoVisualizado> {
+  int id;
   int idApp;
   int idConteudo;
   int idPlayer;
@@ -9074,7 +9075,8 @@ class ConteudoVisualizado extends DataClass
   DateTime dataExecucao;
   DateTime dataAlteracao;
   ConteudoVisualizado(
-      {this.idApp,
+      {@required this.id,
+      this.idApp,
       this.idConteudo,
       this.idPlayer,
       this.idNoticia,
@@ -9090,6 +9092,7 @@ class ConteudoVisualizado extends DataClass
     final stringType = db.typeSystem.forDartType<String>();
     final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return ConteudoVisualizado(
+      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       idApp: intType.mapFromDatabaseResponse(data['${effectivePrefix}id_app']),
       idConteudo: intType
           .mapFromDatabaseResponse(data['${effectivePrefix}id_conteudo']),
@@ -9110,6 +9113,9 @@ class ConteudoVisualizado extends DataClass
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      map['id'] = Variable<int>(id);
+    }
     if (!nullToAbsent || idApp != null) {
       map['id_app'] = Variable<int>(idApp);
     }
@@ -9139,6 +9145,7 @@ class ConteudoVisualizado extends DataClass
 
   ConteudosVisualizadosCompanion toCompanion(bool nullToAbsent) {
     return ConteudosVisualizadosCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
       idApp:
           idApp == null && nullToAbsent ? const Value.absent() : Value(idApp),
       idConteudo: idConteudo == null && nullToAbsent
@@ -9168,6 +9175,7 @@ class ConteudoVisualizado extends DataClass
       {ValueSerializer serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return ConteudoVisualizado(
+      id: serializer.fromJson<int>(json['id']),
       idApp: serializer.fromJson<int>(json['idApp']),
       idConteudo: serializer.fromJson<int>(json['idConteudo']),
       idPlayer: serializer.fromJson<int>(json['idPlayer']),
@@ -9182,6 +9190,7 @@ class ConteudoVisualizado extends DataClass
   Map<String, dynamic> toJson({ValueSerializer serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
       'idApp': serializer.toJson<int>(idApp),
       'idConteudo': serializer.toJson<int>(idConteudo),
       'idPlayer': serializer.toJson<int>(idPlayer),
@@ -9194,7 +9203,8 @@ class ConteudoVisualizado extends DataClass
   }
 
   ConteudoVisualizado copyWith(
-          {int idApp,
+          {int id,
+          int idApp,
           int idConteudo,
           int idPlayer,
           int idNoticia,
@@ -9203,6 +9213,7 @@ class ConteudoVisualizado extends DataClass
           DateTime dataExecucao,
           DateTime dataAlteracao}) =>
       ConteudoVisualizado(
+        id: id ?? this.id,
         idApp: idApp ?? this.idApp,
         idConteudo: idConteudo ?? this.idConteudo,
         idPlayer: idPlayer ?? this.idPlayer,
@@ -9215,6 +9226,7 @@ class ConteudoVisualizado extends DataClass
   @override
   String toString() {
     return (StringBuffer('ConteudoVisualizado(')
+          ..write('id: $id, ')
           ..write('idApp: $idApp, ')
           ..write('idConteudo: $idConteudo, ')
           ..write('idPlayer: $idPlayer, ')
@@ -9229,23 +9241,26 @@ class ConteudoVisualizado extends DataClass
 
   @override
   int get hashCode => $mrjf($mrjc(
-      idApp.hashCode,
+      id.hashCode,
       $mrjc(
-          idConteudo.hashCode,
+          idApp.hashCode,
           $mrjc(
-              idPlayer.hashCode,
+              idConteudo.hashCode,
               $mrjc(
-                  idNoticia.hashCode,
+                  idPlayer.hashCode,
                   $mrjc(
-                      quantidade.hashCode,
+                      idNoticia.hashCode,
                       $mrjc(
-                          horas.hashCode,
-                          $mrjc(dataExecucao.hashCode,
-                              dataAlteracao.hashCode))))))));
+                          quantidade.hashCode,
+                          $mrjc(
+                              horas.hashCode,
+                              $mrjc(dataExecucao.hashCode,
+                                  dataAlteracao.hashCode)))))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
       (other is ConteudoVisualizado &&
+          other.id == this.id &&
           other.idApp == this.idApp &&
           other.idConteudo == this.idConteudo &&
           other.idPlayer == this.idPlayer &&
@@ -9258,6 +9273,7 @@ class ConteudoVisualizado extends DataClass
 
 class ConteudosVisualizadosCompanion
     extends UpdateCompanion<ConteudoVisualizado> {
+  Value<int> id;
   Value<int> idApp;
   Value<int> idConteudo;
   Value<int> idPlayer;
@@ -9267,6 +9283,7 @@ class ConteudosVisualizadosCompanion
   Value<DateTime> dataExecucao;
   Value<DateTime> dataAlteracao;
   ConteudosVisualizadosCompanion({
+    this.id = const Value.absent(),
     this.idApp = const Value.absent(),
     this.idConteudo = const Value.absent(),
     this.idPlayer = const Value.absent(),
@@ -9277,6 +9294,7 @@ class ConteudosVisualizadosCompanion
     this.dataAlteracao = const Value.absent(),
   });
   ConteudosVisualizadosCompanion.insert({
+    this.id = const Value.absent(),
     this.idApp = const Value.absent(),
     this.idConteudo = const Value.absent(),
     this.idPlayer = const Value.absent(),
@@ -9287,6 +9305,7 @@ class ConteudosVisualizadosCompanion
     this.dataAlteracao = const Value.absent(),
   });
   static Insertable<ConteudoVisualizado> custom({
+    Expression<int> id,
     Expression<int> idApp,
     Expression<int> idConteudo,
     Expression<int> idPlayer,
@@ -9297,6 +9316,7 @@ class ConteudosVisualizadosCompanion
     Expression<DateTime> dataAlteracao,
   }) {
     return RawValuesInsertable({
+      if (id != null) 'id': id,
       if (idApp != null) 'id_app': idApp,
       if (idConteudo != null) 'id_conteudo': idConteudo,
       if (idPlayer != null) 'id_player': idPlayer,
@@ -9309,7 +9329,8 @@ class ConteudosVisualizadosCompanion
   }
 
   ConteudosVisualizadosCompanion copyWith(
-      {Value<int> idApp,
+      {Value<int> id,
+      Value<int> idApp,
       Value<int> idConteudo,
       Value<int> idPlayer,
       Value<int> idNoticia,
@@ -9318,6 +9339,7 @@ class ConteudosVisualizadosCompanion
       Value<DateTime> dataExecucao,
       Value<DateTime> dataAlteracao}) {
     return ConteudosVisualizadosCompanion(
+      id: id ?? this.id,
       idApp: idApp ?? this.idApp,
       idConteudo: idConteudo ?? this.idConteudo,
       idPlayer: idPlayer ?? this.idPlayer,
@@ -9332,6 +9354,9 @@ class ConteudosVisualizadosCompanion
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
     if (idApp.present) {
       map['id_app'] = Variable<int>(idApp.value);
     }
@@ -9362,6 +9387,7 @@ class ConteudosVisualizadosCompanion
   @override
   String toString() {
     return (StringBuffer('ConteudosVisualizadosCompanion(')
+          ..write('id: $id, ')
           ..write('idApp: $idApp, ')
           ..write('idConteudo: $idConteudo, ')
           ..write('idPlayer: $idPlayer, ')
@@ -9380,6 +9406,15 @@ class $ConteudosVisualizadosTable extends ConteudosVisualizados
   final GeneratedDatabase _db;
   final String _alias;
   $ConteudosVisualizadosTable(this._db, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  GeneratedIntColumn _id;
+  @override
+  GeneratedIntColumn get id => _id ??= _constructId();
+  GeneratedIntColumn _constructId() {
+    return GeneratedIntColumn('id', $tableName, false,
+        hasAutoIncrement: true, declaredAsPrimaryKey: true);
+  }
+
   final VerificationMeta _idAppMeta = const VerificationMeta('idApp');
   GeneratedIntColumn _idApp;
   @override
@@ -9482,6 +9517,7 @@ class $ConteudosVisualizadosTable extends ConteudosVisualizados
 
   @override
   List<GeneratedColumn> get $columns => [
+        id,
         idApp,
         idConteudo,
         idPlayer,
@@ -9503,6 +9539,9 @@ class $ConteudosVisualizadosTable extends ConteudosVisualizados
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
+    }
     if (data.containsKey('id_app')) {
       context.handle(
           _idAppMeta, idApp.isAcceptableOrUnknown(data['id_app'], _idAppMeta));
@@ -9547,7 +9586,7 @@ class $ConteudosVisualizadosTable extends ConteudosVisualizados
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => <GeneratedColumn>{};
+  Set<GeneratedColumn> get $primaryKey => {id};
   @override
   ConteudoVisualizado map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;

@@ -34,7 +34,7 @@ class ConteudoVisualizadoDAO extends AbstractDAO<ConteudoVisualizado> with _$Con
       conteudoVisualizado.horas = DateFormat.Hms().format(DateTime.now());
     }else {
       conteudoVisualizado.quantidade = conteudoVisualizado.quantidade + 1;
-      conteudoVisualizado.horas = conteudoVisualizado.horas+","+DateFormat.Hms().format(DateTime.now());
+      conteudoVisualizado.horas = '';//conteudoVisualizado.horas+","+DateFormat.Hms().format(DateTime.now());
     }
     conteudoVisualizado.idConteudo = idConteudo;
     conteudoVisualizado.idNoticia = idNoticia;

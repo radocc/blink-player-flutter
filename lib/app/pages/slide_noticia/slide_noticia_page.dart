@@ -1,11 +1,14 @@
 import 'dart:convert';
 
+import 'package:blink/app/database/dao/noticia_dao.dart';
+import 'package:blink/app/database/database.dart';
 import 'package:blink/app/models/conteudo_campos.dart';
 import 'package:blink/app/models/conteudo_template_model.dart';
 import 'package:blink/app/pages/slide_noticia/slide_noticia_controller.dart';
 import 'package:blink/app/shared/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:intl/intl.dart';
 
 //
 // Tempo para passar o slide do carousel
@@ -25,10 +28,13 @@ class SlideNoticiaPage extends StatefulWidget {
 class _SlideNoticiaPageState
     extends ModularState<SlideNoticiaPage, SlideNoticiaController> {
   //int currentIndex = 0;
-
+  Noticia noticia;
+  NoticiaDAO noticiaDAO;
   @override
   void initState() {
     super.initState();
+    noticiaDAO = Database.instance.noticiaDAO;
+    
     Future.delayed(nextDuration, () {
       //
       // Proximo slide
@@ -117,9 +123,7 @@ class _SlideNoticiaPageState
   }
 
   Future<Widget> getLayout(double width, double height, {BoxFit boxFit}) async {
-    //Abre o banco
-    // ConteudoDAO dao = Database.instance.conteudoDAO;
-    //Chama metodo para buscar no banco
+    noticia = await noticiaDAO.getProxima(widget.conteudoModel.conteudo.id);
     // List<ConteudoTemplateModel> listaConteudo =
     //     await dao.getAllConteudoWithTemplate();
     List<Widget> children = [];
@@ -135,7 +139,20 @@ class _SlideNoticiaPageState
       content.forEach((e) {
         // Converte json em Model
         final campoConvert = ConteudosCampo.fromJson(e);
-
+        switch (campoConvert.variavel){
+          case 'titulo':
+            campoConvert.valor = noticia.titulo;
+            break;
+          case 'descricao':
+            campoConvert.valor = noticia.descricao;
+            break;
+          case 'link':
+            campoConvert.valor = noticia.link;
+            break;            
+          case 'datapublicado':
+            campoConvert.valor = DateFormat('dd/MM/yyyy').format(noticia.dataPublicadao);
+            break;
+        }
         //Seto posicao na tela
         var px = campoConvert.positionLeft * width / 100;
         var py = campoConvert.positionTop * height / 100;
@@ -168,56 +185,5 @@ class _SlideNoticiaPageState
       child: Stack(children: children),
     );
   }
-
-/*
-  Future<Widget> getLayout(double width, double height, int index) async {
-    //Abre o banco
-    ConteudoDAO dao = Database.instance.conteudoDAO;
-    //Chama metodo para buscar no banco
-    List<ConteudoTemplateModel> lista = await dao.getAllConteudoWithTemplate();
-
-    //var quantCampo = 0;
-    List<Widget> children = [];
-
-    ConteudoTemplateModel item = lista[index];
-
-    if (item.conteudo.campos != null) {
-      //Decodifica json do objeto 'Campos' quando existir
-      var content = jsonDecode(item.conteudo.campos);
-      // Le os atributos do Json Campos'
-      content.forEach((e) {
-        print('OBJETOS: ' + e.toString());
-        // Converte json em Model
-        final campoConvert = ConteudosCampo.fromJson(e);
-
-        //Seto posicao na tela
-        var px = campoConvert.positionLeft * width / 100;
-        var py = campoConvert.positionTop * height / 100;
-
-        //Crio stack com os Atributos
-        children.add(
-          Positioned(
-            left: px,
-            top: py,
-            child: Text(campoConvert.nome),
-          ),
-        );
-      });
-
-      //print(content.toString());
-      //print('QTD CAMPOS: ' + content.length.toString());
-      //quantCampo += i;
-      //print('QTD CONTEUDO COM CAMPOS: ' + quantCampo.toString());
-    }
-    // }
-    //);
-    //retorno Componente
-    return Container(
-      height: 300,
-      decoration: BoxDecoration(
-        image: DecorationImage(image: FileImage(this.widget.conteudo.file)),
-      ),
-      child: Stack(children: children),
-    );
-  } */
+ 
 }

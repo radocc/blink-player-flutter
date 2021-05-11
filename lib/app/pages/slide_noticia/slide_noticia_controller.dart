@@ -4,9 +4,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 part 'slide_noticia_controller.g.dart';
 
 @Injectable()
-class SlideNoticiaController = _SlideImageControllerBase with _$SlideNoticiaController;
+class SlideNoticiaController = _SlideNoticiaControllerBase with _$SlideNoticiaController;
 
-abstract class _SlideImageControllerBase with Store {
+abstract class _SlideNoticiaControllerBase with Store {
   @observable
   int value = 0;
 
@@ -14,4 +14,6 @@ abstract class _SlideImageControllerBase with Store {
   void increment() {
     value++;
   }
+
+  
 }

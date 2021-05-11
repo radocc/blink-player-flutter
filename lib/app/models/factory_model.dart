@@ -7,5 +7,7 @@ final factoryModel = <Type, Function>{
   PrevisaoTempo: (Map<String, dynamic> json) => PrevisaoTempo.fromJson(json),
   PrevisaoTempoImagem: (Map<String, dynamic> json) => PrevisaoTempoImagem.fromJson(json),
   LoteriaResultado: (Map<String, dynamic> json) => LoteriaResultado.fromJson(json),
-  SequenciaConteudo: (Map<String, dynamic> json) => SequenciaConteudo.fromJson(json)
+  SequenciaConteudo: (Map<String, dynamic> json) => SequenciaConteudo.fromJson(json),
+  Equipamento: (Map<String, dynamic> json) => Equipamento.fromJson(json),
+  ConteudoVisualizado: (Map<String, dynamic> json) => ConteudoVisualizado.fromJson(json),
 };

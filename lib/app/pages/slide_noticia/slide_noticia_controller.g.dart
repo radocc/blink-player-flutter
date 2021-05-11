@@ -18,8 +18,8 @@ final $SlideNoticiaController = BindInject(
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$SlideNoticiaController on _SlideImageControllerBase, Store {
-  final _$valueAtom = Atom(name: '_SlideImageControllerBase.value');
+mixin _$SlideNoticiaController on _SlideNoticiaControllerBase, Store {
+  final _$valueAtom = Atom(name: '_SlideNoticiaControllerBase.value');
 
   @override
   int get value {
@@ -34,17 +34,17 @@ mixin _$SlideNoticiaController on _SlideImageControllerBase, Store {
     });
   }
 
-  final _$_SlideImageControllerBaseActionController =
-      ActionController(name: '_SlideImageControllerBase');
+  final _$_SlideNoticiaControllerBaseActionController =
+      ActionController(name: '_SlideNoticiaControllerBase');
 
   @override
   void increment() {
-    final _$actionInfo = _$_SlideImageControllerBaseActionController
-        .startAction(name: '_SlideImageControllerBase.increment');
+    final _$actionInfo = _$_SlideNoticiaControllerBaseActionController
+        .startAction(name: '_SlideNoticiaControllerBase.increment');
     try {
       return super.increment();
     } finally {
-      _$_SlideImageControllerBaseActionController.endAction(_$actionInfo);
+      _$_SlideNoticiaControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 

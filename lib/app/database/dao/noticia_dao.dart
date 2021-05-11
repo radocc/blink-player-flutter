@@ -11,7 +11,8 @@ class NoticiaDAO extends AbstractDAO<Noticia> with _$NoticiaDAOMixin {
     table = noticias;
   }
 
-  // Future saveValueNotice(Noticia entity) {
-  //   return into(noticias).insertOnConflictUpdate(entity);
-  // }
+  Future<Noticia> getProxima(int idConteudo)  async {
+    var query = select(noticias)..where((nt)=> nt.idConteudo.equals(idConteudo))..limit(1);
+    return query.getSingle();
+  } 
 }

@@ -3,7 +3,7 @@ import 'package:moor/moor.dart';
 @DataClassName("ConteudoVisualizado")
 class ConteudosVisualizados extends Table {
   String get tableName => 'conteudovisualizado';
-  
+  IntColumn get id => integer().autoIncrement()();
   IntColumn get idApp => integer().nullable()();
   IntColumn get idConteudo => integer().nullable()();
   IntColumn get idPlayer => integer().nullable()();

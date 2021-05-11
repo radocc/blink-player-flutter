@@ -63,6 +63,9 @@ class SincronizaService {
       atualizacao = await atualizacaoDAO.save(atualizacao);
 
     }catch(e){
+      if (e is NoSuchMethodError){
+        print((e as NoSuchMethodError).stackTrace);
+      }
       atualizacao.mensagem = e.toString();
       atualizacao = await atualizacaoDAO.save(atualizacao);
     } 
