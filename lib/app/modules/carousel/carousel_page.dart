@@ -10,6 +10,7 @@ import 'package:blink/app/pages/slide_default/slide_default_page.dart';
 import 'package:blink/app/pages/slide_image/slide_image_page.dart';
 import 'package:blink/app/pages/slide_loteria/slide_loteria_page.dart';
 import 'package:blink/app/pages/slide_noticia/slide_noticia_page.dart';
+import 'package:blink/app/pages/slide_previsao_tempo/slide_previsao_tempo.dart';
 import 'package:blink/app/pages/slide_video/slide_video_page.dart';
 import 'package:cross_connectivity/cross_connectivity.dart';
 import 'package:flutter/material.dart';
@@ -70,33 +71,32 @@ class _CarouselPageState
     print(directory.path);
 
     //for (FileSystemEntity file in files) {
-      //
-      // Verifica se a entidade é um arquivo
-      
-      this.filesConteudo.forEach((e) async {
-        if (e.conteudo.nomeArquivo == null) {
-          file = File('${directory.path}/${e.template.nomeArquivo}');
-        } else {
-          file = File('${directory.path}/${e.conteudo.nomeArquivo}');
-        }
-        
+    //
+    // Verifica se a entidade é um arquivo
 
-        if (file is File) {
-          String ext = extension(file.path);
-          //
-          // Verifica se é uma imagem ou video e adiciona na lista
-          //
-          if (controller.extVideo.contains(ext) ||
-              controller.extImg.contains(ext)) {
-            e.file = file;
-            this.files.add(file);
-          }
+    this.filesConteudo.forEach((e) async {
+      if (e.conteudo.nomeArquivo == null) {
+        file = File('${directory.path}/${e.template.nomeArquivo}');
+      } else {
+        file = File('${directory.path}/${e.conteudo.nomeArquivo}');
+      }
+
+      if (file is File) {
+        String ext = extension(file.path);
+        //
+        // Verifica se é uma imagem ou video e adiciona na lista
+        //
+        if (controller.extVideo.contains(ext) ||
+            controller.extImg.contains(ext)) {
+          e.file = file;
+          this.files.add(file);
         }
-      });
-      
-      return true;
-    }
- // }
+      }
+    });
+
+    return true;
+  }
+  // }
 
   //
   // Proximo slide
@@ -106,11 +106,8 @@ class _CarouselPageState
     // Ultima pagina, volta o slide para primeira pagina
     //
     if (_controller.page == files.length - 1) {
-      _controller.animateTo(
-        0,
-        duration: Duration(milliseconds: 500),
-        curve: Curves.linear,
-      );
+      //_controller.jumpTo(0);
+      _controller.jumpToPage(0);
     }
     //
     // Avança para o proximo slide
@@ -136,6 +133,7 @@ class _CarouselPageState
     //
     // Slide de video
     //
+    var tipo = conteudoTemplate.conteudo.tipo;
     if (controller.extVideo.contains(ext)) {
       return SlideVideoPage(conteudoTemplate, next: nextPage);
     }else if (controller.extImg.contains(ext)) {
@@ -149,8 +147,10 @@ class _CarouselPageState
       return SlideNoticiaPage(conteudoTemplate, next:nextPage);
     }else if (conteudoTemplate.conteudo.tipo == TipoConteudo.LOTERIAS.index){
       return SlideLoteriaPage(conteudoTemplate, next:nextPage);
+    }else if (tipo == TipoConteudo.PREVISAOTEMPO.index) {
+      return SlidePrevisaoTempoPage(conteudoTemplate, next: nextPage);
     }
-    return Container();
+    return Container(); 
   }
 
   @override
@@ -179,7 +179,9 @@ class _CarouselPageState
                         //
                         // slide de imagem e video
                         //
-                        for (ConteudoTemplateModel conteudo in this.filesConteudo) getItem(conteudo),
+                        for (ConteudoTemplateModel conteudo
+                            in this.filesConteudo)
+                          getItem(conteudo),
                       ],
                     ),
                     Positioned(

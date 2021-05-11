@@ -40,7 +40,7 @@ void main() {
   Timer.periodic(oneSec, (Timer timer) {
     if (Platform.isAndroid) {
       valueHardware2().then((value) => {
-            // print('save value android'),
+            // ignore: missing_required_param
             Database.instance.playerDAO.addValueHardware(PlayerDado(
               bateria: double.parse(value[0]),
               sinalWifi: double.parse(value[1]),
@@ -58,7 +58,7 @@ void main() {
           });
     } else {
       valueHardware2().then((value) => {
-            // print('save value linux'),
+            // ignore: missing_required_param
             Database.instance.playerDAO.addValueHardware(PlayerDado(
               bateria: null,
               sinalWifi: null,
@@ -76,8 +76,6 @@ void main() {
           });
     }
   });
-
-  HttpOverrides.global = new MyHttpOverrides();
 
   runApp(ModularApp(module: AppModule()));
 }
@@ -104,15 +102,3 @@ Future ativarOneSignal() async {
   });
 }
 
-
-class MyHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port) {
-        final isValidHost = ["192.168.2.108"].contains(host);
-        return isValidHost;
-        //true;
-      };
-  }
-}

@@ -41,10 +41,11 @@ class SincronizaService {
       this.equipamentoService);
 
   Future iniciar() async {
+    // ignore: missing_required_param
     Atualizacoe atualizacao = Atualizacoe();
     atualizacao.inicio = DateTime.now();
     atualizacao = await atualizacaoDAO.save(atualizacao);
-    int sizeDir = await load();
+    //int sizeDir = await load();
 
     // if (sizeDir == 0) {
       
@@ -74,7 +75,7 @@ class SincronizaService {
 
   Future downloadConteudos(Atualizacoe atualizacao) async {
     //**Faz o download dos conteudos */
-    var conteudos = await conteudoService.download( atualizacao );
+    await conteudoService.download(atualizacao);
     // for (var conteudo in conteudos) {
     //   var tipo = conteudo.idTipoConteudo;
     //   if (tipo == TipoConteudo.IMAGENS.index ||
@@ -87,7 +88,7 @@ class SincronizaService {
 
   Future downloadTemplates(Atualizacoe atualizacao) async {
     //**Faz o download dos Templates */
-    var templates = await templateService.download( atualizacao );
+    await templateService.download(atualizacao);
     // for (var template in templates) {
     //   await arquivoService.downloadMidia(
     //       template.idArquivo, template.nomeArquivo, (_, __) {});
@@ -100,8 +101,8 @@ class SincronizaService {
   }
 
   Future downloadLoteriaResultado(Atualizacoe atualizacao) async {
-    //**Faz o download das Noticias */
-    await loteriaResultadoService.download( atualizacao );
+    //**Faz o download das Loterias Resultados */
+    await loteriaResultadoService.download(atualizacao);
   }
 
   Future downloadEquipamento(Atualizacoe atualizacao) async {
@@ -111,7 +112,7 @@ class SincronizaService {
 
   Future downloadPrevisaoImagemTempo(Atualizacoe atualizacao) async {
     //**Faz o download das Imagens de Previsão de Tempo */
-    var previsaoImgTempo = await previsaoImagemService.download( atualizacao );
+    var previsaoImgTempo = await previsaoImagemService.download(atualizacao);
     for (var previsaoImagem in previsaoImgTempo) {
       await arquivoService.downloadMidia(
           previsaoImagem.idArquivo, previsaoImagem.nomeArquivo, (_, __) {});
@@ -134,7 +135,7 @@ class SincronizaService {
         print('Erro ao excluir ${e.body}');
       }
     }
-    await sequenciaConteudoService.download( atualizacao );
+    await sequenciaConteudoService.download(atualizacao);
   }
 
   Future<int> load() async {

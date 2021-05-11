@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/services/login_service.dart';
@@ -8,7 +7,6 @@ import 'package:blink/app/shared/events.dart';
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:platform_device_id/platform_device_id.dart';
 
 part 'splash_controller.g.dart';
 
@@ -70,7 +68,6 @@ abstract class _SplashControllerBase with Store {
 
   Future<Equipamento> login() async {
     try {
-
       var response = await service.logar();
       streamPostServer.add(response);
       return response;
@@ -80,7 +77,6 @@ abstract class _SplashControllerBase with Store {
       streamPostServer.addError(e);
       throw Exception("Exception occured: $e");
     }
-    return null;
   }
 
   /* Future<List<Noticia>> postNoticias() async {

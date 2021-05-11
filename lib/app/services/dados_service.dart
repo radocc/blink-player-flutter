@@ -21,6 +21,7 @@ abstract class DadosService<T extends Insertable<DataClass>> {
   
 
   Future<List<T>> download(Atualizacoe atualizacao) async {
+    // ignore: missing_required_param
     AtualizacaoStatus status = AtualizacaoStatus(idAtualizacao: atualizacao.id,dataInicial: DateTime.now(),
     identificacao: repo.identificacao.index);
     try {
