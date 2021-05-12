@@ -32,7 +32,8 @@ class _CarouselPageState
   List<File> files;
   List<ConteudoTemplateModel> filesConteudo;
   ConteudoDAO dao = Database.instance.conteudoDAO;
-  ConteudoVisualizadoDAO visualizadoDAO = Database.instance.conteudoVisualizadoDAO;
+  ConteudoVisualizadoDAO visualizadoDAO =
+      Database.instance.conteudoVisualizadoDAO;
   FileSystemEntity file;
 
   @override
@@ -76,8 +77,7 @@ class _CarouselPageState
 
     this.filesConteudo.forEach((e) async {
       if (e.conteudo.tipo == TipoConteudo.NOTICIAS.index) {
-
-      }else if (e.conteudo.nomeArquivo == null){
+      } else if (e.conteudo.nomeArquivo == null) {
         file = File('${directory.path}/${e.template.nomeArquivo}');
       } else {
         file = File('${directory.path}/${e.conteudo.nomeArquivo}');
@@ -130,29 +130,24 @@ class _CarouselPageState
   // Verifica se é um slide de imagem ou de video
   //
   Widget getItem(ConteudoTemplateModel conteudoTemplate) {
-    String ext = extension(conteudoTemplate.file.path);
+    //String ext = extension(conteudoTemplate.file.path);
     // visualizadoDAO.registrarVisualizacao(conteudoTemplate.conteudo.id, null);
-    //
-    // Slide de video
-    //
+
     var tipo = conteudoTemplate.conteudo.tipo;
     if (tipo == TipoConteudo.VIDEO.index) {
       return SlideVideoPage(conteudoTemplate, next: nextPage);
-    }else if (tipo == TipoConteudo.IMAGENS.index) {
-      //
-      // Slide de imagem
-      //
+    } else if (tipo == TipoConteudo.IMAGENS.index) {
       return SlideImagePage(conteudoTemplate, next: nextPage);
-    }else if (conteudoTemplate.conteudo.tipo == TipoConteudo.PADRAO.index){
-      return SlideDefaultPage(conteudoTemplate, next:nextPage);
-    }else if (conteudoTemplate.conteudo.tipo == TipoConteudo.NOTICIAS.index){
-      return SlideNoticiaPage(conteudoTemplate, next:nextPage);
-    }else if (conteudoTemplate.conteudo.tipo == TipoConteudo.LOTERIAS.index){
-      return SlideLoteriaPage(conteudoTemplate, next:nextPage);
-    }else if (tipo == TipoConteudo.PREVISAOTEMPO.index) {
+    } else if (conteudoTemplate.conteudo.tipo == TipoConteudo.PADRAO.index) {
+      return SlideDefaultPage(conteudoTemplate, next: nextPage);
+    } else if (conteudoTemplate.conteudo.tipo == TipoConteudo.NOTICIAS.index) {
+      return SlideNoticiaPage(conteudoTemplate, next: nextPage);
+    } else if (conteudoTemplate.conteudo.tipo == TipoConteudo.LOTERIAS.index) {
+      return SlideLoteriaPage(conteudoTemplate, next: nextPage);
+    } else if (tipo == TipoConteudo.PREVISAOTEMPO.index) {
       return SlidePrevisaoTempoPage(conteudoTemplate, next: nextPage);
     }
-    return Container(); 
+    return Container();
   }
 
   @override

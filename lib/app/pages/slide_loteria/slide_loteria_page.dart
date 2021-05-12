@@ -4,7 +4,7 @@ import 'package:blink/app/database/dao/conteudo_visualizado_dao.dart';
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/models/conteudo_campos.dart';
 import 'package:blink/app/models/conteudo_template_model.dart';
-import 'package:blink/app/pages/slide_loteria/slide_loteria_controller.dart'; 
+import 'package:blink/app/pages/slide_loteria/slide_loteria_controller.dart';
 import 'package:blink/app/shared/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -60,7 +60,17 @@ class _SlideLoteriaPageState
               //currentIndex
               future: getLayout(constraints.maxWidth, constraints.maxHeight),
               builder: (context, snapshot) {
-                return snapshot.data;
+                if (snapshot.hasData) {
+                  return snapshot.data;
+                } else {
+                  return Center(
+                    child: SizedBox(
+                      child: CircularProgressIndicator(),
+                      width: 60,
+                      height: 60,
+                    ),
+                  );
+                }
               },
             );
           },
@@ -77,7 +87,17 @@ class _SlideLoteriaPageState
               future: getLayout(constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.cover),
               builder: (context, snapshot) {
-                return snapshot.data;
+                if (snapshot.hasData) {
+                  return snapshot.data;
+                } else {
+                  return Center(
+                    child: SizedBox(
+                      child: CircularProgressIndicator(),
+                      width: 60,
+                      height: 60,
+                    ),
+                  );
+                }
               },
             );
           },
@@ -94,7 +114,17 @@ class _SlideLoteriaPageState
               future: getLayout(constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.cover),
               builder: (context, snapshot) {
-                return snapshot.data;
+                if (snapshot.hasData) {
+                  return snapshot.data;
+                } else {
+                  return Center(
+                    child: SizedBox(
+                      child: CircularProgressIndicator(),
+                      width: 60,
+                      height: 60,
+                    ),
+                  );
+                }
               },
             );
           },
@@ -110,7 +140,17 @@ class _SlideLoteriaPageState
               future: getLayout(constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.contain),
               builder: (context, snapshot) {
-                return snapshot.data;
+                if (snapshot.hasData) {
+                  return snapshot.data;
+                } else {
+                  return Center(
+                    child: SizedBox(
+                      child: CircularProgressIndicator(),
+                      width: 60,
+                      height: 60,
+                    ),
+                  );
+                }
               },
             );
           },
@@ -120,8 +160,8 @@ class _SlideLoteriaPageState
   }
 
   Future<Widget> getLayout(double width, double height, {BoxFit boxFit}) async {
-    
-    visualizadoDAO.registrarVisualizacao(widget.conteudoModel.conteudo.id, null);
+    visualizadoDAO.registrarVisualizacao(
+        widget.conteudoModel.conteudo.id, null);
     List<Widget> children = [];
 
     //Ler todos os registros do banco

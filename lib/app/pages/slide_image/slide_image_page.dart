@@ -1,8 +1,6 @@
-import 'dart:convert';
 
 import 'package:blink/app/database/dao/conteudo_visualizado_dao.dart';
 import 'package:blink/app/database/database.dart';
-import 'package:blink/app/models/conteudo_campos.dart';
 import 'package:blink/app/models/conteudo_template_model.dart';
 import 'package:blink/app/shared/screen_size.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +58,17 @@ class _SlideImagePageState
               //currentIndex
               future: getLayout(constraints.maxWidth, constraints.maxHeight),
               builder: (context, snapshot) {
-                return snapshot.data;
+                if (snapshot.hasData) {
+                  return snapshot.data;
+                } else {
+                  return Center(
+                    child: SizedBox(
+                      child: CircularProgressIndicator(),
+                      width: 60,
+                      height: 60,
+                    ),
+                  );
+                }
               },
             );
           },
@@ -77,15 +85,17 @@ class _SlideImagePageState
               future: getLayout(constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.cover),
               builder: (context, snapshot) {
-                if (snapshot.hasData){
+                if (snapshot.hasData) {
                   return snapshot.data;
-                }else {
-                  return  SizedBox(
-                    child: CircularProgressIndicator(),
+                } else {
+                  return Center(
+                    child: SizedBox(
+                      child: CircularProgressIndicator(),
                       width: 60,
                       height: 60,
-                    );
-                  }
+                    ),
+                  );
+                }
               },
             );
           },
@@ -102,15 +112,17 @@ class _SlideImagePageState
               future: getLayout(constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.cover),
               builder: (context, snapshot) {
-                if (snapshot.hasData){
+                if (snapshot.hasData) {
                   return snapshot.data;
-                }else {
-                  return  SizedBox(
-                    child: CircularProgressIndicator(),
+                } else {
+                  return Center(
+                    child: SizedBox(
+                      child: CircularProgressIndicator(),
                       width: 60,
                       height: 60,
-                    );
-                  }
+                    ),
+                  );
+                }
               },
             );
           },
@@ -126,15 +138,17 @@ class _SlideImagePageState
               future: getLayout(constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.contain),
               builder: (context, snapshot) {
-                if (snapshot.hasData){
+                if (snapshot.hasData) {
                   return snapshot.data;
-                }else {
-                  return  SizedBox(
-                    child: CircularProgressIndicator(),
+                } else {
+                  return Center(
+                    child: SizedBox(
+                      child: CircularProgressIndicator(),
                       width: 60,
                       height: 60,
-                    );
-                  }
+                    ),
+                  );
+                }
               },
             );
           },
@@ -144,17 +158,17 @@ class _SlideImagePageState
   }
 
   Future<Widget> getLayout(double width, double height, {BoxFit boxFit}) async {
-    visualizadoDAO.registrarVisualizacao(widget.conteudoModel.conteudo.id, null);
+    visualizadoDAO.registrarVisualizacao(
+        widget.conteudoModel.conteudo.id, null);
     //retorno Componente
     return Container(
-      //height: 300,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image: FileImage(this.widget.conteudoModel.file), fit: boxFit),
-      )
-    );
+        //height: 300,
+        decoration: BoxDecoration(
+      image: DecorationImage(
+          image: FileImage(this.widget.conteudoModel.file), fit: boxFit),
+    ));
   }
-  
+
 /*
   Future<Widget> getLayout(double width, double height, int index) async {
     //Abre o banco
