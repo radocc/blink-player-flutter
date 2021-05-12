@@ -1,4 +1,6 @@
 
+import 'package:intl/intl.dart';
+
 class PrevisaoItem {
   String tempo;
   String descricao;
@@ -24,8 +26,7 @@ class PrevisaoItem {
     maxima = json['maxima'];
     minima = json['minima'];
     iuv = json['iuv'];
-    //data = DateFormat.yMd().parse(json['data']);
-    //data = json['data'];
+    data = DateTime.parse(json['data'].toString());
   }
 
   Map<String, dynamic> toJson() {

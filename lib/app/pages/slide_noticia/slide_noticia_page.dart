@@ -36,7 +36,6 @@ class _SlideNoticiaPageState
   TemplateDAO templateDAO;
   ConteudoVisualizadoDAO visualizadoDAO;
 
-
   @override
   void initState() {
     super.initState();
@@ -71,7 +70,17 @@ class _SlideNoticiaPageState
               //currentIndex
               future: getLayout(constraints.maxWidth, constraints.maxHeight),
               builder: (context, snapshot) {
-                return snapshot.data;
+                if (snapshot.hasData) {
+                  return snapshot.data;
+                } else {
+                  return Center(
+                    child: SizedBox(
+                      child: CircularProgressIndicator(),
+                      width: 60,
+                      height: 60,
+                    ),
+                  );
+                }
               },
             );
           },
@@ -88,7 +97,17 @@ class _SlideNoticiaPageState
               future: getLayout(constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.cover),
               builder: (context, snapshot) {
-                return snapshot.data;
+                if (snapshot.hasData) {
+                  return snapshot.data;
+                } else {
+                  return Center(
+                    child: SizedBox(
+                      child: CircularProgressIndicator(),
+                      width: 60,
+                      height: 60,
+                    ),
+                  );
+                }
               },
             );
           },
@@ -105,15 +124,17 @@ class _SlideNoticiaPageState
               future: getLayout(constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.cover),
               builder: (context, snapshot) {
-                if (snapshot.hasData){
+                if (snapshot.hasData) {
                   return snapshot.data;
-                }else {
-                  return  SizedBox(
-                    child: CircularProgressIndicator(),
+                } else {
+                  return Center(
+                    child: SizedBox(
+                      child: CircularProgressIndicator(),
                       width: 60,
                       height: 60,
-                    );
-                  }
+                    ),
+                  );
+                }
               },
             );
           },
@@ -129,7 +150,17 @@ class _SlideNoticiaPageState
               future: getLayout(constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.contain),
               builder: (context, snapshot) {
-                return snapshot.data;
+                if (snapshot.hasData) {
+                  return snapshot.data;
+                } else {
+                  return Center(
+                    child: SizedBox(
+                      child: CircularProgressIndicator(),
+                      width: 60,
+                      height: 60,
+                    ),
+                  );
+                }
               },
             );
           },
@@ -140,24 +171,25 @@ class _SlideNoticiaPageState
 
   Future<Widget> getLayout(double width, double height, {BoxFit boxFit}) async {
     noticia = await noticiaDAO.getProxima(widget.conteudoModel.conteudo.id);
-    
+
     template = await templateDAO.findPorId(noticia.idTemplate);
     // List<ConteudoTemplateModel> listaConteudo =
     //     await dao.getAllConteudoWithTemplate();
     List<Widget> children = [];
-    visualizadoDAO.registrarVisualizacao(widget.conteudoModel.conteudo.id, noticia.id);
+    visualizadoDAO.registrarVisualizacao(
+        widget.conteudoModel.conteudo.id, noticia.id);
     //Ler todos os registros do banco
     // listaConteudo.forEach((e) async {
     //Verifica se o objeto possui campo
     if (template.campos != null) {
       //Decodifica json do objeto 'Campos' quando existir
       //print(widget.conteudo.conteudo.campos);
-      var content = jsonDecode( template.campos );
+      var content = jsonDecode(template.campos);
       // Le os atributos do Json Campos'
       content.forEach((e) {
         // Converte json em Model
         final campoConvert = ConteudosCampo.fromJson(e);
-        switch (campoConvert.variavel){
+        switch (campoConvert.variavel) {
           case 'titulo':
             campoConvert.valor = noticia.titulo;
             break;
@@ -166,9 +198,10 @@ class _SlideNoticiaPageState
             break;
           case 'link':
             campoConvert.valor = noticia.link;
-            break;            
+            break;
           case 'datapublicado':
-            campoConvert.valor = DateFormat('dd/MM/yyyy').format(noticia.dataPublicadao);
+            campoConvert.valor =
+                DateFormat('dd/MM/yyyy').format(noticia.dataPublicadao);
             break;
         }
         //Seto posicao na tela
@@ -203,5 +236,4 @@ class _SlideNoticiaPageState
       child: Stack(children: children),
     );
   }
- 
 }

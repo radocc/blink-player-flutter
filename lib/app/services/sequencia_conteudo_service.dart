@@ -1,8 +1,6 @@
-import 'dart:io';
 
 import 'package:blink/app/database/dao/sequencia_conteudo_dao.dart';
 import 'package:blink/app/database/database.dart';
-import 'package:blink/app/modules/carousel/carousel_controller.dart';
 import 'package:blink/app/repositories/sequencia_conteudo_repository.dart';
 import 'package:blink/app/services/dados_service.dart';
 

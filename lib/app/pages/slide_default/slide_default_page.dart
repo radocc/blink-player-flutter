@@ -60,15 +60,17 @@ class _SlideDefaultPageState
               //currentIndex
               future: getLayout(constraints.maxWidth, constraints.maxHeight),
               builder: (context, snapshot) {
-                if (snapshot.hasData){
+                if (snapshot.hasData) {
                   return snapshot.data;
-                }else {
-                  return  SizedBox(
-                    child: CircularProgressIndicator(),
+                } else {
+                  return Center(
+                    child: SizedBox(
+                      child: CircularProgressIndicator(),
                       width: 60,
                       height: 60,
-                    );
-                  }
+                    ),
+                  );
+                }
               },
             );
           },
@@ -85,15 +87,17 @@ class _SlideDefaultPageState
               future: getLayout(constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.cover),
               builder: (context, snapshot) {
-                if (snapshot.hasData){
+                if (snapshot.hasData) {
                   return snapshot.data;
-                }else {
-                  return  SizedBox(
-                    child: CircularProgressIndicator(),
+                } else {
+                  return Center(
+                    child: SizedBox(
+                      child: CircularProgressIndicator(),
                       width: 60,
                       height: 60,
-                    );
-                  }
+                    ),
+                  );
+                }
               },
             );
           },
@@ -110,15 +114,17 @@ class _SlideDefaultPageState
               future: getLayout(constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.cover),
               builder: (context, snapshot) {
-                if (snapshot.hasData){
+                if (snapshot.hasData) {
                   return snapshot.data;
-                }else {
-                  return  SizedBox(
-                    child: CircularProgressIndicator(),
+                } else {
+                  return Center(
+                    child: SizedBox(
+                      child: CircularProgressIndicator(),
                       width: 60,
                       height: 60,
-                    );
-                  }
+                    ),
+                  );
+                }
               },
             );
           },
@@ -134,7 +140,17 @@ class _SlideDefaultPageState
               future: getLayout(constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.contain),
               builder: (context, snapshot) {
-                return snapshot.data;
+                if (snapshot.hasData) {
+                  return snapshot.data;
+                } else {
+                  return Center(
+                    child: SizedBox(
+                      child: CircularProgressIndicator(),
+                      width: 60,
+                      height: 60,
+                    ),
+                  );
+                }
               },
             );
           },
@@ -180,15 +196,21 @@ class _SlideDefaultPageState
       });
     }
     // });
-    //retorno Componente
-    return Container(
-      //height: 300,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image: FileImage(this.widget.conteudoModel.file), fit: boxFit),
-      ),
-      child: Stack(children: children),
-    );
+    if (widget.conteudoModel.conteudo.campos != null) {
+      //retorno Componente
+      return Container(
+        //height: 300,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: FileImage(this.widget.conteudoModel.file), fit: boxFit),
+        ),
+        child: Stack(children: children),
+      );
+    } else {
+      return Container(
+        child: Image.file(this.widget.conteudoModel.file, fit: boxFit),
+      );
+    }
   }
 
 /*

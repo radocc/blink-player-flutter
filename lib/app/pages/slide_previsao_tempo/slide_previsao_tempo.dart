@@ -8,6 +8,7 @@ import 'package:blink/app/models/previsao_item_model.dart';
 import 'package:blink/app/shared/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:intl/intl.dart';
 import 'slide_previsao_tempo_controller.dart';
 
 //
@@ -60,17 +61,20 @@ class _SlidePrevisaoTempoPageState
           builder: (BuildContext context, BoxConstraints constraints) {
             return FutureBuilder<Widget>(
               //currentIndex
-              future: getLayoutPrevisaoTempo(constraints.maxWidth, constraints.maxHeight),
+              future: getLayoutPrevisaoTempo(
+                  constraints.maxWidth, constraints.maxHeight),
               builder: (context, snapshot) {
-                if (snapshot.hasData){
+                if (snapshot.hasData) {
                   return snapshot.data;
-                }else {
-                  return  SizedBox(
-                    child: CircularProgressIndicator(),
+                } else {
+                  return Center(
+                    child: SizedBox(
+                      child: CircularProgressIndicator(),
                       width: 60,
                       height: 60,
-                    );
-                  }
+                    ),
+                  );
+                }
               },
             );
           },
@@ -84,18 +88,21 @@ class _SlidePrevisaoTempoPageState
           builder: (BuildContext context, BoxConstraints constraints) {
             return FutureBuilder<Widget>(
               //currentIndex
-              future: getLayoutPrevisaoTempo(constraints.maxWidth, constraints.maxHeight,
+              future: getLayoutPrevisaoTempo(
+                  constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.cover),
               builder: (context, snapshot) {
-                if (snapshot.hasData){
+                if (snapshot.hasData) {
                   return snapshot.data;
-                }else {
-                  return  SizedBox(
-                    child: CircularProgressIndicator(),
+                } else {
+                  return Center(
+                    child: SizedBox(
+                      child: CircularProgressIndicator(),
                       width: 60,
                       height: 60,
-                    );
-                  }
+                    ),
+                  );
+                }
               },
             );
           },
@@ -109,18 +116,21 @@ class _SlidePrevisaoTempoPageState
           builder: (BuildContext context, BoxConstraints constraints) {
             return FutureBuilder<Widget>(
               //currentIndex
-              future: getLayoutPrevisaoTempo(constraints.maxWidth, constraints.maxHeight,
+              future: getLayoutPrevisaoTempo(
+                  constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.cover),
               builder: (context, snapshot) {
-                if (snapshot.hasData){
+                //if (snapshot.hasData) {
                   return snapshot.data;
-                }else {
-                  return  SizedBox(
-                    child: CircularProgressIndicator(),
-                      width: 60,
-                      height: 60,
-                    );
-                  }
+                // } else {
+                //   return Center(
+                //     child: SizedBox(
+                //       child: CircularProgressIndicator(),
+                //       width: 60,
+                //       height: 60,
+                //     ),
+                //   );
+                // }
               },
             );
           },
@@ -133,18 +143,21 @@ class _SlidePrevisaoTempoPageState
           builder: (BuildContext context, BoxConstraints constraints) {
             return FutureBuilder<Widget>(
               //currentIndex
-              future: getLayoutPrevisaoTempo(constraints.maxWidth, constraints.maxHeight,
+              future: getLayoutPrevisaoTempo(
+                  constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.contain),
               builder: (context, snapshot) {
-                if (snapshot.hasData){
+                if (snapshot.hasData) {
                   return snapshot.data;
-                }else {
-                  return  SizedBox(
-                    child: CircularProgressIndicator(),
+                } else {
+                  return Center(
+                    child: SizedBox(
+                      child: CircularProgressIndicator(),
                       width: 60,
                       height: 60,
-                    );
-                  }
+                    ),
+                  );
+                }
               },
             );
           },
@@ -153,8 +166,10 @@ class _SlidePrevisaoTempoPageState
     }
   }
 
-  Future<Widget> getLayoutPrevisaoTempo(double width, double height, {BoxFit boxFit}) async {
-    visualizadoDAO.registrarVisualizacao(widget.conteudoModel.conteudo.id, null);
+  Future<Widget> getLayoutPrevisaoTempo(double width, double height,
+      {BoxFit boxFit}) async {
+    visualizadoDAO.registrarVisualizacao(
+        widget.conteudoModel.conteudo.id, null);
     // ConteudoDAO dao = Database.instance.conteudoDAO;
     //Chama metodo para buscar no banco
     // List<ConteudoTemplateModel> listaConteudo =
@@ -191,9 +206,9 @@ class _SlidePrevisaoTempoPageState
                   widget.conteudoModel.conteudo.uf;
               break;
             case 'data':
-              //final formatter =
-                //  new DateFormat('dd-MM-yyyy').format(previsao.data);
-              //campoConvert.valor = formatter;
+              final formatter =
+               new DateFormat('dd-MM-yyyy').format(previsao.data);
+              campoConvert.valor = formatter;
               break;
             case 'tempo':
               campoConvert.valor = previsao.tempo;
