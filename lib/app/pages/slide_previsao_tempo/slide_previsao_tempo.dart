@@ -229,6 +229,8 @@ class _SlidePrevisaoTempoPageState
               campoConvert.valor = previsao.descricao;
               break;
           }
+        }else if (campoConvert.variavel == 'cidade'){
+            campoConvert.valor = widget.conteudoModel.conteudo.cidade +' ' + widget.conteudoModel.conteudo.uf;
         }
 
         //Seto posicao na tela

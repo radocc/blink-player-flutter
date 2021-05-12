@@ -25,28 +25,11 @@ class ConteudoService extends DadosService<Conteudo> {
   getDAO(){
       return this.conteudoDao;
   }
-
-  // Future<List<Conteudo>> download(Atualizacoe atualizacao) async {
-  //   AtualizacaoStatus status = AtualizacaoStatus(idAtualizacao: atualizacao.id,dataInicial: DateTime.now());
-    
-  //   var conteudos = await super.download(atualizacao);
-  //   status.dataDownload = DateTime.now();
-  //   if (conteudos != null) {
-  //     for (var item in conteudos) {
-  //       item = await conteudoDao.save(item);
-  //       // var atCt = new AtualizacaoConteudo(id: null, idAtualizacao: null, tipoObjeto: null, idObjeto: null, data: null)
-  //     }
-  //   }
-  //   status.dataProcessado = DateTime.now();
-  //   status.dataFinal = DateTime.now();
-    
-  //   return conteudos;
-  // }
-
+  
   @override
   Future<List<Conteudo>> finalizar(List<Conteudo> conteudos, AtualizacaoStatus status) async {
     for (var conteudo in conteudos) {
-      var tipo = conteudo.idTipoConteudo;
+      var tipo = conteudo.tipo;
       if (tipo == TipoConteudo.IMAGENS.index ||
           tipo == TipoConteudo.VIDEO.index) {
         await arquivoService.downloadMidia(
@@ -56,42 +39,4 @@ class ConteudoService extends DadosService<Conteudo> {
     return conteudos;
   }
 }
-
-// Future<List<Conteudo>> downloadConteudo() async {
-//   int sizeDirectory = await load();
-
-//   if (sizeDirectory == 0) {
-//     var conteudos = await this.conteudoRepo.downloadConteudo();
-//     if (conteudos != null) {
-//       for (var item in conteudos) {
-//         await dao.save(item);
-//       }
-//     }
-//     return conteudos;
-//   } else {
-//     var conteudo = this.conteudoRepo.downloadConteudo();
-//     return conteudo;
-//   }
-// }
-
-// Future<int> load() async {
-//   this.files = [];
-
-//   Directory directory = await getApplicationDocumentsDirectory();
-//   List<FileSystemEntity> files = directory.listSync();
-
-//   print(directory.path);
-
-//   for (FileSystemEntity file in files) {
-//     if (file is File) {
-//       String ext = extension(file.path);
-//       // Verifica se é uma imagem ou video e adiciona na lista
-//       if (this.controller.extVideo.contains(ext) ||
-//           controller.extImg.contains(ext)) {
-//         this.files.add(file);
-//       }
-//     }
-//   }
-//   print('Qtd. Imagem/video: ' + this.files.length.toString());
-//   return this.files.length;
-// }
+ 

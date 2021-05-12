@@ -11,12 +11,13 @@ class ArquivoService {
 
   ArquivoService(this.repo);
 
-  Future<List<int>> downloadMidia( int idArquivo, String nome, Function(int, int) onProgress) async {
+  Future<int> downloadMidia( int idArquivo, String nome, Function(int, int) onProgress) async {
     try{
       var arquivo = await repo.downloadMidia(idArquivo, onProgress);
       if (arquivo.isNotEmpty) {
         await salvarArquivo(arquivo, idArquivo, nome);
       }
+      return idArquivo;
     }catch(e ){
       throw e;
     }    

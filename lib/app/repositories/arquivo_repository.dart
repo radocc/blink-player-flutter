@@ -5,8 +5,7 @@ import 'package:dio/dio.dart';
 class ArquivoRepository extends AbstractBaseRepository {
   ArquivoRepository() : super('arquivo');
 
-  Future<List<int>> downloadMidia(
-      int idArquivo, Function(int, int) onProgress) async {
+  Future<List<int>> downloadMidia( int idArquivo, Function(int, int) onProgress) async {
     try {
       var response = await dio.get(getUrl('/binario/$idArquivo'),
           options: RequestOptions(
