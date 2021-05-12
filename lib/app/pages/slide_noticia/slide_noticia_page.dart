@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:blink/app/database/dao/conteudo_visualizado_dao.dart';
 import 'package:blink/app/database/dao/noticia_dao.dart';
 import 'package:blink/app/database/dao/template_dao.dart';
 import 'package:blink/app/database/database.dart';
@@ -33,12 +34,15 @@ class _SlideNoticiaPageState
   NoticiaDAO noticiaDAO;
   Template template;
   TemplateDAO templateDAO;
+  ConteudoVisualizadoDAO visualizadoDAO;
+
 
   @override
   void initState() {
     super.initState();
     noticiaDAO = Database.instance.noticiaDAO;
     templateDAO = Database.instance.templateDAO;
+    visualizadoDAO = Database.instance.conteudoVisualizadoDAO;
     Future.delayed(nextDuration, () {
       //
       // Proximo slide
@@ -101,7 +105,15 @@ class _SlideNoticiaPageState
               future: getLayout(constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.cover),
               builder: (context, snapshot) {
-                return snapshot.data;
+                if (snapshot.hasData){
+                  return snapshot.data;
+                }else {
+                  return  SizedBox(
+                    child: CircularProgressIndicator(),
+                      width: 60,
+                      height: 60,
+                    );
+                  }
               },
             );
           },
@@ -133,7 +145,7 @@ class _SlideNoticiaPageState
     // List<ConteudoTemplateModel> listaConteudo =
     //     await dao.getAllConteudoWithTemplate();
     List<Widget> children = [];
-
+    visualizadoDAO.registrarVisualizacao(widget.conteudoModel.conteudo.id, noticia.id);
     //Ler todos os registros do banco
     // listaConteudo.forEach((e) async {
     //Verifica se o objeto possui campo

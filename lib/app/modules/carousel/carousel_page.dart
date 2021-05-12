@@ -131,7 +131,7 @@ class _CarouselPageState
   //
   Widget getItem(ConteudoTemplateModel conteudoTemplate) {
     String ext = extension(conteudoTemplate.file.path);
-    visualizadoDAO.registrarVisualizacao(conteudoTemplate.conteudo.id, null);
+    // visualizadoDAO.registrarVisualizacao(conteudoTemplate.conteudo.id, null);
     //
     // Slide de video
     //

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:blink/app/database/dao/conteudo_visualizado_dao.dart';
+import 'package:blink/app/database/database.dart';
 import 'package:blink/app/models/conteudo_campos.dart';
 import 'package:blink/app/models/conteudo_template_model.dart';
 import 'package:blink/app/pages/slide_default/slide_default_controller.dart';
@@ -25,10 +27,11 @@ class SlideDefaultPage extends StatefulWidget {
 class _SlideDefaultPageState
     extends ModularState<SlideDefaultPage, SlideDefaultController> {
   //int currentIndex = 0;
-
+  ConteudoVisualizadoDAO visualizadoDAO;
   @override
   void initState() {
     super.initState();
+    visualizadoDAO = Database.instance.conteudoVisualizadoDAO;
     Future.delayed(nextDuration, () {
       //
       // Proximo slide
@@ -57,7 +60,15 @@ class _SlideDefaultPageState
               //currentIndex
               future: getLayout(constraints.maxWidth, constraints.maxHeight),
               builder: (context, snapshot) {
-                return snapshot.data;
+                if (snapshot.hasData){
+                  return snapshot.data;
+                }else {
+                  return  SizedBox(
+                    child: CircularProgressIndicator(),
+                      width: 60,
+                      height: 60,
+                    );
+                  }
               },
             );
           },
@@ -74,7 +85,15 @@ class _SlideDefaultPageState
               future: getLayout(constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.cover),
               builder: (context, snapshot) {
-                return snapshot.data;
+                if (snapshot.hasData){
+                  return snapshot.data;
+                }else {
+                  return  SizedBox(
+                    child: CircularProgressIndicator(),
+                      width: 60,
+                      height: 60,
+                    );
+                  }
               },
             );
           },
@@ -91,7 +110,15 @@ class _SlideDefaultPageState
               future: getLayout(constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.cover),
               builder: (context, snapshot) {
-                return snapshot.data;
+                if (snapshot.hasData){
+                  return snapshot.data;
+                }else {
+                  return  SizedBox(
+                    child: CircularProgressIndicator(),
+                      width: 60,
+                      height: 60,
+                    );
+                  }
               },
             );
           },
@@ -118,7 +145,7 @@ class _SlideDefaultPageState
 
   Future<Widget> getLayout(double width, double height, {BoxFit boxFit}) async {
     List<Widget> children = [];
-
+    visualizadoDAO = Database.instance.conteudoVisualizadoDAO;
     //Ler todos os registros do banco
     // listaConteudo.forEach((e) async {
     //Verifica se o objeto possui campo

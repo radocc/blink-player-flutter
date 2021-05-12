@@ -38,7 +38,7 @@ class ConteudoVisualizadoDAO extends AbstractDAO<ConteudoVisualizado> with _$Con
   // } 
 
   Future<ConteudoVisualizado> registrarVisualizacao(int idConteudo,int idNoticia) async {
-    var conteudoVisualizado = null as ConteudoVisualizado;
+    var conteudoVisualizado;
     if (idNoticia == null){
       conteudoVisualizado = await (select(conteudosVisualizados)..where((tbl) => tbl.idConteudo.equals(idConteudo)
         & tbl.idNoticia.equals(idNoticia) )..limit(1)).getSingle();

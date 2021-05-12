@@ -14,6 +14,5 @@ class AtualizacoesStatus extends Table {
   TextColumn get mensagem => text().nullable().nullable()();
   IntColumn get identificacao => integer().nullable()();
 
-   @override
-  Set<Column> get primaryKey => {id};
+ 
 }

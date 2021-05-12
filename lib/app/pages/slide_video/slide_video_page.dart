@@ -1,3 +1,5 @@
+import 'package:blink/app/database/dao/conteudo_visualizado_dao.dart';
+import 'package:blink/app/database/database.dart';
 import 'package:blink/app/models/conteudo_template_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -6,9 +8,9 @@ import 'slide_video_controller.dart';
 
 class SlideVideoPage extends StatefulWidget {
   final Function next;
-  final ConteudoTemplateModel url;
+  final ConteudoTemplateModel conteudoTemplate;
   //final File url;
-  const SlideVideoPage(this.url, {@required this.next});
+  const SlideVideoPage(this.conteudoTemplate, {@required this.next});
 
   @override
   _SlideVideoPageState createState() => _SlideVideoPageState();
@@ -17,15 +19,17 @@ class SlideVideoPage extends StatefulWidget {
 class _SlideVideoPageState
     extends ModularState<SlideVideoPage, SlideVideoController> {
   VideoPlayerController _controller;
-
+  ConteudoVisualizadoDAO visualizadoDAO;
   @override
   void initState() {
     super.initState();
+    visualizadoDAO = Database.instance.conteudoVisualizadoDAO;
+    visualizadoDAO.registrarVisualizacao(widget.conteudoTemplate.conteudo.id, null);
     //
     // Controlador do video
     //
     //_controller = VideoPlayerController.file(widget.url)
-    _controller = VideoPlayerController.file(widget.url.file)
+    _controller = VideoPlayerController.file(widget.conteudoTemplate.file)
       ..initialize().then((value) {
         _controller.addListener(() {
           setState(() {
@@ -59,7 +63,7 @@ class _SlideVideoPageState
   Widget build(BuildContext context) {
     //
     // Define os widget que serão exibido no slide de Video
-    //
+    
     // Full Screan
     return Container(
       child: AspectRatio(

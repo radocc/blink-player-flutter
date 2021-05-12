@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:blink/app/database/dao/conteudo_visualizado_dao.dart';
+import 'package:blink/app/database/database.dart';
 import 'package:blink/app/models/conteudo_campos.dart';
 import 'package:blink/app/models/conteudo_template_model.dart';
 import 'package:blink/app/pages/slide_loteria/slide_loteria_controller.dart'; 
@@ -25,10 +27,11 @@ class SlideLoteriaPage extends StatefulWidget {
 class _SlideLoteriaPageState
     extends ModularState<SlideLoteriaPage, SlideLoteriaController> {
   //int currentIndex = 0;
-
+  ConteudoVisualizadoDAO visualizadoDAO;
   @override
   void initState() {
     super.initState();
+    visualizadoDAO = Database.instance.conteudoVisualizadoDAO;
     Future.delayed(nextDuration, () {
       //
       // Proximo slide
@@ -117,11 +120,8 @@ class _SlideLoteriaPageState
   }
 
   Future<Widget> getLayout(double width, double height, {BoxFit boxFit}) async {
-    //Abre o banco
-    // ConteudoDAO dao = Database.instance.conteudoDAO;
-    //Chama metodo para buscar no banco
-    // List<ConteudoTemplateModel> listaConteudo =
-    //     await dao.getAllConteudoWithTemplate();
+    
+    visualizadoDAO.registrarVisualizacao(widget.conteudoModel.conteudo.id, null);
     List<Widget> children = [];
 
     //Ler todos os registros do banco

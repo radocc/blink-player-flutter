@@ -9119,7 +9119,7 @@ class ConteudoVisualizado extends DataClass
   DateTime dataExecucao;
   DateTime dataAlteracao;
   ConteudoVisualizado(
-      {@required this.id,
+      {this.id,
       this.idApp,
       this.idConteudo,
       this.idPlayer,
@@ -9455,7 +9455,7 @@ class $ConteudosVisualizadosTable extends ConteudosVisualizados
   @override
   GeneratedIntColumn get id => _id ??= _constructId();
   GeneratedIntColumn _constructId() {
-    return GeneratedIntColumn('id', $tableName, false,
+    return GeneratedIntColumn('id', $tableName, true,
         hasAutoIncrement: true, declaredAsPrimaryKey: true);
   }
 

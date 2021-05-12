@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:blink/app/database/dao/conteudo_visualizado_dao.dart';
+import 'package:blink/app/database/database.dart';
 import 'package:blink/app/models/conteudo_campos.dart';
 import 'package:blink/app/models/conteudo_template_model.dart';
 import 'package:blink/app/models/previsao_item_model.dart';
@@ -26,10 +28,12 @@ class SlidePrevisaoTempoPage extends StatefulWidget {
 class _SlidePrevisaoTempoPageState
     extends ModularState<SlidePrevisaoTempoPage, SlidePrevisaoTempoController> {
   //int currentIndex = 0;
+  ConteudoVisualizadoDAO visualizadoDAO;
 
   @override
   void initState() {
     super.initState();
+    visualizadoDAO = Database.instance.conteudoVisualizadoDAO;
     Future.delayed(nextDuration, () {
       //
       // Proximo slide
@@ -58,7 +62,15 @@ class _SlidePrevisaoTempoPageState
               //currentIndex
               future: getLayoutPrevisaoTempo(constraints.maxWidth, constraints.maxHeight),
               builder: (context, snapshot) {
-                return snapshot.data;
+                if (snapshot.hasData){
+                  return snapshot.data;
+                }else {
+                  return  SizedBox(
+                    child: CircularProgressIndicator(),
+                      width: 60,
+                      height: 60,
+                    );
+                  }
               },
             );
           },
@@ -75,7 +87,15 @@ class _SlidePrevisaoTempoPageState
               future: getLayoutPrevisaoTempo(constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.cover),
               builder: (context, snapshot) {
-                return snapshot.data;
+                if (snapshot.hasData){
+                  return snapshot.data;
+                }else {
+                  return  SizedBox(
+                    child: CircularProgressIndicator(),
+                      width: 60,
+                      height: 60,
+                    );
+                  }
               },
             );
           },
@@ -92,7 +112,15 @@ class _SlidePrevisaoTempoPageState
               future: getLayoutPrevisaoTempo(constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.cover),
               builder: (context, snapshot) {
-                return snapshot.data;
+                if (snapshot.hasData){
+                  return snapshot.data;
+                }else {
+                  return  SizedBox(
+                    child: CircularProgressIndicator(),
+                      width: 60,
+                      height: 60,
+                    );
+                  }
               },
             );
           },
@@ -108,7 +136,15 @@ class _SlidePrevisaoTempoPageState
               future: getLayoutPrevisaoTempo(constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.contain),
               builder: (context, snapshot) {
-                return snapshot.data;
+                if (snapshot.hasData){
+                  return snapshot.data;
+                }else {
+                  return  SizedBox(
+                    child: CircularProgressIndicator(),
+                      width: 60,
+                      height: 60,
+                    );
+                  }
               },
             );
           },
@@ -118,7 +154,7 @@ class _SlidePrevisaoTempoPageState
   }
 
   Future<Widget> getLayoutPrevisaoTempo(double width, double height, {BoxFit boxFit}) async {
-    //Abre o banco
+    visualizadoDAO.registrarVisualizacao(widget.conteudoModel.conteudo.id, null);
     // ConteudoDAO dao = Database.instance.conteudoDAO;
     //Chama metodo para buscar no banco
     // List<ConteudoTemplateModel> listaConteudo =
