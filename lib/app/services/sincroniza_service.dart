@@ -13,6 +13,7 @@ import 'package:blink/app/services/previsao_imagem_tempo_service.dart';
 import 'package:blink/app/services/previsao_tempo_service.dart';
 import 'package:blink/app/services/sequencia_conteudo_service.dart';
 import 'package:blink/app/services/template_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -51,17 +52,18 @@ class SincronizaService {
       
     // }
     try{
-      await downloadConteudos( atualizacao );
-      await downloadTemplates( atualizacao );
-      await downloadPrevisaoImagemTempo( atualizacao );
-      await downloadPrevisaoTempo( atualizacao );
-      await downloadSequenciaConteudo( atualizacao );
-      await downloadNoticias( atualizacao );
-      await downloadLoteriaResultado( atualizacao );
-      await downloadEquipamento( atualizacao );
-      atualizacao.fim = DateTime.now();      
-      atualizacao = await atualizacaoDAO.save(atualizacao);
-
+      if (kReleaseMode) {
+        await downloadConteudos( atualizacao );
+        await downloadTemplates( atualizacao );
+        await downloadPrevisaoImagemTempo( atualizacao );
+        await downloadPrevisaoTempo( atualizacao );
+        await downloadSequenciaConteudo( atualizacao );
+        await downloadNoticias( atualizacao );
+        await downloadLoteriaResultado( atualizacao );
+        await downloadEquipamento( atualizacao );
+        atualizacao.fim = DateTime.now();      
+        atualizacao = await atualizacaoDAO.save(atualizacao);
+      }
     }catch(e){
       if (e is NoSuchMethodError){
         print((e as NoSuchMethodError).stackTrace);

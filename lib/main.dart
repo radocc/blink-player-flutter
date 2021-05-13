@@ -5,16 +5,14 @@ import 'package:battery/battery.dart';
 import 'package:blink/app/app_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:flutter_modular/flutter_modular.dart'; 
 import 'package:system_info/system_info.dart';
 import 'package:wifi/wifi.dart';
 
 import 'app/database/database.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  ativarOneSignal();  
+  WidgetsFlutterBinding.ensureInitialized(); 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   Battery _battery = Battery();
   const oneSec = const Duration(seconds: 15);
@@ -81,25 +79,5 @@ void main() {
   runApp(ModularApp(module: AppModule()));
 }
 
-Future ativarOneSignal() async {
-  await OneSignal.shared.setRequiresUserPrivacyConsent(false);
-  // await OneSignal.shared.consentGranted(true);
-  await OneSignal.shared.init(
-    "e74bc8f1-e581-463a-9dfe-5e01625bf14f",
-    iOSSettings: {
-      OSiOSSettings.autoPrompt: false,
-      OSiOSSettings.inAppLaunchUrl: true
-    }
-  );
-  OneSignal.shared.setInFocusDisplayType(OSNotificationDisplayType.notification);
-  OneSignal.shared.setNotificationReceivedHandler((OSNotification notification) {
-    // will be called whenever a notification is received
-    print('Notificaçao: Received: '+ notification.toString());
-  });
-  // OneSignal.shared.promptUserForPushNotificationPermission();
-  OneSignal.shared.setNotificationOpenedHandler((OSNotificationOpenedResult result) {
-    // will be called whenever a notification is opened/button pressed.
-    print('Notificaçao: Opened: '+ result.toString());
-  });
-}
+ 
 

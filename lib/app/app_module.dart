@@ -26,6 +26,7 @@ import 'package:blink/app/services/equipamento_service.dart';
 import 'package:blink/app/services/login_service.dart';
 import 'package:blink/app/services/loteria_resultado_service.dart';
 import 'package:blink/app/services/noticia_service.dart';
+import 'package:blink/app/services/notification_service.dart';
 import 'package:blink/app/services/previsao_imagem_tempo_service.dart';
 import 'package:blink/app/services/previsao_tempo_service.dart';
 import 'package:blink/app/services/sequencia_conteudo_service.dart';
@@ -56,6 +57,7 @@ class AppModule extends MainModule {
         $HomeController,
         $AppController,
         $CustomDIO,
+        Bind((i) => NotificationService(i.get<SincronizaService>()), singleton: true, lazy: false),
         Bind((i) => SincronizaService(
               i.get<ConteudoService>(),
               i.get<NoticiaService>(),

@@ -66,9 +66,9 @@ class _SlideNoticiaPageState
       return Container(
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
-            return FutureBuilder<Widget>(
-              //currentIndex
-              future: getLayout(constraints.maxWidth, constraints.maxHeight),
+            return FutureBuilder<Widget>(                  
+              future: getLayout(constraints.maxWidth, constraints.maxHeight,
+                  boxFit: BoxFit.contain),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return snapshot.data;
@@ -92,10 +92,9 @@ class _SlideNoticiaPageState
       return Container(
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
-            return FutureBuilder<Widget>(
-              //currentIndex
+            return FutureBuilder<Widget>(                  
               future: getLayout(constraints.maxWidth, constraints.maxHeight,
-                  boxFit: BoxFit.cover),
+                  boxFit: BoxFit.contain),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return snapshot.data;
@@ -119,10 +118,9 @@ class _SlideNoticiaPageState
       return Container(
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
-            return FutureBuilder<Widget>(
-              //currentIndex
+            return FutureBuilder<Widget>(                  
               future: getLayout(constraints.maxWidth, constraints.maxHeight,
-                  boxFit: BoxFit.cover),
+                  boxFit: BoxFit.contain),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return snapshot.data;
@@ -145,8 +143,7 @@ class _SlideNoticiaPageState
       return Container(
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
-            return FutureBuilder<Widget>(
-              //currentIndex
+            return FutureBuilder<Widget>(                  
               future: getLayout(constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.contain),
               builder: (context, snapshot) {
@@ -169,9 +166,12 @@ class _SlideNoticiaPageState
     }
   }
 
-  Future<Widget> getLayout(double width, double height, {BoxFit boxFit}) async {
-    noticia = await noticiaDAO.getProxima(widget.conteudoModel.conteudo.id);
+  // Stream<Noticia> getProxima(){
+  //   return noticiaDAO.getProxima(widget.conteudoModel.conteudo.id);
+  // }
 
+  Future<Widget> getLayout(double width, double height, {BoxFit boxFit} ) async {
+    this.noticia = await noticiaDAO.getProxima(widget.conteudoModel.conteudo.id);
     template = await templateDAO.findPorId(noticia.idTemplate);
     // List<ConteudoTemplateModel> listaConteudo =
     //     await dao.getAllConteudoWithTemplate();
