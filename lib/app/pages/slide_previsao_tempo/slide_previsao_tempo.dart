@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:blink/app/database/dao/conteudo_visualizado_dao.dart';
 import 'package:blink/app/database/database.dart';
@@ -9,6 +10,8 @@ import 'package:blink/app/shared/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'slide_previsao_tempo_controller.dart';
 
 //
@@ -121,7 +124,7 @@ class _SlidePrevisaoTempoPageState
                   boxFit: BoxFit.cover),
               builder: (context, snapshot) {
                 //if (snapshot.hasData) {
-                  return snapshot.data;
+                return snapshot.data;
                 // } else {
                 //   return Center(
                 //     child: SizedBox(
@@ -175,9 +178,11 @@ class _SlidePrevisaoTempoPageState
     // List<ConteudoTemplateModel> listaConteudo =
     //     await dao.getAllConteudoWithTemplate();
     List<Widget> children = [];
+    final Future<Directory> dir = getApplicationDocumentsDirectory();
+    Directory directory = await dir;
+    FileSystemEntity file;
+    //File filee;
 
-    //Ler todos os registros do banco
-    // listaConteudo.forEach((e) async {
     //Verifica se o objeto possui campo
     if (widget.conteudoModel.conteudo.campos != null) {
       //Decodifica json do objeto 'Campos' quando existir
@@ -207,7 +212,7 @@ class _SlidePrevisaoTempoPageState
               break;
             case 'data':
               final formatter =
-               new DateFormat('dd-MM-yyyy').format(previsao.data);
+                  new DateFormat('dd-MM-yyyy').format(previsao.data);
               campoConvert.valor = formatter;
               break;
             case 'tempo':
@@ -223,14 +228,21 @@ class _SlidePrevisaoTempoPageState
               campoConvert.valor = previsao.iuv.toString();
               break;
             case 'url':
-              //campoConvert.valor = previsao.url;
+              var path = previsao.url.split('/').last;
+              print(path);
+              file = File('${directory.path}/$path');
+              // filee = file;
+              // print(filee);
+              print(file.path);
               break;
             case 'descricao':
               campoConvert.valor = previsao.descricao;
               break;
           }
-        }else if (campoConvert.variavel == 'cidade'){
-            campoConvert.valor = widget.conteudoModel.conteudo.cidade +' ' + widget.conteudoModel.conteudo.uf;
+        } else if (campoConvert.variavel == 'cidade') {
+          campoConvert.valor = widget.conteudoModel.conteudo.cidade +
+              ' ' +
+              widget.conteudoModel.conteudo.uf;
         }
 
         //Seto posicao na tela
@@ -240,24 +252,35 @@ class _SlidePrevisaoTempoPageState
         var fontColor = campoConvert.fonteCor.replaceAll('#', '0xFF');
         print(fontColor);
 
-        //Crio stack com os Atributos
-        children.add(
-          Positioned(
-            left: px,
-            top: py,
-            child: Text(campoConvert.valor,
-                style: TextStyle(
-                    fontSize: campoConvert.fonteTamanho,
-                    fontFamily: campoConvert.fonte,
-                    color: Color(int.parse(fontColor)))),
-          ),
-        );
+        if (campoConvert.variavel == 'url') {
+          //String ext = extension(filee.path);
+          String ext = extension(file.path);
+          if (controller.extImg.contains(ext)) {
+            children.add(Positioned(
+                left: px,
+                top: py,
+                //child: Image.file(filee)));,
+                child: Image.file(File(file.path))));
+          }
+        } else {
+          //Crio stack com os Atributos
+          children.add(
+            Positioned(
+              left: px,
+              top: py,
+              child: Text(campoConvert.valor,
+                  style: TextStyle(
+                      fontSize: campoConvert.fonteTamanho,
+                      fontFamily: campoConvert.fonte,
+                      color: Color(int.parse(fontColor)))),
+            ),
+          );
+        }
       });
     }
     // });
     //retorno Componente
     return Container(
-      //height: 300,
       decoration: BoxDecoration(
         image: DecorationImage(
             image: FileImage(this.widget.conteudoModel.file), fit: boxFit),
@@ -265,56 +288,4 @@ class _SlidePrevisaoTempoPageState
       child: Stack(children: children),
     );
   }
-
-/*
-  Future<Widget> getLayout(double width, double height, int index) async {
-    //Abre o banco
-    ConteudoDAO dao = Database.instance.conteudoDAO;
-    //Chama metodo para buscar no banco
-    List<ConteudoTemplateModel> lista = await dao.getAllConteudoWithTemplate();
-
-    //var quantCampo = 0;
-    List<Widget> children = [];
-
-    ConteudoTemplateModel item = lista[index];
-
-    if (item.conteudo.campos != null) {
-      //Decodifica json do objeto 'Campos' quando existir
-      var content = jsonDecode(item.conteudo.campos);
-      // Le os atributos do Json Campos'
-      content.forEach((e) {
-        print('OBJETOS: ' + e.toString());
-        // Converte json em Model
-        final campoConvert = ConteudosCampo.fromJson(e);
-
-        //Seto posicao na tela
-        var px = campoConvert.positionLeft * width / 100;
-        var py = campoConvert.positionTop * height / 100;
-
-        //Crio stack com os Atributos
-        children.add(
-          Positioned(
-            left: px,
-            top: py,
-            child: Text(campoConvert.nome),
-          ),
-        );
-      });
-
-      //print(content.toString());
-      //print('QTD CAMPOS: ' + content.length.toString());
-      //quantCampo += i;
-      //print('QTD CONTEUDO COM CAMPOS: ' + quantCampo.toString());
-    }
-    // }
-    //);
-    //retorno Componente
-    return Container(
-      height: 300,
-      decoration: BoxDecoration(
-        image: DecorationImage(image: FileImage(this.widget.conteudo.file)),
-      ),
-      child: Stack(children: children),
-    );
-  } */
 }
