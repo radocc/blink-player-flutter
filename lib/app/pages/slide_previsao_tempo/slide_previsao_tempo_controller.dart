@@ -8,6 +8,12 @@ class SlidePrevisaoTempoController = _SlidePrevisaoTempoControllerBase
     with _$SlidePrevisaoTempoController;
 
 abstract class _SlidePrevisaoTempoControllerBase with Store {
+  // Lista de formatos suportados de video
+  List<String> extVideo = ['.mp4', '.mkv', '.wmv', '.avi', '.flv'];
+
+  // Lista de formatos suportados de imagem
+  List<String> extImg = ['.png', '.jpg', '.jpeg'];
+
   @observable
   int value = 0;
 
