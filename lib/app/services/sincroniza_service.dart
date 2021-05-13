@@ -52,7 +52,7 @@ class SincronizaService {
       
     // }
     try{
-      if (kReleaseMode) {
+      // if (kReleaseMode) {
         await downloadConteudos( atualizacao );
         await downloadTemplates( atualizacao );
         await downloadPrevisaoImagemTempo( atualizacao );
@@ -63,7 +63,7 @@ class SincronizaService {
         await downloadEquipamento( atualizacao );
         atualizacao.fim = DateTime.now();      
         atualizacao = await atualizacaoDAO.save(atualizacao);
-      }
+      // }
     }catch(e){
       if (e is NoSuchMethodError){
         print(e.stackTrace);
