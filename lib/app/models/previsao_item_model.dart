@@ -1,5 +1,5 @@
 
-import 'package:intl/intl.dart';
+
 
 class PrevisaoItem {
   String tempo;

@@ -1,6 +1,5 @@
 import 'package:blink/app/database/dao/abstract_dao.dart';
 import 'package:blink/app/database/database.dart';
-import 'package:blink/app/database/entity/conteudo_visualizado_entity.dart';
 import 'package:blink/app/database/entity/noticia_entity.dart';
 import 'package:moor/moor.dart';
 
