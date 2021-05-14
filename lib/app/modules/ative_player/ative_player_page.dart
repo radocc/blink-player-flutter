@@ -1,4 +1,5 @@
 import 'package:blink/app/modules/ative_player/ative_player_controller.dart';
+import 'package:blink/app/shared/screen_size.dart';
 import 'package:cross_connectivity/cross_connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -22,27 +23,31 @@ class _AtivePlayerPageState extends ModularState<AtivePlayerPage, AtivePlayerCon
   Widget build(BuildContext context) {
     final now = new DateTime.now();
     final formatter = new DateFormat('dd-MM-yyyy hh-MM').format(now);
+    ScreenSize controllers = ScreenSize();
 
     return Scaffold(
       body: Column(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 12, 0, 0),
-            child: ListTile(
-              title: Text(formatter),
-              trailing: Wrap(
-                spacing: 12,
-                children: <Widget>[
-                  ConnectivityBuilder(builder: (context, isConnected, status) {
-                    return Icon(
-                        isConnected == true ? Icons.wifi : Icons.wifi_off);
-                  }),
-                  ConnectivityBuilder(builder: (context, isConnected, status) {
-                    return Icon(isConnected == true
-                        ? Icons.cloud_queue
-                        : Icons.cloud_off);
-                  }),
-                ],
+          Container(
+            color: Colors.orange,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
+              child: ListTile(
+                title: Text(formatter),
+                trailing: Wrap(
+                  spacing: 12,
+                  children: <Widget>[
+                    ConnectivityBuilder(builder: (context, isConnected, status) {
+                      return Icon(
+                          isConnected == true ? Icons.wifi : Icons.wifi_off);
+                    }),
+                    ConnectivityBuilder(builder: (context, isConnected, status) {
+                      return Icon(isConnected == true
+                          ? Icons.cloud_queue
+                          : Icons.cloud_off);
+                    }),
+                  ],
+                ),
               ),
             ),
           ),
