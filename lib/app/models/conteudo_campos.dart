@@ -11,7 +11,7 @@ class ConteudosCampo {
   bool cadastro;
   double positionTop;
   double positionLeft;
-  String imagemFormato;
+  int imagemFormato;
   String resolucaoImagem;
   int angulo;
   int numeroLinha;

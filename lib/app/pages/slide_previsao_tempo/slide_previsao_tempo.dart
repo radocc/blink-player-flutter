@@ -70,13 +70,7 @@ class _SlidePrevisaoTempoPageState
                 if (snapshot.hasData) {
                   return snapshot.data;
                 } else {
-                  return Center(
-                    child: SizedBox(
-                      child: CircularProgressIndicator(),
-                      width: 60,
-                      height: 60,
-                    ),
-                  );
+                  return Container(width: 0.0, height: 0.0);
                 }
               },
             );
@@ -98,13 +92,7 @@ class _SlidePrevisaoTempoPageState
                 if (snapshot.hasData) {
                   return snapshot.data;
                 } else {
-                  return Center(
-                    child: SizedBox(
-                      child: CircularProgressIndicator(),
-                      width: 60,
-                      height: 60,
-                    ),
-                  );
+                  return Container(width: 0.0, height: 0.0);
                 }
               },
             );
@@ -123,17 +111,11 @@ class _SlidePrevisaoTempoPageState
                   constraints.maxWidth, constraints.maxHeight,
                   boxFit: BoxFit.cover),
               builder: (context, snapshot) {
-                //if (snapshot.hasData) {
+                if (snapshot.hasData) {
                 return snapshot.data;
-                // } else {
-                //   return Center(
-                //     child: SizedBox(
-                //       child: CircularProgressIndicator(),
-                //       width: 60,
-                //       height: 60,
-                //     ),
-                //   );
-                // }
+                } else {
+                  return Container(width: 0.0, height: 0.0);
+                }
               },
             );
           },
@@ -171,10 +153,7 @@ class _SlidePrevisaoTempoPageState
 
   Future<Widget> getLayoutPrevisaoTempo(double width, double height, {BoxFit boxFit}) async {
     visualizadoDAO.registrarVisualizacao(widget.conteudoModel.conteudo.id, null);
-    // ConteudoDAO dao = Database.instance.conteudoDAO;
-    //Chama metodo para buscar no banco
-    // List<ConteudoTemplateModel> listaConteudo =
-    //     await dao.getAllConteudoWithTemplate();
+    
     List<Widget> children = [];
     final Future<Directory> dir = getApplicationDocumentsDirectory();
     Directory directory = await dir;
@@ -189,8 +168,17 @@ class _SlidePrevisaoTempoPageState
       //Decodifica json do objeto 'Campos' quando existir
       //print(widget.conteudo.conteudo.campos);
       var content = jsonDecode(widget.conteudoModel.conteudo.campos);
-      // Le os atributos do Json Campos'
-
+      /**
+       * Caso o conteudo não possua a previsão do tempo, vamos retornar apenas o fundo da tela de previsão
+       */
+      if (widget.conteudoModel.conteudo.previsao == null){
+        return Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: FileImage(this.arquivo), fit: boxFit),
+            )
+          );
+      }
       var contPrevisao = jsonDecode(widget.conteudoModel.conteudo.previsao);
       List<PrevisaoItem> list = [];
 
