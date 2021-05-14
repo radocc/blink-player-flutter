@@ -55,6 +55,7 @@ dependencies:
   connectivity: ^2.0.2
   data_connection_checker: ^0.3.4
   cross_connectivity: ^2.0.1
+  flutter_svg: ^0.19.0
   archive: ^2.0.8
   onesignal_flutter: ^2.0.0
   

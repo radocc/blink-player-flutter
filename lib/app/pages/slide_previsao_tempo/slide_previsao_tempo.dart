@@ -9,6 +9,7 @@ import 'package:blink/app/models/previsao_item_model.dart';
 import 'package:blink/app/shared/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -114,7 +115,7 @@ class _SlidePrevisaoTempoPageState
                 if (snapshot.hasData) {
                 return snapshot.data;
                 } else {
-                  return Container(width: 0.0, height: 0.0);
+                  return Container();
                 }
               },
             );
@@ -249,7 +250,7 @@ class _SlidePrevisaoTempoPageState
                 left: px,
                 top: py,
                 //child: Image.file(filee)));,
-                child: Image.file(File(file.path))));
+                child: file.path.contains('.svg') ? SvgPicture.asset(file.path, color: Colors.white) : Image.file(File(file.path))));
           }
         } else {
           //Crio stack com os Atributos
