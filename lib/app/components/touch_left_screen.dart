@@ -6,8 +6,10 @@ import 'package:intl/intl.dart';
 
 class TouchLeftScreen extends StatefulWidget {
   final double topSize;
+  final double width;
+  final double height;
 
-  const TouchLeftScreen({Key key, this.topSize}) : super(key: key);
+  const TouchLeftScreen({Key key, this.topSize, this.width, this.height}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => TouchLeftScreenState();
@@ -46,6 +48,8 @@ class TouchLeftScreenState extends State<TouchLeftScreen> {
     return Padding(
       padding: EdgeInsets.fromLTRB(0, widget.topSize, 0, 0),
       child: Container(
+        width: widget.width,
+        height: widget.height,
         child: ListTile(
           title: Text(formatter),
           trailing: Wrap(

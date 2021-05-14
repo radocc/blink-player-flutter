@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:blink/app/components/splash_login.dart';
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/services/login_service.dart';
 import 'package:blink/app/services/sincroniza_service.dart';
@@ -28,7 +29,7 @@ abstract class _SplashControllerBase with Store {
       print('STREAM: $value');
       if (value) {
         login();
-      }
+      } 
     });
 
     // login();
