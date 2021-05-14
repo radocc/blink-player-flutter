@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:blink/app/database/dao/conteudo_visualizado_dao.dart';
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/models/conteudo_template_model.dart';
@@ -15,8 +17,9 @@ const nextDuration = Duration(seconds: 10);
 class SlideImagePage extends StatefulWidget {
   final Function next;
   final ConteudoTemplateModel conteudoModel;
+  final Future<Directory> dir; 
   //final File url;
-  const SlideImagePage(this.conteudoModel, {@required this.next});
+  const SlideImagePage(this.conteudoModel, {@required this.next, @required this.dir});
 
   @override
   _SlideImagePageState createState() => _SlideImagePageState();
@@ -26,9 +29,12 @@ class _SlideImagePageState
     extends ModularState<SlideImagePage, SlideImageController> {
   //int currentIndex = 0;
   ConteudoVisualizadoDAO visualizadoDAO;
+  File arquivo;   
+
   @override
   void initState() {
     super.initState();
+
     visualizadoDAO = Database.instance.conteudoVisualizadoDAO;
     Future.delayed(nextDuration, () {
       //
@@ -158,14 +164,15 @@ class _SlideImagePageState
   }
 
   Future<Widget> getLayout(double width, double height, {BoxFit boxFit}) async {
-    visualizadoDAO.registrarVisualizacao(
-        widget.conteudoModel.conteudo.id, null);
-    //retorno Componente
+    visualizadoDAO.registrarVisualizacao( widget.conteudoModel.conteudo.id, null);
+    Directory directory = await widget.dir;
+    arquivo = File('${directory.path}/${widget.conteudoModel.conteudo.nomeArquivo}');
+    
     return Container(
         //height: 300,
         decoration: BoxDecoration(
       image: DecorationImage(
-          image: FileImage(this.widget.conteudoModel.file), fit: boxFit),
+          image: FileImage(this.arquivo), fit: boxFit),
     ));
   }
 

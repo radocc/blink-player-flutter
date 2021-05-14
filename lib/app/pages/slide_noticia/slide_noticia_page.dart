@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:blink/app/database/dao/conteudo_visualizado_dao.dart';
 import 'package:blink/app/database/dao/noticia_dao.dart';
@@ -20,8 +21,8 @@ const nextDuration = Duration(seconds: 10);
 class SlideNoticiaPage extends StatefulWidget {
   final Function next;
   final ConteudoTemplateModel conteudoModel;
-  //final File url;
-  const SlideNoticiaPage(this.conteudoModel, {@required this.next});
+  final Future<Directory> dir;
+  const SlideNoticiaPage(this.conteudoModel, {@required this.next, @required this.dir});
 
   @override
   _SlideNoticiaPageState createState() => _SlideNoticiaPageState();
@@ -35,7 +36,7 @@ class _SlideNoticiaPageState
   Template template;
   TemplateDAO templateDAO;
   ConteudoVisualizadoDAO visualizadoDAO;
-
+  File arquivo;
   @override
   void initState() {
     super.initState();
@@ -173,13 +174,14 @@ class _SlideNoticiaPageState
   Future<Widget> getLayout(double width, double height, {BoxFit boxFit} ) async {
     this.noticia = await noticiaDAO.getProxima(widget.conteudoModel.conteudo.id);
     template = await templateDAO.findPorId(noticia.idTemplate);
-    // List<ConteudoTemplateModel> listaConteudo =
-    //     await dao.getAllConteudoWithTemplate();
+    
     List<Widget> children = [];
-    visualizadoDAO.registrarVisualizacao(
-        widget.conteudoModel.conteudo.id, noticia.id);
-    //Ler todos os registros do banco
-    // listaConteudo.forEach((e) async {
+    visualizadoDAO.registrarVisualizacao( widget.conteudoModel.conteudo.id, noticia.id);
+    Directory directory = await widget.dir;
+    
+    arquivo = File('${directory.path}/${template.nomeArquivo}');
+      
+
     //Verifica se o objeto possui campo
     if (template.campos != null) {
       //Decodifica json do objeto 'Campos' quando existir
@@ -231,7 +233,7 @@ class _SlideNoticiaPageState
       //height: 300,
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: FileImage(this.widget.conteudoModel.file), fit: boxFit),
+            image: FileImage(this.arquivo), fit: boxFit),
       ),
       child: Stack(children: children),
     );

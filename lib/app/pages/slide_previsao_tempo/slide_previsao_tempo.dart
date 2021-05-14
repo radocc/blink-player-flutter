@@ -22,7 +22,7 @@ const nextDuration = Duration(seconds: 10);
 class SlidePrevisaoTempoPage extends StatefulWidget {
   final Function next;
   final ConteudoTemplateModel conteudoModel;
-  //final File url;
+  
   const SlidePrevisaoTempoPage(this.conteudoModel, {@required this.next});
 
   @override
@@ -33,7 +33,7 @@ class _SlidePrevisaoTempoPageState
     extends ModularState<SlidePrevisaoTempoPage, SlidePrevisaoTempoController> {
   //int currentIndex = 0;
   ConteudoVisualizadoDAO visualizadoDAO;
-
+  File arquivo;
   @override
   void initState() {
     super.initState();
@@ -169,10 +169,8 @@ class _SlidePrevisaoTempoPageState
     }
   }
 
-  Future<Widget> getLayoutPrevisaoTempo(double width, double height,
-      {BoxFit boxFit}) async {
-    visualizadoDAO.registrarVisualizacao(
-        widget.conteudoModel.conteudo.id, null);
+  Future<Widget> getLayoutPrevisaoTempo(double width, double height, {BoxFit boxFit}) async {
+    visualizadoDAO.registrarVisualizacao(widget.conteudoModel.conteudo.id, null);
     // ConteudoDAO dao = Database.instance.conteudoDAO;
     //Chama metodo para buscar no banco
     // List<ConteudoTemplateModel> listaConteudo =
@@ -180,6 +178,9 @@ class _SlidePrevisaoTempoPageState
     List<Widget> children = [];
     final Future<Directory> dir = getApplicationDocumentsDirectory();
     Directory directory = await dir;
+    
+    arquivo = File('${directory.path}/${widget.conteudoModel.template.nomeArquivo}');
+    
     FileSystemEntity file;
     //File filee;
 
@@ -283,7 +284,7 @@ class _SlidePrevisaoTempoPageState
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: FileImage(this.widget.conteudoModel.file), fit: boxFit),
+            image: FileImage(this.arquivo), fit: boxFit),
       ),
       child: Stack(children: children),
     );

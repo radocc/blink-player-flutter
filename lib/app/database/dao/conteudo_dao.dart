@@ -24,11 +24,10 @@ class ConteudoDAO extends AbstractDAO<Conteudo> with _$ConteudoDAOMixin {
 
   Future<List<ConteudoTemplateModel>> getAllConteudoWithTemplate() async {
     final query = await (select(conteudos)
-          ..orderBy([(t) => OrderingTerm(expression: sequenciaConteudos.id)]))
+          ..orderBy([(t) => OrderingTerm(expression: sequenciaConteudos.idSequencia)]))
         .join([
       leftOuterJoin(templates, templates.id.equalsExp(conteudos.idTemplate)),
-      leftOuterJoin(sequenciaConteudos,
-          sequenciaConteudos.idSequencia.equalsExp(conteudos.id))
+      innerJoin(sequenciaConteudos, sequenciaConteudos.id.equalsExp(conteudos.id))
     ]).get();
 
     return query.map((row) {

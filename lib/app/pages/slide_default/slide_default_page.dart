@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:blink/app/database/dao/conteudo_visualizado_dao.dart';
 import 'package:blink/app/database/database.dart';
@@ -17,8 +18,8 @@ const nextDuration = Duration(seconds: 10);
 class SlideDefaultPage extends StatefulWidget {
   final Function next;
   final ConteudoTemplateModel conteudoModel;
-  //final File url;
-  const SlideDefaultPage(this.conteudoModel, {@required this.next});
+  final Future<Directory> dir;
+  const SlideDefaultPage(this.conteudoModel, {@required this.next, @required this.dir});
 
   @override
   _SlideDefaultPageState createState() => _SlideDefaultPageState();
@@ -28,6 +29,8 @@ class _SlideDefaultPageState
     extends ModularState<SlideDefaultPage, SlideDefaultController> {
   //int currentIndex = 0;
   ConteudoVisualizadoDAO visualizadoDAO;
+  File arquivo;
+
   @override
   void initState() {
     super.initState();
@@ -162,6 +165,15 @@ class _SlideDefaultPageState
   Future<Widget> getLayout(double width, double height, {BoxFit boxFit}) async {
     List<Widget> children = [];
     visualizadoDAO = Database.instance.conteudoVisualizadoDAO;
+    Directory directory = await widget.dir;
+    if (widget.conteudoModel.conteudo.tipo == 1) {
+      arquivo = File('${directory.path}/${widget.conteudoModel.conteudo.nomeArquivo}');
+    } else if (widget.conteudoModel.conteudo.tipo == 2){
+      arquivo = File('${directory.path}/${widget.conteudoModel.conteudo.nomeArquivo}');
+    }else  if (widget.conteudoModel.conteudo.tipo == 6){
+      arquivo = File('${directory.path}/${widget.conteudoModel.template.nomeArquivo}');
+    }
+
     //Ler todos os registros do banco
     // listaConteudo.forEach((e) async {
     //Verifica se o objeto possui campo
@@ -202,13 +214,13 @@ class _SlideDefaultPageState
         //height: 300,
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: FileImage(this.widget.conteudoModel.file), fit: boxFit),
+              image: FileImage(this.arquivo), fit: boxFit),
         ),
         child: Stack(children: children),
       );
     } else {
       return Container(
-        child: Image.file(this.widget.conteudoModel.file, fit: boxFit),
+        child: Image.file(this.arquivo, fit: boxFit),
       );
     }
   }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:blink/app/database/dao/conteudo_visualizado_dao.dart';
 import 'package:blink/app/database/database.dart';
@@ -17,8 +18,8 @@ const nextDuration = Duration(seconds: 10);
 class SlideLoteriaPage extends StatefulWidget {
   final Function next;
   final ConteudoTemplateModel conteudoModel;
-  //final File url;
-  const SlideLoteriaPage(this.conteudoModel, {@required this.next});
+  final Future<Directory> dir;
+  const SlideLoteriaPage(this.conteudoModel, {@required this.next, @required this.dir});
 
   @override
   _SlideLoteriaPageState createState() => _SlideLoteriaPageState();
@@ -28,6 +29,7 @@ class _SlideLoteriaPageState
     extends ModularState<SlideLoteriaPage, SlideLoteriaController> {
   //int currentIndex = 0;
   ConteudoVisualizadoDAO visualizadoDAO;
+  File arquivo;   
   @override
   void initState() {
     super.initState();
@@ -160,10 +162,12 @@ class _SlideLoteriaPageState
   }
 
   Future<Widget> getLayout(double width, double height, {BoxFit boxFit}) async {
-    visualizadoDAO.registrarVisualizacao(
-        widget.conteudoModel.conteudo.id, null);
+    visualizadoDAO.registrarVisualizacao( widget.conteudoModel.conteudo.id, null);
     List<Widget> children = [];
-
+    Directory directory = await widget.dir;
+    if (widget.conteudoModel.conteudo.tipo == 6){
+      arquivo = File('${directory.path}/${widget.conteudoModel.template.nomeArquivo}');
+    }
     //Ler todos os registros do banco
     // listaConteudo.forEach((e) async {
     //Verifica se o objeto possui campo
@@ -203,7 +207,7 @@ class _SlideLoteriaPageState
       //height: 300,
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: FileImage(this.widget.conteudoModel.file), fit: boxFit),
+            image: FileImage(this.arquivo), fit: boxFit),
       ),
       child: Stack(children: children),
     );

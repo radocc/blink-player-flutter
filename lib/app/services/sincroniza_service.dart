@@ -63,7 +63,7 @@ class SincronizaService {
         await downloadEquipamento( atualizacao );
         atualizacao.fim = DateTime.now();      
         atualizacao = await atualizacaoDAO.save(atualizacao);
-        Events.galeriaCtrl.sink.add(true);
+        Events.atualizacaoConteudoCtrl.sink.add(true);
       // }
     }catch(e){
       if (e is NoSuchMethodError){

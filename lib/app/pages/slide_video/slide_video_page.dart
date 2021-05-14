@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:blink/app/database/dao/conteudo_visualizado_dao.dart';
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/models/conteudo_template_model.dart';
@@ -9,8 +11,8 @@ import 'slide_video_controller.dart';
 class SlideVideoPage extends StatefulWidget {
   final Function next;
   final ConteudoTemplateModel conteudoTemplate;
-  //final File url;
-  const SlideVideoPage(this.conteudoTemplate, {@required this.next});
+  final Future<Directory> dir;
+  const SlideVideoPage(this.conteudoTemplate, {@required this.next, @required this.dir});
 
   @override
   _SlideVideoPageState createState() => _SlideVideoPageState();
@@ -18,8 +20,9 @@ class SlideVideoPage extends StatefulWidget {
 
 class _SlideVideoPageState
     extends ModularState<SlideVideoPage, SlideVideoController> {
-  VideoPlayerController _controller;
+  Future<VideoPlayerController> _controller;
   ConteudoVisualizadoDAO visualizadoDAO;
+  File arquivo;
   @override
   void initState() {
     super.initState();
@@ -28,26 +31,29 @@ class _SlideVideoPageState
     //
     // Controlador do video
     //
-    //_controller = VideoPlayerController.file(widget.url)
-    _controller = VideoPlayerController.file(widget.conteudoTemplate.file)
-      ..initialize().then((value) {
-        _controller.addListener(() {
-          setState(() {
-            //
-            // Quando acabar o video
-            //
-            if (!_controller.value.isPlaying &&
-                _controller.value.initialized &&
-                (_controller.value.duration == _controller.value.position)) {
+    widget.dir.then((directory) async {
+      arquivo = File('${directory.path}/${widget.conteudoTemplate.conteudo.nomeArquivo}');
+    _controller = Future.value(VideoPlayerController.file(arquivo) 
+      ..initialize().then((value) async{
+        _controller.then((ctrl) => {
+          ctrl.addListener(() {
+            setState(() {
               //
-              // Próximo slide
+              // Quando acabar o video
               //
-              widget.next();
-            }
-          });
+              if (!ctrl.value.isPlaying && ctrl.value.initialized && (ctrl.value.duration == ctrl.value.position)) {
+                //
+                // Próximo slide
+                //
+                widget.next();
+              }
+            });
+          })         
         });
       })
-      ..play();
+      ..play());
+    });
+    
   }
 
   @override
@@ -55,7 +61,9 @@ class _SlideVideoPageState
     //
     // Elimina o controlador
     //
-    _controller.dispose();
+    _controller.then((ctrl)=>{
+      ctrl.dispose()
+    });
     super.dispose();
   }
 
@@ -65,16 +73,26 @@ class _SlideVideoPageState
     // Define os widget que serão exibido no slide de Video
     
     // Full Screan
-    return Container(
-      child: AspectRatio(
-        aspectRatio: _controller.value.aspectRatio,
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: <Widget>[
-            VideoPlayer(_controller),
-          ],
-        ),
-      ),
+    return FutureBuilder<VideoPlayerController>(
+      future: _controller,
+      builder: (context, snapshot) {
+        if (snapshot.hasData){
+          return Container(
+            child: AspectRatio(
+              aspectRatio: snapshot.data.value.aspectRatio,
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: <Widget>[
+                  
+                  VideoPlayer(snapshot.data),
+                ],
+              ),
+            ),
+          );
+        }else{
+          return Container();
+        }        
+      }
     );
     
     // Video não esticado
