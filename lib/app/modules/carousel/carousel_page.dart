@@ -40,6 +40,7 @@ class _CarouselPageState
   void initState() {
     super.initState();
     _controller = PageController();
+
   }
 
   @override
@@ -95,7 +96,6 @@ class _CarouselPageState
         }
       }
     });
-
     return true;
   }
   // }

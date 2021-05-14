@@ -13,6 +13,7 @@ import 'package:blink/app/services/previsao_imagem_tempo_service.dart';
 import 'package:blink/app/services/previsao_tempo_service.dart';
 import 'package:blink/app/services/sequencia_conteudo_service.dart';
 import 'package:blink/app/services/template_service.dart';
+import 'package:blink/app/shared/events.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -62,6 +63,7 @@ class SincronizaService {
         await downloadEquipamento( atualizacao );
         atualizacao.fim = DateTime.now();      
         atualizacao = await atualizacaoDAO.save(atualizacao);
+        Events.galeriaCtrl.sink.add(true);
       // }
     }catch(e){
       if (e is NoSuchMethodError){
@@ -73,30 +75,15 @@ class SincronizaService {
     return true;
   }
 
-  SequenciaConteudoDAO dao = Database.instance.sequenciaConteudoDAO;
-  var controller = CarouselController();
-  List<File> files;
 
   Future downloadConteudos(Atualizacoe atualizacao) async {
     //**Faz o download dos conteudos */
     await conteudoService.download(atualizacao);
-    // for (var conteudo in conteudos) {
-    //   var tipo = conteudo.idTipoConteudo;
-    //   if (tipo == TipoConteudo.IMAGENS.index ||
-    //       tipo == TipoConteudo.VIDEO.index) {
-    //     await arquivoService.downloadMidia(
-    //         conteudo.idArquivo, conteudo.nomeArquivo, (_, __) {});
-    //   } else if (tipo == TipoConteudo.COTACAO.index) {}
-    // }
   }
 
   Future downloadTemplates(Atualizacoe atualizacao) async {
     //**Faz o download dos Templates */
     await templateService.download(atualizacao);
-    // for (var template in templates) {
-    //   await arquivoService.downloadMidia(
-    //       template.idArquivo, template.nomeArquivo, (_, __) {});
-    // }
   }
 
   Future downloadNoticias(Atualizacoe atualizacao) async {
@@ -130,8 +117,8 @@ class SincronizaService {
 
   Future downloadSequenciaConteudo(Atualizacoe atualizacao) async {
     //**Faz o download da Sequencia de Conteudo e Template */
-    List<SequenciaConteudo> sizeTable = await dao.getAllSequence();
-
+    SequenciaConteudoDAO dao = Database.instance.sequenciaConteudoDAO;
+    List<SequenciaConteudo> sizeTable = await dao.getAllSequence();    
     if (sizeTable.length > 0) {
       try {
         await dao.deleteAllSequence();
@@ -141,26 +128,5 @@ class SincronizaService {
     }
     await sequenciaConteudoService.download(atualizacao);
   }
-
-  Future<int> load() async {
-    this.files = [];
-
-    Directory directory = await getApplicationDocumentsDirectory();
-    List<FileSystemEntity> files = directory.listSync();
-
-    print(directory.path);
-
-    for (FileSystemEntity file in files) {
-      if (file is File) {
-        String ext = extension(file.path);
-        // Verifica se é uma imagem ou video e adiciona na lista
-        if (this.controller.extVideo.contains(ext) ||
-            controller.extImg.contains(ext)) {
-          this.files.add(file);
-        }
-      }
-    }
-    print('Qtd. Imagem/video: ' + this.files.length.toString());
-    return this.files.length;
-  }
+ 
 }
