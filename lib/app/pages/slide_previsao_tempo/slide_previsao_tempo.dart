@@ -161,7 +161,7 @@ class _SlidePrevisaoTempoPageState
     
     arquivo = File('${directory.path}/${widget.conteudoModel.template.nomeArquivo}');
     
-    FileSystemEntity file;
+    File file;
     //File filee;
 
     //Verifica se o objeto possui campo
@@ -221,8 +221,6 @@ class _SlidePrevisaoTempoPageState
               var path = previsao.url.split('/').last;
               print(path);
               file = File('${directory.path}/$path');
-              // filee = file;
-              // print(filee);
               print(file.path);
               break;
             case 'descricao':
@@ -243,14 +241,15 @@ class _SlidePrevisaoTempoPageState
         print(fontColor);
 
         if (campoConvert.variavel == 'url') {
-          //String ext = extension(filee.path);
           String ext = extension(file.path);
           if (controller.extImg.contains(ext)) {
             children.add(Positioned(
                 left: px,
                 top: py,
-                //child: Image.file(filee)));,
-                child: file.path.contains('.svg') ? SvgPicture.asset(file.path, color: Colors.white) : Image.file(File(file.path))));
+                child: file.path.contains('.svg') 
+                ? SvgPicture.file(file, color: Colors.white, width: 100, height: 100) 
+                : Image.file(file)
+            ));
           }
         } else {
           //Crio stack com os Atributos

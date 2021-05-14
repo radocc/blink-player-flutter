@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:blink/app/database/dao/atualizacao_dao.dart';
 import 'package:blink/app/database/dao/sequencia_conteudo_dao.dart';
 import 'package:blink/app/database/database.dart';
-import 'package:blink/app/modules/carousel/carousel_controller.dart';
 import 'package:blink/app/services/arquivo_service.dart';
 import 'package:blink/app/services/conteudo_service.dart';
 import 'package:blink/app/services/equipamento_service.dart';
@@ -14,8 +11,6 @@ import 'package:blink/app/services/previsao_tempo_service.dart';
 import 'package:blink/app/services/sequencia_conteudo_service.dart';
 import 'package:blink/app/services/template_service.dart';
 import 'package:blink/app/shared/events.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
 
 class SincronizaService {
   ConteudoService conteudoService;

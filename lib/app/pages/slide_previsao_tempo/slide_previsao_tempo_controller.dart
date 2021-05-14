@@ -12,7 +12,7 @@ abstract class _SlidePrevisaoTempoControllerBase with Store {
   List<String> extVideo = ['.mp4', '.mkv', '.wmv', '.avi', '.flv'];
 
   // Lista de formatos suportados de imagem
-  List<String> extImg = ['.png', '.jpg', '.jpeg'];
+  List<String> extImg = ['.png', '.jpg', '.jpeg', '.svg'];
 
   @observable
   int value = 0;

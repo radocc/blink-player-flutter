@@ -5,18 +5,10 @@ import 'package:blink/app/database/dao/conteudo_dao.dart';
 import 'package:blink/app/database/dao/conteudo_visualizado_dao.dart';
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/models/conteudo_template_model.dart';
-import 'package:blink/app/models/enuns/tipoconteudo_enum.dart';
-import 'package:blink/app/pages/slide_default/slide_default_page.dart';
-import 'package:blink/app/pages/slide_image/slide_image_page.dart';
-import 'package:blink/app/pages/slide_loteria/slide_loteria_page.dart';
-import 'package:blink/app/pages/slide_noticia/slide_noticia_page.dart';
-import 'package:blink/app/pages/slide_previsao_tempo/slide_previsao_tempo.dart';
-import 'package:blink/app/pages/slide_video/slide_video_page.dart';
 import 'package:cross_connectivity/cross_connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:path/path.dart';
 import 'carousel_controller.dart';
 
 class CarouselPage extends StatefulWidget {
