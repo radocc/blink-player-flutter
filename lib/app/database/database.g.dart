@@ -8132,6 +8132,7 @@ class LoteriaResultado extends DataClass
   int idLoteria;
   String jsonPremios;
   String numeros;
+  String numeros2;
   DateTime dataSorteio;
   String codigoSorteio;
   String jsonCidades;
@@ -8142,6 +8143,7 @@ class LoteriaResultado extends DataClass
       this.idLoteria,
       this.jsonPremios,
       this.numeros,
+      this.numeros2,
       this.dataSorteio,
       this.codigoSorteio,
       this.jsonCidades,
@@ -8163,6 +8165,8 @@ class LoteriaResultado extends DataClass
           .mapFromDatabaseResponse(data['${effectivePrefix}json_premios']),
       numeros:
           stringType.mapFromDatabaseResponse(data['${effectivePrefix}numeros']),
+      numeros2: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}numeros2']),
       dataSorteio: dateTimeType
           .mapFromDatabaseResponse(data['${effectivePrefix}data_sorteio']),
       codigoSorteio: stringType
@@ -8189,6 +8193,9 @@ class LoteriaResultado extends DataClass
     }
     if (!nullToAbsent || numeros != null) {
       map['numeros'] = Variable<String>(numeros);
+    }
+    if (!nullToAbsent || numeros2 != null) {
+      map['numeros2'] = Variable<String>(numeros2);
     }
     if (!nullToAbsent || dataSorteio != null) {
       map['data_sorteio'] = Variable<DateTime>(dataSorteio);
@@ -8220,6 +8227,9 @@ class LoteriaResultado extends DataClass
       numeros: numeros == null && nullToAbsent
           ? const Value.absent()
           : Value(numeros),
+      numeros2: numeros2 == null && nullToAbsent
+          ? const Value.absent()
+          : Value(numeros2),
       dataSorteio: dataSorteio == null && nullToAbsent
           ? const Value.absent()
           : Value(dataSorteio),
@@ -8246,6 +8256,7 @@ class LoteriaResultado extends DataClass
       idLoteria: serializer.fromJson<int>(json['idLoteria']),
       jsonPremios: serializer.fromJson<String>(json['jsonPremios']),
       numeros: serializer.fromJson<String>(json['numeros']),
+      numeros2: serializer.fromJson<String>(json['numeros2']),
       dataSorteio: serializer.fromJson<DateTime>(json['dataSorteio']),
       codigoSorteio: serializer.fromJson<String>(json['codigoSorteio']),
       jsonCidades: serializer.fromJson<String>(json['jsonCidades']),
@@ -8263,6 +8274,7 @@ class LoteriaResultado extends DataClass
       'idLoteria': serializer.toJson<int>(idLoteria),
       'jsonPremios': serializer.toJson<String>(jsonPremios),
       'numeros': serializer.toJson<String>(numeros),
+      'numeros2': serializer.toJson<String>(numeros2),
       'dataSorteio': serializer.toJson<DateTime>(dataSorteio),
       'codigoSorteio': serializer.toJson<String>(codigoSorteio),
       'jsonCidades': serializer.toJson<String>(jsonCidades),
@@ -8276,6 +8288,7 @@ class LoteriaResultado extends DataClass
           int idLoteria,
           String jsonPremios,
           String numeros,
+          String numeros2,
           DateTime dataSorteio,
           String codigoSorteio,
           String jsonCidades,
@@ -8286,6 +8299,7 @@ class LoteriaResultado extends DataClass
         idLoteria: idLoteria ?? this.idLoteria,
         jsonPremios: jsonPremios ?? this.jsonPremios,
         numeros: numeros ?? this.numeros,
+        numeros2: numeros2 ?? this.numeros2,
         dataSorteio: dataSorteio ?? this.dataSorteio,
         codigoSorteio: codigoSorteio ?? this.codigoSorteio,
         jsonCidades: jsonCidades ?? this.jsonCidades,
@@ -8299,6 +8313,7 @@ class LoteriaResultado extends DataClass
           ..write('idLoteria: $idLoteria, ')
           ..write('jsonPremios: $jsonPremios, ')
           ..write('numeros: $numeros, ')
+          ..write('numeros2: $numeros2, ')
           ..write('dataSorteio: $dataSorteio, ')
           ..write('codigoSorteio: $codigoSorteio, ')
           ..write('jsonCidades: $jsonCidades, ')
@@ -8318,13 +8333,15 @@ class LoteriaResultado extends DataClass
               $mrjc(
                   numeros.hashCode,
                   $mrjc(
-                      dataSorteio.hashCode,
+                      numeros2.hashCode,
                       $mrjc(
-                          codigoSorteio.hashCode,
+                          dataSorteio.hashCode,
                           $mrjc(
-                              jsonCidades.hashCode,
-                              $mrjc(dataProximoSorteio.hashCode,
-                                  valorProximoSorteio.hashCode)))))))));
+                              codigoSorteio.hashCode,
+                              $mrjc(
+                                  jsonCidades.hashCode,
+                                  $mrjc(dataProximoSorteio.hashCode,
+                                      valorProximoSorteio.hashCode))))))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -8333,6 +8350,7 @@ class LoteriaResultado extends DataClass
           other.idLoteria == this.idLoteria &&
           other.jsonPremios == this.jsonPremios &&
           other.numeros == this.numeros &&
+          other.numeros2 == this.numeros2 &&
           other.dataSorteio == this.dataSorteio &&
           other.codigoSorteio == this.codigoSorteio &&
           other.jsonCidades == this.jsonCidades &&
@@ -8345,6 +8363,7 @@ class LoteriaResultadosCompanion extends UpdateCompanion<LoteriaResultado> {
   Value<int> idLoteria;
   Value<String> jsonPremios;
   Value<String> numeros;
+  Value<String> numeros2;
   Value<DateTime> dataSorteio;
   Value<String> codigoSorteio;
   Value<String> jsonCidades;
@@ -8355,6 +8374,7 @@ class LoteriaResultadosCompanion extends UpdateCompanion<LoteriaResultado> {
     this.idLoteria = const Value.absent(),
     this.jsonPremios = const Value.absent(),
     this.numeros = const Value.absent(),
+    this.numeros2 = const Value.absent(),
     this.dataSorteio = const Value.absent(),
     this.codigoSorteio = const Value.absent(),
     this.jsonCidades = const Value.absent(),
@@ -8366,6 +8386,7 @@ class LoteriaResultadosCompanion extends UpdateCompanion<LoteriaResultado> {
     this.idLoteria = const Value.absent(),
     this.jsonPremios = const Value.absent(),
     this.numeros = const Value.absent(),
+    this.numeros2 = const Value.absent(),
     this.dataSorteio = const Value.absent(),
     this.codigoSorteio = const Value.absent(),
     this.jsonCidades = const Value.absent(),
@@ -8377,6 +8398,7 @@ class LoteriaResultadosCompanion extends UpdateCompanion<LoteriaResultado> {
     Expression<int> idLoteria,
     Expression<String> jsonPremios,
     Expression<String> numeros,
+    Expression<String> numeros2,
     Expression<DateTime> dataSorteio,
     Expression<String> codigoSorteio,
     Expression<String> jsonCidades,
@@ -8388,6 +8410,7 @@ class LoteriaResultadosCompanion extends UpdateCompanion<LoteriaResultado> {
       if (idLoteria != null) 'id_loteria': idLoteria,
       if (jsonPremios != null) 'json_premios': jsonPremios,
       if (numeros != null) 'numeros': numeros,
+      if (numeros2 != null) 'numeros2': numeros2,
       if (dataSorteio != null) 'data_sorteio': dataSorteio,
       if (codigoSorteio != null) 'codigo_sorteio': codigoSorteio,
       if (jsonCidades != null) 'json_cidades': jsonCidades,
@@ -8403,6 +8426,7 @@ class LoteriaResultadosCompanion extends UpdateCompanion<LoteriaResultado> {
       Value<int> idLoteria,
       Value<String> jsonPremios,
       Value<String> numeros,
+      Value<String> numeros2,
       Value<DateTime> dataSorteio,
       Value<String> codigoSorteio,
       Value<String> jsonCidades,
@@ -8413,6 +8437,7 @@ class LoteriaResultadosCompanion extends UpdateCompanion<LoteriaResultado> {
       idLoteria: idLoteria ?? this.idLoteria,
       jsonPremios: jsonPremios ?? this.jsonPremios,
       numeros: numeros ?? this.numeros,
+      numeros2: numeros2 ?? this.numeros2,
       dataSorteio: dataSorteio ?? this.dataSorteio,
       codigoSorteio: codigoSorteio ?? this.codigoSorteio,
       jsonCidades: jsonCidades ?? this.jsonCidades,
@@ -8435,6 +8460,9 @@ class LoteriaResultadosCompanion extends UpdateCompanion<LoteriaResultado> {
     }
     if (numeros.present) {
       map['numeros'] = Variable<String>(numeros.value);
+    }
+    if (numeros2.present) {
+      map['numeros2'] = Variable<String>(numeros2.value);
     }
     if (dataSorteio.present) {
       map['data_sorteio'] = Variable<DateTime>(dataSorteio.value);
@@ -8463,6 +8491,7 @@ class LoteriaResultadosCompanion extends UpdateCompanion<LoteriaResultado> {
           ..write('idLoteria: $idLoteria, ')
           ..write('jsonPremios: $jsonPremios, ')
           ..write('numeros: $numeros, ')
+          ..write('numeros2: $numeros2, ')
           ..write('dataSorteio: $dataSorteio, ')
           ..write('codigoSorteio: $codigoSorteio, ')
           ..write('jsonCidades: $jsonCidades, ')
@@ -8520,6 +8549,18 @@ class $LoteriaResultadosTable extends LoteriaResultados
   GeneratedTextColumn _constructNumeros() {
     return GeneratedTextColumn(
       'numeros',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _numeros2Meta = const VerificationMeta('numeros2');
+  GeneratedTextColumn _numeros2;
+  @override
+  GeneratedTextColumn get numeros2 => _numeros2 ??= _constructNumeros2();
+  GeneratedTextColumn _constructNumeros2() {
+    return GeneratedTextColumn(
+      'numeros2',
       $tableName,
       true,
     );
@@ -8601,6 +8642,7 @@ class $LoteriaResultadosTable extends LoteriaResultados
         idLoteria,
         jsonPremios,
         numeros,
+        numeros2,
         dataSorteio,
         codigoSorteio,
         jsonCidades,
@@ -8634,6 +8676,10 @@ class $LoteriaResultadosTable extends LoteriaResultados
     if (data.containsKey('numeros')) {
       context.handle(_numerosMeta,
           numeros.isAcceptableOrUnknown(data['numeros'], _numerosMeta));
+    }
+    if (data.containsKey('numeros2')) {
+      context.handle(_numeros2Meta,
+          numeros2.isAcceptableOrUnknown(data['numeros2'], _numeros2Meta));
     }
     if (data.containsKey('data_sorteio')) {
       context.handle(
