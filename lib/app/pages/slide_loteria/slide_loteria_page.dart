@@ -217,7 +217,7 @@ class _SlideLoteriaPageState
             left: px,
             top: py,
             child: Text(campoConvert.valor,
-                textAlign: campoConvert.alinhamento == "left" ?TextAlign.left : campoConvert.alinhamento =='rigth' ? TextAlign.right:TextAlign.center,
+                textAlign: campoConvert.alinhamento == "Left" ?TextAlign.left : campoConvert.alinhamento =='Right' ? TextAlign.right:TextAlign.center,
                 style: TextStyle(
                     fontSize: campoConvert.fonteTamanho,
                     fontFamily: campoConvert.fonte,
