@@ -7,9 +7,15 @@ part 'loteria_resultado_dao.g.dart';
 
 @UseDao(tables: [LoteriaResultados])
 class LoteriaResultadosDAO extends AbstractDAO<LoteriaResultado> with _$LoteriaResultadosDAOMixin {
+  
   LoteriaResultadosDAO(Database db) : super(db) {
     table = loteriaResultados;
   }
 
+  Future<LoteriaResultado> buscarResultado(int idLoteria) async {
+    return (select(loteriaResultados)..where((tbl) => tbl.idLoteria.equals(idLoteria))
+       ..orderBy([(t) => OrderingTerm(expression: t.dataSorteio, mode: OrderingMode.desc )])
+       ..limit(1)).getSingle();
+  }
 
 }

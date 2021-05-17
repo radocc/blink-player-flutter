@@ -9,10 +9,8 @@ class Conteudos extends Table {
   IntColumn get tipoArquivo => integer().nullable()();
   TextColumn get nomeArquivo => text().nullable()();
   IntColumn get idTemplate => integer().nullable()();
-  TextColumn get titulo =>
-      text().withDefault(const Constant('')).withLength(max: 200).nullable()();
-  IntColumn get tempoExibicao =>
-      integer().withDefault(const Constant(0)).nullable()();
+  TextColumn get titulo => text().withDefault(const Constant('')).withLength(max: 200).nullable()();
+  IntColumn get tempoExibicao => integer().withDefault(const Constant(0)).nullable()();
   DateTimeColumn get horaInicio => dateTime().nullable()();
   DateTimeColumn get horaFim => dateTime().nullable()();
   TextColumn get filtros => text().withLength(max: 10).nullable()();
@@ -24,6 +22,7 @@ class Conteudos extends Table {
   IntColumn get idArquivo => integer().nullable()();
   IntColumn get audio => integer().nullable()();
   IntColumn get tipo => integer().nullable()();
+  IntColumn get idLoteria => integer().nullable()();
 
   @override
   Set<Column> get primaryKey => {id, status};

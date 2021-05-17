@@ -1859,6 +1859,7 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
   int idArquivo;
   int audio;
   int tipo;
+  int idLoteria;
   Conteudo(
       {@required this.id,
       this.status,
@@ -1878,7 +1879,8 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
       this.campos,
       this.idArquivo,
       this.audio,
-      this.tipo});
+      this.tipo,
+      this.idLoteria});
   factory Conteudo.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -1919,6 +1921,8 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
           intType.mapFromDatabaseResponse(data['${effectivePrefix}id_arquivo']),
       audio: intType.mapFromDatabaseResponse(data['${effectivePrefix}audio']),
       tipo: intType.mapFromDatabaseResponse(data['${effectivePrefix}tipo']),
+      idLoteria:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_loteria']),
     );
   }
   @override
@@ -1981,6 +1985,9 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
     if (!nullToAbsent || tipo != null) {
       map['tipo'] = Variable<int>(tipo);
     }
+    if (!nullToAbsent || idLoteria != null) {
+      map['id_loteria'] = Variable<int>(idLoteria);
+    }
     return map;
   }
 
@@ -2032,6 +2039,9 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
       audio:
           audio == null && nullToAbsent ? const Value.absent() : Value(audio),
       tipo: tipo == null && nullToAbsent ? const Value.absent() : Value(tipo),
+      idLoteria: idLoteria == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idLoteria),
     );
   }
 
@@ -2058,6 +2068,7 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
       idArquivo: serializer.fromJson<int>(json['idArquivo']),
       audio: serializer.fromJson<int>(json['audio']),
       tipo: serializer.fromJson<int>(json['tipo']),
+      idLoteria: serializer.fromJson<int>(json['idLoteria']),
     );
   }
   @override
@@ -2083,6 +2094,7 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
       'idArquivo': serializer.toJson<int>(idArquivo),
       'audio': serializer.toJson<int>(audio),
       'tipo': serializer.toJson<int>(tipo),
+      'idLoteria': serializer.toJson<int>(idLoteria),
     };
   }
 
@@ -2105,7 +2117,8 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
           String campos,
           int idArquivo,
           int audio,
-          int tipo}) =>
+          int tipo,
+          int idLoteria}) =>
       Conteudo(
         id: id ?? this.id,
         status: status ?? this.status,
@@ -2126,6 +2139,7 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
         idArquivo: idArquivo ?? this.idArquivo,
         audio: audio ?? this.audio,
         tipo: tipo ?? this.tipo,
+        idLoteria: idLoteria ?? this.idLoteria,
       );
   @override
   String toString() {
@@ -2148,7 +2162,8 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
           ..write('campos: $campos, ')
           ..write('idArquivo: $idArquivo, ')
           ..write('audio: $audio, ')
-          ..write('tipo: $tipo')
+          ..write('tipo: $tipo, ')
+          ..write('idLoteria: $idLoteria')
           ..write(')'))
         .toString();
   }
@@ -2193,7 +2208,9 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
                                                                       $mrjc(
                                                                           audio
                                                                               .hashCode,
-                                                                          tipo.hashCode)))))))))))))))))));
+                                                                          $mrjc(
+                                                                              tipo.hashCode,
+                                                                              idLoteria.hashCode))))))))))))))))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -2216,7 +2233,8 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
           other.campos == this.campos &&
           other.idArquivo == this.idArquivo &&
           other.audio == this.audio &&
-          other.tipo == this.tipo);
+          other.tipo == this.tipo &&
+          other.idLoteria == this.idLoteria);
 }
 
 class ConteudosCompanion extends UpdateCompanion<Conteudo> {
@@ -2239,6 +2257,7 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
   Value<int> idArquivo;
   Value<int> audio;
   Value<int> tipo;
+  Value<int> idLoteria;
   ConteudosCompanion({
     this.id = const Value.absent(),
     this.status = const Value.absent(),
@@ -2259,6 +2278,7 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
     this.idArquivo = const Value.absent(),
     this.audio = const Value.absent(),
     this.tipo = const Value.absent(),
+    this.idLoteria = const Value.absent(),
   });
   ConteudosCompanion.insert({
     @required int id,
@@ -2280,6 +2300,7 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
     this.idArquivo = const Value.absent(),
     this.audio = const Value.absent(),
     this.tipo = const Value.absent(),
+    this.idLoteria = const Value.absent(),
   })  : id = Value(id),
         idTipoConteudo = Value(idTipoConteudo);
   static Insertable<Conteudo> custom({
@@ -2302,6 +2323,7 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
     Expression<int> idArquivo,
     Expression<int> audio,
     Expression<int> tipo,
+    Expression<int> idLoteria,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -2323,6 +2345,7 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
       if (idArquivo != null) 'id_arquivo': idArquivo,
       if (audio != null) 'audio': audio,
       if (tipo != null) 'tipo': tipo,
+      if (idLoteria != null) 'id_loteria': idLoteria,
     });
   }
 
@@ -2345,7 +2368,8 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
       Value<String> campos,
       Value<int> idArquivo,
       Value<int> audio,
-      Value<int> tipo}) {
+      Value<int> tipo,
+      Value<int> idLoteria}) {
     return ConteudosCompanion(
       id: id ?? this.id,
       status: status ?? this.status,
@@ -2366,6 +2390,7 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
       idArquivo: idArquivo ?? this.idArquivo,
       audio: audio ?? this.audio,
       tipo: tipo ?? this.tipo,
+      idLoteria: idLoteria ?? this.idLoteria,
     );
   }
 
@@ -2429,6 +2454,9 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
     if (tipo.present) {
       map['tipo'] = Variable<int>(tipo.value);
     }
+    if (idLoteria.present) {
+      map['id_loteria'] = Variable<int>(idLoteria.value);
+    }
     return map;
   }
 
@@ -2453,7 +2481,8 @@ class ConteudosCompanion extends UpdateCompanion<Conteudo> {
           ..write('campos: $campos, ')
           ..write('idArquivo: $idArquivo, ')
           ..write('audio: $audio, ')
-          ..write('tipo: $tipo')
+          ..write('tipo: $tipo, ')
+          ..write('idLoteria: $idLoteria')
           ..write(')'))
         .toString();
   }
@@ -2674,6 +2703,18 @@ class $ConteudosTable extends Conteudos
     );
   }
 
+  final VerificationMeta _idLoteriaMeta = const VerificationMeta('idLoteria');
+  GeneratedIntColumn _idLoteria;
+  @override
+  GeneratedIntColumn get idLoteria => _idLoteria ??= _constructIdLoteria();
+  GeneratedIntColumn _constructIdLoteria() {
+    return GeneratedIntColumn(
+      'id_loteria',
+      $tableName,
+      true,
+    );
+  }
+
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -2694,7 +2735,8 @@ class $ConteudosTable extends Conteudos
         campos,
         idArquivo,
         audio,
-        tipo
+        tipo,
+        idLoteria
       ];
   @override
   $ConteudosTable get asDslTable => this;
@@ -2796,6 +2838,10 @@ class $ConteudosTable extends Conteudos
     if (data.containsKey('tipo')) {
       context.handle(
           _tipoMeta, tipo.isAcceptableOrUnknown(data['tipo'], _tipoMeta));
+    }
+    if (data.containsKey('id_loteria')) {
+      context.handle(_idLoteriaMeta,
+          idLoteria.isAcceptableOrUnknown(data['id_loteria'], _idLoteriaMeta));
     }
     return context;
   }
