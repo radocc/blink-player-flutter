@@ -4,7 +4,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 part 'slide_loteria_controller.g.dart';
 
 @Injectable()
-class SlideLoteriaController = _SlideImageControllerBase with _$SlideLoteriaController;
+class SlideLoteriaController = _SlideImageControllerBase
+    with _$SlideLoteriaController;
 
 abstract class _SlideImageControllerBase with Store {
   @observable
