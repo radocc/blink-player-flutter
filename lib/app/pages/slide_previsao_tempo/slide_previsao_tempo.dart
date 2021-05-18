@@ -23,7 +23,7 @@ const nextDuration = Duration(seconds: 10);
 class SlidePrevisaoTempoPage extends StatefulWidget {
   final Function next;
   final ConteudoTemplateModel conteudoModel;
-  
+
   const SlidePrevisaoTempoPage(this.conteudoModel, {@required this.next});
 
   @override
@@ -113,7 +113,7 @@ class _SlidePrevisaoTempoPageState
                   boxFit: BoxFit.cover),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                return snapshot.data;
+                  return snapshot.data;
                 } else {
                   return Container();
                 }
@@ -152,15 +152,18 @@ class _SlidePrevisaoTempoPageState
     }
   }
 
-  Future<Widget> getLayoutPrevisaoTempo(double width, double height, {BoxFit boxFit}) async {
-    visualizadoDAO.registrarVisualizacao(widget.conteudoModel.conteudo.id, null);
-    
+  Future<Widget> getLayoutPrevisaoTempo(double width, double height,
+      {BoxFit boxFit}) async {
+    visualizadoDAO.registrarVisualizacao(
+        widget.conteudoModel.conteudo.id, null);
+
     List<Widget> children = [];
     final Future<Directory> dir = getApplicationDocumentsDirectory();
     Directory directory = await dir;
-    
-    arquivo = File('${directory.path}/${widget.conteudoModel.template.nomeArquivo}');
-    
+
+    arquivo =
+        File('${directory.path}/${widget.conteudoModel.template.nomeArquivo}');
+
     File file;
     //File filee;
 
@@ -172,13 +175,11 @@ class _SlidePrevisaoTempoPageState
       /**
        * Caso o conteudo não possua a previsão do tempo, vamos retornar apenas o fundo da tela de previsão
        */
-      if (widget.conteudoModel.conteudo.previsao == null){
+      if (widget.conteudoModel.conteudo.previsao == null) {
         return Container(
             decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: FileImage(this.arquivo), fit: boxFit),
-            )
-          );
+          image: DecorationImage(image: FileImage(this.arquivo), fit: boxFit),
+        ));
       }
       var contPrevisao = jsonDecode(widget.conteudoModel.conteudo.previsao);
       List<PrevisaoItem> list = [];
@@ -237,6 +238,10 @@ class _SlidePrevisaoTempoPageState
         var px = campoConvert.positionLeft * width / 100;
         var py = campoConvert.positionTop * height / 100;
 
+        //Seto tamanho do container
+        var widthContainer = campoConvert.width * width / 100;
+        var heightContainer = campoConvert.height * height / 100;
+
         var fontColor = campoConvert.fonteCor.replaceAll('#', '0xFF');
         print(fontColor);
 
@@ -246,10 +251,10 @@ class _SlidePrevisaoTempoPageState
             children.add(Positioned(
                 left: px,
                 top: py,
-                child: file.path.contains('.svg') 
-                ? SvgPicture.file(file, color: Colors.white, width: 100, height: 100) 
-                : Image.file(file)
-            ));
+                child: file.path.contains('.svg')
+                    ? SvgPicture.file(file,
+                        color: Colors.white, width: 100, height: 100)
+                    : Image.file(file)));
           }
         } else {
           //Crio stack com os Atributos
@@ -257,11 +262,20 @@ class _SlidePrevisaoTempoPageState
             Positioned(
               left: px,
               top: py,
-              child: Text(campoConvert.valor,
-                  style: TextStyle(
-                      fontSize: campoConvert.fonteTamanho,
-                      fontFamily: campoConvert.fonte,
-                      color: Color(int.parse(fontColor)))),
+              child: Container(
+                alignment: campoConvert.alinhamento == "Left"
+                    ? Alignment.centerLeft
+                    : campoConvert.alinhamento == 'Rigth'
+                        ? Alignment.centerRight
+                        : Alignment.center,
+                width: widthContainer,
+                height: heightContainer,
+                child: Text(campoConvert.valor,
+                    style: TextStyle(
+                        fontSize: campoConvert.fonteTamanho,
+                        fontFamily: campoConvert.fonte,
+                        color: Color(int.parse(fontColor)))),
+              ),
             ),
           );
         }
@@ -271,8 +285,7 @@ class _SlidePrevisaoTempoPageState
     //retorno Componente
     return Container(
       decoration: BoxDecoration(
-        image: DecorationImage(
-            image: FileImage(this.arquivo), fit: boxFit),
+        image: DecorationImage(image: FileImage(this.arquivo), fit: boxFit),
       ),
       child: Stack(children: children),
     );

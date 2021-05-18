@@ -19,7 +19,8 @@ class SlideDefaultPage extends StatefulWidget {
   final Function next;
   final ConteudoTemplateModel conteudoModel;
   final Future<Directory> dir;
-  const SlideDefaultPage(this.conteudoModel, {@required this.next, @required this.dir});
+  const SlideDefaultPage(this.conteudoModel,
+      {@required this.next, @required this.dir});
 
   @override
   _SlideDefaultPageState createState() => _SlideDefaultPageState();
@@ -167,11 +168,14 @@ class _SlideDefaultPageState
     visualizadoDAO = Database.instance.conteudoVisualizadoDAO;
     Directory directory = await widget.dir;
     if (widget.conteudoModel.conteudo.tipo == 1) {
-      arquivo = File('${directory.path}/${widget.conteudoModel.conteudo.nomeArquivo}');
-    } else if (widget.conteudoModel.conteudo.tipo == 2){
-      arquivo = File('${directory.path}/${widget.conteudoModel.conteudo.nomeArquivo}');
-    }else  if (widget.conteudoModel.conteudo.tipo == 6){
-      arquivo = File('${directory.path}/${widget.conteudoModel.template.nomeArquivo}');
+      arquivo = File(
+          '${directory.path}/${widget.conteudoModel.conteudo.nomeArquivo}');
+    } else if (widget.conteudoModel.conteudo.tipo == 2) {
+      arquivo = File(
+          '${directory.path}/${widget.conteudoModel.conteudo.nomeArquivo}');
+    } else if (widget.conteudoModel.conteudo.tipo == 6) {
+      arquivo = File(
+          '${directory.path}/${widget.conteudoModel.template.nomeArquivo}');
     }
 
     //Ler todos os registros do banco
@@ -190,6 +194,10 @@ class _SlideDefaultPageState
         var px = campoConvert.positionLeft * width / 100;
         var py = campoConvert.positionTop * height / 100;
 
+        //Seto tamanho do container
+        var widthContainer = campoConvert.width * width / 100;
+        var heightContainer = campoConvert.height * height / 100;
+
         var fontColor = campoConvert.fonteCor.replaceAll('#', '0xFF');
         print(fontColor);
 
@@ -198,11 +206,21 @@ class _SlideDefaultPageState
           Positioned(
             left: px,
             top: py,
-            child: Text(campoConvert.valor,
-                style: TextStyle(
-                    fontSize: campoConvert.fonteTamanho,
-                    fontFamily: campoConvert.fonte,
-                    color: Color(int.parse(fontColor)))),
+            child: Container(
+              alignment: campoConvert.alinhamento == "Left"
+                  ? Alignment.centerLeft
+                  : campoConvert.alinhamento == 'Rigth'
+                      ? Alignment.centerRight
+                      : Alignment.center,
+              color: Colors.orange,
+              width: widthContainer,
+              height: heightContainer,
+              child: Text(campoConvert.valor,
+                  style: TextStyle(
+                      fontSize: campoConvert.fonteTamanho,
+                      fontFamily: campoConvert.fonte,
+                      color: Color(int.parse(fontColor)))),
+            ),
           ),
         );
       });
@@ -213,8 +231,7 @@ class _SlideDefaultPageState
       return Container(
         //height: 300,
         decoration: BoxDecoration(
-          image: DecorationImage(
-              image: FileImage(this.arquivo), fit: boxFit),
+          image: DecorationImage(image: FileImage(this.arquivo), fit: boxFit),
         ),
         child: Stack(children: children),
       );
