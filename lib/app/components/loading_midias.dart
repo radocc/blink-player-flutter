@@ -18,7 +18,7 @@ class LoadingMidiasState extends State<LoadingMidias> {
       children: <Widget>[
         Container(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 12, 0, 0),
+            padding: EdgeInsets.fromLTRB(18, 10, 18, 0),
             child: ListTile(
               title: Text(formatter),
               trailing: Wrap(

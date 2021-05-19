@@ -1,8 +1,5 @@
-import 'dart:convert';
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/repositories/abstract_repository.dart';
-
-import 'dados_repository.dart';
 
 class ConteudoVisualizadoRepository extends AbstractRepository {
   // final Dio dio;

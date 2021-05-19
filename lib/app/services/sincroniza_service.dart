@@ -51,7 +51,7 @@ class SincronizaService {
         await downloadConteudos( atualizacao );
         await downloadTemplates( atualizacao );
         await downloadPrevisaoImagemTempo( atualizacao );
-        await downloadPrevisaoTempo( atualizacao );
+        //await downloadPrevisaoTempo( atualizacao );
         await downloadSequenciaConteudo( atualizacao );
         await downloadNoticias( atualizacao );
         await downloadLoteriaResultado( atualizacao );
@@ -98,16 +98,12 @@ class SincronizaService {
 
   Future downloadPrevisaoImagemTempo(Atualizacoe atualizacao) async {
     //**Faz o download das Imagens de Previsão de Tempo */
-    var previsaoImgTempo = await previsaoImagemService.download(atualizacao);
-    for (var previsaoImagem in previsaoImgTempo) {
-      await arquivoService.downloadMidia(
-          previsaoImagem.idArquivo, previsaoImagem.nomeArquivo, (_, __) {});
-    }
+    await previsaoImagemService.download(atualizacao);
   }
 
   Future downloadPrevisaoTempo(Atualizacoe atualizacao) async {
     //**Faz o download das Previsões de Tempo */
-    await templateService.download( atualizacao );
+    await previsaoTempoService.download( atualizacao );
   }
 
   Future downloadSequenciaConteudo(Atualizacoe atualizacao) async {

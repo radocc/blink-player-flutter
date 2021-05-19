@@ -24,6 +24,7 @@ abstract class DadosService<T extends Insertable<DataClass>> {
     // ignore: missing_required_param
     AtualizacaoStatus status = AtualizacaoStatus(idAtualizacao: atualizacao.id,dataInicial: DateTime.now(),
     identificacao: repo.identificacao.index);
+    print('Enum: ' + repo.identificacao.index.toString());
     try {
       var data = await repo.download();
       status.dataDownload = DateTime.now();
