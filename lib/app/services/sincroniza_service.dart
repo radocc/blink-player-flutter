@@ -44,11 +44,7 @@ class SincronizaService {
     Atualizacoe atualizacao = Atualizacoe();
     atualizacao.inicio = DateTime.now();
     atualizacao = await atualizacaoDAO.save(atualizacao);
-    //int sizeDir = await load();
-
-    // if (sizeDir == 0) {
-      
-    // }
+    
     try{
       // if (kReleaseMode) {
         await this.conteudoVisualizadoService.enviarVisualizacoes();

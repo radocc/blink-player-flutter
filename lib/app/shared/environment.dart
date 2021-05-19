@@ -2,7 +2,7 @@ const bool isProduction = bool.fromEnvironment('dart.vm.product');
 
 class Debug extends Environment {
   Debug() {
-    this.baseUrl = 'http://192.168.0.104:8105/';
+    this.baseUrl = 'http://192.168.2.108:8105/';
     this.applicationBase = 'BaseWeb/rest/';
     this.application = 'TVBlink-Web/rest/';
   }

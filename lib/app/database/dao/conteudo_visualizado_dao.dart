@@ -30,12 +30,17 @@ class ConteudoVisualizadoDAO extends AbstractDAO<ConteudoVisualizado> with _$Con
     }
   }
 
+  Future deletar(ConteudoVisualizado cv) async{
+     delete(conteudosVisualizados).where((tbl) => tbl.id.equals(cv.idApp));
+  }
+
   Future<List<ConteudoVisualizado>> getParaEnvio() async {
     var sql = ''' select * from conteudovisualizado cv 
               where
                 cv.id_app is null
+                and cv.data_execucao = date('now')-1 
                 ''';
-                //and cv.data_execucao = date('now')-1 
+                
     var query = await customSelect(sql,readsFrom: {conteudosVisualizados});
     return query.map<ConteudoVisualizado>((row) => ConteudoVisualizado.fromData(row.data, db)).get();
   } 

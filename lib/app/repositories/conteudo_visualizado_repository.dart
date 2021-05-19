@@ -12,13 +12,16 @@ class ConteudoVisualizadoRepository extends AbstractRepository {
 
   Future<List<ConteudoVisualizado>> enviar(List<ConteudoVisualizado> lista) async {
     try {
-      var resp = await dio.post(getUrl('/salvar/visualizados'), data:lista);
-      var vetor = jsonDecode(resp.data);
-      var listaRetornada = [];
-      vetor.forEach((cv) {
-        listaRetornada.add(ConteudoVisualizado.fromJson(cv));
-      });
-      return listaRetornada;
+      if (lista.length > 0){
+        var resp = await dio.post(getUrl('/salvar/visualizados'), data:lista);      
+        var listaRetornada = List<ConteudoVisualizado>();
+        resp.data.forEach((cv) {
+          listaRetornada.add(ConteudoVisualizado.fromJson(cv));
+        });
+        return listaRetornada;
+      }else {
+        return List<ConteudoVisualizado>();
+      }
     } catch (error) {
       //print(error.response.statusCode);
       throw Exception("Exception occured: $error");

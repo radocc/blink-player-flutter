@@ -16,6 +16,9 @@ class ConteudoVisualizadoService  {
   Future enviarVisualizacoes() async {
     var lista = await dao.getParaEnvio();
     lista = await prevRepo.enviar(lista);
+    lista.forEach((ct) {
+      dao.deletar(ct);
+    });
     return true;
   }
   
