@@ -230,7 +230,6 @@ class _SlideNoticiaPageState
                   : campoConvert.alinhamento == 'Rigth'
                       ? Alignment.centerRight
                       : Alignment.center,
-              color: Colors.orange,
               width: widthContainer,
               height: heightContainer,
               child: Text(campoConvert.valor,
