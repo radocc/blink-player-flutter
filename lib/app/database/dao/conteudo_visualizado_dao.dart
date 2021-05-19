@@ -30,12 +30,15 @@ class ConteudoVisualizadoDAO extends AbstractDAO<ConteudoVisualizado> with _$Con
     }
   }
 
-  // Future<int> getUltimo(int identificacao) async {
-  //   var result = await customSelect("Select * from ConteudoVisualizado ",
-  //     variables: [Variable.withInt(1)]
-  //   );
-  //   return result.get();    
-  // } 
+  Future<List<ConteudoVisualizado>> getParaEnvio() async {
+    var sql = ''' select * from conteudovisualizado cv 
+              where
+                cv.id_app is null
+                ''';
+                //and cv.data_execucao = date('now')-1 
+    var query = await customSelect(sql,readsFrom: {conteudosVisualizados});
+    return query.map<ConteudoVisualizado>((row) => ConteudoVisualizado.fromData(row.data, db)).get();
+  } 
 
   Future<ConteudoVisualizado> registrarVisualizacao(int idConteudo,int idNoticia) async {
     var conteudoVisualizado;

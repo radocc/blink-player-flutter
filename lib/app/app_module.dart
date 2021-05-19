@@ -67,7 +67,8 @@ class AppModule extends MainModule {
               i.get<PrevisaoTempoService>(),
               i.get<SequenciaConteudoService>(),
               i.get<LoteriaResultadoService>(),
-              i.get<EquipamentoService>()
+              i.get<EquipamentoService>(),
+              i.get<ConteudoVisualizadoService>(),
             )),
         Bind((i) => SplashController(
               i.get<LoginService>(),

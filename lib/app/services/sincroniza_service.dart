@@ -3,6 +3,7 @@ import 'package:blink/app/database/dao/sequencia_conteudo_dao.dart';
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/services/arquivo_service.dart';
 import 'package:blink/app/services/conteudo_service.dart';
+import 'package:blink/app/services/conteudo_visualizado_service.dart';
 import 'package:blink/app/services/equipamento_service.dart';
 import 'package:blink/app/services/loteria_resultado_service.dart';
 import 'package:blink/app/services/noticia_service.dart';
@@ -22,6 +23,7 @@ class SincronizaService {
   PrevisaoTempoService previsaoTempoService;
   SequenciaConteudoService sequenciaConteudoService;
   EquipamentoService equipamentoService;
+  ConteudoVisualizadoService conteudoVisualizadoService;
   AtualizacaoDAO atualizacaoDAO = Database.instance.atualizacaoDAO;
   
 
@@ -34,7 +36,8 @@ class SincronizaService {
       this.previsaoTempoService,
       this.sequenciaConteudoService,
       this.loteriaResultadoService,
-      this.equipamentoService);
+      this.equipamentoService,
+      this.conteudoVisualizadoService);
 
   Future iniciar() async {
     // ignore: missing_required_param
@@ -48,6 +51,7 @@ class SincronizaService {
     // }
     try{
       // if (kReleaseMode) {
+        await this.conteudoVisualizadoService.enviarVisualizacoes();
         await downloadConteudos( atualizacao );
         await downloadTemplates( atualizacao );
         await downloadPrevisaoImagemTempo( atualizacao );
