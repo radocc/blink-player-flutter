@@ -14,11 +14,9 @@ import 'app/database/database.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized(); 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  Battery _battery = Battery();
-  const oneSec = const Duration(seconds: 15);
   
-
   Future valueHardware2() async {
+    Battery _battery = Battery();
     final int batteryLevel = await _battery.batteryLevel;
     int level = await Wifi.level;
     String wifiName = await Wifi.ssid;
@@ -36,7 +34,7 @@ void main() {
     return array;
   }
 
-  Timer.periodic(oneSec, (Timer timer) {
+  Timer.periodic(Duration(seconds: 15), (Timer timer) {
     if (Platform.isAndroid) {
       valueHardware2().then((value) => {
             // ignore: missing_required_param

@@ -87,26 +87,21 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
                     ),
                   );
                 } else
-                  return snap.data.ativado == false
-                      ? AtivePlayerPage(
-                          id: snap.data.id.toString(),
-                          nome: snap.data.nome,
-                          data: formatter,
-                          uuid: snap.data.uuid)
-                          //template
-                      : FutureBuilder(
-                          future: controller.sincronizar(),
-                          builder: (ctx, snap) {
-                            if (!snap.hasData && !snap.hasError) {
-                              return LoadingMidias();
-                            } else if (snap.hasError) {
-                              return Center(
-                                child: Text("${snap.error.toString()}"),
-                              );
-                            } else {
-                              return HomePage();
-                            }
-                          });
+                  return FutureBuilder(
+                    future: controller.sincronizar(),
+                    builder: (ctx, snap) {
+                      if (!snap.hasData && !snap.hasError) {
+                        return LoadingMidias();
+                      } else if (snap.hasError) {
+                        return Center(
+                          child: Text("${snap.error.toString()}"),
+                        );
+                      } else {
+                        return HomePage();
+                      }
+                    });
+                  
+                      
               }
             }
             

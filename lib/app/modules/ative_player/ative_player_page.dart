@@ -71,7 +71,12 @@ class _AtivePlayerPageState extends ModularState<AtivePlayerPage, AtivePlayerCon
           SizedBox(height: 30),
           ElevatedButton(
               onPressed: () {
-                controller.verificar();
+                //controller.verificar();
+                controller.verificar().then((value) {
+                  if (value.ativado == true) {
+                    Modular.to.pop();
+                  }
+                });
               },
               child: Text('Verificar'))
         ],

@@ -10,7 +10,12 @@ class AtivePlayerModule extends ChildModule {
 
   @override
   List<ModularRouter> get routers => [
-    ModularRouter(Modular.initialRoute, child: (_, args) => AtivePlayerPage()),
+    ModularRouter(Modular.initialRoute, child: (_, args) => AtivePlayerPage(
+      data: args.data['data'],
+      id: args.data['id'],
+      nome: args.data['nome'],
+      uuid: args.data['uuid'],
+    )),
   ];
 
   static Inject get to => Inject<AtivePlayerModule>.of();
