@@ -12,7 +12,8 @@ class SlideVideoPage extends StatefulWidget {
   final Function next;
   final ConteudoTemplateModel conteudoTemplate;
   final Future<Directory> dir;
-  const SlideVideoPage(this.conteudoTemplate, {@required this.next, @required this.dir});
+  const SlideVideoPage(this.conteudoTemplate,
+      {@required this.next, @required this.dir});
 
   @override
   _SlideVideoPageState createState() => _SlideVideoPageState();
@@ -27,33 +28,39 @@ class _SlideVideoPageState
   void initState() {
     super.initState();
     visualizadoDAO = Database.instance.conteudoVisualizadoDAO;
-    visualizadoDAO.registrarVisualizacao(widget.conteudoTemplate.conteudo.id, null);
+    visualizadoDAO.registrarVisualizacao(
+        widget.conteudoTemplate.conteudo.id, null);
     //
     // Controlador do video
     //
     widget.dir.then((directory) async {
-      arquivo = File('${directory.path}/${widget.conteudoTemplate.conteudo.nomeArquivo}');
-    _controller = Future.value(VideoPlayerController.file(arquivo) 
-      ..initialize().then((value) async{
-        _controller.then((ctrl) => {
-          ctrl.addListener(() {
-            setState(() {
-              //
-              // Quando acabar o video
-              //
-              if (!ctrl.value.isPlaying && ctrl.value.initialized && (ctrl.value.duration == ctrl.value.position)) {
-                //
-                // Próximo slide
-                //
-                widget.next();
-              }
-            });
-          })         
-        });
-      })
-      ..play());
+      arquivo = File(
+          '${directory.path}/${widget.conteudoTemplate.conteudo.nomeArquivo}');
+      _controller = Future.value(VideoPlayerController.file(arquivo)
+        ..initialize().then((value) async {
+          _controller.then((ctrl) => {
+                if (widget.conteudoTemplate.conteudo.audio == 1) {
+                    ctrl.setVolume(0.0)
+                },
+                ctrl.addListener(() {
+                  setState(() {
+                    //
+                    // Quando acabar o video
+                    //
+                    if (!ctrl.value.isPlaying &&
+                        ctrl.value.initialized &&
+                        (ctrl.value.duration == ctrl.value.position)) {
+                      //
+                      // Próximo slide
+                      //
+                      widget.next();
+                    }
+                  });
+                })
+              });
+        })
+        ..play());
     });
-    
   }
 
   @override
@@ -61,9 +68,7 @@ class _SlideVideoPageState
     //
     // Elimina o controlador
     //
-    _controller.then((ctrl)=>{
-      ctrl.dispose()
-    });
+    _controller.then((ctrl) => {ctrl.dispose()});
     super.dispose();
   }
 
@@ -71,30 +76,28 @@ class _SlideVideoPageState
   Widget build(BuildContext context) {
     //
     // Define os widget que serão exibido no slide de Video
-    
+
     // Full Screan
     return FutureBuilder<VideoPlayerController>(
-      future: _controller,
-      builder: (context, snapshot) {
-        if (snapshot.hasData){
-          return Container(
-            child: AspectRatio(
-              aspectRatio: snapshot.data.value.aspectRatio,
-              child: Stack(
-                alignment: Alignment.bottomCenter,
-                children: <Widget>[
-                  
-                  VideoPlayer(snapshot.data),
-                ],
+        future: _controller,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Container(
+              child: AspectRatio(
+                aspectRatio: snapshot.data.value.aspectRatio,
+                child: Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: <Widget>[
+                    VideoPlayer(snapshot.data),
+                  ],
+                ),
               ),
-            ),
-          );
-        }else{
-          return Container();
-        }        
-      }
-    );
-    
+            );
+          } else {
+            return Container();
+          }
+        });
+
     // Video não esticado
     //  return FittedBox(
     //   fit: BoxFit.contain,
@@ -104,6 +107,5 @@ class _SlideVideoPageState
     //     child: VideoPlayer(_controller),
     //   ),
     // );
-
   }
 }

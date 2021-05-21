@@ -27,7 +27,6 @@ class _AtivePlayerPageState extends ModularState<AtivePlayerPage, AtivePlayerCon
       body: Column(
         children: <Widget>[
           Container(
-            color: Colors.orange,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
               child: ListTile(
