@@ -10,7 +10,7 @@ class Debug extends Environment {
 
 class Prod extends Environment {
   Prod() {
-    this.baseUrl = 'http://192.168.2.108:8105/';
+    this.baseUrl = 'http://server.versa.tv:8080/';
     this.applicationBase = 'BaseWeb/rest/';
     this.application = 'TVBlink-Web/rest/';
   }

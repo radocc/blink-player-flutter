@@ -44,3 +44,5 @@ app.*.symbols
 app.*.map.json
 
 linux/
+
+.fvm/flutter_sdk
