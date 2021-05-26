@@ -59,7 +59,13 @@ abstract class _CarouselControllerBase with Store {
 
     this.filesConteudo = await dao.getAllConteudoWithTemplate(); 
     adicionarConteudos(filesConteudo);
+
+    if (this.filesConteudo.isEmpty) {
+      return false; 
+    } else {
+
     return true;
+    }
   }
 
   void nextPage() {

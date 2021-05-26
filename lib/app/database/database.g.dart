@@ -4993,14 +4993,9 @@ class PlayerDado extends DataClass implements Insertable<PlayerDado> {
   String nomeWifi;
   int processador;
   int memoria;
-  int idPlayerEquipamento;
-  DateTime dataLigado;
+  int idPlayer;
   DateTime dataCadastro;
   DateTime dataAlteracao;
-  int versao;
-  bool deletado;
-  int idUsuarioCadastro;
-  int idUsuarioAlteracao;
   PlayerDado(
       {@required this.id,
       this.bateria,
@@ -5008,14 +5003,9 @@ class PlayerDado extends DataClass implements Insertable<PlayerDado> {
       this.nomeWifi,
       this.processador,
       this.memoria,
-      this.idPlayerEquipamento,
-      @required this.dataLigado,
-      @required this.dataCadastro,
-      @required this.dataAlteracao,
-      @required this.versao,
-      @required this.deletado,
-      this.idUsuarioCadastro,
-      this.idUsuarioAlteracao});
+      this.idPlayer,
+      this.dataCadastro,
+      this.dataAlteracao});
   factory PlayerDado.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -5023,7 +5013,6 @@ class PlayerDado extends DataClass implements Insertable<PlayerDado> {
     final doubleType = db.typeSystem.forDartType<double>();
     final stringType = db.typeSystem.forDartType<String>();
     final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return PlayerDado(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       bateria:
@@ -5036,21 +5025,12 @@ class PlayerDado extends DataClass implements Insertable<PlayerDado> {
           .mapFromDatabaseResponse(data['${effectivePrefix}processador']),
       memoria:
           intType.mapFromDatabaseResponse(data['${effectivePrefix}memoria']),
-      idPlayerEquipamento: intType.mapFromDatabaseResponse(
-          data['${effectivePrefix}id_player_equipamento']),
-      dataLigado: dateTimeType
-          .mapFromDatabaseResponse(data['${effectivePrefix}data_ligado']),
+      idPlayer:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_player']),
       dataCadastro: dateTimeType
           .mapFromDatabaseResponse(data['${effectivePrefix}data_cadastro']),
       dataAlteracao: dateTimeType
           .mapFromDatabaseResponse(data['${effectivePrefix}data_alteracao']),
-      versao: intType.mapFromDatabaseResponse(data['${effectivePrefix}versao']),
-      deletado:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}deletado']),
-      idUsuarioCadastro: intType.mapFromDatabaseResponse(
-          data['${effectivePrefix}id_usuario_cadastro']),
-      idUsuarioAlteracao: intType.mapFromDatabaseResponse(
-          data['${effectivePrefix}id_usuario_alteracao']),
     );
   }
   @override
@@ -5074,29 +5054,14 @@ class PlayerDado extends DataClass implements Insertable<PlayerDado> {
     if (!nullToAbsent || memoria != null) {
       map['memoria'] = Variable<int>(memoria);
     }
-    if (!nullToAbsent || idPlayerEquipamento != null) {
-      map['id_player_equipamento'] = Variable<int>(idPlayerEquipamento);
-    }
-    if (!nullToAbsent || dataLigado != null) {
-      map['data_ligado'] = Variable<DateTime>(dataLigado);
+    if (!nullToAbsent || idPlayer != null) {
+      map['id_player'] = Variable<int>(idPlayer);
     }
     if (!nullToAbsent || dataCadastro != null) {
       map['data_cadastro'] = Variable<DateTime>(dataCadastro);
     }
     if (!nullToAbsent || dataAlteracao != null) {
       map['data_alteracao'] = Variable<DateTime>(dataAlteracao);
-    }
-    if (!nullToAbsent || versao != null) {
-      map['versao'] = Variable<int>(versao);
-    }
-    if (!nullToAbsent || deletado != null) {
-      map['deletado'] = Variable<bool>(deletado);
-    }
-    if (!nullToAbsent || idUsuarioCadastro != null) {
-      map['id_usuario_cadastro'] = Variable<int>(idUsuarioCadastro);
-    }
-    if (!nullToAbsent || idUsuarioAlteracao != null) {
-      map['id_usuario_alteracao'] = Variable<int>(idUsuarioAlteracao);
     }
     return map;
   }
@@ -5119,29 +5084,15 @@ class PlayerDado extends DataClass implements Insertable<PlayerDado> {
       memoria: memoria == null && nullToAbsent
           ? const Value.absent()
           : Value(memoria),
-      idPlayerEquipamento: idPlayerEquipamento == null && nullToAbsent
+      idPlayer: idPlayer == null && nullToAbsent
           ? const Value.absent()
-          : Value(idPlayerEquipamento),
-      dataLigado: dataLigado == null && nullToAbsent
-          ? const Value.absent()
-          : Value(dataLigado),
+          : Value(idPlayer),
       dataCadastro: dataCadastro == null && nullToAbsent
           ? const Value.absent()
           : Value(dataCadastro),
       dataAlteracao: dataAlteracao == null && nullToAbsent
           ? const Value.absent()
           : Value(dataAlteracao),
-      versao:
-          versao == null && nullToAbsent ? const Value.absent() : Value(versao),
-      deletado: deletado == null && nullToAbsent
-          ? const Value.absent()
-          : Value(deletado),
-      idUsuarioCadastro: idUsuarioCadastro == null && nullToAbsent
-          ? const Value.absent()
-          : Value(idUsuarioCadastro),
-      idUsuarioAlteracao: idUsuarioAlteracao == null && nullToAbsent
-          ? const Value.absent()
-          : Value(idUsuarioAlteracao),
     );
   }
 
@@ -5155,15 +5106,9 @@ class PlayerDado extends DataClass implements Insertable<PlayerDado> {
       nomeWifi: serializer.fromJson<String>(json['nomeWifi']),
       processador: serializer.fromJson<int>(json['processador']),
       memoria: serializer.fromJson<int>(json['memoria']),
-      idPlayerEquipamento:
-          serializer.fromJson<int>(json['idPlayerEquipamento']),
-      dataLigado: serializer.fromJson<DateTime>(json['dataLigado']),
+      idPlayer: serializer.fromJson<int>(json['idPlayer']),
       dataCadastro: serializer.fromJson<DateTime>(json['dataCadastro']),
       dataAlteracao: serializer.fromJson<DateTime>(json['dataAlteracao']),
-      versao: serializer.fromJson<int>(json['versao']),
-      deletado: serializer.fromJson<bool>(json['deletado']),
-      idUsuarioCadastro: serializer.fromJson<int>(json['idUsuarioCadastro']),
-      idUsuarioAlteracao: serializer.fromJson<int>(json['idUsuarioAlteracao']),
     );
   }
   @override
@@ -5176,14 +5121,9 @@ class PlayerDado extends DataClass implements Insertable<PlayerDado> {
       'nomeWifi': serializer.toJson<String>(nomeWifi),
       'processador': serializer.toJson<int>(processador),
       'memoria': serializer.toJson<int>(memoria),
-      'idPlayerEquipamento': serializer.toJson<int>(idPlayerEquipamento),
-      'dataLigado': serializer.toJson<DateTime>(dataLigado),
+      'idPlayer': serializer.toJson<int>(idPlayer),
       'dataCadastro': serializer.toJson<DateTime>(dataCadastro),
       'dataAlteracao': serializer.toJson<DateTime>(dataAlteracao),
-      'versao': serializer.toJson<int>(versao),
-      'deletado': serializer.toJson<bool>(deletado),
-      'idUsuarioCadastro': serializer.toJson<int>(idUsuarioCadastro),
-      'idUsuarioAlteracao': serializer.toJson<int>(idUsuarioAlteracao),
     };
   }
 
@@ -5194,14 +5134,9 @@ class PlayerDado extends DataClass implements Insertable<PlayerDado> {
           String nomeWifi,
           int processador,
           int memoria,
-          int idPlayerEquipamento,
-          DateTime dataLigado,
+          int idPlayer,
           DateTime dataCadastro,
-          DateTime dataAlteracao,
-          int versao,
-          bool deletado,
-          int idUsuarioCadastro,
-          int idUsuarioAlteracao}) =>
+          DateTime dataAlteracao}) =>
       PlayerDado(
         id: id ?? this.id,
         bateria: bateria ?? this.bateria,
@@ -5209,14 +5144,9 @@ class PlayerDado extends DataClass implements Insertable<PlayerDado> {
         nomeWifi: nomeWifi ?? this.nomeWifi,
         processador: processador ?? this.processador,
         memoria: memoria ?? this.memoria,
-        idPlayerEquipamento: idPlayerEquipamento ?? this.idPlayerEquipamento,
-        dataLigado: dataLigado ?? this.dataLigado,
+        idPlayer: idPlayer ?? this.idPlayer,
         dataCadastro: dataCadastro ?? this.dataCadastro,
         dataAlteracao: dataAlteracao ?? this.dataAlteracao,
-        versao: versao ?? this.versao,
-        deletado: deletado ?? this.deletado,
-        idUsuarioCadastro: idUsuarioCadastro ?? this.idUsuarioCadastro,
-        idUsuarioAlteracao: idUsuarioAlteracao ?? this.idUsuarioAlteracao,
       );
   @override
   String toString() {
@@ -5227,14 +5157,9 @@ class PlayerDado extends DataClass implements Insertable<PlayerDado> {
           ..write('nomeWifi: $nomeWifi, ')
           ..write('processador: $processador, ')
           ..write('memoria: $memoria, ')
-          ..write('idPlayerEquipamento: $idPlayerEquipamento, ')
-          ..write('dataLigado: $dataLigado, ')
+          ..write('idPlayer: $idPlayer, ')
           ..write('dataCadastro: $dataCadastro, ')
-          ..write('dataAlteracao: $dataAlteracao, ')
-          ..write('versao: $versao, ')
-          ..write('deletado: $deletado, ')
-          ..write('idUsuarioCadastro: $idUsuarioCadastro, ')
-          ..write('idUsuarioAlteracao: $idUsuarioAlteracao')
+          ..write('dataAlteracao: $dataAlteracao')
           ..write(')'))
         .toString();
   }
@@ -5253,22 +5178,9 @@ class PlayerDado extends DataClass implements Insertable<PlayerDado> {
                       $mrjc(
                           memoria.hashCode,
                           $mrjc(
-                              idPlayerEquipamento.hashCode,
-                              $mrjc(
-                                  dataLigado.hashCode,
-                                  $mrjc(
-                                      dataCadastro.hashCode,
-                                      $mrjc(
-                                          dataAlteracao.hashCode,
-                                          $mrjc(
-                                              versao.hashCode,
-                                              $mrjc(
-                                                  deletado.hashCode,
-                                                  $mrjc(
-                                                      idUsuarioCadastro
-                                                          .hashCode,
-                                                      idUsuarioAlteracao
-                                                          .hashCode))))))))))))));
+                              idPlayer.hashCode,
+                              $mrjc(dataCadastro.hashCode,
+                                  dataAlteracao.hashCode)))))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -5279,14 +5191,9 @@ class PlayerDado extends DataClass implements Insertable<PlayerDado> {
           other.nomeWifi == this.nomeWifi &&
           other.processador == this.processador &&
           other.memoria == this.memoria &&
-          other.idPlayerEquipamento == this.idPlayerEquipamento &&
-          other.dataLigado == this.dataLigado &&
+          other.idPlayer == this.idPlayer &&
           other.dataCadastro == this.dataCadastro &&
-          other.dataAlteracao == this.dataAlteracao &&
-          other.versao == this.versao &&
-          other.deletado == this.deletado &&
-          other.idUsuarioCadastro == this.idUsuarioCadastro &&
-          other.idUsuarioAlteracao == this.idUsuarioAlteracao);
+          other.dataAlteracao == this.dataAlteracao);
 }
 
 class PlayerDadosCompanion extends UpdateCompanion<PlayerDado> {
@@ -5296,14 +5203,9 @@ class PlayerDadosCompanion extends UpdateCompanion<PlayerDado> {
   Value<String> nomeWifi;
   Value<int> processador;
   Value<int> memoria;
-  Value<int> idPlayerEquipamento;
-  Value<DateTime> dataLigado;
+  Value<int> idPlayer;
   Value<DateTime> dataCadastro;
   Value<DateTime> dataAlteracao;
-  Value<int> versao;
-  Value<bool> deletado;
-  Value<int> idUsuarioCadastro;
-  Value<int> idUsuarioAlteracao;
   PlayerDadosCompanion({
     this.id = const Value.absent(),
     this.bateria = const Value.absent(),
@@ -5311,14 +5213,9 @@ class PlayerDadosCompanion extends UpdateCompanion<PlayerDado> {
     this.nomeWifi = const Value.absent(),
     this.processador = const Value.absent(),
     this.memoria = const Value.absent(),
-    this.idPlayerEquipamento = const Value.absent(),
-    this.dataLigado = const Value.absent(),
+    this.idPlayer = const Value.absent(),
     this.dataCadastro = const Value.absent(),
     this.dataAlteracao = const Value.absent(),
-    this.versao = const Value.absent(),
-    this.deletado = const Value.absent(),
-    this.idUsuarioCadastro = const Value.absent(),
-    this.idUsuarioAlteracao = const Value.absent(),
   });
   PlayerDadosCompanion.insert({
     this.id = const Value.absent(),
@@ -5327,19 +5224,10 @@ class PlayerDadosCompanion extends UpdateCompanion<PlayerDado> {
     this.nomeWifi = const Value.absent(),
     this.processador = const Value.absent(),
     this.memoria = const Value.absent(),
-    this.idPlayerEquipamento = const Value.absent(),
-    @required DateTime dataLigado,
-    @required DateTime dataCadastro,
-    @required DateTime dataAlteracao,
-    @required int versao,
-    @required bool deletado,
-    this.idUsuarioCadastro = const Value.absent(),
-    this.idUsuarioAlteracao = const Value.absent(),
-  })  : dataLigado = Value(dataLigado),
-        dataCadastro = Value(dataCadastro),
-        dataAlteracao = Value(dataAlteracao),
-        versao = Value(versao),
-        deletado = Value(deletado);
+    this.idPlayer = const Value.absent(),
+    this.dataCadastro = const Value.absent(),
+    this.dataAlteracao = const Value.absent(),
+  });
   static Insertable<PlayerDado> custom({
     Expression<int> id,
     Expression<double> bateria,
@@ -5347,14 +5235,9 @@ class PlayerDadosCompanion extends UpdateCompanion<PlayerDado> {
     Expression<String> nomeWifi,
     Expression<int> processador,
     Expression<int> memoria,
-    Expression<int> idPlayerEquipamento,
-    Expression<DateTime> dataLigado,
+    Expression<int> idPlayer,
     Expression<DateTime> dataCadastro,
     Expression<DateTime> dataAlteracao,
-    Expression<int> versao,
-    Expression<bool> deletado,
-    Expression<int> idUsuarioCadastro,
-    Expression<int> idUsuarioAlteracao,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -5363,16 +5246,9 @@ class PlayerDadosCompanion extends UpdateCompanion<PlayerDado> {
       if (nomeWifi != null) 'nome_wifi': nomeWifi,
       if (processador != null) 'processador': processador,
       if (memoria != null) 'memoria': memoria,
-      if (idPlayerEquipamento != null)
-        'id_player_equipamento': idPlayerEquipamento,
-      if (dataLigado != null) 'data_ligado': dataLigado,
+      if (idPlayer != null) 'id_player': idPlayer,
       if (dataCadastro != null) 'data_cadastro': dataCadastro,
       if (dataAlteracao != null) 'data_alteracao': dataAlteracao,
-      if (versao != null) 'versao': versao,
-      if (deletado != null) 'deletado': deletado,
-      if (idUsuarioCadastro != null) 'id_usuario_cadastro': idUsuarioCadastro,
-      if (idUsuarioAlteracao != null)
-        'id_usuario_alteracao': idUsuarioAlteracao,
     });
   }
 
@@ -5383,14 +5259,9 @@ class PlayerDadosCompanion extends UpdateCompanion<PlayerDado> {
       Value<String> nomeWifi,
       Value<int> processador,
       Value<int> memoria,
-      Value<int> idPlayerEquipamento,
-      Value<DateTime> dataLigado,
+      Value<int> idPlayer,
       Value<DateTime> dataCadastro,
-      Value<DateTime> dataAlteracao,
-      Value<int> versao,
-      Value<bool> deletado,
-      Value<int> idUsuarioCadastro,
-      Value<int> idUsuarioAlteracao}) {
+      Value<DateTime> dataAlteracao}) {
     return PlayerDadosCompanion(
       id: id ?? this.id,
       bateria: bateria ?? this.bateria,
@@ -5398,14 +5269,9 @@ class PlayerDadosCompanion extends UpdateCompanion<PlayerDado> {
       nomeWifi: nomeWifi ?? this.nomeWifi,
       processador: processador ?? this.processador,
       memoria: memoria ?? this.memoria,
-      idPlayerEquipamento: idPlayerEquipamento ?? this.idPlayerEquipamento,
-      dataLigado: dataLigado ?? this.dataLigado,
+      idPlayer: idPlayer ?? this.idPlayer,
       dataCadastro: dataCadastro ?? this.dataCadastro,
       dataAlteracao: dataAlteracao ?? this.dataAlteracao,
-      versao: versao ?? this.versao,
-      deletado: deletado ?? this.deletado,
-      idUsuarioCadastro: idUsuarioCadastro ?? this.idUsuarioCadastro,
-      idUsuarioAlteracao: idUsuarioAlteracao ?? this.idUsuarioAlteracao,
     );
   }
 
@@ -5430,29 +5296,14 @@ class PlayerDadosCompanion extends UpdateCompanion<PlayerDado> {
     if (memoria.present) {
       map['memoria'] = Variable<int>(memoria.value);
     }
-    if (idPlayerEquipamento.present) {
-      map['id_player_equipamento'] = Variable<int>(idPlayerEquipamento.value);
-    }
-    if (dataLigado.present) {
-      map['data_ligado'] = Variable<DateTime>(dataLigado.value);
+    if (idPlayer.present) {
+      map['id_player'] = Variable<int>(idPlayer.value);
     }
     if (dataCadastro.present) {
       map['data_cadastro'] = Variable<DateTime>(dataCadastro.value);
     }
     if (dataAlteracao.present) {
       map['data_alteracao'] = Variable<DateTime>(dataAlteracao.value);
-    }
-    if (versao.present) {
-      map['versao'] = Variable<int>(versao.value);
-    }
-    if (deletado.present) {
-      map['deletado'] = Variable<bool>(deletado.value);
-    }
-    if (idUsuarioCadastro.present) {
-      map['id_usuario_cadastro'] = Variable<int>(idUsuarioCadastro.value);
-    }
-    if (idUsuarioAlteracao.present) {
-      map['id_usuario_alteracao'] = Variable<int>(idUsuarioAlteracao.value);
     }
     return map;
   }
@@ -5466,14 +5317,9 @@ class PlayerDadosCompanion extends UpdateCompanion<PlayerDado> {
           ..write('nomeWifi: $nomeWifi, ')
           ..write('processador: $processador, ')
           ..write('memoria: $memoria, ')
-          ..write('idPlayerEquipamento: $idPlayerEquipamento, ')
-          ..write('dataLigado: $dataLigado, ')
+          ..write('idPlayer: $idPlayer, ')
           ..write('dataCadastro: $dataCadastro, ')
-          ..write('dataAlteracao: $dataAlteracao, ')
-          ..write('versao: $versao, ')
-          ..write('deletado: $deletado, ')
-          ..write('idUsuarioCadastro: $idUsuarioCadastro, ')
-          ..write('idUsuarioAlteracao: $idUsuarioAlteracao')
+          ..write('dataAlteracao: $dataAlteracao')
           ..write(')'))
         .toString();
   }
@@ -5552,30 +5398,15 @@ class $PlayerDadosTable extends PlayerDados
     );
   }
 
-  final VerificationMeta _idPlayerEquipamentoMeta =
-      const VerificationMeta('idPlayerEquipamento');
-  GeneratedIntColumn _idPlayerEquipamento;
+  final VerificationMeta _idPlayerMeta = const VerificationMeta('idPlayer');
+  GeneratedIntColumn _idPlayer;
   @override
-  GeneratedIntColumn get idPlayerEquipamento =>
-      _idPlayerEquipamento ??= _constructIdPlayerEquipamento();
-  GeneratedIntColumn _constructIdPlayerEquipamento() {
+  GeneratedIntColumn get idPlayer => _idPlayer ??= _constructIdPlayer();
+  GeneratedIntColumn _constructIdPlayer() {
     return GeneratedIntColumn(
-      'id_player_equipamento',
+      'id_player',
       $tableName,
       true,
-    );
-  }
-
-  final VerificationMeta _dataLigadoMeta = const VerificationMeta('dataLigado');
-  GeneratedDateTimeColumn _dataLigado;
-  @override
-  GeneratedDateTimeColumn get dataLigado =>
-      _dataLigado ??= _constructDataLigado();
-  GeneratedDateTimeColumn _constructDataLigado() {
-    return GeneratedDateTimeColumn(
-      'data_ligado',
-      $tableName,
-      false,
     );
   }
 
@@ -5589,7 +5420,7 @@ class $PlayerDadosTable extends PlayerDados
     return GeneratedDateTimeColumn(
       'data_cadastro',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -5603,58 +5434,6 @@ class $PlayerDadosTable extends PlayerDados
     return GeneratedDateTimeColumn(
       'data_alteracao',
       $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _versaoMeta = const VerificationMeta('versao');
-  GeneratedIntColumn _versao;
-  @override
-  GeneratedIntColumn get versao => _versao ??= _constructVersao();
-  GeneratedIntColumn _constructVersao() {
-    return GeneratedIntColumn(
-      'versao',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _deletadoMeta = const VerificationMeta('deletado');
-  GeneratedBoolColumn _deletado;
-  @override
-  GeneratedBoolColumn get deletado => _deletado ??= _constructDeletado();
-  GeneratedBoolColumn _constructDeletado() {
-    return GeneratedBoolColumn(
-      'deletado',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _idUsuarioCadastroMeta =
-      const VerificationMeta('idUsuarioCadastro');
-  GeneratedIntColumn _idUsuarioCadastro;
-  @override
-  GeneratedIntColumn get idUsuarioCadastro =>
-      _idUsuarioCadastro ??= _constructIdUsuarioCadastro();
-  GeneratedIntColumn _constructIdUsuarioCadastro() {
-    return GeneratedIntColumn(
-      'id_usuario_cadastro',
-      $tableName,
-      true,
-    );
-  }
-
-  final VerificationMeta _idUsuarioAlteracaoMeta =
-      const VerificationMeta('idUsuarioAlteracao');
-  GeneratedIntColumn _idUsuarioAlteracao;
-  @override
-  GeneratedIntColumn get idUsuarioAlteracao =>
-      _idUsuarioAlteracao ??= _constructIdUsuarioAlteracao();
-  GeneratedIntColumn _constructIdUsuarioAlteracao() {
-    return GeneratedIntColumn(
-      'id_usuario_alteracao',
-      $tableName,
       true,
     );
   }
@@ -5667,14 +5446,9 @@ class $PlayerDadosTable extends PlayerDados
         nomeWifi,
         processador,
         memoria,
-        idPlayerEquipamento,
-        dataLigado,
+        idPlayer,
         dataCadastro,
-        dataAlteracao,
-        versao,
-        deletado,
-        idUsuarioCadastro,
-        idUsuarioAlteracao
+        dataAlteracao
       ];
   @override
   $PlayerDadosTable get asDslTable => this;
@@ -5712,59 +5486,21 @@ class $PlayerDadosTable extends PlayerDados
       context.handle(_memoriaMeta,
           memoria.isAcceptableOrUnknown(data['memoria'], _memoriaMeta));
     }
-    if (data.containsKey('id_player_equipamento')) {
-      context.handle(
-          _idPlayerEquipamentoMeta,
-          idPlayerEquipamento.isAcceptableOrUnknown(
-              data['id_player_equipamento'], _idPlayerEquipamentoMeta));
-    }
-    if (data.containsKey('data_ligado')) {
-      context.handle(
-          _dataLigadoMeta,
-          dataLigado.isAcceptableOrUnknown(
-              data['data_ligado'], _dataLigadoMeta));
-    } else if (isInserting) {
-      context.missing(_dataLigadoMeta);
+    if (data.containsKey('id_player')) {
+      context.handle(_idPlayerMeta,
+          idPlayer.isAcceptableOrUnknown(data['id_player'], _idPlayerMeta));
     }
     if (data.containsKey('data_cadastro')) {
       context.handle(
           _dataCadastroMeta,
           dataCadastro.isAcceptableOrUnknown(
               data['data_cadastro'], _dataCadastroMeta));
-    } else if (isInserting) {
-      context.missing(_dataCadastroMeta);
     }
     if (data.containsKey('data_alteracao')) {
       context.handle(
           _dataAlteracaoMeta,
           dataAlteracao.isAcceptableOrUnknown(
               data['data_alteracao'], _dataAlteracaoMeta));
-    } else if (isInserting) {
-      context.missing(_dataAlteracaoMeta);
-    }
-    if (data.containsKey('versao')) {
-      context.handle(_versaoMeta,
-          versao.isAcceptableOrUnknown(data['versao'], _versaoMeta));
-    } else if (isInserting) {
-      context.missing(_versaoMeta);
-    }
-    if (data.containsKey('deletado')) {
-      context.handle(_deletadoMeta,
-          deletado.isAcceptableOrUnknown(data['deletado'], _deletadoMeta));
-    } else if (isInserting) {
-      context.missing(_deletadoMeta);
-    }
-    if (data.containsKey('id_usuario_cadastro')) {
-      context.handle(
-          _idUsuarioCadastroMeta,
-          idUsuarioCadastro.isAcceptableOrUnknown(
-              data['id_usuario_cadastro'], _idUsuarioCadastroMeta));
-    }
-    if (data.containsKey('id_usuario_alteracao')) {
-      context.handle(
-          _idUsuarioAlteracaoMeta,
-          idUsuarioAlteracao.isAcceptableOrUnknown(
-              data['id_usuario_alteracao'], _idUsuarioAlteracaoMeta));
     }
     return context;
   }

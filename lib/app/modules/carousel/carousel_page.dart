@@ -50,9 +50,8 @@ class _CarouselPageState extends ModularState<CarouselPage, CarouselController> 
             return Center(
               child: CircularProgressIndicator(),
             );
-          }
+          }         
           // Area do Carousel
-
           return Scaffold(
             body: ConnectivityBuilder(
               builder: (context, isConnection, status) {

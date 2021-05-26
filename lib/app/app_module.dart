@@ -1,6 +1,7 @@
 import 'package:blink/app/app_widget.dart';
 import 'package:blink/app/modules/ative_player/ative_player_module.dart';
 import 'package:blink/app/modules/carousel/carousel_controller.dart';
+import 'package:blink/app/modules/empity_carousel/empity_carousel_controller.dart';
 import 'package:blink/app/modules/home/home_controller.dart';
 import 'package:blink/app/modules/home/home_module.dart';
 import 'package:blink/app/pages/slide_default/slide_default_controller.dart';
@@ -15,6 +16,7 @@ import 'package:blink/app/repositories/equipamento_repository.dart';
 import 'package:blink/app/repositories/login_repository.dart';
 import 'package:blink/app/repositories/loteria_resultado_repository.dart';
 import 'package:blink/app/repositories/noticia_repository.dart';
+import 'package:blink/app/repositories/player_dados_repository.dart';
 import 'package:blink/app/repositories/previsao_tempo_imagem_repository.dart';
 import 'package:blink/app/repositories/previsao_tempo_repository.dart';
 import 'package:blink/app/repositories/sequencia_conteudo_repository.dart';
@@ -28,6 +30,7 @@ import 'package:blink/app/services/login_service.dart';
 import 'package:blink/app/services/loteria_resultado_service.dart';
 import 'package:blink/app/services/noticia_service.dart';
 import 'package:blink/app/services/notification_service.dart';
+import 'package:blink/app/services/player_dados_service.dart';
 import 'package:blink/app/services/previsao_imagem_tempo_service.dart';
 import 'package:blink/app/services/previsao_tempo_service.dart';
 import 'package:blink/app/services/sequencia_conteudo_service.dart';
@@ -55,6 +58,7 @@ class AppModule extends MainModule {
         $SlideLoteriaController,
         $CarouselController,
         $AtivePlayerController,
+        $EmpityCarouselController,
         $HomeController,
         $AppController,
         $CustomDIO,
@@ -70,6 +74,7 @@ class AppModule extends MainModule {
               i.get<LoteriaResultadoService>(),
               i.get<EquipamentoService>(),
               i.get<ConteudoVisualizadoService>(),
+              i.get<PlayerDadosService>()
             )),
         Bind((i) => SplashController(
               i.get<LoginService>(),
@@ -95,6 +100,8 @@ class AppModule extends MainModule {
         Bind((i) => SequenciaConteudoRepository()),
         Bind((i) => LoteriaResultadoService(i.get<LoteriaResultadoRepository>())),
         Bind((i) => LoteriaResultadoRepository()),
+        Bind((i) => PlayerDadosRepository()),
+        Bind((i) => PlayerDadosService(i.get<PlayerDadosRepository>()), singleton: true, lazy: false),
         Bind((i) => ConteudoVisualizadoRepository()),
         Bind((i) => ConteudoVisualizadoService(i.get<ConteudoVisualizadoRepository>())),
         Bind((i) => EquipamentoService(i.get<EquipamentoRepository>())),
