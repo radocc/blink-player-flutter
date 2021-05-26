@@ -94,8 +94,9 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
                       builder: (ctx, snap) {
                         if (!snap.hasData && !snap.hasError) {
                           return LoadingMidias();
-                        } else if (snap.data == false) {
-                          return EmpityCarouselPage(); 
+                        //} 
+                        //else if (snap.data == false) {
+                          //return EmpityCarouselPage(); 
                         } else if (snap.hasError) {
                           return Center(
                             child: Text("${snap.error.toString()}"),
