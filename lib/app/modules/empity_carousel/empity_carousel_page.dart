@@ -36,7 +36,12 @@ class _EmpityCarouselPageState
                 SizedBox(height: 20),
                 ElevatedButton(
                     onPressed: () {
-                      controller.sincronizar();
+                      //controller.sincronizar();
+                      controller.sincronizar().then((value) {
+                        if (value > 0) {
+                          Modular.to.pop();
+                        }
+                      });
                     },
                     child: Text('Sincronizar'))
               ],

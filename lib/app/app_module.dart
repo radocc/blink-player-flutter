@@ -2,6 +2,7 @@ import 'package:blink/app/app_widget.dart';
 import 'package:blink/app/modules/ative_player/ative_player_module.dart';
 import 'package:blink/app/modules/carousel/carousel_controller.dart';
 import 'package:blink/app/modules/empity_carousel/empity_carousel_controller.dart';
+import 'package:blink/app/modules/empity_carousel/empity_carousel_module.dart';
 import 'package:blink/app/modules/home/home_controller.dart';
 import 'package:blink/app/modules/home/home_module.dart';
 import 'package:blink/app/pages/slide_default/slide_default_controller.dart';
@@ -113,7 +114,8 @@ class AppModule extends MainModule {
   List<ModularRouter> get routers => [
         ModularRouter('/', child: (__, args) => SplashPage()),
         ModularRouter('/home', module: HomeModule()),
-        ModularRouter('/ative', module: AtivePlayerModule())
+        ModularRouter('/ative', module: AtivePlayerModule()),
+        ModularRouter('/empityCarousel', module: EmpityCarouselModule())
       ];
 
   @override

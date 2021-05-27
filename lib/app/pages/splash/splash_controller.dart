@@ -32,13 +32,13 @@ abstract class _SplashControllerBase with Store {
 
   onInit() async {
     try {
-    streamEquipBody = Events.equipBody.stream.listen((value) {
-      print('STREAM: $value');
-      if (value) {
-        login();
-      } 
-    });
-    } on StateError catch(e) {
+      streamEquipBody = Events.equipBody.stream.listen((value) {
+        print('STREAM: $value');
+        if (value) {
+          login();
+        }
+      });
+    } on StateError catch (e) {
       print(e.stackTrace);
       await streamEquipBody.cancel();
       await Events.equipBody.close();
@@ -53,12 +53,13 @@ abstract class _SplashControllerBase with Store {
     if (testes > 0) {
       return true;
     } else {
-      return false;
+      await Modular.to.pushNamed('/empityCarousel');
     }
   }
- 
+
   Future<Equipamento> login() async {
     try {
+      //var valueDir = await load();
       var response = await service.logar();
       if (!response.ativado) {
         await Modular.to.pushNamed('/ative', arguments: {
@@ -71,21 +72,26 @@ abstract class _SplashControllerBase with Store {
       } else {
         streamPostServer.add(response);
       }
+
+      // if (valueDir > 0) {
+        return response;
+      // } else {
+      //   await Modular.to.pushNamed('/empityCarousel');
+      // }
       
-      return response;
     } on DioError catch (e) {
       print(e.response.statusCode);
       streamPostServer.addError(e);
       throw Exception("Exception occured: $e");
     }
   }
- 
+
   dispose() {
     streamEquipBody.cancel();
     Events.equipBody.close();
   }
 
-      Future<int> load() async {
+  Future<int> load() async {
     this.files = [];
 
     Directory directory = await getApplicationDocumentsDirectory();
