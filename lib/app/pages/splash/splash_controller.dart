@@ -75,7 +75,13 @@ abstract class _SplashControllerBase with Store {
 
   Future sincronizar() async {
     await syncService.iniciar();
-    return true;
+    var valueDir = await load();
+    if (valueDir > 0) {
+      return true;
+    } else {
+      await Modular.to.pushNamed('/empityCarousel');
+    }
+    //return true;
   }
 
   Future<Equipamento> login() async {
@@ -84,23 +90,23 @@ abstract class _SplashControllerBase with Store {
       var response = await service.logar();
       equipamento = await equipamentoDAO.getEquipamento();
 
-      if (response.schemaName != null && response.idPlayer != 0) {
-        if (response.schemaName != equipamento.schemaName &&
-            response.idPlayer != equipamento.idPlayer) {
-          equipamentoDAO.deleteAll();
-          playerDAO.deleteAll();
-          atualizacaoDAO.deleteAll();
-          atualizacaoStatusDAO.deleteAll();
-          conteudoDAO.deleteAll();
-          conteudoVisualizadoDAO.deleteAll();
-          loteriaResultadosDAO.deleteAll();
-          previsaoTemposDAO.deleteAll();
-          previsaoTempoImagemDAO.deleteAll();
-          sequenciaConteudoDAO.deleteAll();
-          noticiaDAO.deleteAll();
-          atualizacaoConteudoDAO.deleteAll();
-        }
+      //if (response.schemaName != null && response.idPlayer != 0) {
+      if (response.schemaName != equipamento.schemaName &&
+          response.idPlayer != equipamento.idPlayer) {
+        equipamentoDAO.deleteAll();
+        playerDAO.deleteAll();
+        atualizacaoDAO.deleteAll();
+        atualizacaoStatusDAO.deleteAll();
+        conteudoDAO.deleteAll();
+        conteudoVisualizadoDAO.deleteAll();
+        loteriaResultadosDAO.deleteAll();
+        previsaoTemposDAO.deleteAll();
+        previsaoTempoImagemDAO.deleteAll();
+        sequenciaConteudoDAO.deleteAll();
+        noticiaDAO.deleteAll();
+        atualizacaoConteudoDAO.deleteAll();
       }
+      //}
 
       if (!response.ativado) {
         await Modular.to.pushNamed('/ative', arguments: {
@@ -114,11 +120,11 @@ abstract class _SplashControllerBase with Store {
         streamPostServer.add(response);
       }
 
-      if (valueDir > 0) {
+     // if (valueDir > 0) {
         return response;
-      } else {
-        await Modular.to.pushNamed('/empityCarousel');
-      }
+     // } else {
+    //    await Modular.to.pushNamed('/empityCarousel');
+    //  }
     } on DioError catch (e) {
       print(e.response.statusCode);
       streamPostServer.addError(e);

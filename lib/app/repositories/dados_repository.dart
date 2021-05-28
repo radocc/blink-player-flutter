@@ -24,6 +24,7 @@ abstract class DadosRepository<T> extends AbstractRepository {
 
       if (status != null) {
         dados.ultimaRequisicao = status.dataInicial;
+        print(dados.ultimaRequisicao);
       }
       var res = await dio.post(getUrl(''), data: dados);
       var decodedData = DadosModel<T>.fromJson(res.data);
