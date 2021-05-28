@@ -4414,6 +4414,7 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
   String nome;
   String nomePlayer;
   int idPlayer;
+  String schemaName;
   String uuid;
   String identificador;
   String idOneSignal;
@@ -4425,6 +4426,7 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
       this.nome,
       this.nomePlayer,
       this.idPlayer,
+      this.schemaName,
       this.uuid,
       this.identificador,
       this.idOneSignal,
@@ -4445,6 +4447,8 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
           .mapFromDatabaseResponse(data['${effectivePrefix}nome_player']),
       idPlayer:
           intType.mapFromDatabaseResponse(data['${effectivePrefix}id_player']),
+      schemaName: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}schema_name']),
       uuid: stringType.mapFromDatabaseResponse(data['${effectivePrefix}uuid']),
       identificador: stringType
           .mapFromDatabaseResponse(data['${effectivePrefix}identificador']),
@@ -4472,6 +4476,9 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
     }
     if (!nullToAbsent || idPlayer != null) {
       map['id_player'] = Variable<int>(idPlayer);
+    }
+    if (!nullToAbsent || schemaName != null) {
+      map['schema_name'] = Variable<String>(schemaName);
     }
     if (!nullToAbsent || uuid != null) {
       map['uuid'] = Variable<String>(uuid);
@@ -4504,6 +4511,9 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
       idPlayer: idPlayer == null && nullToAbsent
           ? const Value.absent()
           : Value(idPlayer),
+      schemaName: schemaName == null && nullToAbsent
+          ? const Value.absent()
+          : Value(schemaName),
       uuid: uuid == null && nullToAbsent ? const Value.absent() : Value(uuid),
       identificador: identificador == null && nullToAbsent
           ? const Value.absent()
@@ -4531,6 +4541,7 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
       nome: serializer.fromJson<String>(json['nome']),
       nomePlayer: serializer.fromJson<String>(json['nomePlayer']),
       idPlayer: serializer.fromJson<int>(json['idPlayer']),
+      schemaName: serializer.fromJson<String>(json['schemaName']),
       uuid: serializer.fromJson<String>(json['uuid']),
       identificador: serializer.fromJson<String>(json['identificador']),
       idOneSignal: serializer.fromJson<String>(json['idOneSignal']),
@@ -4547,6 +4558,7 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
       'nome': serializer.toJson<String>(nome),
       'nomePlayer': serializer.toJson<String>(nomePlayer),
       'idPlayer': serializer.toJson<int>(idPlayer),
+      'schemaName': serializer.toJson<String>(schemaName),
       'uuid': serializer.toJson<String>(uuid),
       'identificador': serializer.toJson<String>(identificador),
       'idOneSignal': serializer.toJson<String>(idOneSignal),
@@ -4561,6 +4573,7 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
           String nome,
           String nomePlayer,
           int idPlayer,
+          String schemaName,
           String uuid,
           String identificador,
           String idOneSignal,
@@ -4572,6 +4585,7 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
         nome: nome ?? this.nome,
         nomePlayer: nomePlayer ?? this.nomePlayer,
         idPlayer: idPlayer ?? this.idPlayer,
+        schemaName: schemaName ?? this.schemaName,
         uuid: uuid ?? this.uuid,
         identificador: identificador ?? this.identificador,
         idOneSignal: idOneSignal ?? this.idOneSignal,
@@ -4586,6 +4600,7 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
           ..write('nome: $nome, ')
           ..write('nomePlayer: $nomePlayer, ')
           ..write('idPlayer: $idPlayer, ')
+          ..write('schemaName: $schemaName, ')
           ..write('uuid: $uuid, ')
           ..write('identificador: $identificador, ')
           ..write('idOneSignal: $idOneSignal, ')
@@ -4606,15 +4621,17 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
               $mrjc(
                   idPlayer.hashCode,
                   $mrjc(
-                      uuid.hashCode,
+                      schemaName.hashCode,
                       $mrjc(
-                          identificador.hashCode,
+                          uuid.hashCode,
                           $mrjc(
-                              idOneSignal.hashCode,
+                              identificador.hashCode,
                               $mrjc(
-                                  dataCadastro.hashCode,
-                                  $mrjc(dataAlteracao.hashCode,
-                                      ativado.hashCode))))))))));
+                                  idOneSignal.hashCode,
+                                  $mrjc(
+                                      dataCadastro.hashCode,
+                                      $mrjc(dataAlteracao.hashCode,
+                                          ativado.hashCode)))))))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -4623,6 +4640,7 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
           other.nome == this.nome &&
           other.nomePlayer == this.nomePlayer &&
           other.idPlayer == this.idPlayer &&
+          other.schemaName == this.schemaName &&
           other.uuid == this.uuid &&
           other.identificador == this.identificador &&
           other.idOneSignal == this.idOneSignal &&
@@ -4636,6 +4654,7 @@ class EquipamentosCompanion extends UpdateCompanion<Equipamento> {
   Value<String> nome;
   Value<String> nomePlayer;
   Value<int> idPlayer;
+  Value<String> schemaName;
   Value<String> uuid;
   Value<String> identificador;
   Value<String> idOneSignal;
@@ -4647,6 +4666,7 @@ class EquipamentosCompanion extends UpdateCompanion<Equipamento> {
     this.nome = const Value.absent(),
     this.nomePlayer = const Value.absent(),
     this.idPlayer = const Value.absent(),
+    this.schemaName = const Value.absent(),
     this.uuid = const Value.absent(),
     this.identificador = const Value.absent(),
     this.idOneSignal = const Value.absent(),
@@ -4659,6 +4679,7 @@ class EquipamentosCompanion extends UpdateCompanion<Equipamento> {
     this.nome = const Value.absent(),
     this.nomePlayer = const Value.absent(),
     this.idPlayer = const Value.absent(),
+    this.schemaName = const Value.absent(),
     this.uuid = const Value.absent(),
     this.identificador = const Value.absent(),
     this.idOneSignal = const Value.absent(),
@@ -4671,6 +4692,7 @@ class EquipamentosCompanion extends UpdateCompanion<Equipamento> {
     Expression<String> nome,
     Expression<String> nomePlayer,
     Expression<int> idPlayer,
+    Expression<String> schemaName,
     Expression<String> uuid,
     Expression<String> identificador,
     Expression<String> idOneSignal,
@@ -4683,6 +4705,7 @@ class EquipamentosCompanion extends UpdateCompanion<Equipamento> {
       if (nome != null) 'nome': nome,
       if (nomePlayer != null) 'nome_player': nomePlayer,
       if (idPlayer != null) 'id_player': idPlayer,
+      if (schemaName != null) 'schema_name': schemaName,
       if (uuid != null) 'uuid': uuid,
       if (identificador != null) 'identificador': identificador,
       if (idOneSignal != null) 'id_one_signal': idOneSignal,
@@ -4697,6 +4720,7 @@ class EquipamentosCompanion extends UpdateCompanion<Equipamento> {
       Value<String> nome,
       Value<String> nomePlayer,
       Value<int> idPlayer,
+      Value<String> schemaName,
       Value<String> uuid,
       Value<String> identificador,
       Value<String> idOneSignal,
@@ -4708,6 +4732,7 @@ class EquipamentosCompanion extends UpdateCompanion<Equipamento> {
       nome: nome ?? this.nome,
       nomePlayer: nomePlayer ?? this.nomePlayer,
       idPlayer: idPlayer ?? this.idPlayer,
+      schemaName: schemaName ?? this.schemaName,
       uuid: uuid ?? this.uuid,
       identificador: identificador ?? this.identificador,
       idOneSignal: idOneSignal ?? this.idOneSignal,
@@ -4731,6 +4756,9 @@ class EquipamentosCompanion extends UpdateCompanion<Equipamento> {
     }
     if (idPlayer.present) {
       map['id_player'] = Variable<int>(idPlayer.value);
+    }
+    if (schemaName.present) {
+      map['schema_name'] = Variable<String>(schemaName.value);
     }
     if (uuid.present) {
       map['uuid'] = Variable<String>(uuid.value);
@@ -4760,6 +4788,7 @@ class EquipamentosCompanion extends UpdateCompanion<Equipamento> {
           ..write('nome: $nome, ')
           ..write('nomePlayer: $nomePlayer, ')
           ..write('idPlayer: $idPlayer, ')
+          ..write('schemaName: $schemaName, ')
           ..write('uuid: $uuid, ')
           ..write('identificador: $identificador, ')
           ..write('idOneSignal: $idOneSignal, ')
@@ -4809,6 +4838,18 @@ class $EquipamentosTable extends Equipamentos
   GeneratedIntColumn _constructIdPlayer() {
     return GeneratedIntColumn(
       'id_player',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _schemaNameMeta = const VerificationMeta('schemaName');
+  GeneratedTextColumn _schemaName;
+  @override
+  GeneratedTextColumn get schemaName => _schemaName ??= _constructSchemaName();
+  GeneratedTextColumn _constructSchemaName() {
+    return GeneratedTextColumn(
+      'schema_name',
       $tableName,
       true,
     );
@@ -4900,6 +4941,7 @@ class $EquipamentosTable extends Equipamentos
         nome,
         nomePlayer,
         idPlayer,
+        schemaName,
         uuid,
         identificador,
         idOneSignal,
@@ -4934,6 +4976,12 @@ class $EquipamentosTable extends Equipamentos
     if (data.containsKey('id_player')) {
       context.handle(_idPlayerMeta,
           idPlayer.isAcceptableOrUnknown(data['id_player'], _idPlayerMeta));
+    }
+    if (data.containsKey('schema_name')) {
+      context.handle(
+          _schemaNameMeta,
+          schemaName.isAcceptableOrUnknown(
+              data['schema_name'], _schemaNameMeta));
     }
     if (data.containsKey('uuid')) {
       context.handle(

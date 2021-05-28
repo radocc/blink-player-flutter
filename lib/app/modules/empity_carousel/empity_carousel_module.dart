@@ -1,4 +1,3 @@
-import 'package:blink/app/modules/ative_player/ative_player_page.dart';
 import 'package:blink/app/modules/empity_carousel/empity_carousel_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 

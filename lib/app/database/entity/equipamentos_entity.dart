@@ -7,6 +7,7 @@ class Equipamentos extends Table {
   TextColumn get nome => text().withLength(max: 200).nullable()();
   TextColumn get nomePlayer => text().withLength(max: 200).nullable()();
   IntColumn get idPlayer => integer().nullable()();
+  TextColumn get schemaName => text().nullable()();
   TextColumn get uuid => text().nullable()();
   TextColumn get identificador => text().nullable()();
   TextColumn get idOneSignal => text().nullable()();

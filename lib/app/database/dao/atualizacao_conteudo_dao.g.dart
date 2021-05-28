@@ -6,4 +6,7 @@ part of 'atualizacao_conteudo_dao.dart';
 // DaoGenerator
 // **************************************************************************
 
-mixin _$AtualizacaoConteudoDAOMixin on DatabaseAccessor<Database> {}
+mixin _$AtualizacaoConteudoDAOMixin on DatabaseAccessor<Database> {
+  $AtualizacoesConteudoTable get atualizacoesConteudo =>
+      attachedDatabase.atualizacoesConteudo;
+}

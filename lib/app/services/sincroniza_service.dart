@@ -51,7 +51,7 @@ class SincronizaService {
     try {
       // if (kReleaseMode) {
       await this.conteudoVisualizadoService.enviarVisualizacoes();
-      //await this.playerDadosService.enviarDadosPlayer();
+      await this.playerDadosService.enviarDadosPlayer();
       await downloadConteudos(atualizacao);
       await downloadTemplates(atualizacao);
       await downloadPrevisaoImagemTempo(atualizacao);

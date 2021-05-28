@@ -13,10 +13,6 @@ class ConteudoDAO extends AbstractDAO<Conteudo> with _$ConteudoDAOMixin {
   ConteudoDAO(Database db) : super(db) {
     table = conteudos;
   }
-
-  // Future addValueEquipments(Conteudo entity) {
-  //   return into(conteudos).insertOnConflictUpdate(entity);
-  // }
   
   Future<List<Conteudo>> getAllConteudos() async {
     return (select(conteudos)).get();

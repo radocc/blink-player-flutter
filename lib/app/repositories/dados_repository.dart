@@ -14,14 +14,15 @@ abstract class DadosRepository<T> extends AbstractRepository {
 
   Future<List<T>> download() async {
     try {
-      AtualizacaoStatus status = await statusDAO.getUltimo(this.identificacao.index);
-      
+      AtualizacaoStatus status =
+          await statusDAO.getUltimo(this.identificacao.index);
+
       var dados = DadosModel(
-        limite: 100,
-        identificacao: identificacao.index,
-        ultimaRequisicao:null
-      );
-      if (status != null){
+          limite: 100,
+          identificacao: identificacao.index,
+          ultimaRequisicao: null);
+
+      if (status != null) {
         dados.ultimaRequisicao = status.dataInicial;
       }
       var res = await dio.post(getUrl(''), data: dados);

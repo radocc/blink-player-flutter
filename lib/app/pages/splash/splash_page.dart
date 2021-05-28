@@ -1,12 +1,8 @@
 import 'package:blink/app/components/loading_midias.dart';
-import 'package:blink/app/modules/ative_player/ative_player_page.dart';
 import 'package:blink/app/database/database.dart';
-import 'package:blink/app/modules/empity_carousel/empity_carousel_page.dart';
 import 'package:blink/app/modules/home/home_page.dart';
-import 'package:cross_connectivity/cross_connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:intl/intl.dart';
 import 'splash_controller.dart';
 
 class SplashPage extends StatefulWidget {
@@ -32,8 +28,6 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
 
   @override
   Widget build(BuildContext context) {
-    final now = new DateTime.now();
-    final formatter = new DateFormat('dd-MM-yyyy HH:mm').format(now);
 
     return Scaffold(
         body: StreamBuilder<Equipamento>(

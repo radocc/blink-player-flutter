@@ -1,13 +1,15 @@
 import 'package:blink/app/database/database.dart';
+import 'package:blink/app/database/dao/abstract_dao.dart';
 import 'package:blink/app/database/entity/player_dados.dart';
 import 'package:moor/moor.dart';
 
 part 'player_dados_dao.g.dart';
 
 @UseDao(tables: [PlayerDados])
-class PlayerDadosDAO extends DatabaseAccessor<Database>
-    with _$PlayerDadosDAOMixin {
-  PlayerDadosDAO(Database db) : super(db);
+class PlayerDadosDAO extends AbstractDAO<PlayerDado> with _$PlayerDadosDAOMixin {
+  PlayerDadosDAO(Database db) : super(db) {
+      table = playerDados;
+  }
 
   Future addValueHardware(PlayerDado entity) {
     return into(playerDados).insert(entity);
@@ -35,11 +37,11 @@ class PlayerDadosDAO extends DatabaseAccessor<Database>
   }
 
   Future<List<PlayerDado>> getParaEnvio() async {
-    var sql = ''' select * from player_dados pd ''';
-    // var sql = ''' select * from player_dados pd 
-    //           where
-    //             pd.data_cadastro = date('now')-1 
-    //             ''';
+    //var sql = ''' select * from player_dados pd ''';
+    var sql = ''' select * from player_dados pd 
+              where
+                pd.data_cadastro = date('now')-1 
+                ''';
 
     var query = await customSelect(sql, readsFrom: {playerDados});
     return query

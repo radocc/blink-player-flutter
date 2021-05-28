@@ -27,6 +27,7 @@ abstract class _EmpityCarouselControllerBase with Store {
     print('passou iniciar');
     var values = await load();
     print('passou load');
+    print(values);
     return values;
   }
 

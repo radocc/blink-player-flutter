@@ -1,6 +1,18 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:blink/app/database/dao/atualizacao_conteudo_dao.dart';
+import 'package:blink/app/database/dao/atualizacao_dao.dart';
+import 'package:blink/app/database/dao/atualizacao_status_dao.dart';
+import 'package:blink/app/database/dao/conteudo_dao.dart';
+import 'package:blink/app/database/dao/conteudo_visualizado_dao.dart';
+import 'package:blink/app/database/dao/equipamento_dao.dart';
+import 'package:blink/app/database/dao/loteria_resultado_dao.dart';
+import 'package:blink/app/database/dao/noticia_dao.dart';
+import 'package:blink/app/database/dao/player_dados_dao.dart';
+import 'package:blink/app/database/dao/previsao_tempo_dao.dart';
+import 'package:blink/app/database/dao/previsao_tempo_imagem_dao.dart';
+import 'package:blink/app/database/dao/sequencia_conteudo_dao.dart';
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/modules/carousel/carousel_controller.dart';
 import 'package:blink/app/services/login_service.dart';
@@ -25,12 +37,27 @@ abstract class _SplashControllerBase with Store {
   StreamSubscription<bool> streamEquipBody;
   StreamController<Equipamento> streamPostServer =
       StreamController<Equipamento>.broadcast();
+  EquipamentoDAO equipamentoDAO;
+  PlayerDadosDAO playerDAO;
+  AtualizacaoDAO atualizacaoDAO;
+  AtualizacaoStatusDAO atualizacaoStatusDAO;
+  ConteudoDAO conteudoDAO;
+  ConteudoVisualizadoDAO conteudoVisualizadoDAO;
+  LoteriaResultadosDAO loteriaResultadosDAO;
+  PrevisaoTemposDAO previsaoTemposDAO;
+  PrevisaoTempoImagemDAO previsaoTempoImagemDAO;
+  SequenciaConteudoDAO sequenciaConteudoDAO;
+  NoticiaDAO noticiaDAO;
+  AtualizacaoConteudoDAO atualizacaoConteudoDAO;
+  Equipamento equipamento;
+
   var controller = CarouselController();
   List<File> files;
 
   _SplashControllerBase(this.service, this.syncService);
 
   onInit() async {
+    equipamentoDAO = Database.instance.equipamentoDAO;
     try {
       streamEquipBody = Events.equipBody.stream.listen((value) {
         print('STREAM: $value');
@@ -44,23 +71,37 @@ abstract class _SplashControllerBase with Store {
       await Events.equipBody.close();
       onInit();
     }
-    // login();
   }
 
   Future sincronizar() async {
     await syncService.iniciar();
-    var testes = await load();
-    if (testes > 0) {
-      return true;
-    } else {
-      await Modular.to.pushNamed('/empityCarousel');
-    }
+    return true;
   }
 
   Future<Equipamento> login() async {
     try {
-      //var valueDir = await load();
+      var valueDir = await load();
       var response = await service.logar();
+      equipamento = await equipamentoDAO.getEquipamento();
+
+      if (response.schemaName != null && response.idPlayer != 0) {
+        if (response.schemaName != equipamento.schemaName &&
+            response.idPlayer != equipamento.idPlayer) {
+          equipamentoDAO.deleteAll();
+          playerDAO.deleteAll();
+          atualizacaoDAO.deleteAll();
+          atualizacaoStatusDAO.deleteAll();
+          conteudoDAO.deleteAll();
+          conteudoVisualizadoDAO.deleteAll();
+          loteriaResultadosDAO.deleteAll();
+          previsaoTemposDAO.deleteAll();
+          previsaoTempoImagemDAO.deleteAll();
+          sequenciaConteudoDAO.deleteAll();
+          noticiaDAO.deleteAll();
+          atualizacaoConteudoDAO.deleteAll();
+        }
+      }
+
       if (!response.ativado) {
         await Modular.to.pushNamed('/ative', arguments: {
           'id': response.id.toString(),
@@ -73,12 +114,11 @@ abstract class _SplashControllerBase with Store {
         streamPostServer.add(response);
       }
 
-      // if (valueDir > 0) {
+      if (valueDir > 0) {
         return response;
-      // } else {
-      //   await Modular.to.pushNamed('/empityCarousel');
-      // }
-      
+      } else {
+        await Modular.to.pushNamed('/empityCarousel');
+      }
     } on DioError catch (e) {
       print(e.response.statusCode);
       streamPostServer.addError(e);
