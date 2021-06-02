@@ -7,6 +7,7 @@
          FlutterApplication and put your custom class here. -->
          
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <application
         android:hardwareAccelerated="true"
         android:name="io.flutter.app.FlutterApplication"
@@ -46,6 +47,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
         <!-- Don't delete the meta-data below.
