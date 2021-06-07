@@ -11,6 +11,7 @@ class ConteudoCampos extends Table {
   TextColumn get fonte => text().withLength(max:255)();
   IntColumn get fonteTamanho => integer()();
   TextColumn get fonteCor => text().withLength(max: 9)();
+  TextColumn get valorFormato => text().nullable()();
   RealColumn get top => real()();  
   RealColumn get left => real()();  
   IntColumn get sequencia => integer()();
