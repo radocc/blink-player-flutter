@@ -1,6 +1,8 @@
 import 'package:blink/app/components/loading_midias.dart';
+import 'package:blink/app/components/touch_left_screen.dart';
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/modules/home/home_page.dart';
+import 'package:cross_connectivity/cross_connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'splash_controller.dart';
@@ -17,6 +19,7 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
   @override
   void initState() {
     controller.onInit();
+    controller.setLandscape();
     super.initState();
   }
 
@@ -28,28 +31,38 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         body: StreamBuilder<Equipamento>(
             stream: controller.streamPostServer.stream,
             builder: (ctx, snap) {
               if (snap.connectionState == ConnectionState.waiting) {
-                return Center(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      constraints:
-                          BoxConstraints(minWidth: 100, maxHeight: 180),
-                      child: Image.asset('assets/logo_versa.png'),
+                return ConnectivityBuilder(
+                    builder: (context, isConnection, status) {
+                  return Center(
+                      child:
+                          Stack(alignment: Alignment.topCenter, children: <Widget>[
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          constraints:
+                              BoxConstraints(minWidth: 100, maxHeight: 180),
+                          child: Image.asset('assets/logo_versa.png'),
+                        ),
+                        SizedBox(height: 25),
+                        SizedBox(height: 20),
+                        Text('Bem vindo a sua tv cooporativa...',
+                            style: TextStyle(fontWeight: FontWeight.w500)),
+                        SizedBox(height: 15),
+                      ],
                     ),
-                    SizedBox(height: 25),
-                    SizedBox(height: 20),
-                    Text('Bem vindo a sua tv cooporativa...',
-                        style: TextStyle(fontWeight: FontWeight.w500)),
-                    SizedBox(height: 15),
-                  ],
-                ));
+                    Positioned(
+                      child: isConnection == false
+                          ? TouchLeftScreen(topSize: 0)
+                          : Container(),
+                    )
+                  ]));
+                });
               } else {
                 if (snap.hasError) {
                   return Center(
@@ -87,10 +100,8 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
                       future: controller.sincronizar(),
                       builder: (ctx, snap) {
                         if (!snap.hasData && !snap.hasError) {
+                          //porcent: controller.value
                           return LoadingMidias();
-                        //} 
-                        //else if (snap.data == false) {
-                          //return EmpityCarouselPage(); 
                         } else if (snap.hasError) {
                           return Center(
                             child: Text("${snap.error.toString()}"),

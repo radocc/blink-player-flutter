@@ -19,6 +19,7 @@ import 'package:blink/app/services/login_service.dart';
 import 'package:blink/app/services/sincroniza_service.dart';
 import 'package:blink/app/shared/events.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -54,6 +55,14 @@ abstract class _SplashControllerBase with Store {
   var controller = CarouselController();
   List<File> files;
 
+  @observable
+  double value;
+
+  @action
+  increment() {
+    value = value + 10;
+  }
+
   _SplashControllerBase(this.service, this.syncService);
 
   onInit() async {
@@ -74,6 +83,7 @@ abstract class _SplashControllerBase with Store {
   }
 
   Future sincronizar() async {
+    //valueDownload: value
     await syncService.iniciar();
     var valueDir = await load();
     if (valueDir > 0) {
@@ -82,6 +92,11 @@ abstract class _SplashControllerBase with Store {
       await Modular.to.pushNamed('/empityCarousel');
     }
     //return true;
+  }
+
+    Future setLandscape() async {
+    await SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   }
 
   Future<Equipamento> login() async {

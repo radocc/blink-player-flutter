@@ -3503,6 +3503,7 @@ class ConteudoCampo extends DataClass implements Insertable<ConteudoCampo> {
   String fonte;
   int fonteTamanho;
   String fonteCor;
+  String valorFormato;
   double top;
   double left;
   int sequencia;
@@ -3521,6 +3522,7 @@ class ConteudoCampo extends DataClass implements Insertable<ConteudoCampo> {
       @required this.fonte,
       @required this.fonteTamanho,
       @required this.fonteCor,
+      this.valorFormato,
       @required this.top,
       @required this.left,
       @required this.sequencia,
@@ -3553,6 +3555,8 @@ class ConteudoCampo extends DataClass implements Insertable<ConteudoCampo> {
           .mapFromDatabaseResponse(data['${effectivePrefix}fonte_tamanho']),
       fonteCor: stringType
           .mapFromDatabaseResponse(data['${effectivePrefix}fonte_cor']),
+      valorFormato: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}valor_formato']),
       top: doubleType.mapFromDatabaseResponse(data['${effectivePrefix}top']),
       left: doubleType.mapFromDatabaseResponse(data['${effectivePrefix}left']),
       sequencia:
@@ -3597,6 +3601,9 @@ class ConteudoCampo extends DataClass implements Insertable<ConteudoCampo> {
     }
     if (!nullToAbsent || fonteCor != null) {
       map['fonte_cor'] = Variable<String>(fonteCor);
+    }
+    if (!nullToAbsent || valorFormato != null) {
+      map['valor_formato'] = Variable<String>(valorFormato);
     }
     if (!nullToAbsent || top != null) {
       map['top'] = Variable<double>(top);
@@ -3645,6 +3652,9 @@ class ConteudoCampo extends DataClass implements Insertable<ConteudoCampo> {
       fonteCor: fonteCor == null && nullToAbsent
           ? const Value.absent()
           : Value(fonteCor),
+      valorFormato: valorFormato == null && nullToAbsent
+          ? const Value.absent()
+          : Value(valorFormato),
       top: top == null && nullToAbsent ? const Value.absent() : Value(top),
       left: left == null && nullToAbsent ? const Value.absent() : Value(left),
       sequencia: sequencia == null && nullToAbsent
@@ -3680,6 +3690,7 @@ class ConteudoCampo extends DataClass implements Insertable<ConteudoCampo> {
       fonte: serializer.fromJson<String>(json['fonte']),
       fonteTamanho: serializer.fromJson<int>(json['fonteTamanho']),
       fonteCor: serializer.fromJson<String>(json['fonteCor']),
+      valorFormato: serializer.fromJson<String>(json['valorFormato']),
       top: serializer.fromJson<double>(json['top']),
       left: serializer.fromJson<double>(json['left']),
       sequencia: serializer.fromJson<int>(json['sequencia']),
@@ -3703,6 +3714,7 @@ class ConteudoCampo extends DataClass implements Insertable<ConteudoCampo> {
       'fonte': serializer.toJson<String>(fonte),
       'fonteTamanho': serializer.toJson<int>(fonteTamanho),
       'fonteCor': serializer.toJson<String>(fonteCor),
+      'valorFormato': serializer.toJson<String>(valorFormato),
       'top': serializer.toJson<double>(top),
       'left': serializer.toJson<double>(left),
       'sequencia': serializer.toJson<int>(sequencia),
@@ -3724,6 +3736,7 @@ class ConteudoCampo extends DataClass implements Insertable<ConteudoCampo> {
           String fonte,
           int fonteTamanho,
           String fonteCor,
+          String valorFormato,
           double top,
           double left,
           int sequencia,
@@ -3742,6 +3755,7 @@ class ConteudoCampo extends DataClass implements Insertable<ConteudoCampo> {
         fonte: fonte ?? this.fonte,
         fonteTamanho: fonteTamanho ?? this.fonteTamanho,
         fonteCor: fonteCor ?? this.fonteCor,
+        valorFormato: valorFormato ?? this.valorFormato,
         top: top ?? this.top,
         left: left ?? this.left,
         sequencia: sequencia ?? this.sequencia,
@@ -3763,6 +3777,7 @@ class ConteudoCampo extends DataClass implements Insertable<ConteudoCampo> {
           ..write('fonte: $fonte, ')
           ..write('fonteTamanho: $fonteTamanho, ')
           ..write('fonteCor: $fonteCor, ')
+          ..write('valorFormato: $valorFormato, ')
           ..write('top: $top, ')
           ..write('left: $left, ')
           ..write('sequencia: $sequencia, ')
@@ -3795,23 +3810,26 @@ class ConteudoCampo extends DataClass implements Insertable<ConteudoCampo> {
                                   $mrjc(
                                       fonteCor.hashCode,
                                       $mrjc(
-                                          top.hashCode,
+                                          valorFormato.hashCode,
                                           $mrjc(
-                                              left.hashCode,
+                                              top.hashCode,
                                               $mrjc(
-                                                  sequencia.hashCode,
+                                                  left.hashCode,
                                                   $mrjc(
-                                                      idConteudo.hashCode,
+                                                      sequencia.hashCode,
                                                       $mrjc(
-                                                          dataCadastro.hashCode,
+                                                          idConteudo.hashCode,
                                                           $mrjc(
-                                                              dataAlteracao
+                                                              dataCadastro
                                                                   .hashCode,
                                                               $mrjc(
-                                                                  versao
+                                                                  dataAlteracao
                                                                       .hashCode,
-                                                                  deletado
-                                                                      .hashCode)))))))))))))))));
+                                                                  $mrjc(
+                                                                      versao
+                                                                          .hashCode,
+                                                                      deletado
+                                                                          .hashCode))))))))))))))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -3825,6 +3843,7 @@ class ConteudoCampo extends DataClass implements Insertable<ConteudoCampo> {
           other.fonte == this.fonte &&
           other.fonteTamanho == this.fonteTamanho &&
           other.fonteCor == this.fonteCor &&
+          other.valorFormato == this.valorFormato &&
           other.top == this.top &&
           other.left == this.left &&
           other.sequencia == this.sequencia &&
@@ -3845,6 +3864,7 @@ class ConteudoCamposCompanion extends UpdateCompanion<ConteudoCampo> {
   Value<String> fonte;
   Value<int> fonteTamanho;
   Value<String> fonteCor;
+  Value<String> valorFormato;
   Value<double> top;
   Value<double> left;
   Value<int> sequencia;
@@ -3863,6 +3883,7 @@ class ConteudoCamposCompanion extends UpdateCompanion<ConteudoCampo> {
     this.fonte = const Value.absent(),
     this.fonteTamanho = const Value.absent(),
     this.fonteCor = const Value.absent(),
+    this.valorFormato = const Value.absent(),
     this.top = const Value.absent(),
     this.left = const Value.absent(),
     this.sequencia = const Value.absent(),
@@ -3882,6 +3903,7 @@ class ConteudoCamposCompanion extends UpdateCompanion<ConteudoCampo> {
     @required String fonte,
     @required int fonteTamanho,
     @required String fonteCor,
+    this.valorFormato = const Value.absent(),
     @required double top,
     @required double left,
     @required int sequencia,
@@ -3913,6 +3935,7 @@ class ConteudoCamposCompanion extends UpdateCompanion<ConteudoCampo> {
     Expression<String> fonte,
     Expression<int> fonteTamanho,
     Expression<String> fonteCor,
+    Expression<String> valorFormato,
     Expression<double> top,
     Expression<double> left,
     Expression<int> sequencia,
@@ -3932,6 +3955,7 @@ class ConteudoCamposCompanion extends UpdateCompanion<ConteudoCampo> {
       if (fonte != null) 'fonte': fonte,
       if (fonteTamanho != null) 'fonte_tamanho': fonteTamanho,
       if (fonteCor != null) 'fonte_cor': fonteCor,
+      if (valorFormato != null) 'valor_formato': valorFormato,
       if (top != null) 'top': top,
       if (left != null) 'left': left,
       if (sequencia != null) 'sequencia': sequencia,
@@ -3953,6 +3977,7 @@ class ConteudoCamposCompanion extends UpdateCompanion<ConteudoCampo> {
       Value<String> fonte,
       Value<int> fonteTamanho,
       Value<String> fonteCor,
+      Value<String> valorFormato,
       Value<double> top,
       Value<double> left,
       Value<int> sequencia,
@@ -3971,6 +3996,7 @@ class ConteudoCamposCompanion extends UpdateCompanion<ConteudoCampo> {
       fonte: fonte ?? this.fonte,
       fonteTamanho: fonteTamanho ?? this.fonteTamanho,
       fonteCor: fonteCor ?? this.fonteCor,
+      valorFormato: valorFormato ?? this.valorFormato,
       top: top ?? this.top,
       left: left ?? this.left,
       sequencia: sequencia ?? this.sequencia,
@@ -4012,6 +4038,9 @@ class ConteudoCamposCompanion extends UpdateCompanion<ConteudoCampo> {
     if (fonteCor.present) {
       map['fonte_cor'] = Variable<String>(fonteCor.value);
     }
+    if (valorFormato.present) {
+      map['valor_formato'] = Variable<String>(valorFormato.value);
+    }
     if (top.present) {
       map['top'] = Variable<double>(top.value);
     }
@@ -4051,6 +4080,7 @@ class ConteudoCamposCompanion extends UpdateCompanion<ConteudoCampo> {
           ..write('fonte: $fonte, ')
           ..write('fonteTamanho: $fonteTamanho, ')
           ..write('fonteCor: $fonteCor, ')
+          ..write('valorFormato: $valorFormato, ')
           ..write('top: $top, ')
           ..write('left: $left, ')
           ..write('sequencia: $sequencia, ')
@@ -4158,6 +4188,20 @@ class $ConteudoCamposTable extends ConteudoCampos
   GeneratedTextColumn _constructFonteCor() {
     return GeneratedTextColumn('fonte_cor', $tableName, false,
         maxTextLength: 9);
+  }
+
+  final VerificationMeta _valorFormatoMeta =
+      const VerificationMeta('valorFormato');
+  GeneratedTextColumn _valorFormato;
+  @override
+  GeneratedTextColumn get valorFormato =>
+      _valorFormato ??= _constructValorFormato();
+  GeneratedTextColumn _constructValorFormato() {
+    return GeneratedTextColumn(
+      'valor_formato',
+      $tableName,
+      true,
+    );
   }
 
   final VerificationMeta _topMeta = const VerificationMeta('top');
@@ -4271,6 +4315,7 @@ class $ConteudoCamposTable extends ConteudoCampos
         fonte,
         fonteTamanho,
         fonteCor,
+        valorFormato,
         top,
         left,
         sequencia,
@@ -4337,6 +4382,12 @@ class $ConteudoCamposTable extends ConteudoCampos
           fonteCor.isAcceptableOrUnknown(data['fonte_cor'], _fonteCorMeta));
     } else if (isInserting) {
       context.missing(_fonteCorMeta);
+    }
+    if (data.containsKey('valor_formato')) {
+      context.handle(
+          _valorFormatoMeta,
+          valorFormato.isAcceptableOrUnknown(
+              data['valor_formato'], _valorFormatoMeta));
     }
     if (data.containsKey('top')) {
       context.handle(

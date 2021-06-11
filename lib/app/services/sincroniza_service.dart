@@ -2,6 +2,7 @@
 import 'package:blink/app/database/dao/atualizacao_dao.dart';
 import 'package:blink/app/database/dao/sequencia_conteudo_dao.dart';
 import 'package:blink/app/database/database.dart';
+import 'package:blink/app/pages/splash/splash_controller.dart';
 import 'package:blink/app/services/arquivo_service.dart';
 import 'package:blink/app/services/conteudo_service.dart';
 import 'package:blink/app/services/conteudo_visualizado_service.dart';
@@ -28,6 +29,7 @@ class SincronizaService {
   ConteudoVisualizadoService conteudoVisualizadoService;
   PlayerDadosService playerDadosService;
   AtualizacaoDAO atualizacaoDAO = Database.instance.atualizacaoDAO;
+  //SplashController splashController;
 
   SincronizaService(
       this.conteudoService,
@@ -42,6 +44,7 @@ class SincronizaService {
       this.conteudoVisualizadoService,
       this.playerDadosService);
 
+  //{double valueDownload}
   Future iniciar() async {
     // ignore: missing_required_param
     Atualizacoe atualizacao = Atualizacoe();
@@ -51,17 +54,26 @@ class SincronizaService {
     try {
       // if (kReleaseMode) {
       await this.conteudoVisualizadoService.enviarVisualizacoes();
+      //splashController.increment();
       await this.playerDadosService.enviarDadosPlayer();
+      //splashController.increment();
       await downloadConteudos(atualizacao);
+      //splashController.increment();
       await downloadTemplates(atualizacao);
+      //splashController.increment();
       await downloadPrevisaoImagemTempo(atualizacao);
-      //await downloadPrevisaoTempo( atualizacao );
+      //splashController.increment();
       await downloadSequenciaConteudo(atualizacao);
+      //splashController.increment();
       await downloadNoticias(atualizacao);
+      //splashController.increment();
       await downloadLoteriaResultado(atualizacao);
+      //splashController.increment();
       await downloadEquipamento(atualizacao);
+      //splashController.increment();
       atualizacao.fim = DateTime.now();
       atualizacao = await atualizacaoDAO.save(atualizacao);
+      //splashController.increment();
       Events.atualizacaoConteudoCtrl.sink.add(true);
       // }
     } catch (e) {

@@ -21,11 +21,9 @@ class CarouselPage extends StatefulWidget {
 
 class _CarouselPageState extends ModularState<CarouselPage, CarouselController> {
   
-  // List<File> files;
   List<ConteudoTemplateModel> filesConteudo;
   ConteudoDAO dao = Database.instance.conteudoDAO;
   ConteudoVisualizadoDAO visualizadoDAO = Database.instance.conteudoVisualizadoDAO;
-  // FileSystemEntity file;
 
   @override
   void initState() {

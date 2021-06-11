@@ -1,8 +1,13 @@
 import 'package:cross_connectivity/cross_connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
 class LoadingMidias extends StatefulWidget {
+  final double porcent;
+
+  LoadingMidias({this.porcent});
+
   @override
   State<StatefulWidget> createState() => LoadingMidiasState();
 }
@@ -54,6 +59,12 @@ class LoadingMidiasState extends State<LoadingMidias> {
                 SizedBox(height: 15),
                 LinearProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.green)),
+                SizedBox(height: 15),
+                //Observer(
+                  //builder: (_) {
+                   //return 
+                   //Text(widget.porcent.toString());
+                  //},)  
               ],
             ),
           ),
