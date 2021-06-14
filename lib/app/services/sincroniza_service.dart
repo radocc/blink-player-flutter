@@ -2,7 +2,6 @@
 import 'package:blink/app/database/dao/atualizacao_dao.dart';
 import 'package:blink/app/database/dao/sequencia_conteudo_dao.dart';
 import 'package:blink/app/database/database.dart';
-import 'package:blink/app/pages/splash/splash_controller.dart';
 import 'package:blink/app/services/arquivo_service.dart';
 import 'package:blink/app/services/conteudo_service.dart';
 import 'package:blink/app/services/conteudo_visualizado_service.dart';
@@ -12,6 +11,7 @@ import 'package:blink/app/services/noticia_service.dart';
 import 'package:blink/app/services/player_dados_service.dart';
 import 'package:blink/app/services/previsao_imagem_tempo_service.dart';
 import 'package:blink/app/services/previsao_tempo_service.dart';
+import 'package:blink/app/services/progress_service.dart';
 import 'package:blink/app/services/sequencia_conteudo_service.dart';
 import 'package:blink/app/services/template_service.dart';
 import 'package:blink/app/shared/events.dart';
@@ -29,7 +29,7 @@ class SincronizaService {
   ConteudoVisualizadoService conteudoVisualizadoService;
   PlayerDadosService playerDadosService;
   AtualizacaoDAO atualizacaoDAO = Database.instance.atualizacaoDAO;
-  //SplashController splashController;
+  ProgressService progressService;
 
   SincronizaService(
       this.conteudoService,
@@ -42,9 +42,9 @@ class SincronizaService {
       this.loteriaResultadoService,
       this.equipamentoService,
       this.conteudoVisualizadoService,
-      this.playerDadosService);
+      this.playerDadosService,
+      this.progressService);
 
-  //{double valueDownload}
   Future iniciar() async {
     // ignore: missing_required_param
     Atualizacoe atualizacao = Atualizacoe();
@@ -54,26 +54,26 @@ class SincronizaService {
     try {
       // if (kReleaseMode) {
       await this.conteudoVisualizadoService.enviarVisualizacoes();
-      //splashController.increment();
+      progressService.progress.value = 10;
       await this.playerDadosService.enviarDadosPlayer();
-      //splashController.increment();
+      progressService.progress.value += 10 ;
       await downloadConteudos(atualizacao);
-      //splashController.increment();
+      progressService.progress.value += 10;
       await downloadTemplates(atualizacao);
-      //splashController.increment();
+      progressService.progress.value += 10;
       await downloadPrevisaoImagemTempo(atualizacao);
-      //splashController.increment();
+      progressService.progress.value += 10;
       await downloadSequenciaConteudo(atualizacao);
-      //splashController.increment();
+      progressService.progress.value += 10;
       await downloadNoticias(atualizacao);
-      //splashController.increment();
+      progressService.progress.value += 10;
       await downloadLoteriaResultado(atualizacao);
-      //splashController.increment();
+      progressService.progress.value += 10;
       await downloadEquipamento(atualizacao);
-      //splashController.increment();
+      progressService.progress.value += 10;
       atualizacao.fim = DateTime.now();
       atualizacao = await atualizacaoDAO.save(atualizacao);
-      //splashController.increment();
+      progressService.progress.value += 10;
       Events.atualizacaoConteudoCtrl.sink.add(true);
       // }
     } catch (e) {

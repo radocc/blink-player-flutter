@@ -34,6 +34,7 @@ import 'package:blink/app/services/notification_service.dart';
 import 'package:blink/app/services/player_dados_service.dart';
 import 'package:blink/app/services/previsao_imagem_tempo_service.dart';
 import 'package:blink/app/services/previsao_tempo_service.dart';
+import 'package:blink/app/services/progress_service.dart';
 import 'package:blink/app/services/sequencia_conteudo_service.dart';
 import 'package:blink/app/services/sincroniza_service.dart';
 import 'package:blink/app/services/template_service.dart';
@@ -75,11 +76,13 @@ class AppModule extends MainModule {
               i.get<LoteriaResultadoService>(),
               i.get<EquipamentoService>(),
               i.get<ConteudoVisualizadoService>(),
-              i.get<PlayerDadosService>()
+              i.get<PlayerDadosService>(),
+              i.get<ProgressService>()
             )),
         Bind((i) => SplashController(
               i.get<LoginService>(),
               i.get<SincronizaService>(),
+              i.get<ProgressService>()
             )),
         Bind((i) => LoginRepository()),
         Bind((i) => LoginService(loginRep: i.get<LoginRepository>())),
@@ -106,7 +109,8 @@ class AppModule extends MainModule {
         Bind((i) => ConteudoVisualizadoRepository()),
         Bind((i) => ConteudoVisualizadoService(i.get<ConteudoVisualizadoRepository>())),
         Bind((i) => EquipamentoService(i.get<EquipamentoRepository>())),
-        Bind((i) => EquipamentoRepository())
+        Bind((i) => EquipamentoRepository()),
+        Bind((i) => ProgressService()),
         
       ];
 

@@ -1,12 +1,12 @@
+import 'package:blink/app/services/progress_service.dart';
 import 'package:cross_connectivity/cross_connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
 class LoadingMidias extends StatefulWidget {
-  final double porcent;
+  final ProgressService progressService;
 
-  LoadingMidias({this.porcent});
+  LoadingMidias(this.progressService);
 
   @override
   State<StatefulWidget> createState() => LoadingMidiasState();
@@ -57,14 +57,29 @@ class LoadingMidiasState extends State<LoadingMidias> {
                 SizedBox(height: 10),
                 Text('Atualizando seus conteúdos...'),
                 SizedBox(height: 15),
-                LinearProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.green)),
+                ValueListenableBuilder(
+                    valueListenable: widget.progressService.progress,
+                    builder: (context, progress, child) {
+                      return Column(
+                        children: [
+                          LinearProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.green)),
+                          SizedBox(height: 15),
+                          Text.rich(
+                            TextSpan(
+                              text: widget.progressService.progress.value.toInt().toString(),
+                              style: TextStyle(fontWeight: FontWeight.w500),
+                              children: [
+                                TextSpan(
+                                  text: '%'
+                              )
+                            ]
+                          ))
+                        ],
+                      );
+                    }),
                 SizedBox(height: 15),
-                //Observer(
-                  //builder: (_) {
-                   //return 
-                   //Text(widget.porcent.toString());
-                  //},)  
               ],
             ),
           ),

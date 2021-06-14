@@ -16,6 +16,7 @@ import 'package:blink/app/database/dao/sequencia_conteudo_dao.dart';
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/modules/carousel/carousel_controller.dart';
 import 'package:blink/app/services/login_service.dart';
+import 'package:blink/app/services/progress_service.dart';
 import 'package:blink/app/services/sincroniza_service.dart';
 import 'package:blink/app/shared/events.dart';
 import 'package:dio/dio.dart';
@@ -34,6 +35,7 @@ class SplashController = _SplashControllerBase with _$SplashController;
 abstract class _SplashControllerBase with Store {
   final LoginService service;
   final SincronizaService syncService;
+  final ProgressService progressService;
 
   StreamSubscription<bool> streamEquipBody;
   StreamController<Equipamento> streamPostServer =
@@ -55,15 +57,7 @@ abstract class _SplashControllerBase with Store {
   var controller = CarouselController();
   List<File> files;
 
-  @observable
-  double value;
-
-  @action
-  increment() {
-    value = value + 10;
-  }
-
-  _SplashControllerBase(this.service, this.syncService);
+  _SplashControllerBase(this.service, this.syncService, this.progressService);
 
   onInit() async {
     equipamentoDAO = Database.instance.equipamentoDAO;
@@ -83,7 +77,6 @@ abstract class _SplashControllerBase with Store {
   }
 
   Future sincronizar() async {
-    //valueDownload: value
     await syncService.iniciar();
     var valueDir = await load();
     if (valueDir > 0) {
@@ -101,7 +94,7 @@ abstract class _SplashControllerBase with Store {
 
   Future<Equipamento> login() async {
     try {
-      var valueDir = await load();
+      //var valueDir = await load();
       var response = await service.logar();
       equipamento = await equipamentoDAO.getEquipamento();
 

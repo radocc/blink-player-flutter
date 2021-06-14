@@ -100,8 +100,7 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
                       future: controller.sincronizar(),
                       builder: (ctx, snap) {
                         if (!snap.hasData && !snap.hasError) {
-                          //porcent: controller.value
-                          return LoadingMidias();
+                          return LoadingMidias(controller.progressService);
                         } else if (snap.hasError) {
                           return Center(
                             child: Text("${snap.error.toString()}"),
