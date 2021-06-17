@@ -219,6 +219,21 @@ class _SlideLoteriaPageState
 
         var fontColor = campoConvert.fonteCor.replaceAll('#', '0xFF');
 
+        var valor;
+        if (campoConvert.tipo != null) {
+          if (campoConvert.tipo == 8) {
+            double value = double.parse(campoConvert.valor);
+            String formatValue =
+                NumberFormat.simpleCurrency(locale: 'pt').format(value);
+            valor = formatValue;
+          } else if (campoConvert.tipo == 3) {
+            double value = double.parse(campoConvert.valor);
+            String formatValue = NumberFormat("#,##0.00", "en_US").format(value);
+            valor = formatValue;
+          } else {
+            valor = campoConvert.valor;
+          }
+        }
         //Crio stack com o s Atributos
         children.add(
           Positioned(
@@ -232,7 +247,7 @@ class _SlideLoteriaPageState
                       : Alignment.center,
               width: widthContainer,
               height: heightContainer,
-              child: Text(campoConvert.valor,
+              child: Text(valor,
               textScaleFactor: 1.0,
                   style: TextStyle(
                       fontSize: campoConvert.fonteTamanho,

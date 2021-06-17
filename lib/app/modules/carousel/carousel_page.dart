@@ -34,6 +34,7 @@ class _CarouselPageState extends ModularState<CarouselPage, CarouselController> 
   @override
   void dispose() {
     controller.pageController.dispose();
+    controller.dispose();
     super.dispose();
   }
 

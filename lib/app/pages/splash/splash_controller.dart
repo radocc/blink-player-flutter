@@ -62,16 +62,21 @@ abstract class _SplashControllerBase with Store {
   onInit() async {
     equipamentoDAO = Database.instance.equipamentoDAO;
     try {
-      streamEquipBody = Events.equipBody.stream.listen((value) {
+      streamEquipBody = Events.equipBody.stream.listen((value) async {
         print('STREAM: $value');
         if (value) {
           login();
-        }
+          await streamEquipBody.cancel();
+        } else if (value == false && load() != null) {
+            await streamEquipBody.cancel();
+            //await Events.equipBody.close();
+            Modular.to.pushNamed('/download');
+        } 
       });
     } on StateError catch (e) {
       print(e.stackTrace);
       await streamEquipBody.cancel();
-      await Events.equipBody.close();
+      //await Events.equipBody.close();
       onInit();
     }
   }
@@ -84,21 +89,18 @@ abstract class _SplashControllerBase with Store {
     } else {
       await Modular.to.pushNamed('/empityCarousel');
     }
-    //return true;
   }
 
-    Future setLandscape() async {
+  Future setLandscape() async {
     await SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   }
 
   Future<Equipamento> login() async {
     try {
-      //var valueDir = await load();
       var response = await service.logar();
       equipamento = await equipamentoDAO.getEquipamento();
 
-      //if (response.schemaName != null && response.idPlayer != 0) {
       if (response.schemaName != equipamento.schemaName &&
           response.idPlayer != equipamento.idPlayer) {
         equipamentoDAO.deleteAll();
@@ -114,7 +116,6 @@ abstract class _SplashControllerBase with Store {
         noticiaDAO.deleteAll();
         atualizacaoConteudoDAO.deleteAll();
       }
-      //}
 
       if (!response.ativado) {
         await Modular.to.pushNamed('/ative', arguments: {
@@ -125,14 +126,12 @@ abstract class _SplashControllerBase with Store {
         });
         streamPostServer.add(response);
       } else {
+        //await Modular.to.pushNamed('/download');
         streamPostServer.add(response);
       }
+     
+     return response;
 
-     // if (valueDir > 0) {
-        return response;
-     // } else {
-    //    await Modular.to.pushNamed('/empityCarousel');
-    //  }
     } on DioError catch (e) {
       print(e.response.statusCode);
       streamPostServer.addError(e);
@@ -142,7 +141,7 @@ abstract class _SplashControllerBase with Store {
 
   dispose() {
     streamEquipBody.cancel();
-    Events.equipBody.close();
+    //Events.equipBody.close();
   }
 
   Future<int> load() async {

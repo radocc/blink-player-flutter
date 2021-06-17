@@ -1,6 +1,8 @@
 import 'package:blink/app/app_widget.dart';
 import 'package:blink/app/modules/ative_player/ative_player_module.dart';
 import 'package:blink/app/modules/carousel/carousel_controller.dart';
+import 'package:blink/app/modules/download_conteudos/download_conteudo_controller.dart';
+import 'package:blink/app/modules/download_conteudos/download_conteudo_module.dart';
 import 'package:blink/app/modules/empity_carousel/empity_carousel_controller.dart';
 import 'package:blink/app/modules/empity_carousel/empity_carousel_module.dart';
 import 'package:blink/app/modules/home/home_controller.dart';
@@ -61,62 +63,69 @@ class AppModule extends MainModule {
         $CarouselController,
         $AtivePlayerController,
         $EmpityCarouselController,
+        $DownloadConteudoController,
         $HomeController,
         $AppController,
         $CustomDIO,
-        Bind((i) => NotificationService(i.get<SincronizaService>()), singleton: true, lazy: false),
+        Bind((i) => NotificationService(i.get<SincronizaService>()),
+            singleton: true, lazy: false),
         Bind((i) => SincronizaService(
-              i.get<ConteudoService>(),
-              i.get<NoticiaService>(),
-              i.get<TemplateService>(),
-              i.get<ArquivoService>(),
-              i.get<PrevisaoImagemTempoService>(),
-              i.get<PrevisaoTempoService>(),
-              i.get<SequenciaConteudoService>(),
-              i.get<LoteriaResultadoService>(),
-              i.get<EquipamentoService>(),
-              i.get<ConteudoVisualizadoService>(),
-              i.get<PlayerDadosService>(),
-              i.get<ProgressService>()
-            )),
-        Bind((i) => SplashController(
-              i.get<LoginService>(),
-              i.get<SincronizaService>(),
-              i.get<ProgressService>()
-            )),
+            i.get<ConteudoService>(),
+            i.get<NoticiaService>(),
+            i.get<TemplateService>(),
+            i.get<ArquivoService>(),
+            i.get<PrevisaoImagemTempoService>(),
+            i.get<PrevisaoTempoService>(),
+            i.get<SequenciaConteudoService>(),
+            i.get<LoteriaResultadoService>(),
+            i.get<EquipamentoService>(),
+            i.get<ConteudoVisualizadoService>(),
+            i.get<PlayerDadosService>(),
+            i.get<ProgressService>())),
+        Bind((i) => SplashController(i.get<LoginService>(),
+            i.get<SincronizaService>(), i.get<ProgressService>())),
         Bind((i) => LoginRepository()),
         Bind((i) => LoginService(loginRep: i.get<LoginRepository>())),
         Bind((i) => ConteudoRepository()),
         Bind((i) => ArquivoService(i.get<ArquivoRepository>())),
-        Bind((i) => ConteudoService(i.get<ConteudoRepository>(), i.get<ArquivoService>())),
+        Bind((i) => ConteudoService(
+            i.get<ConteudoRepository>(), i.get<ArquivoService>())),
         Bind((i) => ConexaoService(), lazy: false),
         Bind((i) => ArquivoRepository()),
         Bind((i) => NoticiaService(i.get<NoticiaRepository>())),
         Bind((i) => NoticiaRepository()),
-        Bind((i) => TemplateService(i.get<TemplateRepository>(), i.get<ArquivoService>())),
+        Bind((i) => TemplateService(
+            i.get<TemplateRepository>(), i.get<ArquivoService>())),
         Bind((i) => TemplateRepository()),
-        Bind((i) =>
-            PrevisaoImagemTempoService(i.get<PrevisaoTempoImagemRepository>(), i.get<ArquivoService>())),
+        Bind((i) => PrevisaoImagemTempoService(
+            i.get<PrevisaoTempoImagemRepository>(), i.get<ArquivoService>())),
         Bind((i) => PrevisaoTempoImagemRepository()),
-        Bind((i) => PrevisaoTempoService(i.get<PrevisaoTempoRepository>(), i.get<ArquivoService>())),
+        Bind((i) => PrevisaoTempoService(
+            i.get<PrevisaoTempoRepository>(), i.get<ArquivoService>())),
         Bind((i) => PrevisaoTempoRepository()),
-        Bind((i) => SequenciaConteudoService(i.get<SequenciaConteudoRepository>())),
+        Bind((i) =>
+            SequenciaConteudoService(i.get<SequenciaConteudoRepository>())),
         Bind((i) => SequenciaConteudoRepository()),
-        Bind((i) => LoteriaResultadoService(i.get<LoteriaResultadoRepository>())),
+        Bind((i) =>
+            LoteriaResultadoService(i.get<LoteriaResultadoRepository>())),
         Bind((i) => LoteriaResultadoRepository()),
         Bind((i) => PlayerDadosRepository()),
-        Bind((i) => PlayerDadosService(i.get<PlayerDadosRepository>()), singleton: true, lazy: false),
+        Bind((i) => PlayerDadosService(i.get<PlayerDadosRepository>()),
+            singleton: true, lazy: false),
         Bind((i) => ConteudoVisualizadoRepository()),
-        Bind((i) => ConteudoVisualizadoService(i.get<ConteudoVisualizadoRepository>())),
+        Bind((i) =>
+            ConteudoVisualizadoService(i.get<ConteudoVisualizadoRepository>())),
         Bind((i) => EquipamentoService(i.get<EquipamentoRepository>())),
         Bind((i) => EquipamentoRepository()),
         Bind((i) => ProgressService()),
-        
+        Bind((i) => DownloadConteudoController(
+           i.get<ProgressService>(), i.get<SincronizaService>())),
       ];
 
   @override
   List<ModularRouter> get routers => [
         ModularRouter('/', child: (__, args) => SplashPage()),
+        ModularRouter('/download', module: DownloadConteudoModule()),
         ModularRouter('/home', module: HomeModule()),
         ModularRouter('/ative', module: AtivePlayerModule()),
         ModularRouter('/empityCarousel', module: EmpityCarouselModule())

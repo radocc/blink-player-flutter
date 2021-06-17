@@ -245,6 +245,22 @@ class _SlidePrevisaoTempoPageState
         var fontColor = campoConvert.fonteCor.replaceAll('#', '0xFF');
         print(fontColor);
 
+        var valor;
+        if (campoConvert.tipo != null) {
+          if (campoConvert.tipo == 8) {
+            double value = double.parse(campoConvert.valor);
+            String formatValue =
+                NumberFormat.simpleCurrency(locale: 'pt').format(value);
+            valor = formatValue;
+          } else if (campoConvert.tipo == 3) {
+            double value = double.parse(campoConvert.valor);
+            String formatValue = NumberFormat("#,##0.00", "en_US").format(value);
+            valor = formatValue;
+          } else {
+            valor = campoConvert.valor;
+          }
+        }
+
         if (campoConvert.variavel == 'url') {
           String ext = extension(file.path);
           if (controller.extImg.contains(ext)) {
@@ -270,7 +286,7 @@ class _SlidePrevisaoTempoPageState
                         : Alignment.center,
                 width: widthContainer,
                 height: heightContainer,
-                child: Text(campoConvert.valor,
+                child: Text(valor,
                     style: TextStyle(
                         fontSize: campoConvert.fonteTamanho,
                         fontFamily: campoConvert.fonte,

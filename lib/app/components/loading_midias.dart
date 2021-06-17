@@ -21,9 +21,10 @@ class LoadingMidiasState extends State<LoadingMidias> {
     return Scaffold(
         body: Column(
       children: <Widget>[
-        Container(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(18, 10, 18, 0),
+        Padding(
+          padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+          child: Container(
+            width: MediaQuery.of(context).size.width,
             child: ListTile(
               title: Text(formatter),
               trailing: Wrap(
@@ -79,7 +80,6 @@ class LoadingMidiasState extends State<LoadingMidias> {
                         ],
                       );
                     }),
-                SizedBox(height: 15),
               ],
             ),
           ),

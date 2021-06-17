@@ -1,7 +1,7 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:blink/app/modules/carousel/carousel_controller.dart';
+import 'package:blink/app/services/progress_service.dart';
 import 'package:blink/app/services/sincroniza_service.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -9,39 +9,43 @@ import 'package:mobx/mobx.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
-part 'empity_carousel_controller.g.dart';
+part 'download_conteudo_controller.g.dart';
 
 @Injectable()
-class EmpityCarouselController = _EmpityCarouselControllerBase
-    with _$EmpityCarouselController;
+class DownloadConteudoController = _DownloadConteudoControllerBase with _$DownloadConteudoController;
 
-abstract class _EmpityCarouselControllerBase with Store {
-  SincronizaService sincService;
+abstract class _DownloadConteudoControllerBase with Store {
+  final ProgressService progressService;
+  final SincronizaService syncService;
 
-  _EmpityCarouselControllerBase(this.sincService);
   var controller = CarouselController();
   List<File> files;
+
+  _DownloadConteudoControllerBase(this.progressService, this.syncService);
+
 
   Future setLandscape() async {
     await SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   }
 
-  Future<int> sincronizar() async {
-    var values = await load();
-    if (values > 0) {
-      return values;
+  Future setDisposeLandscape() async {
+    await SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  }
+
+    Future sincronizar() async {
+    await syncService.iniciar();
+    var valueDir = await load();
+    if (valueDir > 0) {
+      //await Modular.to.pushNamed('/home');
+      return true;
     } else {
-      await sincService.iniciar();
-      print('passou iniciar');
-      var values2 = await load();
-      print('passou load');
-      print(values2);
-      return values2;
+      await Modular.to.pushNamed('/empityCarousel');
     }
   }
 
-  Future<int> load() async {
+    Future<int> load() async {
     this.files = [];
 
     Directory directory = await getApplicationDocumentsDirectory();

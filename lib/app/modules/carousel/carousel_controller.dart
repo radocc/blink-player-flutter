@@ -20,16 +20,18 @@ part 'carousel_controller.g.dart';
 class CarouselController = _CarouselControllerBase with _$CarouselController;
 
 abstract class _CarouselControllerBase with Store {
+
   @observable
   var conteudos = ObservableList<ConteudoTemplateModel>();
+
   @action 
   adicionarConteudos(List<ConteudoTemplateModel> conteudos){
       this.conteudos.clear();
       this.conteudos.addAll(conteudos);
   }
+
   // Lista de formatos suportados de video
   List<String> extVideo = ['.mp4', '.mkv', '.wmv', '.avi', '.flv'];
-
   // Lista de formatos suportados de imagem
   List<String> extImg = ['.png', '.jpg', '.jpeg'];
   Future<Directory> dir;
@@ -41,6 +43,10 @@ abstract class _CarouselControllerBase with Store {
   
   onInit(){
     ouvirNovasAtualizacoes();
+  }
+
+  dispose() {
+    Events.atualizacaoConteudoCtrl.close();
   }
 
   void ouvirNovasAtualizacoes(){
@@ -87,9 +93,6 @@ abstract class _CarouselControllerBase with Store {
     }
   }
 
-  //
-  // Verifica se é um slide de imagem ou de video
-  //
   Widget getItem(ConteudoTemplateModel conteudoTemplate) {
     //String ext = extension(conteudoTemplate.file.path);
     // visualizadoDAO.registrarVisualizacao(conteudoTemplate.conteudo.id, null);
