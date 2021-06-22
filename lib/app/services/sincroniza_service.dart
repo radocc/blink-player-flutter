@@ -1,6 +1,5 @@
 
 import 'package:blink/app/database/dao/atualizacao_dao.dart';
-import 'package:blink/app/database/dao/sequencia_conteudo_dao.dart';
 import 'package:blink/app/database/database.dart';
 import 'package:blink/app/services/arquivo_service.dart';
 import 'package:blink/app/services/conteudo_service.dart';
@@ -124,15 +123,6 @@ class SincronizaService {
 
   Future downloadSequenciaConteudo(Atualizacoe atualizacao) async {
     //**Faz o download da Sequencia de Conteudo e Template */
-    SequenciaConteudoDAO dao = Database.instance.sequenciaConteudoDAO;
-    List<SequenciaConteudo> sizeTable = await dao.getAllSequence();
-    if (sizeTable.length > 0) {
-      try {
-        await dao.deleteAllSequence();
-      } catch (e) {
-        print('Erro ao excluir ${e.body}');
-      }
-    }
     await sequenciaConteudoService.download(atualizacao);
   }
 }
