@@ -59,6 +59,8 @@ abstract class _SplashControllerBase with Store {
 
   _SplashControllerBase(this.service, this.syncService, this.progressService);
 
+  
+
   onInit() async {
     equipamentoDAO = Database.instance.equipamentoDAO;
     try {
@@ -69,9 +71,8 @@ abstract class _SplashControllerBase with Store {
           await streamEquipBody.cancel();
         } else if (value == false && load() != null) {
             await streamEquipBody.cancel();
-            //await Events.equipBody.close();
             Modular.to.pushNamed('/download');
-        } 
+        }
       });
     } on StateError catch (e) {
       print(e.stackTrace);

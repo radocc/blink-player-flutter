@@ -1,10 +1,12 @@
 import 'dart:io';
 
+import 'package:blink/app/database/dao/conteudo_visualizado_dao.dart';
 import 'package:blink/app/modules/carousel/carousel_controller.dart';
 import 'package:blink/app/services/progress_service.dart';
 import 'package:blink/app/services/sincroniza_service.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:blink/app/database/database.dart';
 import 'package:mobx/mobx.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -20,6 +22,7 @@ abstract class _DownloadConteudoControllerBase with Store {
 
   var controller = CarouselController();
   List<File> files;
+  ConteudoVisualizadoDAO conteudoVisualizadoDAO;
 
   _DownloadConteudoControllerBase(this.progressService, this.syncService);
 
@@ -35,9 +38,10 @@ abstract class _DownloadConteudoControllerBase with Store {
   }
 
     Future sincronizar() async {
+    conteudoVisualizadoDAO = Database.instance.conteudoVisualizadoDAO;
     await syncService.iniciar();
-    var valueDir = await load();
-    if (valueDir > 0) {
+    var conteudo = await conteudoVisualizadoDAO.getAllConteudos();
+    if (conteudo > 0) {
       //await Modular.to.pushNamed('/home');
       return true;
     } else {

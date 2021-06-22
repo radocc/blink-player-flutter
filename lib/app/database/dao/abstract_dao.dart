@@ -19,5 +19,10 @@ abstract class AbstractDAO<T extends Insertable<DataClass>>
     return row;
   }
 
+  Future selectAll() async {
+    var row = await select(_table).get();
+    return row;
+  }
+
   set table(TableInfo value) => _table = value;
 }
