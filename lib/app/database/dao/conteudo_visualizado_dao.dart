@@ -24,13 +24,13 @@ class ConteudoVisualizadoDAO extends AbstractDAO<ConteudoVisualizado>
       print('RoW-Save Conteudo Visualizado ' + row.toString());
       var ret = (select(conteudosVisualizados)
             ..where((dynamic tbl) => tbl.id.equals(row)))
-          .getSingle();
+          .getSingleOrNull();
       return ret;
     } else {
       await update(conteudosVisualizados).replace(entity);
       var ret = (select(conteudosVisualizados)
             ..where((dynamic tbl) => tbl.id.equals((entity as dynamic).id)))
-          .getSingle();
+          .getSingleOrNull();
       return ret;
     }
   }
@@ -38,7 +38,7 @@ class ConteudoVisualizadoDAO extends AbstractDAO<ConteudoVisualizado>
   Future<int> getAllConteudos() async {
     var countExp = conteudosVisualizados.id.count();
     final query = selectOnly(conteudosVisualizados)..addColumns([countExp]);
-    var result = await query.map((row) => row.read(countExp)).getSingle();
+    var result = await query.map((row) => row.read(countExp)).getSingleOrNull();
     return result;
 
     //var sql = ''' select count(*) from conteudovisualizado cv 
@@ -79,12 +79,12 @@ class ConteudoVisualizadoDAO extends AbstractDAO<ConteudoVisualizado>
                 tbl.idConteudo.equals(idConteudo) &
                 tbl.idNoticia.equals(idNoticia))
             ..limit(1))
-          .getSingle();
+          .getSingleOrNull();
     } else {
       conteudoVisualizado = await (select(conteudosVisualizados)
             ..where((tbl) => tbl.idConteudo.equals(idConteudo))
             ..limit(1))
-          .getSingle();
+          .getSingleOrNull();
     }
     if (conteudoVisualizado == null) {
       conteudoVisualizado = ConteudoVisualizado();

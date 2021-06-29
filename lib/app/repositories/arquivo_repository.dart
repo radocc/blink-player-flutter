@@ -8,10 +8,11 @@ class ArquivoRepository extends AbstractBaseRepository {
   Future<List<int>> downloadMidia( int idArquivo, Function(int, int) onProgress) async {
     try {
       var response = await dio.get(getUrl('/binario/$idArquivo'),
-          options: RequestOptions(
-            responseType: ResponseType.bytes,
-            onReceiveProgress: onProgress,
-          ));
+          options: Options(
+            responseType: ResponseType.bytes
+          ),
+          // onReceiveProgress: onProgress
+        );
 
       //var file = File('$_dir/$idArquivo');
       //return file.writeAsBytes(response.bodyBytes);
@@ -27,6 +28,7 @@ class ArquivoRepository extends AbstractBaseRepository {
       // salvarArquivo(response.data, conteudo);
       return response.data;
     } catch (error, stacktrace) {
+      print(stacktrace);
       throw Exception("Exception occured: $error stackTrace: $stacktrace");
     }
   }
@@ -35,10 +37,10 @@ class ArquivoRepository extends AbstractBaseRepository {
       Noticia template, Function(int, int) onProgress) async {
     try {
       var response = await dio.get(getUrl('/binario/${template.idArquivo}'),
-          options: RequestOptions(
-            responseType: ResponseType.bytes,
-            onReceiveProgress: onProgress,
-          ));
+          options: Options(
+            responseType: ResponseType.bytes
+          ),
+          onReceiveProgress: onProgress);
 
       if (response.statusCode == 200 && response.data != []) {
         return response.data;
@@ -52,10 +54,10 @@ class ArquivoRepository extends AbstractBaseRepository {
       Template template, Function(int, int) onProgress) async {
     try {
       var response = await dio.get(getUrl('/binario/${template.idArquivo}'),
-          options: RequestOptions(
-            responseType: ResponseType.bytes,
-            onReceiveProgress: onProgress,
-          ));
+          options: Options(
+            responseType: ResponseType.bytes
+          ),
+          onReceiveProgress: onProgress);
 
       if (response.statusCode == 200 && response.data != []) {
         return response.data;
@@ -83,10 +85,10 @@ class ArquivoRepository extends AbstractBaseRepository {
     try {
       var response =
           await dio.get(getUrl('/binario/${previsaoTempo.idArquivo}'),
-              options: RequestOptions(
-                responseType: ResponseType.bytes,
-                onReceiveProgress: onProgress,
-              ));
+            options: Options(
+              responseType: ResponseType.bytes
+            ),
+            onReceiveProgress: onProgress);
 
       return response.data;
 

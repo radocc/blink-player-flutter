@@ -22,6 +22,6 @@ class NoticiaDAO extends AbstractDAO<Noticia> with _$NoticiaDAOMixin {
           variables: [Variable.withInt(idConteudo)],
           readsFrom:{noticias}
         ));
-      return query.map<Noticia>((row) => Noticia.fromData(row.data, db)).getSingle();            
+      return query.map<Noticia>((row) => Noticia.fromData(row.data, db)).getSingleOrNull();            
   } 
 }

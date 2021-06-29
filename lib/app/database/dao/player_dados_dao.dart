@@ -21,13 +21,13 @@ class PlayerDadosDAO extends AbstractDAO<PlayerDado> with _$PlayerDadosDAOMixin 
       print('RoW-Save Conteudo Visualizado ' + row.toString());
       var ret = (select(playerDados)
             ..where((dynamic tbl) => tbl.id.equals(row)))
-          .getSingle();
+          .getSingleOrNull();
       return ret;
     } else {
       await update(playerDados).replace(entity);
       var ret = (select(playerDados)
             ..where((dynamic tbl) => tbl.id.equals((entity as dynamic).id)))
-          .getSingle();
+          .getSingleOrNull();
       return ret;
     }
   }

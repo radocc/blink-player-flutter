@@ -7,21 +7,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 class CustomIntercetors extends InterceptorsWrapper {
 
   @override
-  Future onRequest(RequestOptions options) async {
+  Future onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     var prefs = await SharedPreferences.getInstance();
     var uuid = prefs.get('uuid');
     if (uuid != null) {
       options.headers['uuid'] = uuid;
     }
     options.headers['Content-type'] = 'application/json';
+    handler.next(options);
   }
 
   @override
-  Future onResponse(Response response) {
+  void onResponse(Response response, ResponseInterceptorHandler handler) {
     if (response.data is String) 
       response.data = jsonDecode(response.data);
     if (response.data is List<int>) {
-      return super.onResponse(response);
+      handler.next(response);
+      return;
     } else if (response.data is List) {
       (response.data as List).forEach((item) {
         readMap(item);
@@ -30,7 +32,7 @@ class CustomIntercetors extends InterceptorsWrapper {
       readMap(response.data);
     }
 
-    return super.onResponse(response);
+    handler.next(response);
   }
 
   readMap(Map<String, Object> map) {
@@ -55,10 +57,10 @@ class CustomIntercetors extends InterceptorsWrapper {
   }
 
   @override
-  Future onError(DioError err) {
+  void onError(DioError err, ErrorInterceptorHandler handler) {
     print("<-- Error -->");
     print(err.error);
     print(err.message);
-    return super.onError(err);
+    handler.next(err);
   }
 }

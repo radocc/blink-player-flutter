@@ -15,7 +15,7 @@ class LoteriaResultadosDAO extends AbstractDAO<LoteriaResultado> with _$LoteriaR
   Future<LoteriaResultado> buscarResultado(int idLoteria) async {
     return (select(loteriaResultados)..where((tbl) => tbl.idLoteria.equals(idLoteria))
        ..orderBy([(t) => OrderingTerm(expression: t.dataSorteio, mode: OrderingMode.desc )])
-       ..limit(1)).getSingle();
+       ..limit(1)).getSingleOrNull();
   }
 
 }

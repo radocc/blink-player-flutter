@@ -3,8 +3,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import 'breakpoints.dart';
 
-part 'screen_size.g.dart';
-
 @Injectable(singleton: false)
 class ScreenSize extends Breakpoints {
   bool isMobile({@required BuildContext context}) {

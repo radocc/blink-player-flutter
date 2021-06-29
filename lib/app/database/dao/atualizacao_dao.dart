@@ -16,11 +16,11 @@ class AtualizacaoDAO extends AbstractDAO<Atualizacoe> with _$AtualizacaoDAOMixin
     if ((entity as dynamic).id == null){
       var row = await into(atualizacoes).insertOnConflictUpdate(entity);
       print('RoW-save ' + row.toString());
-      var ret = (select(atualizacoes)..where((dynamic tbl) => tbl.id.equals(row))).getSingle();
+      var ret = (select(atualizacoes)..where((dynamic tbl) => tbl.id.equals(row))).getSingleOrNull();
       return ret;
     }else {
       await update(atualizacoes).replace(entity);
-      var ret = (select(atualizacoes)..where((dynamic tbl) => tbl.id.equals((entity as dynamic).id))).getSingle();
+      var ret = (select(atualizacoes)..where((dynamic tbl) => tbl.id.equals((entity as dynamic).id))).getSingleOrNull();
       return ret;
     }
   }

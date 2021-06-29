@@ -3,16 +3,6 @@
 part of 'empity_carousel_controller.dart';
 
 // **************************************************************************
-// InjectionGenerator
-// **************************************************************************
-
-final $EmpityCarouselController = BindInject(
-  (i) => EmpityCarouselController(i<SincronizaService>()),
-  singleton: true,
-  lazy: true,
-);
-
-// **************************************************************************
 // StoreGenerator
 // **************************************************************************
 

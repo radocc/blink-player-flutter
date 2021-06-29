@@ -67,7 +67,7 @@ class NoticiaService extends DadosService<Noticia> {
 
   Future<void> savePhoto() async {
     //Pego imagem
-    final response = await get(_urlImage1);
+    final response = await get(Uri.parse(_urlImage1));
     // Pego nome da Imagem
     final imageName = basename(_urlImage1);
     // Pego o dir

@@ -16,22 +16,24 @@ class AtualizacaoStatusDAO extends AbstractDAO<AtualizacaoStatus> with _$Atualiz
     if ((entity as dynamic).id == null){
       var row = await into(atualizacoesStatus).insertOnConflictUpdate(entity);
       print('RoW-save ' + row.toString());
-      var ret = (select(atualizacoesStatus)..where((dynamic tbl) => tbl.id.equals(row))).getSingle();
+      var ret = (select(atualizacoesStatus)..where((dynamic tbl) => tbl.id.equals(row))).getSingleOrNull();
       return ret;
     }else {
       await update(atualizacoesStatus).replace(entity);
-      var ret = (select(atualizacoesStatus)..where((dynamic tbl) => tbl.id.equals((entity as dynamic).id))).getSingle();
+      var ret = (select(atualizacoesStatus)..where((dynamic tbl) => tbl.id.equals((entity as dynamic).id))).getSingleOrNull();
       return ret;
     }
   }
 
 
   Future<AtualizacaoStatus> getUltimo(int identificacao) async {
-    return (select(atualizacoesStatus)..where((tbl) => tbl.identificacao.equals(identificacao)
-    & isNotNull(tbl.dataFinal))..orderBy([
+    var slc = (select(atualizacoesStatus)..where((tbl) {
+        return tbl.identificacao.equals(identificacao) & tbl.dataFinal.isNotNull();
+      })..orderBy([
       (u) =>
        OrderingTerm(expression: u.id, mode: OrderingMode.desc)
-    ])..limit(1)).getSingle();
+    ])..limit(1));
+    return slc.getSingleOrNull();
   } 
 
 }

@@ -3,17 +3,6 @@
 part of 'splash_controller.dart';
 
 // **************************************************************************
-// InjectionGenerator
-// **************************************************************************
-
-final $SplashController = BindInject(
-  (i) => SplashController(
-      i<LoginService>(), i<SincronizaService>(), i<ProgressService>()),
-  singleton: true,
-  lazy: true,
-);
-
-// **************************************************************************
 // StoreGenerator
 // **************************************************************************
 

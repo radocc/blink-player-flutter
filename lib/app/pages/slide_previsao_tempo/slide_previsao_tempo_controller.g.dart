@@ -3,16 +3,6 @@
 part of 'slide_previsao_tempo_controller.dart';
 
 // **************************************************************************
-// InjectionGenerator
-// **************************************************************************
-
-final $SlidePrevisaoTempoController = BindInject(
-  (i) => SlidePrevisaoTempoController(),
-  singleton: true,
-  lazy: true,
-);
-
-// **************************************************************************
 // StoreGenerator
 // **************************************************************************
 

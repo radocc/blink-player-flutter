@@ -3,9 +3,7 @@ import 'package:blink/app/modules/ative_player/ative_player_module.dart';
 import 'package:blink/app/modules/carousel/carousel_controller.dart';
 import 'package:blink/app/modules/download_conteudos/download_conteudo_controller.dart';
 import 'package:blink/app/modules/download_conteudos/download_conteudo_module.dart';
-import 'package:blink/app/modules/empity_carousel/empity_carousel_controller.dart';
 import 'package:blink/app/modules/empity_carousel/empity_carousel_module.dart';
-import 'package:blink/app/modules/home/home_controller.dart';
 import 'package:blink/app/modules/home/home_module.dart';
 import 'package:blink/app/pages/slide_default/slide_default_controller.dart';
 import 'package:blink/app/pages/slide_loteria/slide_loteria_controller.dart';
@@ -44,7 +42,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'app_controller.dart';
-import 'modules/ative_player/ative_player_controller.dart';
 import 'pages/slide_image/slide_image_controller.dart';
 import 'pages/slide_video/slide_video_controller.dart';
 import 'pages/slide_previsao_tempo/slide_previsao_tempo_controller.dart';
@@ -53,20 +50,16 @@ import 'pages/splash/splash_controller.dart';
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
-        $SplashController,
-        $SlideImageController,
-        $SlideVideoController,
-        $SlidePrevisaoTempoController,
-        $SlideNoticiaController,
-        $SlideDefaultController,
-        $SlideLoteriaController,
-        $CarouselController,
-        $AtivePlayerController,
-        $EmpityCarouselController,
-        $DownloadConteudoController,
-        $HomeController,
-        $AppController,
-        $CustomDIO,
+        Bind((i) => SplashController(i.get<LoginService>(), i.get<SincronizaService>(), i.get<ProgressService>())),
+        Bind((i) => SlideImageController()),
+        Bind((i) => SlideVideoController()),
+        Bind((i) => SlidePrevisaoTempoController()),
+        Bind((i) => SlideNoticiaController()),
+        Bind((i) => SlideDefaultController()),
+        Bind((i) => SlideLoteriaController()),
+        Bind((i) => CarouselController()),
+        Bind((i) => AppController()),
+        Bind((i) => CustomDIO()),
         Bind((i) => NotificationService(i.get<SincronizaService>()),
             singleton: true, lazy: false),
         Bind((i) => SincronizaService(

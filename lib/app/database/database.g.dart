@@ -18,14 +18,11 @@ class Configuracoe extends DataClass implements Insertable<Configuracoe> {
   factory Configuracoe.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final boolType = db.typeSystem.forDartType<bool>();
-    final stringType = db.typeSystem.forDartType<String>();
     return Configuracoe(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
-      atualizaInicio: boolType
+      id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      atualizaInicio: const BoolType()
           .mapFromDatabaseResponse(data['${effectivePrefix}atualiza_inicio']),
-      atualizacaoHorarios: stringType.mapFromDatabaseResponse(
+      atualizacaoHorarios: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}atualizacao_horarios']),
     );
   }
@@ -97,7 +94,7 @@ class Configuracoe extends DataClass implements Insertable<Configuracoe> {
   int get hashCode => $mrjf($mrjc(id.hashCode,
       $mrjc(atualizaInicio.hashCode, atualizacaoHorarios.hashCode)));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Configuracoe &&
           other.id == this.id &&
@@ -241,8 +238,8 @@ class $ConfiguracoesTable extends Configuracoes
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Configuracoe map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return Configuracoe.fromData(data, _db, prefix: effectivePrefix);
+    return Configuracoe.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -266,17 +263,15 @@ class Atualizacoe extends DataClass implements Insertable<Atualizacoe> {
   factory Atualizacoe.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    final stringType = db.typeSystem.forDartType<String>();
     return Atualizacoe(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
-      inicio: dateTimeType
+      id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      inicio: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}inicio']),
-      fim: dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}fim']),
-      mensagem: stringType
+      fim: const DateTimeType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fim']),
+      mensagem: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}mensagem']),
-      sequencia: stringType
+      sequencia: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}sequencia']),
     );
   }
@@ -370,7 +365,7 @@ class Atualizacoe extends DataClass implements Insertable<Atualizacoe> {
       $mrjc(inicio.hashCode,
           $mrjc(fim.hashCode, $mrjc(mensagem.hashCode, sequencia.hashCode)))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Atualizacoe &&
           other.id == this.id &&
@@ -563,8 +558,8 @@ class $AtualizacoesTable extends Atualizacoes
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Atualizacoe map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return Atualizacoe.fromData(data, _db, prefix: effectivePrefix);
+    return Atualizacoe.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -596,24 +591,21 @@ class AtualizacaoStatus extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    final stringType = db.typeSystem.forDartType<String>();
     return AtualizacaoStatus(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
-      idAtualizacao: intType
+      id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      idAtualizacao: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_atualizacao']),
-      dataInicial: dateTimeType
+      dataInicial: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_inicial']),
-      dataDownload: dateTimeType
+      dataDownload: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_download']),
-      dataProcessado: dateTimeType
+      dataProcessado: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_processado']),
-      dataFinal: dateTimeType
+      dataFinal: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_final']),
-      mensagem: stringType
+      mensagem: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}mensagem']),
-      identificacao: intType
+      identificacao: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}identificacao']),
     );
   }
@@ -753,7 +745,7 @@ class AtualizacaoStatus extends DataClass
                           $mrjc(
                               mensagem.hashCode, identificacao.hashCode))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is AtualizacaoStatus &&
           other.id == this.id &&
@@ -1058,8 +1050,8 @@ class $AtualizacoesStatusTable extends AtualizacoesStatus
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   AtualizacaoStatus map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return AtualizacaoStatus.fromData(data, _db, prefix: effectivePrefix);
+    return AtualizacaoStatus.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -1085,18 +1077,16 @@ class AtualizacaoConteudo extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return AtualizacaoConteudo(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
-      idAtualizacao: intType
+      id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      idAtualizacao: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_atualizacao']),
-      tipoObjeto: intType
+      tipoObjeto: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}tipo_objeto']),
-      idObjeto:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_objeto']),
-      data:
-          dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}data']),
+      idObjeto: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_objeto']),
+      data: const DateTimeType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}data']),
     );
   }
   @override
@@ -1192,7 +1182,7 @@ class AtualizacaoConteudo extends DataClass
           $mrjc(
               tipoObjeto.hashCode, $mrjc(idObjeto.hashCode, data.hashCode)))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is AtualizacaoConteudo &&
           other.id == this.id &&
@@ -1399,8 +1389,8 @@ class $AtualizacoesConteudoTable extends AtualizacoesConteudo
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   AtualizacaoConteudo map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return AtualizacaoConteudo.fromData(data, _db, prefix: effectivePrefix);
+    return AtualizacaoConteudo.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -1428,21 +1418,20 @@ class Template extends DataClass implements Insertable<Template> {
   factory Template.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
     return Template(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
-      nome: stringType.mapFromDatabaseResponse(data['${effectivePrefix}nome']),
-      nomeArquivo: stringType
+      id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      nome: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nome']),
+      nomeArquivo: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}nome_arquivo']),
-      idTipoConteudo: intType
+      idTipoConteudo: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_tipo_conteudo']),
-      tipoArquivo: intType
+      tipoArquivo: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}tipo_arquivo']),
-      idArquivo:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_arquivo']),
-      campos:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}campos']),
+      idArquivo: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_arquivo']),
+      campos: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}campos']),
     );
   }
   @override
@@ -1563,7 +1552,7 @@ class Template extends DataClass implements Insertable<Template> {
                   $mrjc(tipoArquivo.hashCode,
                       $mrjc(idArquivo.hashCode, campos.hashCode)))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Template &&
           other.id == this.id &&
@@ -1829,8 +1818,8 @@ class $TemplatesTable extends Templates
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Template map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return Template.fromData(data, _db, prefix: effectivePrefix);
+    return Template.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -1884,45 +1873,46 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
   factory Conteudo.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return Conteudo(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
-      status: intType.mapFromDatabaseResponse(data['${effectivePrefix}status']),
-      idTipoConteudo: intType
+      id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      status: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}status']),
+      idTipoConteudo: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_tipo_conteudo']),
-      tipoArquivo: intType
+      tipoArquivo: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}tipo_arquivo']),
-      nomeArquivo: stringType
+      nomeArquivo: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}nome_arquivo']),
-      idTemplate: intType
+      idTemplate: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_template']),
-      titulo:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}titulo']),
-      tempoExibicao: intType
+      titulo: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}titulo']),
+      tempoExibicao: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}tempo_exibicao']),
-      horaInicio: dateTimeType
+      horaInicio: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}hora_inicio']),
-      horaFim: dateTimeType
+      horaFim: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}hora_fim']),
-      filtros:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}filtros']),
-      idCidade:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_cidade']),
-      cidade:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}cidade']),
-      uf: stringType.mapFromDatabaseResponse(data['${effectivePrefix}uf']),
-      previsao: stringType
+      filtros: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}filtros']),
+      idCidade: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_cidade']),
+      cidade: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}cidade']),
+      uf: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}uf']),
+      previsao: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}previsao']),
-      campos:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}campos']),
-      idArquivo:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_arquivo']),
-      audio: intType.mapFromDatabaseResponse(data['${effectivePrefix}audio']),
-      tipo: intType.mapFromDatabaseResponse(data['${effectivePrefix}tipo']),
-      idLoteria:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_loteria']),
+      campos: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}campos']),
+      idArquivo: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_arquivo']),
+      audio: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}audio']),
+      tipo: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo']),
+      idLoteria: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_loteria']),
     );
   }
   @override
@@ -2212,7 +2202,7 @@ class Conteudo extends DataClass implements Insertable<Conteudo> {
                                                                               tipo.hashCode,
                                                                               idLoteria.hashCode))))))))))))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Conteudo &&
           other.id == this.id &&
@@ -2850,8 +2840,8 @@ class $ConteudosTable extends Conteudos
   Set<GeneratedColumn> get $primaryKey => {id, status};
   @override
   Conteudo map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return Conteudo.fromData(data, _db, prefix: effectivePrefix);
+    return Conteudo.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -2889,31 +2879,28 @@ class ConteudoAgendamento extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return ConteudoAgendamento(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
-      dataInicio: dateTimeType
+      id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      dataInicio: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_inicio']),
-      dataFim: dateTimeType
+      dataFim: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_fim']),
-      diaSemana: stringType
+      diaSemana: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}dia_semana']),
-      horaInicio: dateTimeType
+      horaInicio: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}hora_inicio']),
-      horaFim: dateTimeType
+      horaFim: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}hora_fim']),
-      idConteudo: intType
+      idConteudo: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_conteudo']),
-      dataCadastro: dateTimeType
+      dataCadastro: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_cadastro']),
-      dataAlteracao: dateTimeType
+      dataAlteracao: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_alteracao']),
-      versao: intType.mapFromDatabaseResponse(data['${effectivePrefix}versao']),
-      deletado:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}deletado']),
+      versao: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}versao']),
+      deletado: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}deletado']),
     );
   }
   @override
@@ -3090,7 +3077,7 @@ class ConteudoAgendamento extends DataClass
                                       $mrjc(versao.hashCode,
                                           deletado.hashCode)))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ConteudoAgendamento &&
           other.id == this.id &&
@@ -3483,8 +3470,8 @@ class $ConteudoAgendamentosTable extends ConteudoAgendamentos
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   ConteudoAgendamento map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return ConteudoAgendamento.fromData(data, _db, prefix: effectivePrefix);
+    return ConteudoAgendamento.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -3535,41 +3522,42 @@ class ConteudoCampo extends DataClass implements Insertable<ConteudoCampo> {
       Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
-    final doubleType = db.typeSystem.forDartType<double>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return ConteudoCampo(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
-      nome: stringType.mapFromDatabaseResponse(data['${effectivePrefix}nome']),
-      tipo: intType.mapFromDatabaseResponse(data['${effectivePrefix}tipo']),
-      limite: intType.mapFromDatabaseResponse(data['${effectivePrefix}limite']),
-      valor:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}valor']),
-      cadastro:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}cadastro']),
-      fonte:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}fonte']),
-      fonteTamanho: intType
+      id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      nome: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nome']),
+      tipo: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}tipo']),
+      limite: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}limite']),
+      valor: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}valor']),
+      cadastro: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}cadastro']),
+      fonte: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fonte']),
+      fonteTamanho: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fonte_tamanho']),
-      fonteCor: stringType
+      fonteCor: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fonte_cor']),
-      valorFormato: stringType
+      valorFormato: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}valor_formato']),
-      top: doubleType.mapFromDatabaseResponse(data['${effectivePrefix}top']),
-      left: doubleType.mapFromDatabaseResponse(data['${effectivePrefix}left']),
-      sequencia:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}sequencia']),
-      idConteudo: intType
+      top: const RealType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}top']),
+      left: const RealType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}left']),
+      sequencia: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}sequencia']),
+      idConteudo: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_conteudo']),
-      dataCadastro: dateTimeType
+      dataCadastro: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_cadastro']),
-      dataAlteracao: dateTimeType
+      dataAlteracao: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_alteracao']),
-      versao: intType.mapFromDatabaseResponse(data['${effectivePrefix}versao']),
-      deletado:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}deletado']),
+      versao: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}versao']),
+      deletado: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}deletado']),
     );
   }
   @override
@@ -3831,7 +3819,7 @@ class ConteudoCampo extends DataClass implements Insertable<ConteudoCampo> {
                                                                       deletado
                                                                           .hashCode))))))))))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ConteudoCampo &&
           other.id == this.id &&
@@ -4450,8 +4438,8 @@ class $ConteudoCamposTable extends ConteudoCampos
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   ConteudoCampo map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return ConteudoCampo.fromData(data, _db, prefix: effectivePrefix);
+    return ConteudoCampo.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -4487,30 +4475,28 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
   factory Equipamento.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return Equipamento(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
-      nome: stringType.mapFromDatabaseResponse(data['${effectivePrefix}nome']),
-      nomePlayer: stringType
+      id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      nome: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nome']),
+      nomePlayer: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}nome_player']),
-      idPlayer:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_player']),
-      schemaName: stringType
+      idPlayer: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_player']),
+      schemaName: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}schema_name']),
-      uuid: stringType.mapFromDatabaseResponse(data['${effectivePrefix}uuid']),
-      identificador: stringType
+      uuid: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}uuid']),
+      identificador: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}identificador']),
-      idOneSignal: stringType
+      idOneSignal: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_one_signal']),
-      dataCadastro: dateTimeType
+      dataCadastro: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_cadastro']),
-      dataAlteracao: dateTimeType
+      dataAlteracao: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_alteracao']),
-      ativado:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}ativado']),
+      ativado: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}ativado']),
     );
   }
   @override
@@ -4684,7 +4670,7 @@ class Equipamento extends DataClass implements Insertable<Equipamento> {
                                       $mrjc(dataAlteracao.hashCode,
                                           ativado.hashCode)))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Equipamento &&
           other.id == this.id &&
@@ -5075,8 +5061,8 @@ class $EquipamentosTable extends Equipamentos
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Equipamento map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return Equipamento.fromData(data, _db, prefix: effectivePrefix);
+    return Equipamento.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -5108,27 +5094,23 @@ class PlayerDado extends DataClass implements Insertable<PlayerDado> {
   factory PlayerDado.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final doubleType = db.typeSystem.forDartType<double>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return PlayerDado(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
-      bateria:
-          doubleType.mapFromDatabaseResponse(data['${effectivePrefix}bateria']),
-      sinalWifi: doubleType
+      id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      bateria: const RealType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}bateria']),
+      sinalWifi: const RealType()
           .mapFromDatabaseResponse(data['${effectivePrefix}sinal_wifi']),
-      nomeWifi: stringType
+      nomeWifi: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}nome_wifi']),
-      processador: intType
+      processador: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}processador']),
-      memoria:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}memoria']),
-      idPlayer:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_player']),
-      dataCadastro: dateTimeType
+      memoria: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}memoria']),
+      idPlayer: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_player']),
+      dataCadastro: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_cadastro']),
-      dataAlteracao: dateTimeType
+      dataAlteracao: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_alteracao']),
     );
   }
@@ -5281,7 +5263,7 @@ class PlayerDado extends DataClass implements Insertable<PlayerDado> {
                               $mrjc(dataCadastro.hashCode,
                                   dataAlteracao.hashCode)))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is PlayerDado &&
           other.id == this.id &&
@@ -5608,8 +5590,8 @@ class $PlayerDadosTable extends PlayerDados
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   PlayerDado map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return PlayerDado.fromData(data, _db, prefix: effectivePrefix);
+    return PlayerDado.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -5649,33 +5631,31 @@ class Playlist extends DataClass implements Insertable<Playlist> {
   factory Playlist.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final boolType = db.typeSystem.forDartType<bool>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return Playlist(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
-      nome: stringType.mapFromDatabaseResponse(data['${effectivePrefix}nome']),
-      campanha:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}campanha']),
-      dataInicio: dateTimeType
+      id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      nome: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nome']),
+      campanha: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}campanha']),
+      dataInicio: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_inicio']),
-      dataFim: dateTimeType
+      dataFim: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_fim']),
-      regraExibicao: intType
+      regraExibicao: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}regra_exibicao']),
-      idPublicacao: intType
+      idPublicacao: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_publicacao']),
-      dataCadastro: dateTimeType
+      dataCadastro: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_cadastro']),
-      dataAlteracao: dateTimeType
+      dataAlteracao: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_alteracao']),
-      versao: intType.mapFromDatabaseResponse(data['${effectivePrefix}versao']),
-      deletado:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}deletado']),
-      idUsuarioCadastro: intType.mapFromDatabaseResponse(
+      versao: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}versao']),
+      deletado: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}deletado']),
+      idUsuarioCadastro: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}id_usuario_cadastro']),
-      idUsuarioAlteracao: intType.mapFromDatabaseResponse(
+      idUsuarioAlteracao: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}id_usuario_alteracao']),
     );
   }
@@ -5879,7 +5859,7 @@ class Playlist extends DataClass implements Insertable<Playlist> {
                                                   idUsuarioAlteracao
                                                       .hashCode)))))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Playlist &&
           other.id == this.id &&
@@ -6352,8 +6332,8 @@ class $PlaylistsTable extends Playlists
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Playlist map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return Playlist.fromData(data, _db, prefix: effectivePrefix);
+    return Playlist.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -6387,26 +6367,24 @@ class PlaylistConteudo extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    final boolType = db.typeSystem.forDartType<bool>();
     return PlaylistConteudo(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
-      idConteudo: intType
+      id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      idConteudo: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_conteudo']),
-      idPlaylist: intType
+      idPlaylist: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_playlist']),
-      idVinculado: intType
+      idVinculado: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_vinculado']),
-      sequencia:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}sequencia']),
-      dataCadastro: dateTimeType
+      sequencia: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}sequencia']),
+      dataCadastro: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_cadastro']),
-      dataAlteracao: dateTimeType
+      dataAlteracao: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_alteracao']),
-      versao: intType.mapFromDatabaseResponse(data['${effectivePrefix}versao']),
-      deletado:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}deletado']),
+      versao: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}versao']),
+      deletado: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}deletado']),
     );
   }
   @override
@@ -6555,7 +6533,7 @@ class PlaylistConteudo extends DataClass
                           $mrjc(dataAlteracao.hashCode,
                               $mrjc(versao.hashCode, deletado.hashCode)))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is PlaylistConteudo &&
           other.id == this.id &&
@@ -6906,8 +6884,8 @@ class $PlaylistConteudosTable extends PlaylistConteudos
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   PlaylistConteudo map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return PlaylistConteudo.fromData(data, _db, prefix: effectivePrefix);
+    return PlaylistConteudo.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -6945,31 +6923,29 @@ class Noticia extends DataClass implements Insertable<Noticia> {
   factory Noticia.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return Noticia(
-      idArquivo:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_arquivo']),
-      idFonteNoticia: intType
+      idArquivo: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_arquivo']),
+      idFonteNoticia: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_fonte_noticia']),
-      idNoticiaEditoria: intType.mapFromDatabaseResponse(
+      idNoticiaEditoria: const IntType().mapFromDatabaseResponse(
           data['${effectivePrefix}id_noticia_editoria']),
-      nomeArquivo: stringType
+      nomeArquivo: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}nome_arquivo']),
-      link: stringType.mapFromDatabaseResponse(data['${effectivePrefix}link']),
-      titulo:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}titulo']),
-      dataPublicadao: dateTimeType
+      link: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}link']),
+      titulo: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}titulo']),
+      dataPublicadao: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_publicadao']),
-      idTemplate: intType
+      idTemplate: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_template']),
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
-      idConteudo: intType
+      id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      idConteudo: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_conteudo']),
-      autor:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}autor']),
-      descricao: stringType
+      autor: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}autor']),
+      descricao: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}descricao']),
     );
   }
@@ -7157,7 +7133,7 @@ class Noticia extends DataClass implements Insertable<Noticia> {
                                           $mrjc(autor.hashCode,
                                               descricao.hashCode))))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Noticia &&
           other.idArquivo == this.idArquivo &&
@@ -7581,8 +7557,8 @@ class $NoticiasTable extends Noticias with TableInfo<$NoticiasTable, Noticia> {
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Noticia map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return Noticia.fromData(data, _db, prefix: effectivePrefix);
+    return Noticia.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -7610,19 +7586,17 @@ class PrevisaoTempoImagem extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
     return PrevisaoTempoImagem(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
-      texto:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}texto']),
-      sigla:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}sigla']),
-      nomeArquivo: stringType
+      id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      texto: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}texto']),
+      sigla: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}sigla']),
+      nomeArquivo: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}nome_arquivo']),
-      idArquivo:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_arquivo']),
-      descricao: stringType
+      idArquivo: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_arquivo']),
+      descricao: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}descricao']),
     );
   }
@@ -7732,7 +7706,7 @@ class PrevisaoTempoImagem extends DataClass
               $mrjc(nomeArquivo.hashCode,
                   $mrjc(idArquivo.hashCode, descricao.hashCode))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is PrevisaoTempoImagem &&
           other.id == this.id &&
@@ -7951,8 +7925,8 @@ class $PrevisaoTempoImagensTable extends PrevisaoTempoImagens
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   PrevisaoTempoImagem map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return PrevisaoTempoImagem.fromData(data, _db, prefix: effectivePrefix);
+    return PrevisaoTempoImagem.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -7988,29 +7962,25 @@ class LoteriaResultado extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    final doubleType = db.typeSystem.forDartType<double>();
     return LoteriaResultado(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
-      idLoteria:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_loteria']),
-      jsonPremios: stringType
+      id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      idLoteria: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_loteria']),
+      jsonPremios: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}json_premios']),
-      numeros:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}numeros']),
-      numeros2: stringType
+      numeros: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}numeros']),
+      numeros2: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}numeros2']),
-      dataSorteio: dateTimeType
+      dataSorteio: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_sorteio']),
-      codigoSorteio: stringType
+      codigoSorteio: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}codigo_sorteio']),
-      jsonCidades: stringType
+      jsonCidades: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}json_cidades']),
-      dataProximoSorteio: dateTimeType.mapFromDatabaseResponse(
+      dataProximoSorteio: const DateTimeType().mapFromDatabaseResponse(
           data['${effectivePrefix}data_proximo_sorteio']),
-      valorProximoSorteio: doubleType.mapFromDatabaseResponse(
+      valorProximoSorteio: const RealType().mapFromDatabaseResponse(
           data['${effectivePrefix}valor_proximo_sorteio']),
     );
   }
@@ -8178,7 +8148,7 @@ class LoteriaResultado extends DataClass
                                   $mrjc(dataProximoSorteio.hashCode,
                                       valorProximoSorteio.hashCode))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is LoteriaResultado &&
           other.id == this.id &&
@@ -8553,8 +8523,8 @@ class $LoteriaResultadosTable extends LoteriaResultados
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   LoteriaResultado map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return LoteriaResultado.fromData(data, _db, prefix: effectivePrefix);
+    return LoteriaResultado.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -8573,16 +8543,13 @@ class PrevisaoTempo extends DataClass implements Insertable<PrevisaoTempo> {
       Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    final stringType = db.typeSystem.forDartType<String>();
     return PrevisaoTempo(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
-      data:
-          dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}data']),
-      idCidade:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_cidade']),
-      jsonData: stringType
+      id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      data: const DateTimeType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}data']),
+      idCidade: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_cidade']),
+      jsonData: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}json_data']),
     );
   }
@@ -8661,7 +8628,7 @@ class PrevisaoTempo extends DataClass implements Insertable<PrevisaoTempo> {
   int get hashCode => $mrjf($mrjc(id.hashCode,
       $mrjc(data.hashCode, $mrjc(idCidade.hashCode, jsonData.hashCode))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is PrevisaoTempo &&
           other.id == this.id &&
@@ -8829,8 +8796,8 @@ class $PrevisaoTemposTable extends PrevisaoTempos
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   PrevisaoTempo map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return PrevisaoTempo.fromData(data, _db, prefix: effectivePrefix);
+    return PrevisaoTempo.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -8848,10 +8815,9 @@ class SequenciaConteudo extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
     return SequenciaConteudo(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
-      idSequencia: intType
+      id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      idSequencia: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_sequencia']),
     );
   }
@@ -8909,7 +8875,7 @@ class SequenciaConteudo extends DataClass
   @override
   int get hashCode => $mrjf($mrjc(id.hashCode, idSequencia.hashCode));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is SequenciaConteudo &&
           other.id == this.id &&
@@ -9024,8 +8990,8 @@ class $SequenciaConteudosTable extends SequenciaConteudos
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   SequenciaConteudo map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return SequenciaConteudo.fromData(data, _db, prefix: effectivePrefix);
+    return SequenciaConteudo.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -9059,25 +9025,23 @@ class ConteudoVisualizado extends DataClass
       Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return ConteudoVisualizado(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
-      idApp: intType.mapFromDatabaseResponse(data['${effectivePrefix}id_app']),
-      idConteudo: intType
+      id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      idApp: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_app']),
+      idConteudo: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_conteudo']),
-      idPlayer:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_player']),
-      idNoticia:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}id_noticia']),
-      quantidade:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}quantidade']),
-      horas:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}horas']),
-      dataExecucao: dateTimeType
+      idPlayer: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_player']),
+      idNoticia: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id_noticia']),
+      quantidade: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}quantidade']),
+      horas: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}horas']),
+      dataExecucao: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_execucao']),
-      dataAlteracao: dateTimeType
+      dataAlteracao: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}data_alteracao']),
     );
   }
@@ -9228,7 +9192,7 @@ class ConteudoVisualizado extends DataClass
                               $mrjc(dataExecucao.hashCode,
                                   dataAlteracao.hashCode)))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ConteudoVisualizado &&
           other.id == this.id &&
@@ -9560,8 +9524,8 @@ class $ConteudosVisualizadosTable extends ConteudosVisualizados
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   ConteudoVisualizado map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return ConteudoVisualizado.fromData(data, _db, prefix: effectivePrefix);
+    return ConteudoVisualizado.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override

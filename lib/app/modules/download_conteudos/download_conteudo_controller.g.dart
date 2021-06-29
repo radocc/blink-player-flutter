@@ -3,17 +3,6 @@
 part of 'download_conteudo_controller.dart';
 
 // **************************************************************************
-// InjectionGenerator
-// **************************************************************************
-
-final $DownloadConteudoController = BindInject(
-  (i) =>
-      DownloadConteudoController(i<ProgressService>(), i<SincronizaService>()),
-  singleton: true,
-  lazy: true,
-);
-
-// **************************************************************************
 // StoreGenerator
 // **************************************************************************
 

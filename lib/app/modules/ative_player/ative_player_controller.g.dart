@@ -3,16 +3,6 @@
 part of 'ative_player_controller.dart';
 
 // **************************************************************************
-// InjectionGenerator
-// **************************************************************************
-
-final $AtivePlayerController = BindInject(
-  (i) => AtivePlayerController(i<LoginService>()),
-  singleton: true,
-  lazy: true,
-);
-
-// **************************************************************************
 // StoreGenerator
 // **************************************************************************
 

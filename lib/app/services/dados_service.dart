@@ -41,6 +41,7 @@ abstract class DadosService<T extends Insertable<DataClass>> {
     } catch (e) {
       status.mensagem = e.toString();
       status = await statusDAO.save(status);  
+      e.stackTrace();
       throw e;
     }
   }

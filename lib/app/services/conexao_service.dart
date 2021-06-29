@@ -4,8 +4,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_modular/flutter_modular_annotations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-part 'conexao_service.g.dart';
-
 @Injectable(singleton: true)
 class ConexaoService {
   SharedPreferences prefs;

@@ -1,7 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
-part 'breakpoints.g.dart';
-
 @Injectable(singleton: false)
 class Breakpoints {
   final double mobile = 576.0;

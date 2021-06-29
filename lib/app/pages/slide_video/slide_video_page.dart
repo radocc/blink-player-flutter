@@ -48,7 +48,7 @@ class _SlideVideoPageState
                     // Quando acabar o video
                     //
                     if (!ctrl.value.isPlaying &&
-                        ctrl.value.initialized &&
+                        ctrl.value.isInitialized &&
                         (ctrl.value.duration == ctrl.value.position)) {
                       //
                       // Próximo slide

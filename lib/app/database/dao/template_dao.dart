@@ -12,6 +12,6 @@ class TemplateDAO extends AbstractDAO<Template> with _$TemplateDAOMixin {
   }
 
   Future<Template> findPorId(id) async{
-    return (select(templates)..where((tbl) => tbl.id.equals(id))).getSingle();
+    return (select(templates)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }
 }
