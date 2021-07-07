@@ -7,12 +7,19 @@ class ArquivoRepository extends AbstractBaseRepository {
 
   Future<List<int>> downloadMidia( int idArquivo, Function(int, int) onProgress) async {
     try {
-      var response = await dio.get(getUrl('/binario/$idArquivo'),
+      var response = await dio.get(getUrl('/binario/$idArquivo/zip'),
           options: Options(
             responseType: ResponseType.bytes
           ),
-          // onReceiveProgress: onProgress
-        );
+          onReceiveProgress: (progress, total) {
+            
+            if ((progress % 100) == 0) {
+              var p = progress / 1048576;
+              print('Progress ${p.toInt()} / $total');
+            }
+            
+          }
+        ).catchError((error, stackTrace) => print(stackTrace.toString()));
 
       //var file = File('$_dir/$idArquivo');
       //return file.writeAsBytes(response.bodyBytes);

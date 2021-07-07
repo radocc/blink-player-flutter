@@ -87,8 +87,8 @@ abstract class _CarouselControllerBase with Store {
     //
     else {
       pageController.nextPage(
-        duration: Duration(milliseconds: 500),
-        curve: Curves.linear,
+        duration: Duration(milliseconds: 1),
+        curve: Curves.slowMiddle,
       );
     }
   }

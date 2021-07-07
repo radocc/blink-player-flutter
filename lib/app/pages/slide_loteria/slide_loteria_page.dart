@@ -15,7 +15,7 @@ import 'package:intl/intl.dart';
 //
 // Tempo para passar o slide do carousel
 //
-const nextDuration = Duration(seconds: 10);
+// const nextDuration = Duration(seconds: 10);
 
 class SlideLoteriaPage extends StatefulWidget {
   final Function next;
@@ -34,11 +34,14 @@ class _SlideLoteriaPageState
   ConteudoVisualizadoDAO visualizadoDAO;
   LoteriaResultadosDAO resultadosDAO;
   File arquivo;
+  Duration nextDuration;
+
   @override
   void initState() {
     super.initState();
     visualizadoDAO = Database.instance.conteudoVisualizadoDAO;
     resultadosDAO = Database.instance.loteriaResultadosDAO;
+    nextDuration = Duration(seconds: widget.conteudoModel.conteudo.tempoExibicao);
     Future.delayed(nextDuration, () {
       //
       // Proximo slide

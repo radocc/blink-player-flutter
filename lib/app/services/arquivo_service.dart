@@ -51,8 +51,16 @@ class ArquivoService {
     _dir = await getApplicationDocumentsDirectory();
     // Abre a porta para receber a porta de comunicação dentro do Isolate
     ReceivePort receiveIsolatePort = ReceivePort();
+    ReceivePort errorIsolatePort = ReceivePort();
+
     // Cria o Isolate com o metodo e a porta criada anteriormente
-    var isolate = await Isolate.spawn(dataLoader, receiveIsolatePort.sendPort);
+    var isolate = await Isolate.spawn(dataLoader, receiveIsolatePort.sendPort, onError: errorIsolatePort.sendPort);
+
+    errorIsolatePort.listen((message) {
+      print('Error $message');
+      receiveIsolatePort.close();
+      errorIsolatePort.close();
+    });
 
     // Guarda a porta enviada pelo Isolate
     SendPort sendToIsolatePort = await receiveIsolatePort.first;
@@ -63,6 +71,7 @@ class ArquivoService {
 
     // mata o isolate após o download
     isolate.kill(priority: Isolate.immediate);
+    receiveIsolatePort.close();
   }
 
   static dataLoader(SendPort sendPort) async {
@@ -84,11 +93,11 @@ class ArquivoService {
 
       print('VAI DESCOMPACTAR ARQUIVO ${idArquivo}');
 
-      var gzip = GZipDecoder().decodeBytes(arquivo);
+      // var gzip = GZipDecoder().decodeBytes(arquivo);
       print('ARQUIVO DESCOMPACTADO ${idArquivo}');
       var file = File('${path}/${nome}');
-      //await file.writeAsBytes(arquivo);
-      await file.writeAsBytes(gzip);
+      await file.writeAsBytes(arquivo);
+      // await file.writeAsBytes(gzip);
       print('ARQUIVO GRAVADO ${idArquivo}');
       // Envia a resposta do http
       replyTo.send(true);

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:blink/app/database/dao/conteudo_visualizado_dao.dart';
+import 'package:blink/app/database/dao/sequencia_conteudo_dao.dart';
 import 'package:blink/app/modules/carousel/carousel_controller.dart';
 import 'package:blink/app/services/progress_service.dart';
 import 'package:blink/app/services/sincroniza_service.dart';
@@ -22,7 +23,7 @@ abstract class _DownloadConteudoControllerBase with Store {
 
   var controller = CarouselController();
   List<File> files;
-  ConteudoVisualizadoDAO conteudoVisualizadoDAO;
+  SequenciaConteudoDAO sequenciaConteudoDAO;
 
   _DownloadConteudoControllerBase(this.progressService, this.syncService);
 
@@ -37,13 +38,13 @@ abstract class _DownloadConteudoControllerBase with Store {
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   }
 
-    Future sincronizar() async {
-    conteudoVisualizadoDAO = Database.instance.conteudoVisualizadoDAO;
+  Future sincronizar() async {
+    sequenciaConteudoDAO = Database.instance.sequenciaConteudoDAO;
     await syncService.iniciar();
-    var conteudo = await conteudoVisualizadoDAO.getAllConteudos();
-    if (conteudo > 0) {
-      //await Modular.to.pushNamed('/home');
-      return true;
+    var sequencias = await sequenciaConteudoDAO.getAllSequence();
+    if (sequencias.length > 0) {
+      await Modular.to.pushReplacementNamed('/home');
+      // return true;
     } else {
       await Modular.to.pushNamed('/empityCarousel');
     }

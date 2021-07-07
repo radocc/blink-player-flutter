@@ -29,7 +29,7 @@ class ConteudoDAO extends AbstractDAO<Conteudo> with _$ConteudoDAOMixin {
     return query.map((row) {
       return ConteudoTemplateModel(
         conteudo: row.readTable(conteudos),
-        template: row.readTable(templates),
+        template: row.readTableOrNull(templates),
       );
     }).toList();
   }

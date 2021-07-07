@@ -16,7 +16,7 @@ import 'package:intl/intl.dart';
 //
 // Tempo para passar o slide do carousel
 //
-const nextDuration = Duration(seconds: 10);
+// const nextDuration = Duration(seconds: 10);
 
 class SlideNoticiaPage extends StatefulWidget {
   final Function next;
@@ -38,12 +38,15 @@ class _SlideNoticiaPageState
   TemplateDAO templateDAO;
   ConteudoVisualizadoDAO visualizadoDAO;
   File arquivo;
+  Duration nextDuration;
+
   @override
   void initState() {
     super.initState();
     noticiaDAO = Database.instance.noticiaDAO;
     templateDAO = Database.instance.templateDAO;
     visualizadoDAO = Database.instance.conteudoVisualizadoDAO;
+    nextDuration = Duration(seconds: widget.conteudoModel.conteudo.tempoExibicao);
     Future.delayed(nextDuration, () {
       //
       // Proximo slide
@@ -175,6 +178,9 @@ class _SlideNoticiaPageState
   Future<Widget> getLayout(double width, double height, {BoxFit boxFit}) async {
     this.noticia =
         await noticiaDAO.getProxima(widget.conteudoModel.conteudo.id);
+    if (noticia == null) {
+      return Container();
+    }
     template = await templateDAO.findPorId(noticia.idTemplate);
 
     List<Widget> children = [];

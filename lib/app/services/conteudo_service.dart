@@ -29,11 +29,14 @@ class ConteudoService extends DadosService<Conteudo> {
   @override
   Future<List<Conteudo>> finalizar(List<Conteudo> conteudos, AtualizacaoStatus status) async {
     for (var conteudo in conteudos) {
+      print('Conteudo ${conteudo.titulo}');
       var tipo = conteudo.tipo;
       if (tipo == TipoConteudo.IMAGENS.index ||
           tipo == TipoConteudo.VIDEO.index) {
+        print('Conteudo ${conteudo.titulo} - Baixando');
         await arquivoService.downloadMidia(
             conteudo.idArquivo, conteudo.nomeArquivo, (_, __) {});
+        print('Conteudo ${conteudo.titulo} - Salvo');
       } 
     }
     return conteudos;

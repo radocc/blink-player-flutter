@@ -18,7 +18,7 @@ import 'slide_previsao_tempo_controller.dart';
 //
 // Tempo para passar o slide do carousel
 //
-const nextDuration = Duration(seconds: 10);
+// const nextDuration = Duration(seconds: 10);
 
 class SlidePrevisaoTempoPage extends StatefulWidget {
   final Function next;
@@ -35,10 +35,14 @@ class _SlidePrevisaoTempoPageState
   //int currentIndex = 0;
   ConteudoVisualizadoDAO visualizadoDAO;
   File arquivo;
+  Duration nextDuration;
+
   @override
   void initState() {
     super.initState();
     visualizadoDAO = Database.instance.conteudoVisualizadoDAO;
+    nextDuration = Duration(seconds: widget.conteudoModel.conteudo.tempoExibicao);
+    
     Future.delayed(nextDuration, () {
       //
       // Proximo slide

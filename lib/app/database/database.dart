@@ -70,7 +70,7 @@ class Database extends _$Database {
   AtualizacaoStatusDAO atualizacaoStatusDAO;
   AtualizacaoConteudoDAO atualizacaoConteudoDAO;
   TemplateDAO templateDAO;
-  PrevisaoTempoImagemDAO previsaoTempoDAO;
+  PrevisaoTempoImagemDAO previsaoTempoImagemDAO;
   LoteriaResultadosDAO loteriaResultadosDAO;
   PrevisaoTemposDAO previsaoTemposDAO;
   SequenciaConteudoDAO sequenciaConteudoDAO;
@@ -101,7 +101,7 @@ class Database extends _$Database {
     atualizacaoStatusDAO = AtualizacaoStatusDAO(this);
     atualizacaoConteudoDAO = AtualizacaoConteudoDAO(this);
     templateDAO = TemplateDAO(this);
-    previsaoTempoDAO = PrevisaoTempoImagemDAO(this);
+    previsaoTempoImagemDAO = PrevisaoTempoImagemDAO(this);
     loteriaResultadosDAO = LoteriaResultadosDAO(this);
     previsaoTemposDAO = PrevisaoTemposDAO(this);
     sequenciaConteudoDAO = SequenciaConteudoDAO(this);    

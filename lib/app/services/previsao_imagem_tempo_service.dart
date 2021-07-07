@@ -9,7 +9,7 @@ import 'package:blink/app/services/dados_service.dart';
 
 class PrevisaoImagemTempoService extends DadosService<PrevisaoTempoImagem> {
   PrevisaoTempoImagemRepository prevRepo;
-  PrevisaoTempoImagemDAO dao = Database.instance.previsaoTempoDAO;
+  PrevisaoTempoImagemDAO dao = Database.instance.previsaoTempoImagemDAO;
   ArquivoService arquivoService;
   var controller = CarouselController();
   List<File> files;

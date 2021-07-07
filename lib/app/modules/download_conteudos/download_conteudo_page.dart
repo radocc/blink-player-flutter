@@ -39,7 +39,7 @@ class _DownloadConteudoPageState
                 child: Text("${snap.error.toString()}"),
               );
             } else {
-              return HomePage();
+              return Container();
             }
           }),
     );

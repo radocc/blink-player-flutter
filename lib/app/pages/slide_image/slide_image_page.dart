@@ -12,7 +12,7 @@ import 'slide_image_controller.dart';
 //
 // Tempo para passar o slide do carousel
 //
-const nextDuration = Duration(seconds: 10);
+// const nextDuration = Duration(seconds: 10);
 
 class SlideImagePage extends StatefulWidget {
   final Function next;
@@ -30,12 +30,14 @@ class _SlideImagePageState
   //int currentIndex = 0;
   ConteudoVisualizadoDAO visualizadoDAO;
   File arquivo;   
+  Duration nextDuration;
 
   @override
   void initState() {
     super.initState();
 
     visualizadoDAO = Database.instance.conteudoVisualizadoDAO;
+    nextDuration = Duration(seconds: widget.conteudoModel.conteudo.tempoExibicao);
     Future.delayed(nextDuration, () {
       //
       // Proximo slide
@@ -167,7 +169,7 @@ class _SlideImagePageState
     visualizadoDAO.registrarVisualizacao( widget.conteudoModel.conteudo.id, null);
     Directory directory = await widget.dir;
     arquivo = File('${directory.path}/${widget.conteudoModel.conteudo.nomeArquivo}');
-    
+    print('Arquivo: ${arquivo.path}');
     return Container(
         //height: 300,
         decoration: BoxDecoration(

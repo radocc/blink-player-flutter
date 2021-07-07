@@ -18,7 +18,6 @@ class PlayerDadosDAO extends AbstractDAO<PlayerDado> with _$PlayerDadosDAOMixin 
   Future save(PlayerDado entity) async {
     if ((entity as dynamic).id == null) {
       var row = await into(playerDados).insertOnConflictUpdate(entity);
-      print('RoW-Save Conteudo Visualizado ' + row.toString());
       var ret = (select(playerDados)
             ..where((dynamic tbl) => tbl.id.equals(row)))
           .getSingleOrNull();

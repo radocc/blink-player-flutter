@@ -41,17 +41,17 @@ abstract class _SplashControllerBase with Store {
   StreamController<Equipamento> streamPostServer =
       StreamController<Equipamento>.broadcast();
   EquipamentoDAO equipamentoDAO;
-  PlayerDadosDAO playerDAO;
-  AtualizacaoDAO atualizacaoDAO;
-  AtualizacaoStatusDAO atualizacaoStatusDAO;
-  ConteudoDAO conteudoDAO;
-  ConteudoVisualizadoDAO conteudoVisualizadoDAO;
-  LoteriaResultadosDAO loteriaResultadosDAO;
-  PrevisaoTemposDAO previsaoTemposDAO;
-  PrevisaoTempoImagemDAO previsaoTempoImagemDAO;
-  SequenciaConteudoDAO sequenciaConteudoDAO;
-  NoticiaDAO noticiaDAO;
-  AtualizacaoConteudoDAO atualizacaoConteudoDAO;
+  PlayerDadosDAO playerDAO = Database.instance.playerDAO;
+  AtualizacaoDAO atualizacaoDAO = Database.instance.atualizacaoDAO;
+  AtualizacaoStatusDAO atualizacaoStatusDAO = Database.instance.atualizacaoStatusDAO;
+  ConteudoDAO conteudoDAO = Database.instance.conteudoDAO;
+  ConteudoVisualizadoDAO conteudoVisualizadoDAO = Database.instance.conteudoVisualizadoDAO;
+  LoteriaResultadosDAO loteriaResultadosDAO = Database.instance.loteriaResultadosDAO;
+  PrevisaoTemposDAO previsaoTemposDAO = Database.instance.previsaoTemposDAO;
+  PrevisaoTempoImagemDAO previsaoTempoImagemDAO = Database.instance.previsaoTempoImagemDAO;
+  SequenciaConteudoDAO sequenciaConteudoDAO = Database.instance.sequenciaConteudoDAO;
+  NoticiaDAO noticiaDAO = Database.instance.noticiaDAO;
+  AtualizacaoConteudoDAO atualizacaoConteudoDAO = Database.instance.atualizacaoConteudoDAO;
   Equipamento equipamento;
 
   var controller = CarouselController();

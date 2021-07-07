@@ -5,6 +5,7 @@ import 'package:blink/app/models/dados_model.dart';
 import 'package:blink/app/models/enuns/dados_dentificacao_enum.dart';
 import 'package:blink/app/repositories/abstract_repository.dart';
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 
 abstract class DadosRepository<T> extends AbstractRepository {
   DadosIdentificacao identificacao;
@@ -23,6 +24,7 @@ abstract class DadosRepository<T> extends AbstractRepository {
           ultimaRequisicao: null);
 
       if (status != null) {
+        print('${identificacao.index} Data ultima requisicao ${DateFormat('dd/MM/yy hh:mm:ss').format(status.dataInicial)}');
         dados.ultimaRequisicao = status.dataInicial;
         print(dados.ultimaRequisicao);
       }
